@@ -1,4 +1,7 @@
-package worldofzuul;
+package gameFunctionality;
+
+import Locations.Room;
+import Locations.NonCertifiedForest;
 
 public class Game {
 
@@ -15,7 +18,7 @@ public class Game {
 
         trailer = new Room("inside your trailer");
         certificeretSkov = new Room("in a certified forest");
-        ikkeCertificeretSkov = new Room("in a non certified forest");
+        ikkeCertificeretSkov = new NonCertifiedForest("in a non certified forest");
         lokaltSamfund = new Room("in a local community");
         vejrRapportCenter = new Room("in a weather report center from around the world");
 
@@ -49,9 +52,8 @@ public class Game {
     }
 
     private void printWelcome() {
-        System.out.println();
-        System.out.println("Welcome to 'The LumberJack'!");
-        System.out.println("The LumberJack is a new, enviorment focused game!");
+        System.out.println("Welcome to 'The LumberJack'! \n"
+            + "Your job as a lumberjack is to cut down trees without destroying the earth!");
         System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
         System.out.println(currentRoom.getLongDescription());
     }

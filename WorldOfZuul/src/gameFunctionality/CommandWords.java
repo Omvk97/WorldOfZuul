@@ -1,4 +1,4 @@
-package worldofzuul;
+package gameFunctionality;
 
 import java.util.HashMap;
 

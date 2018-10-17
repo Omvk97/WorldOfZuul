@@ -1,4 +1,4 @@
-package worldofzuul;
+package gameFunctionality;
 
 import java.util.Scanner;
 
@@ -23,9 +23,9 @@ public class Parser {
 
         Scanner tokenizer = new Scanner(inputLine);
         if (tokenizer.hasNext()) {
-            word1 = tokenizer.next();
+            word1 = tokenizer.next().toLowerCase();
             if (tokenizer.hasNext()) {
-                word2 = tokenizer.next();
+                word2 = tokenizer.next().toLowerCase();
             }
         }
 
