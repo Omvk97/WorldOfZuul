@@ -2,7 +2,7 @@ package worldofzuul;
 
 public class Game {
 
-    private Parser parser;
+    private final Parser parser;
     private Room currentRoom;
 
     public Game() {
@@ -11,28 +11,30 @@ public class Game {
     }
 
     private void createRooms() {
-        Room outside, theatre, pub, lab, office;
+        Room trailer, certificeretSkov, ikkeCertificeretSkov, lokaltSamfund, vejrRapportCenter;
 
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        trailer = new Room("inside your trailer");
+        certificeretSkov = new Room("in a certified forest");
+        ikkeCertificeretSkov = new Room("in a non certified forest");
+        lokaltSamfund = new Room("in a local community");
+        vejrRapportCenter = new Room("in a weather report center from around the world");
 
-        outside.setExit("east", theatre);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        trailer.setExit("east", lokaltSamfund);
+        trailer.setExit("south", certificeretSkov);
+        trailer.setExit("west", vejrRapportCenter);
+        trailer.setExit("north", ikkeCertificeretSkov);
 
-        theatre.setExit("west", outside);
+        certificeretSkov.setExit("east", lokaltSamfund);
+        certificeretSkov.setExit("north", trailer);
 
-        pub.setExit("east", outside);
+        ikkeCertificeretSkov.setExit("south", trailer);
+        ikkeCertificeretSkov.setExit("east", lokaltSamfund);
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
+        lokaltSamfund.setExit("west", trailer);
 
-        office.setExit("west", lab);
+        vejrRapportCenter.setExit("east", trailer);
 
-        currentRoom = outside;
+        currentRoom = trailer;
     }
 
     public void play() {
@@ -48,10 +50,9 @@ public class Game {
 
     private void printWelcome() {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
-        System.out.println();
+        System.out.println("Welcome to 'The LumberJack'!");
+        System.out.println("The LumberJack is a new, enviorment focused game!");
+        System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
         System.out.println(currentRoom.getLongDescription());
     }
 
@@ -76,9 +77,7 @@ public class Game {
     }
 
     private void printHelp() {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
+        System.out.println("You are a lumberjack, your job is to cut down trees! GO DO IT");
         System.out.println("Your command words are:");
         parser.showCommands();
     }
@@ -94,7 +93,7 @@ public class Game {
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("There is no door!");
+            System.out.println("There is no road!");
         } else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
