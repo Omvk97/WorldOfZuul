@@ -35,6 +35,8 @@ public class Game {
         nonCertificedForest.setExit("east", localsoicety);
 
         localsoicety.setExit("west", trailer);
+        localsoicety.setExit("north", nonCertificedForest);
+        localsoicety.setExit("south", certifiedForest);
 
         weatherCenter.setExit("east", trailer);
 
@@ -85,6 +87,8 @@ public class Game {
         System.out.println("You are a lumberjack, your job is to cut down trees! GO DO THAT");
         System.out.println("Your command words are:");
         parser.showCommands();
+        System.out.println("Your exits are");
+        System.out.println(currentRoom.getExitString());
     }
 
     private void goRoom(Command command) {
