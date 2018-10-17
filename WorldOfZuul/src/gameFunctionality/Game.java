@@ -1,5 +1,6 @@
 package gameFunctionality;
 
+import Locations.CertifiedForest;
 import Locations.Room;
 import Locations.NonCertifiedForest;
 
@@ -14,28 +15,28 @@ public class Game {
     }
 
     private void createRooms() {
-        Room trailer, certificeretSkov, ikkeCertificeretSkov, lokaltSamfund, vejrRapportCenter;
+        Room trailer, certifiedForest, nonCertificedForest, localsoicety, weatherCenter;
 
         trailer = new Room("inside your trailer");
-        certificeretSkov = new Room("in a certified forest");
-        ikkeCertificeretSkov = new NonCertifiedForest("in a non certified forest");
-        lokaltSamfund = new Room("in a local community");
-        vejrRapportCenter = new Room("in a weather report center from around the world");
+        certifiedForest = new CertifiedForest("in a certified forest");
+        nonCertificedForest = new NonCertifiedForest("in a non certified forest");
+        localsoicety = new Room("in a local community");
+        weatherCenter = new Room("in a weather report center from around the world");
 
-        trailer.setExit("east", lokaltSamfund);
-        trailer.setExit("south", certificeretSkov);
-        trailer.setExit("west", vejrRapportCenter);
-        trailer.setExit("north", ikkeCertificeretSkov);
+        trailer.setExit("east", localsoicety);
+        trailer.setExit("south", certifiedForest);
+        trailer.setExit("west", weatherCenter);
+        trailer.setExit("north", nonCertificedForest);
 
-        certificeretSkov.setExit("east", lokaltSamfund);
-        certificeretSkov.setExit("north", trailer);
+        certifiedForest.setExit("east", localsoicety);
+        certifiedForest.setExit("north", trailer);
 
-        ikkeCertificeretSkov.setExit("south", trailer);
-        ikkeCertificeretSkov.setExit("east", lokaltSamfund);
+        nonCertificedForest.setExit("south", trailer);
+        nonCertificedForest.setExit("east", localsoicety);
 
-        lokaltSamfund.setExit("west", trailer);
+        localsoicety.setExit("west", trailer);
 
-        vejrRapportCenter.setExit("east", trailer);
+        weatherCenter.setExit("east", trailer);
 
         currentRoom = trailer;
     }
@@ -48,12 +49,12 @@ public class Game {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Thank you for playing. Goodbye.");
     }
 
     private void printWelcome() {
         System.out.println("Welcome to 'The LumberJack'! \n"
-            + "Your job as a lumberjack is to cut down trees without destroying the earth!");
+            + "Your job as a lumberjack, is to cut down trees without \ndestroying the earth!");
         System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
         System.out.println(currentRoom.getLongDescription());
     }
@@ -74,12 +75,14 @@ public class Game {
             goRoom(command);
         } else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
+        } else if (commandWord == CommandWord.OPTION) {
+            doOption(command);
         }
         return wantToQuit;
     }
 
     private void printHelp() {
-        System.out.println("You are a lumberjack, your job is to cut down trees! GO DO IT");
+        System.out.println("You are a lumberjack, your job is to cut down trees! GO DO THAT");
         System.out.println("Your command words are:");
         parser.showCommands();
     }
@@ -108,6 +111,26 @@ public class Game {
             return false;
         } else {
             return true;
+        }
+    }
+
+    private void doOption(Command command) {
+        if (!command.hasSecondWord()) {
+            System.out.println("Do what?");
+            return;
+        }
+        
+        String optionNumber = command.getSecondWord();
+        switch (optionNumber) {
+            case "1":
+                currentRoom.option1();
+                break;
+            case "2":
+                currentRoom.option2();
+                break;
+            case "3":
+                currentRoom.option3();
+                break;
         }
     }
 }
