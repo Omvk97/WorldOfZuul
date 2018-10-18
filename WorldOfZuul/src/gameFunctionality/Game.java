@@ -52,7 +52,7 @@ public class Game {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing. Goodbye.");
+        System.out.println("Thank you for playing The LumberJack. Goodbye.");
     }
 
     private void printWelcome() {

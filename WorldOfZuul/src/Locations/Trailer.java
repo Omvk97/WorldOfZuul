@@ -1,7 +1,5 @@
 package Locations;
 
-import gameFunctionality.Tree;
-
 public class Trailer extends Room {
 
     int amountOfLogsInStorage;
@@ -38,7 +36,14 @@ public class Trailer extends Room {
 
     @Override
     public void option2() {
-
+        if (amountOfLogsInStorage == 0) {
+            System.out.println("You have no logs in your storage to sell!");
+            return;
+        }
+        for (int i = 0; i < amountOfLogsInStorage; i++) {
+            player.sellLog();
+        }
+        System.out.println("You have sold all your logs, you now have " + player.getMoney() + " gold");
     }
 
     @Override
@@ -46,14 +51,7 @@ public class Trailer extends Room {
         System.out.println("The sun goes down and you sleep tight \n"
             + "ZzzzZzzzZzzzZzzzZzzzZzzzZzzzZzzzZzzz");
         System.out.println("The sun rises and you are ready to tackle the day!");
-        int counter = 0; // der skal bruges nogle mere officielle tal her
-        while (CertifiedForest.trees.size() < 100) { // der skal bruges nogle mere officielle tal her
-            CertifiedForest.trees.add(new Tree());
-            counter++;
-            if (counter >= 3) { // der skal bruges nogle mere officielle tal her
-                break;
-            }
-        }
+        CertifiedForest.regrowTrees();
     }
 
 }

@@ -6,15 +6,27 @@ import java.util.List;
 
 public class CertifiedForest extends Room {
 
-    final int MAX_AMOUNTOFTREESINFOREST = 100;
-    final int MIN_AMOUNTOFTREESINFOREST = 70;
-    static List<Tree> trees;
+    private final static int MAX_AMOUNTOFTREESINFOREST = 100;
+    private final int MIN_AMOUNTOFTREESINFOREST = 70;
+    private static List<Tree> trees;
+    private final static int TREE_REGROW_RATE = 3;
 
     public CertifiedForest(String description) {
         super(description);
         this.trees = new ArrayList(MAX_AMOUNTOFTREESINFOREST);
         for (int i = 0; i < MAX_AMOUNTOFTREESINFOREST; i++) {
             trees.add(new Tree());
+        }
+    }
+
+    public static void regrowTrees() {
+        int counter = 0;
+        while (trees.size() < MAX_AMOUNTOFTREESINFOREST) {
+            trees.add(new Tree());
+            counter++;
+            if (counter >= TREE_REGROW_RATE) {
+                break;
+            }
         }
     }
 
@@ -25,6 +37,7 @@ public class CertifiedForest extends Room {
             + "Your options are: \n"
             + "1 - Cut down a tree and bring it with you \n"
             + "2 - See how many trees are left in the forest \n"
+            + "3 - Plant new trees \n"
             + getExitString();
     }
 
@@ -33,7 +46,7 @@ public class CertifiedForest extends Room {
     }
 
     private boolean thereIsMoreTreesToCut() {
-        return trees.size() - 1 >= MIN_AMOUNTOFTREESINFOREST; 
+        return trees.size() - 1 >= MIN_AMOUNTOFTREESINFOREST;
     }
 
     @Override
@@ -47,7 +60,8 @@ public class CertifiedForest extends Room {
             if (playerCanCarryMoreTree() && !thereIsMoreTreesToCut()) {
                 System.out.println("You have cut too much wood!! Wait for the trees to regrow!"); // Her skal vi overveje hvad der skal stå
             } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree()) {
-                System.out.println("You are carrying too much wood! Go back to your trailer and sell or store your logs!");
+                System.out.println("You are carrying too much wood! "
+                    + "Go back to your trailer and sell or store your logs!");
             }
         }
     }
