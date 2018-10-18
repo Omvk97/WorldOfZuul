@@ -3,6 +3,7 @@ package gameFunctionality;
 import Locations.CertifiedForest;
 import Locations.Room;
 import Locations.NonCertifiedForest;
+import Locations.Trailer;
 
 public class Game {
 
@@ -17,7 +18,7 @@ public class Game {
     private void createRooms() {
         Room trailer, certifiedForest, nonCertificedForest, localsoicety, weatherCenter;
 
-        trailer = new Room("inside your trailer");
+        trailer = new Trailer("inside your trailer");
         certifiedForest = new CertifiedForest("in a certified forest");
         nonCertificedForest = new NonCertifiedForest("in a non certified forest");
         localsoicety = new Room("in a local community");
@@ -44,9 +45,8 @@ public class Game {
     }
 
     public void play() {
-        Player player = new Player(); // Her instaniseres spilleren så dens variabler kan tilgås fra rummene
         printWelcome();
-        
+
         boolean finished = false;
         while (!finished) {
             Command command = parser.getCommand();
@@ -125,7 +125,7 @@ public class Game {
             System.out.println("Do what?");
             return;
         }
-        
+
         String optionNumber = command.getSecondWord();
         switch (optionNumber) {
             case "1":

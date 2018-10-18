@@ -2,29 +2,33 @@ package gameFunctionality;
 
 public class Player {
 
-    int amountOfTreeCarrying; // Denne skal kunne resettes af Trailer class
-    int moneyInPocket;
-    final int MAX_TREECARRY = 5;
+    static int amountOfLogsCarrying; // Denne skal kunne resettes af Trailer class, den er static da den bliver tilgået af flere klasser
+    static int money; // Skal bruges til at sælge træer, skal tilgås af flere klasser muligvis derfor static
+    final int MAX_TREECARRY = 5; // amountOfLogsCarrying skal sammenlignes med denne variabel altid
 
     public Player() {
-        this.amountOfTreeCarrying = 0;
-        this.moneyInPocket = 0;
+        Player.amountOfLogsCarrying = 0;
+        Player.money = 0;
     }
 
-    public int getAmountOfTreeCarrying() {
-        return amountOfTreeCarrying;
+    public int getAmountOfLogsCarrying() {
+        return Player.amountOfLogsCarrying;
     }
 
-    public void setAmountOfTreeCarrying(int amountOfTreeCarrying) {
-        this.amountOfTreeCarrying = amountOfTreeCarrying;
+    public void increaseAmountOfTreeCarrying() {
+        Player.amountOfLogsCarrying++;
+    }
+    
+    public void loadLogsToStorage() {
+        Player.amountOfLogsCarrying = 0;
     }
 
-    public int getMoneyInPocket() {
-        return moneyInPocket;
+    public int getMoney() {
+        return money;
     }
 
-    public void setMoneyInPocket(int moneyInPocket) {
-        this.moneyInPocket = moneyInPocket;
+    public void setMoney(int money) {
+        Player.money = money;
     }
 
     public int getMAX_TREECARRY() {

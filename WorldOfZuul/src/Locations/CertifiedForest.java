@@ -8,9 +8,7 @@ public class CertifiedForest extends Room {
 
     final int MAX_AMOUNTOFTREESINFOREST = 100;
     final int MIN_AMOUNTOFTREESINFOREST = 70;
-    final int MAX_TREECARRY = 5; // amountOfTreeCarrying skal sammenlignes med denne variabel altid
-    int amountOfTreeCarrying = 0; // Denne skal kunne resettes af Trailer class
-    List<Tree> trees;
+    static List<Tree> trees;
 
     public CertifiedForest(String description) {
         super(description);
@@ -23,7 +21,7 @@ public class CertifiedForest extends Room {
     @Override
     public String getLongDescription() {
         return "You are standing " + getShortDescription() + "!\n"
-            + "This forest will slowly regrow, there are " + trees.size() + "\n"
+            + "This forest will slowly regrow, there are " + trees.size() + " trees" + "\n"
             + "Your options are: \n"
             + "1 - Cut down a tree and bring it with you \n"
             + "2 - See how many trees are left in the forest \n"
@@ -31,7 +29,7 @@ public class CertifiedForest extends Room {
     }
 
     private boolean playerCanCarryMoreTree() {
-        return amountOfTreeCarrying + 1 <= MAX_TREECARRY;
+        return player.getAmountOfLogsCarrying() + 1 <= player.getMAX_TREECARRY();
     }
 
     private boolean thereIsMoreTreesToCut() {
@@ -41,10 +39,10 @@ public class CertifiedForest extends Room {
     @Override
     public void option1() {
         if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
-            amountOfTreeCarrying++;
+            player.increaseAmountOfTreeCarrying();
             trees.remove(trees.size() - 1);
             System.out.println("You have cut down a tree! You are now carrying "
-                + amountOfTreeCarrying + (amountOfTreeCarrying > 1 ? " logs" : " log"));
+                + player.getAmountOfLogsCarrying() + (player.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
         } else {
             if (playerCanCarryMoreTree() && !thereIsMoreTreesToCut()) {
                 System.out.println("You have cut too much wood!! Wait for the trees to regrow!"); // Her skal vi overveje hvad der skal stå

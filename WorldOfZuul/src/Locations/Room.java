@@ -1,5 +1,6 @@
 package Locations;
 
+import gameFunctionality.Player;
 import java.util.Set;
 import java.util.HashMap;
 
@@ -8,6 +9,7 @@ public class Room {
     private final String description;
     private final HashMap<String, Room> exits;
     private final HashMap<String, String> options;
+    public Player player = new Player(); // Her instaniseres spilleren så dens variabler kan tilgås fra rummene
 
     public Room(String description) {
         this.description = description;
@@ -51,7 +53,7 @@ public class Room {
     public void option2() {
         System.out.println("There is no option 2 in this room");
     }
-    
+
     public void option3() {
         System.out.println("There is no option 3 in this room");
     }
