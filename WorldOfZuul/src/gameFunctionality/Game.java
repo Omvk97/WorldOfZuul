@@ -44,8 +44,9 @@ public class Game {
     }
 
     public void play() {
+        Player player = new Player(); // Her instaniseres spilleren så dens variabler kan tilgås fra rummene
         printWelcome();
-
+        
         boolean finished = false;
         while (!finished) {
             Command command = parser.getCommand();
@@ -56,7 +57,8 @@ public class Game {
 
     private void printWelcome() {
         System.out.println("Welcome to 'The LumberJack'! \n"
-            + "Your job as a lumberjack, is to cut down trees without \ndestroying the earth!");
+            + "Your job as a lumberjack, is to cut down trees without \n"
+            + "destroying the earth!");
         System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
         System.out.println(currentRoom.getLongDescription());
     }
@@ -79,6 +81,8 @@ public class Game {
             wantToQuit = quit(command);
         } else if (commandWord == CommandWord.OPTION) {
             doOption(command);
+        } else if (commandWord == CommandWord.EXITS) {
+            System.out.println(currentRoom.getExitString());
         }
         return wantToQuit;
     }
@@ -87,8 +91,6 @@ public class Game {
         System.out.println("You are a lumberjack, your job is to cut down trees! GO DO THAT");
         System.out.println("Your command words are:");
         parser.showCommands();
-        System.out.println("Your exits are");
-        System.out.println(currentRoom.getExitString());
     }
 
     private void goRoom(Command command) {
