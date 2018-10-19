@@ -1,6 +1,7 @@
 package gameFunctionality;
 
 import Locations.CertifiedForest;
+import Locations.LocalSociety;
 import Locations.Room;
 import Locations.NonCertifiedForest;
 import Locations.Trailer;
@@ -21,7 +22,7 @@ public class Game {
         trailer = new Trailer("inside your trailer");
         certifiedForest = new CertifiedForest("in a certified forest");
         nonCertificedForest = new NonCertifiedForest("in a non certified forest");
-        localsoicety = new Room("in a local community");
+        localsoicety = new LocalSociety("in a local community");
         weatherCenter = new Room("in a weather report center from around the world");
 
         trailer.setExit("east", localsoicety);

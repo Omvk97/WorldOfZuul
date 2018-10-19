@@ -7,8 +7,7 @@ import java.util.ArrayList;
 public class Trailer extends Room {
 
     private ArrayList<Tree> amountOfLogsInStorage;
-    private final int MAX_TREESTORAGEAMOUNT = 50;
-    private final int MAX_CLIMATEPOINTS = 50;
+    private final int MAX_TREESTORAGEAMOUNT = 5;
 
     public Trailer(String description) {
         super(description);
@@ -33,7 +32,7 @@ public class Trailer extends Room {
             return;
         }
         for (int i = 0; i < Player.getAmountOfLogsCarrying(); i++) {
-            if (amountOfLogsInStorage.size() + 1 != MAX_TREESTORAGEAMOUNT) {
+            if (amountOfLogsInStorage.size() + 1 <= MAX_TREESTORAGEAMOUNT) {
                 amountOfLogsInStorage.add(Player.getTreeType(i));
             } else {
                 System.out.println("You have too many logs in your storage!");
