@@ -1,19 +1,21 @@
 package Locations;
 
+import gameFunctionality.NonCertifiedTree;
+import gameFunctionality.Player;
 import gameFunctionality.Tree;
 import java.util.ArrayList;
 import java.util.List;
 
 public class NonCertifiedForest extends Room {
 
-    final int MAX_AMOUNTOFTREESINFOREST = 100;
-    List<Tree> trees;
+    private final int MAX_AMOUNTOFTREESINFOREST = 100;
+    private final List<Tree> trees;
 
     public NonCertifiedForest(String description) {
         super(description);
         this.trees = new ArrayList(MAX_AMOUNTOFTREESINFOREST);
         for (int i = 0; i < MAX_AMOUNTOFTREESINFOREST; i++) {
-            trees.add(new Tree());
+            trees.add(new NonCertifiedTree());
         }
     }
 
@@ -29,7 +31,7 @@ public class NonCertifiedForest extends Room {
     }
 
     private boolean playerCanCarryMoreTree() {
-        return player.getAmountOfLogsCarrying() + 1 <= player.getMAX_TREECARRY();
+        return Player.getAmountOfLogsCarrying() + 1 <= Player.getMAX_TREECARRY();
     }
 
     private boolean thereIsMoreTreesToCut() {
@@ -39,13 +41,14 @@ public class NonCertifiedForest extends Room {
     @Override
     public void option1() {
         if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
-            player.increaseAmountOfTreeCarrying();
+            player.increaseAmountOfTreeCarrying(trees.get(0));
+            player.addClimatePoints(trees.get(0).getTreeClimatePoints());
             trees.remove(trees.size() - 1);
             System.out.println("You have cut down a tree! You are now carrying "
-                + player.getAmountOfLogsCarrying() + (player.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
+                + Player.getAmountOfLogsCarrying() + (Player.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
         } else {
             if (playerCanCarryMoreTree() && !thereIsMoreTreesToCut()) {
-                System.out.println("You have cut too much wood!! The forest has no more trees!"); // Her skal vi finde ud af om der skal stå sleep eller hvad der skal stå
+                System.out.println("You have cut too much wood!! The forest has no more trees!"); 
             } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree()) {
                 System.out.println("You are carrying too much wood! Go back to your trailer and sell or store your logs!");
             }

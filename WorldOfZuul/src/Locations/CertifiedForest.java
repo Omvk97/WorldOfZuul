@@ -1,5 +1,7 @@
 package Locations;
 
+import gameFunctionality.CertifiedTree;
+import gameFunctionality.Player;
 import gameFunctionality.Tree;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,22 +11,22 @@ public class CertifiedForest extends Room {
     private final static int MAX_AMOUNTOFTREESINFOREST = 100;
     private final int MIN_AMOUNTOFTREESINFOREST = 70;
     private static List<Tree> trees;
-    private final static int TREE_REGROW_RATE = 3;
+    private final static int FOREST_REGROW_RATE = 3;
 
     public CertifiedForest(String description) {
         super(description);
-        this.trees = new ArrayList(MAX_AMOUNTOFTREESINFOREST);
+        CertifiedForest.trees = new ArrayList(MAX_AMOUNTOFTREESINFOREST);
         for (int i = 0; i < MAX_AMOUNTOFTREESINFOREST; i++) {
-            trees.add(new Tree());
+            trees.add(new CertifiedTree());
         }
     }
 
     public static void regrowTrees() {
         int counter = 0;
         while (trees.size() < MAX_AMOUNTOFTREESINFOREST) {
-            trees.add(new Tree());
+            trees.add(new CertifiedTree());
             counter++;
-            if (counter >= TREE_REGROW_RATE) {
+            if (counter >= FOREST_REGROW_RATE) {
                 break;
             }
         }
@@ -42,7 +44,7 @@ public class CertifiedForest extends Room {
     }
 
     private boolean playerCanCarryMoreTree() {
-        return player.getAmountOfLogsCarrying() + 1 <= player.getMAX_TREECARRY();
+        return Player.getAmountOfLogsCarrying() + 1 <= Player.getMAX_TREECARRY();
     }
 
     private boolean thereIsMoreTreesToCut() {
@@ -52,10 +54,11 @@ public class CertifiedForest extends Room {
     @Override
     public void option1() {
         if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
-            player.increaseAmountOfTreeCarrying();
+            player.increaseAmountOfTreeCarrying(trees.get(0));
+            player.addClimatePoints(trees.get(0).getTreeClimatePoints());
             trees.remove(trees.size() - 1);
             System.out.println("You have cut down a tree! You are now carrying "
-                + player.getAmountOfLogsCarrying() + (player.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
+                + Player.getAmountOfLogsCarrying() + (Player.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
         } else {
             if (playerCanCarryMoreTree() && !thereIsMoreTreesToCut()) {
                 System.out.println("You have cut too much wood!! Wait for the trees to regrow!"); // Her skal vi overveje hvad der skal stå

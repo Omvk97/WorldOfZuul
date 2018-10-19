@@ -1,10 +1,8 @@
 package gameFunctionality;
 
-public class Tree {
-    private final int treePrice = 10;
+public interface Tree {
+//    private final int TREEHEALTH = 2;
+    public int getTreeClimatePoints();
+    public int getTreePrice(); 
 
-    public int getTreePrice() {
-        return treePrice;
-    }
-    
 }

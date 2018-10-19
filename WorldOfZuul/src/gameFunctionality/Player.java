@@ -1,38 +1,57 @@
 package gameFunctionality;
 
+import java.util.ArrayList;
+
 public class Player {
 
-    private static int amountOfLogsCarrying; // Denne skal kunne resettes af Trailer class, den er static da den bliver tilgået af flere klasser
+    private static ArrayList<Tree> amountOfLogsCarrying; // Denne skal kunne resettes af Trailer class, den er static da den bliver tilgået af flere klasser
     private int money; // Skal bruges til at sælge træer, skal tilgås af flere klasser muligvis derfor static
-    final int MAX_TREECARRY = 5; // amountOfLogsCarrying skal sammenlignes med denne variabel altid
-    final int TREE_PRICE = 10;
-
+    private static final int MAX_TREECARRY = 5; // skal sammenlignes med denne variabel altid
+    private int climatePoints;
+    
     public Player() {
-        Player.amountOfLogsCarrying = 0;
+        Player.amountOfLogsCarrying = new ArrayList<>();
         this.money = 0;
+        this.climatePoints = 0;
     }
 
-    public int getAmountOfLogsCarrying() {
-        return Player.amountOfLogsCarrying;
+    public static int getAmountOfLogsCarrying() {
+        return amountOfLogsCarrying.size();
+    }
+    
+    public static Tree getTreeType(int treePosition) {
+        return amountOfLogsCarrying.get(treePosition);
     }
 
-    public void increaseAmountOfTreeCarrying() {
-        Player.amountOfLogsCarrying++;
+    public void increaseAmountOfTreeCarrying(Tree tree) {
+        if (tree instanceof CertifiedTree) {
+            Player.amountOfLogsCarrying.add(new CertifiedTree());
+        } else {
+            Player.amountOfLogsCarrying.add(new NonCertifiedTree());
+        }
     }
     
     public void loadLogsToStorage() {
-        Player.amountOfLogsCarrying = 0;
+        Player.amountOfLogsCarrying = new ArrayList<>();
     }
 
     public int getMoney() {
         return money;
     }
-
-    public void sellLog() {
-        this.money += TREE_PRICE;
+    
+    public void addMoney(int treeSellPrice) {
+        this.money += treeSellPrice;
+    }
+    
+    public int getClimatePoints() {
+        return climatePoints;
+    }
+    
+    public void addClimatePoints(int treeClimatePoints) {
+        this.climatePoints += treeClimatePoints;
     }
 
-    public int getMAX_TREECARRY() {
+    public static int getMAX_TREECARRY() {
         return MAX_TREECARRY;
     }
 }
