@@ -18,12 +18,12 @@ public class Trailer extends Room {
     @Override
     public String getLongDescription() {
         return "You are standing " + getShortDescription() + "!\n"
-            + "This is your home, your options are: \n"
+            + "This is your home, you have " + Player.getClimatePoints() + " climate points,"
+            + " your options are: \n"
             + "1 - Store logs you are carrying here \n"
             + "2 - Sell the logs you have in your storage \n"
             + "3 - Sleep \n"
-            + getExitString() + "\n"
-            + player.getClimatePoints();
+            + getExitString();
     }
 
     @Override

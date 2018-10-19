@@ -42,7 +42,7 @@ public class NonCertifiedForest extends Room {
     public void option1() {
         if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
             player.increaseAmountOfTreeCarrying(trees.get(0));
-            player.addClimatePoints(trees.get(0).getTreeClimatePoints());
+            Player.addClimatePoints(trees.get(0).getTreeClimatePoints());
             trees.remove(trees.size() - 1);
             System.out.println("You have cut down a tree! You are now carrying "
                 + Player.getAmountOfLogsCarrying() + (Player.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));

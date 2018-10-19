@@ -39,7 +39,6 @@ public class CertifiedForest extends Room {
             + "Your options are: \n"
             + "1 - Cut down a tree and bring it with you \n"
             + "2 - See how many trees are left in the forest \n"
-            + "3 - Plant new trees \n"
             + getExitString();
     }
 
@@ -55,7 +54,7 @@ public class CertifiedForest extends Room {
     public void option1() {
         if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
             player.increaseAmountOfTreeCarrying(trees.get(0));
-            player.addClimatePoints(trees.get(0).getTreeClimatePoints());
+            Player.addClimatePoints(trees.get(0).getTreeClimatePoints());
             trees.remove(trees.size() - 1);
             System.out.println("You have cut down a tree! You are now carrying "
                 + Player.getAmountOfLogsCarrying() + (Player.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
