@@ -4,6 +4,7 @@ import Locations.CertifiedForest;
 import Locations.LocalSociety;
 import Locations.Room;
 import Locations.NonCertifiedForest;
+import Locations.Store;
 import Locations.Trailer;
 
 public class Game {
@@ -17,18 +18,20 @@ public class Game {
     }
 
     private void createRooms() {
-        Room trailer, certifiedForest, nonCertificedForest, localsoicety, weatherCenter;
+        Room trailer, certifiedForest, nonCertificedForest, localsoicety, weatherCenter, store;
 
         trailer = new Trailer("inside your trailer");
         certifiedForest = new CertifiedForest("in a certified forest");
         nonCertificedForest = new NonCertifiedForest("in a non certified forest");
         localsoicety = new LocalSociety("in a local community");
         weatherCenter = new Room("in a weather report center from around the world");
+        store = new Store("in the LumberJack shop");
 
         trailer.setExit("east", localsoicety);
         trailer.setExit("south", certifiedForest);
         trailer.setExit("west", weatherCenter);
         trailer.setExit("north", nonCertificedForest);
+        trailer.setExit("southwest", store);
 
         certifiedForest.setExit("east", localsoicety);
         certifiedForest.setExit("north", trailer);
@@ -41,6 +44,8 @@ public class Game {
         localsoicety.setExit("south", certifiedForest);
 
         weatherCenter.setExit("east", trailer);
+        
+        store.setExit("northeast", trailer);
 
         currentRoom = trailer;
     }

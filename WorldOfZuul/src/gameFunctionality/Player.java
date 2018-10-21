@@ -49,7 +49,6 @@ public class Player {
     
     public static void addClimatePoints(int treeClimatePoints) {
         Player.climatePoints += treeClimatePoints;
-        System.out.println(Player.climatePoints);
     }
 
     public static int getMAX_TREECARRY() {
