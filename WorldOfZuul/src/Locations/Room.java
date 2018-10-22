@@ -9,10 +9,11 @@ public class Room {
     private final String description;
     private final HashMap<String, Room> exits;
     private final HashMap<String, String> options;
-    public Player player = new Player(); // Her instaniseres spilleren så dens variabler kan tilgås fra rummene
+    protected Player player;
 
-    public Room(String description) {
+    public Room(String description, Player player) {
         this.description = description;
+        this.player = player;
         exits = new HashMap<>();
         options = new HashMap<>();
     }

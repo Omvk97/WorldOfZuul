@@ -9,8 +9,8 @@ public class Trailer extends Room {
     private ArrayList<Tree> amountOfLogsInStorage;
     private final int MAX_TREESTORAGEAMOUNT = 15;
 
-    public Trailer(String description) {
-        super(description);
+    public Trailer(String description, Player player) {
+        super(description, player);
         this.amountOfLogsInStorage = new ArrayList<>();
     }
 

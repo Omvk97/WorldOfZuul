@@ -11,8 +11,8 @@ public class NonCertifiedForest extends Room {
     private final int MAX_AMOUNTOFTREESINFOREST = 100;
     private final List<Tree> trees;
 
-    public NonCertifiedForest(String description) {
-        super(description);
+    public NonCertifiedForest(String description, Player player) {
+        super(description, player);
         this.trees = new ArrayList(MAX_AMOUNTOFTREESINFOREST);
         for (int i = 0; i < MAX_AMOUNTOFTREESINFOREST; i++) {
             trees.add(new NonCertifiedTree());

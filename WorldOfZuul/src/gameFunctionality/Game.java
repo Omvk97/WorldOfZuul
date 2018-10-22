@@ -11,6 +11,7 @@ public class Game {
 
     private final Parser parser;
     private Room currentRoom;
+    private final Player player = new Player(); // Her instaniseres spilleren så dens metoder kan tilgås fra rummene
 
     public Game() {
         createRooms();
@@ -20,12 +21,12 @@ public class Game {
     private void createRooms() {
         Room trailer, certifiedForest, nonCertificedForest, localsoicety, weatherCenter, store;
 
-        trailer = new Trailer("inside your trailer");
-        certifiedForest = new CertifiedForest("in a certified forest");
-        nonCertificedForest = new NonCertifiedForest("in a non certified forest");
-        localsoicety = new LocalSociety("in a local community");
-        weatherCenter = new Room("in a weather report center from around the world");
-        store = new Store("in the LumberJack shop");
+        trailer = new Trailer("inside your trailer", player);
+        certifiedForest = new CertifiedForest("in a certified forest", player);
+        nonCertificedForest = new NonCertifiedForest("in a non certified forest", player);
+        localsoicety = new LocalSociety("in a local community", player);
+        weatherCenter = new Room("in a weather report center from around the world", player);
+        store = new Store("in the LumberJack shop", player);
 
         trailer.setExit("east", localsoicety);
         trailer.setExit("south", certifiedForest);
