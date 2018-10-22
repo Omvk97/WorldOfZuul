@@ -9,11 +9,11 @@ public class Room {
     private final String description;
     private final HashMap<String, Room> exits;
     private final HashMap<String, String> options;
-    protected Player player;
+    protected Player humanPlayer;
 
     public Room(String description, Player player) {
         this.description = description;
-        this.player = player;
+        this.humanPlayer = player;
         exits = new HashMap<>();
         options = new HashMap<>();
     }

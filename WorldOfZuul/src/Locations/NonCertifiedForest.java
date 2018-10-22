@@ -8,7 +8,7 @@ import java.util.List;
 
 public class NonCertifiedForest extends Room {
 
-    private final int MAX_AMOUNTOFTREESINFOREST = 100;
+    private final static int MAX_AMOUNTOFTREESINFOREST = 100;
     private final List<Tree> trees;
 
     public NonCertifiedForest(String description, Player player) {
@@ -31,7 +31,7 @@ public class NonCertifiedForest extends Room {
     }
 
     private boolean playerCanCarryMoreTree() {
-        return Player.getAmountOfLogsCarrying() + 1 <= Player.getMAX_TREECARRY();
+        return humanPlayer.getAmountOfLogsCarrying() + 1 <= Player.getMAX_TREECARRY();
     }
 
     private boolean thereIsMoreTreesToCut() {
@@ -41,11 +41,12 @@ public class NonCertifiedForest extends Room {
     @Override
     public void option1() {
         if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
-            player.increaseAmountOfTreeCarrying(trees.get(0));
-            Player.addClimatePoints(trees.get(0).getTreeClimatePoints());
+            humanPlayer.increaseAmountOfTreeCarrying(trees.get(0));
+            humanPlayer.addClimatePoints(trees.get(0).getTreeClimatePoints());
             trees.remove(trees.size() - 1);
             System.out.println("You have cut down a tree! You are now carrying "
-                + Player.getAmountOfLogsCarrying() + (Player.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
+                + humanPlayer.getAmountOfLogsCarrying() + 
+                (humanPlayer.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
         } else {
             if (playerCanCarryMoreTree() && !thereIsMoreTreesToCut()) {
                 System.out.println("You have cut too much wood!! The forest has no more trees!"); 
