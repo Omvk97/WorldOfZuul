@@ -13,8 +13,5 @@ public class CertifiedTree implements Tree {
     @Override
     public int getTreePrice() {
         return TREE_SELL_PRICE;
-    }
-    
-    
-    
+    } 
 }

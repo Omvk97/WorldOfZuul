@@ -15,8 +15,8 @@ public class LocalSociety extends Room {
     private int humans;
     private int children;
 
-    public LocalSociety(String description) {
-        super(description);
+    public LocalSociety(String description, Player player) {
+        super(description, player);
         this.monkeys = 20;
         this.birds = 30;
         this.humans = 15;
@@ -24,7 +24,7 @@ public class LocalSociety extends Room {
     }
 
     public void setValues() {
-        int climatePoints = Player.getClimatePoints();
+        int climatePoints = humanPlayer.getClimatePoints();
         this.monkeys = 20;
         this.birds = 30;
         this.humans = 15;
