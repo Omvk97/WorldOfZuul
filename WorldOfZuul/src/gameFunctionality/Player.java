@@ -1,6 +1,6 @@
 package gameFunctionality;
 
-import Locations.Room;
+//import Locations.Room;
 import java.util.ArrayList;
 
 public class Player {
@@ -10,7 +10,7 @@ public class Player {
     private ArrayList<Tree> amountOfLogsCarrying; // Denne skal kunne resettes af Trailer class, den er static da den bliver tilgået af flere klasser
     private int money; // Skal bruges til at sælge træer, skal tilgås af flere klasser muligvis derfor static
     private int climatePoints;
-    private Room currentRoom;
+//    private Room currentRoom;
 
     public Player() {
         this.amountOfLogsCarrying = new ArrayList<>();

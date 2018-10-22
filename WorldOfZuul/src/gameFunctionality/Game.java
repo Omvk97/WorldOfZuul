@@ -11,7 +11,7 @@ public class Game {
 
     private final Parser parser;
     private Room currentRoom;
-    private final Player player = new Player(); // Her instaniseres spilleren så dens metoder kan tilgås fra rummene
+    private final Player player = new Player();
 
     public Game() {
         createRooms();
