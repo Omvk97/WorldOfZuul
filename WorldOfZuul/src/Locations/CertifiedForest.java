@@ -9,7 +9,7 @@ import java.util.List;
 public class CertifiedForest extends Room {
 
     private final static int MAX_AMOUNTOFTREESINFOREST = 100;
-    private final static int MIN_AMOUNTOFTREESINFOREST = 95;
+    private final static int MIN_AMOUNTOFTREESINFOREST = 70;
     private static List<Tree> trees;
     private final static int FOREST_REGROW_RATE = 3;
 

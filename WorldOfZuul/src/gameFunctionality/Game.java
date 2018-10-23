@@ -12,6 +12,12 @@ public class Game {
     private final Parser parser;
     private Room currentRoom;
     private final Player player = new Player();
+    private final Room trailer = new Trailer("inside your trailer", player);
+    private final Room certifiedForest  = new CertifiedForest("in a certified forest", player);
+    private final Room nonCertificedForest  = new NonCertifiedForest("in a non certified forest", player);
+    private final Room localVillage  = new LocalVillage("in a local community", player, (Trailer) trailer);
+    private final Room weatherCenter  = new Room("in a weather report center from around the world", player);
+    private final Room store  = new Store("in the LumberJack shop", player, (Trailer) trailer);
 
     public Game() {
         createRooms();
@@ -19,14 +25,6 @@ public class Game {
     }
 
     private void createRooms() {
-        Room trailer, certifiedForest, nonCertificedForest, localVillage, weatherCenter, store;
-
-        trailer = new Trailer("inside your trailer", player);
-        certifiedForest = new CertifiedForest("in a certified forest", player);
-        nonCertificedForest = new NonCertifiedForest("in a non certified forest", player);
-        localVillage = new LocalVillage("in a local community", player);
-        weatherCenter = new Room("in a weather report center from around the world", player);
-        store = new Store("in the LumberJack shop", player);
 
         trailer.setExit("east", localVillage);
         trailer.setExit("south", certifiedForest);
@@ -45,7 +43,7 @@ public class Game {
         localVillage.setExit("south", certifiedForest);
 
         weatherCenter.setExit("east", trailer);
-        
+
         store.setExit("northeast", trailer);
 
         currentRoom = trailer;

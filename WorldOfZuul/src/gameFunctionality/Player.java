@@ -34,16 +34,16 @@ public class Player {
         }
     }
 
-    public void loadLogsToStorage() {
-        this.amountOfLogsCarrying = new ArrayList<>();
+    public void decreaseAmountOfTreeCarrying() {
+        this.amountOfLogsCarrying.remove(0);
     }
 
     public int getMoney() {
         return money;
     }
 
-    public void addMoney(int treeSellPrice) {
-        this.money += treeSellPrice;
+    public void addMoney(int moneyAmount) {
+        this.money += moneyAmount;
     }
 
     public int getClimatePoints() {

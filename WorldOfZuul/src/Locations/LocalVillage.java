@@ -1,20 +1,23 @@
 package Locations;
 
+import gameFunctionality.NonCertifiedTree;
 import gameFunctionality.Player;
 
 public class LocalVillage extends Room {
 
     private final int CLIMATESCENARIO_2 = 19;
     private final int CLIMATESCENARIO_1 = 9;
-    private final int CLIMATESCENARIODEFAULT = 0;
-    private final int CLIMATESCENARIO1 = -9;
-    private final int CLIMATESCENARIO2 = -19;
-    private final int CLIMATESCENARIO3 = -29;
-    private final int CLIMATESCENARIO4 = -39;
-    private final int CLIMATESCENARIO5 = -49;
+    private final int CLIMATESCENARIO1 = -19;
+    private final int CLIMATESCENARIO2 = -29;
+    private final int CLIMATESCENARIO3 = -39;
+    private final int CLIMATESCENARIO4 = -49;
+    private final int CLIMATESCENARIO5 = -59;
 
-    public LocalVillage(String description, Player player) {
+    private final Trailer trailer;
+
+    public LocalVillage(String description, Player player, Trailer trailer) {
         super(description, player);
+        this.trailer = trailer;
     }
 
     public String setValues() {
@@ -27,11 +30,11 @@ public class LocalVillage extends Room {
             return "The local people from the village greet you welcome\nand you observe "
                 + "the wildlife steadily decaying";
         } else if (climatePoints > CLIMATESCENARIO3 && climatePoints < CLIMATESCENARIO2) {
-            return "The local people from the village stopped giving you\nhospitality"
+            return "The local people from the village stopped giving you\nhospitality "
                 + "and the wildlife is suffering visibly";
         } else if (climatePoints > CLIMATESCENARIO4 && climatePoints < CLIMATESCENARIO3) {
 //            TODO - Player thrown back to Trailer
-            return "The local people from the village are enraged and chase you out of\n the village"
+            return "The local people from the village are enraged and chase you out of\n the village "
                 + "spitting and throwing rocks after you, wildlife is decimated";
         } else if (climatePoints > CLIMATESCENARIO5 && climatePoints < CLIMATESCENARIO4) {
 //            TODO - Player thrown back to Trailer
@@ -43,13 +46,20 @@ public class LocalVillage extends Room {
             return "The local people from the village are happy about your"
                 + " environmental considerations\nand wildlife is flourishing";
         } else if (climatePoints > CLIMATESCENARIO_2) {
-//            TODO - Villagers help chop down trees (amountOfLogsCarrying increase)
-            int moneyAmountGiven = (int) (Math.random() * 10) + 1;
-            humanPlayer.addMoney(moneyAmountGiven);
-            return "The villagers are very happy about your efforts and offer to donate "
-                + moneyAmountGiven + " gold coins to you";
+            if (!trailer.isStorageFull()) {
+                trailer.getStorage().add(new NonCertifiedTree());
+                int moneyAmountGiven = (int) (Math.random() * 10) + 1;
+                humanPlayer.addMoney(moneyAmountGiven);
+                return "The villagers are very happy about your efforts and offer to donate "
+                    + moneyAmountGiven + " gold coins and 1 tree to you";
+            } else {
+                int moneyAmountGiven = (int) (Math.random() * 10) + 1;
+                humanPlayer.addMoney(moneyAmountGiven);
+                return "The villagers are very happy about your efforts and offer to donate "
+                    + moneyAmountGiven + " gold coins to you";
+            }
         }
-        return "fisk";
+        return "";
     }
 
     @Override
