@@ -31,11 +31,11 @@ public class NonCertifiedForest extends Room {
     }
 
     private boolean playerCanCarryMoreTree() {
-        return humanPlayer.getAmountOfLogsCarrying() + 1 <= Player.getMAX_TREECARRY();
+        return humanPlayer.getAmountOfLogsCarrying() < Player.getMAX_TREECARRY();
     }
 
     private boolean thereIsMoreTreesToCut() {
-        return trees.size() - 1 >= 0;
+        return trees.size() > 0;
     }
 
     @Override

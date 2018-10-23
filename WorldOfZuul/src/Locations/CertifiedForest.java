@@ -9,7 +9,7 @@ import java.util.List;
 public class CertifiedForest extends Room {
 
     private final static int MAX_AMOUNTOFTREESINFOREST = 100;
-    private final static int MIN_AMOUNTOFTREESINFOREST = 70;
+    private final static int MIN_AMOUNTOFTREESINFOREST = 95;
     private static List<Tree> trees;
     private final static int FOREST_REGROW_RATE = 3;
 
@@ -43,11 +43,11 @@ public class CertifiedForest extends Room {
     }
 
     private boolean playerCanCarryMoreTree() {
-        return humanPlayer.getAmountOfLogsCarrying() + 1 <= Player.getMAX_TREECARRY();
+        return humanPlayer.getAmountOfLogsCarrying() < Player.getMAX_TREECARRY();
     }
 
     private boolean thereIsMoreTreesToCut() {
-        return trees.size() - 1 >= MIN_AMOUNTOFTREESINFOREST;
+        return trees.size() > MIN_AMOUNTOFTREESINFOREST;
     }
 
     @Override
