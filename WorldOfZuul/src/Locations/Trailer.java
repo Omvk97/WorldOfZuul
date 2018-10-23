@@ -60,10 +60,11 @@ public class Trailer extends Room {
 
     @Override
     public void option3() {
-        System.out.println("The sun goes down and you sleep tight \n"
-            + "ZzzzZzzzZzzzZzzz");
-        System.out.println("The sun rises and you are ready to tackle the day!");
-        CertifiedForest.regrowTrees();
+//        System.out.println("The sun goes down and you sleep tight \n"
+//            + "ZzzzZzzzZzzzZzzz");
+//        System.out.println("The sun rises and you are ready to tackle the day!");
+//        CertifiedForest.regrowTrees();
+        System.out.println(humanPlayer.getMoney());
     }
 
 }

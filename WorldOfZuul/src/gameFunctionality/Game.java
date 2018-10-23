@@ -1,7 +1,7 @@
 package gameFunctionality;
 
 import Locations.CertifiedForest;
-import Locations.LocalSociety;
+import Locations.LocalVillage;
 import Locations.Room;
 import Locations.NonCertifiedForest;
 import Locations.Store;
@@ -19,30 +19,30 @@ public class Game {
     }
 
     private void createRooms() {
-        Room trailer, certifiedForest, nonCertificedForest, localsoicety, weatherCenter, store;
+        Room trailer, certifiedForest, nonCertificedForest, localVillage, weatherCenter, store;
 
         trailer = new Trailer("inside your trailer", player);
         certifiedForest = new CertifiedForest("in a certified forest", player);
         nonCertificedForest = new NonCertifiedForest("in a non certified forest", player);
-        localsoicety = new LocalSociety("in a local community", player);
+        localVillage = new LocalVillage("in a local community", player);
         weatherCenter = new Room("in a weather report center from around the world", player);
         store = new Store("in the LumberJack shop", player);
 
-        trailer.setExit("east", localsoicety);
+        trailer.setExit("east", localVillage);
         trailer.setExit("south", certifiedForest);
         trailer.setExit("west", weatherCenter);
         trailer.setExit("north", nonCertificedForest);
         trailer.setExit("southwest", store);
 
-        certifiedForest.setExit("east", localsoicety);
+        certifiedForest.setExit("east", localVillage);
         certifiedForest.setExit("north", trailer);
 
         nonCertificedForest.setExit("south", trailer);
-        nonCertificedForest.setExit("east", localsoicety);
+        nonCertificedForest.setExit("east", localVillage);
 
-        localsoicety.setExit("west", trailer);
-        localsoicety.setExit("north", nonCertificedForest);
-        localsoicety.setExit("south", certifiedForest);
+        localVillage.setExit("west", trailer);
+        localVillage.setExit("north", nonCertificedForest);
+        localVillage.setExit("south", certifiedForest);
 
         weatherCenter.setExit("east", trailer);
         
