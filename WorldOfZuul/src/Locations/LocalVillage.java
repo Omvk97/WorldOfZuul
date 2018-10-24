@@ -5,6 +5,11 @@ import gameFunctionality.Player;
 
 public class LocalVillage extends Room {
 
+    /**
+     * Der bliver her sat nogle klima scenarier op som alle er placeholders 
+     * indtil spillet er færdigudviklet
+     */
+    
     private final int CLIMATESCENARIO_2 = 19;
     private final int CLIMATESCENARIO_1 = 9;
     private final int CLIMATESCENARIO1 = -19;
@@ -26,26 +31,33 @@ public class LocalVillage extends Room {
         if (climatePoints > CLIMATESCENARIO1 && climatePoints < CLIMATESCENARIO_1) {
             return "The local people from the village greet you a kind welcome\nand you observe a "
                 + "healthy and vibrant wildlife";
-        } else if (climatePoints > CLIMATESCENARIO2 && climatePoints < CLIMATESCENARIO1) {
+        } 
+        else if (climatePoints > CLIMATESCENARIO2 && climatePoints < CLIMATESCENARIO1) {
             return "The local people from the village greet you welcome\nand you observe "
                 + "the wildlife steadily decaying";
-        } else if (climatePoints > CLIMATESCENARIO3 && climatePoints < CLIMATESCENARIO2) {
+        } 
+        else if (climatePoints > CLIMATESCENARIO3 && climatePoints < CLIMATESCENARIO2) {
             return "The local people from the village stopped giving you\nhospitality "
                 + "and the wildlife is suffering visibly";
-        } else if (climatePoints > CLIMATESCENARIO4 && climatePoints < CLIMATESCENARIO3) {
+        } 
+        else if (climatePoints > CLIMATESCENARIO4 && climatePoints < CLIMATESCENARIO3) {
 //            TODO - Player thrown back to Trailer
             return "The local people from the village are enraged and chase you out of\n the village "
                 + "spitting and throwing rocks after you, wildlife is decimated";
-        } else if (climatePoints > CLIMATESCENARIO5 && climatePoints < CLIMATESCENARIO4) {
+        } 
+        else if (climatePoints > CLIMATESCENARIO5 && climatePoints < CLIMATESCENARIO4) {
 //            TODO - Player thrown back to Trailer
             return "Parts of the village have left due to lacking ressources, the remainders\n"
                 + "chase you out of the village with guns";
-        } else if (climatePoints < CLIMATESCENARIO5) {
+        } 
+        else if (climatePoints < CLIMATESCENARIO5) {
             return "The village has been forsaken and the wildlife is completely gone";
-        } else if (climatePoints > CLIMATESCENARIO_1 && climatePoints < CLIMATESCENARIO_2) {
+        } 
+        else if (climatePoints > CLIMATESCENARIO_1 && climatePoints < CLIMATESCENARIO_2) {
             return "The local people from the village are happy about your"
                 + " environmental considerations\nand wildlife is flourishing";
-        } else if (climatePoints > CLIMATESCENARIO_2) {
+        } 
+        else if (climatePoints > CLIMATESCENARIO_2) {
             if (!trailer.isStorageFull()) {
                 trailer.getStorage().add(new NonCertifiedTree());
                 int moneyAmountGiven = (int) (Math.random() * 10) + 1;

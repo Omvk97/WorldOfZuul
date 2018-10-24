@@ -21,6 +21,10 @@ public class Player {
     public int getAmountOfLogsCarrying() {
         return this.amountOfLogsCarrying.size();
     }
+    
+    public ArrayList<Tree> getLogsCarrying() {
+        return this.amountOfLogsCarrying;
+    }
 
     public Tree getTreeType(int treePosition) {
         return this.amountOfLogsCarrying.get(treePosition);
@@ -32,6 +36,10 @@ public class Player {
         } else {
             this.amountOfLogsCarrying.add(new NonCertifiedTree());
         }
+    }
+    
+    public void loadOfLogs() {
+        this.amountOfLogsCarrying = new ArrayList();
     }
 
     public void decreaseAmountOfTreeCarrying() {

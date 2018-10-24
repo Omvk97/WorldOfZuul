@@ -2,10 +2,9 @@ package Locations;
 
 import gameFunctionality.Player;
 import gameFunctionality.Tree;
-import java.util.ArrayList;
 
 public class Store extends Room {
-    private Trailer trailer; 
+    private final Trailer trailer; 
 
     public Store(String description, Player player, Trailer trailer) {
         super(description, player);
@@ -14,12 +13,12 @@ public class Store extends Room {
 
     @Override
     public String getLongDescription() {
-        return "You are standing " + getShortDescription() + 
-            "Here you can sell your logs and purchase new equipment\n" +
-            "Option 1 - Sell logs stored in your trailer\n" +
-            "Option 2 - Buy a new axe\n" +
-            "Option 3 - Increase storage space\n" +
-            getExitString();
+        return "You are standing " + getShortDescription() + "!\n"
+            + "Here you can sell your logs and purchase new equipment \n"
+            + "Option 1 - Sell logs stored in your trailer \n"
+            + "Option 2 - Buy a new axe \n"
+            + "Option 3 - Increase storage space \n"
+            + getExitString();
     }
     @Override
       public void option1() {
