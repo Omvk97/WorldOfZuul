@@ -1,11 +1,6 @@
 package gameFunctionality;
 
-import Locations.CertifiedForest;
-import Locations.LocalVillage;
-import Locations.Room;
-import Locations.NonCertifiedForest;
-import Locations.Store;
-import Locations.Trailer;
+import Locations.*;
 
 public class Game {
 
@@ -146,6 +141,13 @@ public class Game {
             case "3":
                 humanPlayer.getCurrentRoom().option3();
                 break;
+            case "666":
+                System.out.println("THE DEVIL REWARDS YOU FOR YOUR CURIOSITY");
+                humanPlayer.addMoney(9999);
+                System.out.println(9999 + " HAS BEEN ADDED TO YOU WALLET MUAHAHA");
+                break;
+            default:
+                System.out.println("I do not know that option");
         }
     }
 }

@@ -13,7 +13,7 @@ public class Room {
     public Room(String description, Player player) {
         this.description = description;
         this.humanPlayer = player;
-        exits = new HashMap<>();
+        exits = new HashMap();
     }
 
     public void setExit(String direction, Room neighbor) {

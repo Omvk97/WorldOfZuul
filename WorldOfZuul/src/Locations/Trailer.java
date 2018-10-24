@@ -28,7 +28,7 @@ public class Trailer extends Room {
             + "This is your home, you have " + humanPlayer.getClimatePoints() + " climate points,"
             + " your options are: \n"
             + "Option 1 - Load off logs you are carrying \n"
-            + "Option 2 - Look in your wallet to see how much money you have \n"
+            + "Option 2 - Look in your wallet \n"
             + "Option 3 - Sleep \n"
             + getExitString();
     }
@@ -69,7 +69,7 @@ public class Trailer extends Room {
         }
         if (this.amountOfLogsInStorage.size() == MAX_TREESTORAGEAMOUNT) {
             System.out.println("Your storage contains " + this.amountOfLogsInStorage.size() + " logs "
-                + "and is full! \n"
+                + "and is now full! \n"
                 + "Sell your logs in the store or upgrade storage space!");
         } else {
             System.out.println("You now have " + this.amountOfLogsInStorage.size()
