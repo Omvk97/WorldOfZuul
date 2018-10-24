@@ -23,7 +23,7 @@ public class LocalVillage extends Room {
         this.trailer = trailer;
     }
 
-    public String setValues() {
+    public String getScenario() {
         int climatePoints = humanPlayer.getClimatePoints();
 
         if (climatePoints > CLIMATESCENARIO1 && climatePoints < CLIMATESCENARIO_1) {
@@ -36,39 +36,58 @@ public class LocalVillage extends Room {
             return "The local people from the village stopped giving you\nhospitality "
                 + "and the wildlife is suffering visibly";
         } else if (climatePoints > CLIMATESCENARIO4 && climatePoints < CLIMATESCENARIO3) {
-//            TODO - Player thrown back to Trailer
-            return "The local people from the village are enraged and chase you out of\n the village "
-                + "spitting and throwing rocks after you, wildlife is decimated";
+            humanPlayer.setCurrentRoom(trailer);
+            return "You cut too much wood! The local people from the village are enraged \n"
+                + "and chase you out of the village, spitting and throwing rocks after you\n"
+                + "wildlife is decimated \n"
+                + "You now stand in your trailer with a black eye";
         } else if (climatePoints > CLIMATESCENARIO5 && climatePoints < CLIMATESCENARIO4) {
-//            TODO - Player thrown back to Trailer
+            humanPlayer.setCurrentRoom(trailer);
             return "Parts of the village have left due to lacking ressources, the remainders\n"
-                + "chase you out of the village with guns";
+                + "chase you out of the village with guns \n"
+                + "You now stand in your trailer with a broken arm and a black eye"; // mangler noget omkring wildlife her
         } else if (climatePoints < CLIMATESCENARIO5) {
-            return "The village has been forsaken and the wildlife is completely gone";
+            System.out.println("The village has been forsaken and the wildlife is completely gone.\n"
+                + "Why did you do this? You mindlessly chopped down trees and destroyed this village\n"
+                + "GAME OVER");
+            /**
+             * vi kan eventuelt implementere det her oppe i den ikke certificeret skov i stedet sådan så spilleren kan
+             * få resultatet med det samme.. Ellers vil spilleren kunne få en nem highscore ved aldrig at gå ind i
+             * village.
+             */
+            System.exit(0);
         } else if (climatePoints > CLIMATESCENARIO_1 && climatePoints < CLIMATESCENARIO_2) {
             return "The local people from the village are happy about your"
                 + " environmental considerations\nand wildlife is flourishing";
         } else if (climatePoints > CLIMATESCENARIO_2) {
-            if (!trailer.isStorageFull()) {
-                trailer.getStorage().add(new NonCertifiedTree());
-                int moneyAmountGiven = (int) (Math.random() * 10) + 1;
-                humanPlayer.addMoney(moneyAmountGiven);
-                return "The villagers are very happy about your efforts and offer to donate "
-                    + moneyAmountGiven + " gold coins and 1 tree to you";
+            if (trailer.giftCanBeGiven()) {
+                if (!trailer.isStorageFull()) {
+                    trailer.getStorage().add(new NonCertifiedTree());
+                    int moneyAmountGiven = (int) (Math.random() * 10) + 1;
+                    humanPlayer.addMoney(moneyAmountGiven);
+                    trailer.giftHasBeenGiven();
+
+                    return "The villagers are very happy about your envriomental efforts\n"
+                        + "and offer to donate " + moneyAmountGiven + " gold coins and 1 tree to you";
+                } else {
+                    int moneyAmountGiven = (int) (Math.random() * 10) + 1;
+                    humanPlayer.addMoney(moneyAmountGiven);
+                    trailer.giftHasBeenGiven();
+                    return "The villagers are very happy about your enviromental efforts\n"
+                        + "and offer to donate " + moneyAmountGiven + " gold coins to you";
+                }
             } else {
-                int moneyAmountGiven = (int) (Math.random() * 10) + 1;
-                humanPlayer.addMoney(moneyAmountGiven);
-                return "The villagers are very happy about your efforts and offer to donate "
-                    + moneyAmountGiven + " gold coins to you";
+                return "The villagers are very happy about your envriomental efforts\n"
+                    + "but they don't have any more gifts for you today";
             }
         }
-        return "";
+        return "You successfully broke the game";
     }
 
     @Override
     public String getLongDescription() {
         return "You are standing " + getShortDescription() + "!\n"
-            + setValues() + "\n" + getExitString();
+            + getScenario();
     }
 
 }

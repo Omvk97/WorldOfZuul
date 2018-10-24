@@ -9,7 +9,7 @@ public class Game {
     private final Room trailer = new Trailer("inside your trailer", humanPlayer);
     private final Room certifiedForest = new CertifiedForest("in a certified forest", humanPlayer);
     private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest", humanPlayer);
-    private final Room localVillage = new LocalVillage("in a local community", humanPlayer, (Trailer) trailer);
+    private final Room localVillage = new LocalVillage("in a local village", humanPlayer, (Trailer) trailer);
     private final Room weatherCenter = new Room("in a weather report center from around the world", humanPlayer);
     private final Room store = new Store("in the LumberJack shop", humanPlayer, (Trailer) trailer);
 
@@ -61,8 +61,10 @@ public class Game {
 
     private void printWelcome() {
         System.out.println("Welcome to 'The LumberJack'! \n"
-            + "Your job as a lumberjack, is to cut down trees without \n"
-            + "destroying the earth!");
+            + "Your job as a lumberjack, is to cut down trees. \n"
+            + "You have " + Trailer.getNumPlayDays() +  " days playtime to earn as much money as you can\n"
+            + "without destroying the earth!\n"
+            + "Have fun!");
         System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
         System.out.println(humanPlayer.getCurrentRoom().getLongDescription());
     }
@@ -144,7 +146,7 @@ public class Game {
             case "666":
                 System.out.println("THE DEVIL REWARDS YOU FOR YOUR CURIOSITY");
                 humanPlayer.addMoney(9999);
-                System.out.println(9999 + " HAS BEEN ADDED TO YOU WALLET MUAHAHA");
+                System.out.println(9999 + " HAS BEEN ADDED TO YOUR WALLET");
                 break;
             default:
                 System.out.println("I do not know that option");

@@ -6,14 +6,24 @@ import java.util.ArrayList;
 
 public class Trailer extends Room {
 
-    private ArrayList<Tree> amountOfLogsInStorage;
+    private final static int NUM_PLAY_DAYS = 5;
     private final static int MAX_TREESTORAGEAMOUNT = 15;
+    
+    private int numOfDaysGoneBy;
+    private ArrayList<Tree> amountOfLogsInStorage;
+    private boolean giftCanBeGiven;
 
     public Trailer(String description, Player player) {
         super(description, player);
         this.amountOfLogsInStorage = new ArrayList();
+        this.numOfDaysGoneBy = 1;
+        this.giftCanBeGiven = true;
     }
 
+    public static int getNumPlayDays() {
+        return Trailer.NUM_PLAY_DAYS;
+    }
+    
     public ArrayList<Tree> getStorage() {
         return this.amountOfLogsInStorage;
     }
@@ -29,8 +39,7 @@ public class Trailer extends Room {
             + " your options are: \n"
             + "Option 1 - Load off logs you are carrying \n"
             + "Option 2 - Look in your wallet \n"
-            + "Option 3 - Sleep \n"
-            + getExitString();
+            + "Option 3 - Sleep";
     }
 
     public void loadOffStorage() {
@@ -82,16 +91,41 @@ public class Trailer extends Room {
         if (humanPlayer.getMoney() == 0) {
             System.out.println("Your wallet is empty! What a shame!");
         } else {
-            System.out.println("You wallet contains " + humanPlayer.getMoney() + " gold coins");
+            System.out.println("You wallet holds " + humanPlayer.getMoney() + " gold coins");
         }
     }
-    
+
     @Override
     public void option3() {
+        /**
+         * This option is for sleeping, this is where the player will rest when there is no more activities left
+         * to do, so that is when he can't cut more wood cuz then the game will go down and there is no more trees
+         * left in the certified forest to cut, so he has to sleep so that there will grow new trees and so he will
+         * be able to get more gifts from the villagers.
+         */
+        int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
+        if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
+            System.out.println("THERE IS NO MORE DAYS, YOUR HIGHSCORE IS: " + humanPlayer.getHighScore());
+            System.exit(0);
+        }
         System.out.println("The sun goes down and you sleep tight \n"
             + "ZzzzZzzzZzzzZzzz");
-        System.out.println("The sun rises and you are ready to tackle the day!");
+        System.out.println("The sun rises and you are ready to tackle the day! \n"
+            + (daysleft > 1 ? "There are " + daysleft + " days left!" : "This is your last day as a lumberjack!"));
         CertifiedForest.regrowTrees();
+        resetGift();
+    }
+
+    public boolean giftCanBeGiven() {
+        return giftCanBeGiven;
+    }
+    
+    public void giftHasBeenGiven() {
+        this.giftCanBeGiven = false;
+    }
+    
+    private void resetGift() {
+        this.giftCanBeGiven = true;
     }
 
 }

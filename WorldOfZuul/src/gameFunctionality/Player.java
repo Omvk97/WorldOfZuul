@@ -11,17 +11,19 @@ public class Player {
     private int money; // Skal bruges til at sælge træer, skal tilgås af flere klasser muligvis derfor static
     private int climatePoints;
     private Room currentRoom = null;
+    private int highScore;
 
     public Player() {
         this.amountOfLogsCarrying = new ArrayList<>();
         this.money = 0;
         this.climatePoints = 0;
+        this.highScore = 5;
     }
 
     public int getAmountOfLogsCarrying() {
         return this.amountOfLogsCarrying.size();
     }
-    
+
     public ArrayList<Tree> getLogsCarrying() {
         return this.amountOfLogsCarrying;
     }
@@ -37,7 +39,7 @@ public class Player {
             this.amountOfLogsCarrying.add(new NonCertifiedTree());
         }
     }
-    
+
     public void loadOfLogs() {
         this.amountOfLogsCarrying = new ArrayList();
     }
@@ -65,12 +67,16 @@ public class Player {
     public static int getMAX_TREECARRY() {
         return MAX_TREECARRY;
     }
-    
+
     public Room getCurrentRoom() {
         return this.currentRoom;
     }
-    
+
     public void setCurrentRoom(Room newRoom) {
         this.currentRoom = newRoom;
+    }
+
+    public int getHighScore() {
+        return this.highScore;
     }
 }

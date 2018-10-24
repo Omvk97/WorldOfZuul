@@ -17,8 +17,7 @@ public class Store extends Room {
             + "Here you can sell your logs and purchase new equipment \n"
             + "Option 1 - Sell logs stored in your trailer \n"
             + "Option 2 - Buy a new axe \n"
-            + "Option 3 - Increase storage space \n"
-            + getExitString();
+            + "Option 3 - Increase storage space";
     }
     @Override
       public void option1() {
