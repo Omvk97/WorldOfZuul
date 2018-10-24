@@ -37,8 +37,8 @@ public class CertifiedForest extends Room {
         return "You are standing " + getShortDescription() + "!\n"
             + "This forest will slowly regrow, there are " + trees.size() + " trees" + "\n"
             + "Your options are: \n"
-            + "1 - Cut down a tree and bring it with you \n"
-            + "2 - See how many trees are left in the forest \n"
+            + "Option 1 - Cut down a tree and bring it with you \n"
+            + "Option 2 - See how many trees are left in the forest \n"
             + getExitString();
     }
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Trailer extends Room {
 
     private ArrayList<Tree> amountOfLogsInStorage;
-    private final static int MAX_TREESTORAGEAMOUNT = 5;
+    private final static int MAX_TREESTORAGEAMOUNT = 15;
 
     public Trailer(String description, Player player) {
         super(description, player);
@@ -27,9 +27,9 @@ public class Trailer extends Room {
         return "You are standing " + getShortDescription() + "!\n"
             + "This is your home, you have " + humanPlayer.getClimatePoints() + " climate points,"
             + " your options are: \n"
-            + "1 - Load off logs you are carrying \n"
-            + "2 - Look in your wallet to see how much money you have \n"
-            + "3 - Sleep \n"
+            + "Option 1 - Load off logs you are carrying \n"
+            + "Option 2 - Look in your wallet to see how much money you have \n"
+            + "Option 3 - Sleep \n"
             + getExitString();
     }
 
@@ -45,7 +45,7 @@ public class Trailer extends Room {
         }
         /**
          * Kopier alle elementerne fra den oprindelige arraylist med de logs spilleren bærer når spilleren skal til at
-         * oplagre logs.
+         * lagre logs.
          */
         ArrayList<Tree> startAmountOflogsCarrying = new ArrayList();
         for (Tree tree : humanPlayer.getLogsCarrying()) {
@@ -70,7 +70,7 @@ public class Trailer extends Room {
         if (this.amountOfLogsInStorage.size() == MAX_TREESTORAGEAMOUNT) {
             System.out.println("Your storage contains " + this.amountOfLogsInStorage.size() + " logs "
                 + "and is full! \n"
-                + " Sell your logs in the store or upgrade storage space!");
+                + "Sell your logs in the store or upgrade storage space!");
         } else {
             System.out.println("You now have " + this.amountOfLogsInStorage.size()
                 + (this.amountOfLogsInStorage.size() > 1 ? " logs" : " log") + " stored!");
@@ -82,7 +82,7 @@ public class Trailer extends Room {
         if (humanPlayer.getMoney() == 0) {
             System.out.println("Your wallet is empty! What a shame!");
         } else {
-            System.out.println("You wallet contains " + humanPlayer.getMoney());
+            System.out.println("You wallet contains " + humanPlayer.getMoney() + " gold coins");
         }
     }
     

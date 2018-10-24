@@ -30,7 +30,7 @@ public class Store extends Room {
             humanPlayer.addMoney(tree.getTreePrice());
         }
         trailer.loadOffStorage();
-        System.out.println("You have sold all your logs, you now have " + humanPlayer.getMoney() + " gold");
+        System.out.println("You have sold all the logs in your storage!");
     }
     
     
