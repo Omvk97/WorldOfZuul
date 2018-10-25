@@ -5,6 +5,9 @@ import gameFunctionality.Player;
 import gameFunctionality.Tree;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NonCertifiedForest extends Room {
 
@@ -36,21 +39,47 @@ public class NonCertifiedForest extends Room {
         return trees.size() > 0;
     }
 
+    private Tree lastTreeInArray() {
+        return trees.get(trees.size() - 1);
+    }
+
     @Override
     public void option1() {
         if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
+            while (lastTreeInArray().getTreeHealth() - humanPlayer.getTreeDamage() > 0) {
+                lastTreeInArray().reduceTreeHealth(humanPlayer.getTreeDamage());
+                System.out.println("**CHOP**");
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(NonCertifiedForest.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             humanPlayer.increaseAmountOfTreeCarrying(trees.get(0));
             humanPlayer.addClimatePoints(trees.get(0).getTreeClimatePoints());
             trees.remove(trees.size() - 1);
+            System.out.println("**CHOP**");
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(NonCertifiedForest.class.getName()).log(Level.SEVERE, null, ex);
+            }
             System.out.println("You have cut down a tree! You are now carrying "
-                + humanPlayer.getAmountOfLogsCarrying() + 
-                (humanPlayer.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
+                + humanPlayer.getAmountOfLogsCarrying()
+                + (humanPlayer.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
         } else {
             if (playerCanCarryMoreTree() && !thereIsMoreTreesToCut()) {
-                System.out.println("You have cut too much wood!! The forest has no more trees!"); 
+                System.out.println("You have cut too much wood!! The forest has no more trees!");
             } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree()) {
-                System.out.println("You are carrying too much wood! Go back to your trailer and sell or store your logs!");
+                System.out.println("You are carrying too much wood!\n"
+                    + "Go back to your trailer and sell or store your logs!");
             }
+        }
+
+        if (humanPlayer.getClimatePoints() == Player.getMIN_CLIMATEPOINTS()) {
+            System.out.println("YOU DESTROYED THE EARTH, YOU HAVE CUT WAY TOO MUCH \n"
+                + "NON CERTIFIED WOOD.");
+            System.exit(0);
         }
     }
 

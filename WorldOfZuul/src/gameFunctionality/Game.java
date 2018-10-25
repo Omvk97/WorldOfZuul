@@ -6,12 +6,13 @@ public class Game {
 
     private final Parser parser;
     private final Player humanPlayer = new Player();
+    private final Axe axe = new Axe("Diamond Axe", 20);
     private final Room trailer = new Trailer("inside your trailer", humanPlayer);
     private final Room certifiedForest = new CertifiedForest("in a certified forest", humanPlayer);
     private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest", humanPlayer);
     private final Room localVillage = new LocalVillage("in a local village", humanPlayer, (Trailer) trailer);
     private final Room weatherCenter = new Room("in a weather report center from around the world", humanPlayer);
-    private final Room store = new Store("in the LumberJack shop", humanPlayer, (Trailer) trailer);
+    private final Room store = new Store("in the LumberJack shop", humanPlayer, (Trailer) trailer, axe);
 
     public Game() {
         setExitsForRooms();

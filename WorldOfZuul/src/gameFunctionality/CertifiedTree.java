@@ -1,7 +1,7 @@
 package gameFunctionality;
 
-public class CertifiedTree implements Tree {
-
+public class CertifiedTree extends Tree {
+    
     private final int TREE_CLIMATE_POINTS = 5;
     private final int TREE_SELL_PRICE = 15;
     
@@ -13,5 +13,19 @@ public class CertifiedTree implements Tree {
     @Override
     public int getTreePrice() {
         return TREE_SELL_PRICE;
-    } 
+    }
+
+    @Override
+    public void reduceTreeHealth(int reduceAmount) {
+        this.treeHealth -= reduceAmount;
+    }
+
+    @Override
+    public int getTreeHealth() {
+        return this.treeHealth;
+    }
+    
+    
+    
+    
 }

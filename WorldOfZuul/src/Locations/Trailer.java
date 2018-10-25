@@ -8,28 +8,14 @@ public class Trailer extends Room {
 
     private final static int NUM_PLAY_DAYS = 5;
     private final static int MAX_TREESTORAGEAMOUNT = 15;
-    
+
     private int numOfDaysGoneBy;
-    private ArrayList<Tree> amountOfLogsInStorage;
-    private boolean giftCanBeGiven;
+    private ArrayList<Tree> logsInStorage;
 
     public Trailer(String description, Player player) {
         super(description, player);
-        this.amountOfLogsInStorage = new ArrayList();
         this.numOfDaysGoneBy = 1;
-        this.giftCanBeGiven = true;
-    }
-
-    public static int getNumPlayDays() {
-        return Trailer.NUM_PLAY_DAYS;
-    }
-    
-    public ArrayList<Tree> getStorage() {
-        return this.amountOfLogsInStorage;
-    }
-
-    public boolean isStorageFull() {
-        return amountOfLogsInStorage.size() == MAX_TREESTORAGEAMOUNT;
+        this.logsInStorage = new ArrayList();
     }
 
     @Override
@@ -42,8 +28,36 @@ public class Trailer extends Room {
             + "Option 3 - Sleep";
     }
 
-    public void loadOffStorage() {
-        amountOfLogsInStorage = new ArrayList();
+    /**
+     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den bliver brugt i 'game'
+     * klassen.
+     *
+     * @return mængden af dage spilleren har.
+     */
+    public static int getNumPlayDays() {
+        return Trailer.NUM_PLAY_DAYS;
+    }
+    
+    /**
+     * Denne metode benyttes til at få information omkring oplagring af træerne. 
+     * Den benyttes i 'Local Village' og 'Store'.
+     * @return arrayList som indeholder både certificeret og ikke certificeret træer i storage space.
+     */
+    public ArrayList<Tree> getLogsInStorage() {
+        return this.logsInStorage;
+    }
+
+    public void loadOffLogsInStorage() {
+        this.logsInStorage = new ArrayList();
+    }
+    
+    /**
+     * Denne metode er til for at se om storage med træer er fyldt med træer, Den bruges i LocalVillage
+     *
+     * @return
+     */
+    public boolean isStorageFull() {
+        return getLogsInStorage().size() == MAX_TREESTORAGEAMOUNT;
     }
 
     @Override
@@ -56,9 +70,9 @@ public class Trailer extends Room {
          * Kopier alle elementerne fra den oprindelige arraylist med de logs spilleren bærer når spilleren skal til at
          * lagre logs.
          */
-        ArrayList<Tree> startAmountOflogsCarrying = new ArrayList();
+        ArrayList<Tree> copyAmountOflogsCarrying = new ArrayList();
         for (Tree tree : humanPlayer.getLogsCarrying()) {
-            startAmountOflogsCarrying.add(tree);
+            copyAmountOflogsCarrying.add(tree);
         }
 
         /**
@@ -67,22 +81,22 @@ public class Trailer extends Room {
          * spilleren har flere logs end der kan være i storage arealet så kan spilleren stadig tilføje så mange som
          * muligt og så bære rundt på resten.
          */
-        for (Tree tree : startAmountOflogsCarrying) {
-            if (this.amountOfLogsInStorage.size() < MAX_TREESTORAGEAMOUNT) {
-                this.amountOfLogsInStorage.add(tree);
+        for (Tree tree : copyAmountOflogsCarrying) {
+            if (getLogsInStorage().size() < MAX_TREESTORAGEAMOUNT) {
+                getLogsInStorage().add(tree);
                 humanPlayer.decreaseAmountOfTreeCarrying();
             } else {
                 System.out.println("You carry too many logs to store!");
                 break;
             }
         }
-        if (this.amountOfLogsInStorage.size() == MAX_TREESTORAGEAMOUNT) {
-            System.out.println("Your storage contains " + this.amountOfLogsInStorage.size() + " logs "
+        if (isStorageFull()) {
+            System.out.println("Your storage contains " + getLogsInStorage().size() + " logs "
                 + "and is now full! \n"
                 + "Sell your logs in the store or upgrade storage space!");
         } else {
-            System.out.println("You now have " + this.amountOfLogsInStorage.size()
-                + (this.amountOfLogsInStorage.size() > 1 ? " logs" : " log") + " stored!");
+            System.out.println("You now have " + getLogsInStorage().size()
+                + (getLogsInStorage().size() > 1 ? " logs" : " log") + " stored!");
         }
     }
 
@@ -98,10 +112,10 @@ public class Trailer extends Room {
     @Override
     public void option3() {
         /**
-         * This option is for sleeping, this is where the player will rest when there is no more activities left
-         * to do, so that is when he can't cut more wood cuz then the game will go down and there is no more trees
-         * left in the certified forest to cut, so he has to sleep so that there will grow new trees and so he will
-         * be able to get more gifts from the villagers.
+         * This option is for sleeping, this is where the player will rest when there is no more activities left to do,
+         * so that is when he can't cut more wood cuz then the game will go down and there is no more trees left in the
+         * certified forest to cut, so he has to sleep so that there will grow new trees and so he will be able to get
+         * more gifts from the villagers.
          */
         int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
         if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
@@ -113,19 +127,7 @@ public class Trailer extends Room {
         System.out.println("The sun rises and you are ready to tackle the day! \n"
             + (daysleft > 1 ? "There are " + daysleft + " days left!" : "This is your last day as a lumberjack!"));
         CertifiedForest.regrowTrees();
-        resetGift();
-    }
-
-    public boolean giftCanBeGiven() {
-        return giftCanBeGiven;
-    }
-    
-    public void giftHasBeenGiven() {
-        this.giftCanBeGiven = false;
-    }
-    
-    private void resetGift() {
-        this.giftCanBeGiven = true;
+        humanPlayer.resetGift();
     }
 
 }
