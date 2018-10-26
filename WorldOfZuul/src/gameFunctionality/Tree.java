@@ -4,7 +4,7 @@ public abstract class Tree {
     protected int treeHealth;
 
     public Tree() {
-        this.treeHealth = 6;
+        this.treeHealth = 12;
     }
     
     /**

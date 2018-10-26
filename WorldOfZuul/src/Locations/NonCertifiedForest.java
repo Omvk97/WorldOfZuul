@@ -1,8 +1,6 @@
 package Locations;
 
-import gameFunctionality.NonCertifiedTree;
-import gameFunctionality.Player;
-import gameFunctionality.Tree;
+import gameFunctionality.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -46,27 +44,33 @@ public class NonCertifiedForest extends Room {
     @Override
     public void option1() {
         if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
-            while (lastTreeInArray().getTreeHealth() - humanPlayer.getTreeDamage() > 0) {
-                lastTreeInArray().reduceTreeHealth(humanPlayer.getTreeDamage());
+            if (humanPlayer.canUseAxe()) {
+                System.out.println("You swing your " + humanPlayer.getEquippedAxeDescription() + " at the tree!");
+                while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxeDamage() > 0) {
+                    lastTreeInArray().reduceTreeHealth(humanPlayer.getAxeDamage());
+                    System.out.println("**CHOP**");
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(NonCertifiedForest.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                humanPlayer.increaseAmountOfTreeCarrying(trees.get(0));
+                humanPlayer.addClimatePoints(trees.get(0).getTreeClimatePoints());
+                trees.remove(trees.size() - 1);
                 System.out.println("**CHOP**");
                 try {
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(NonCertifiedForest.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                humanPlayer.useAxe();
+                System.out.println("You have cut down a tree! You are now carrying "
+                    + humanPlayer.getAmountOfLogsCarrying()
+                    + (humanPlayer.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
+            } else {
+                System.out.println("You don't have an axe equipped!");
             }
-            humanPlayer.increaseAmountOfTreeCarrying(trees.get(0));
-            humanPlayer.addClimatePoints(trees.get(0).getTreeClimatePoints());
-            trees.remove(trees.size() - 1);
-            System.out.println("**CHOP**");
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(NonCertifiedForest.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            System.out.println("You have cut down a tree! You are now carrying "
-                + humanPlayer.getAmountOfLogsCarrying()
-                + (humanPlayer.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
         } else {
             if (playerCanCarryMoreTree() && !thereIsMoreTreesToCut()) {
                 System.out.println("You have cut too much wood!! The forest has no more trees!");
