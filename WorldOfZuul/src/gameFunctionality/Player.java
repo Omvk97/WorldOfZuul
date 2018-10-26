@@ -123,18 +123,29 @@ public class Player {
 
     /**
      * Bruges af Store hvis spilleren køber en ny økse
+     *
      * @param newAxe den nye økse der kan købes i Store.
      */
     public void boughtAxe(Axe newAxe) {
         equippedAxe = newAxe;
         money -= newAxe.getPrice();
     }
+//
+//    public boolean canUseAxe() {
+//        if (equippedAxe != null) {
+//            if (equippedAxe.getDurability() != 0)
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
     /**
      * Denne metode returnerer true hvis spillerens equipped axe rent faktisk kan bruges.
+     *
      * @return true hvis øksen kan bruges og false hvis spilleren ikke har en økse.
      */
-    public boolean useAxe() {
+    public void useAxe() {
         if (equippedAxe != null) {
             equippedAxe.reduceDurability();
             if (equippedAxe.getDurability() == (equippedAxe.getStartDurability() * 0.5)) {
@@ -143,9 +154,7 @@ public class Player {
                 System.out.println("Your axe broke, gosh dangit");
                 equippedAxe = null;
             }
-            return true;
         } else {
-            return false;
         }
     }
 
