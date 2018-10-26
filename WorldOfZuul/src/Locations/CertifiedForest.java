@@ -5,11 +5,14 @@ import gameFunctionality.Player;
 import gameFunctionality.Tree;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CertifiedForest extends Room {
 
     private final static int MAX_AMOUNTOFTREESINFOREST = 100;
-    private final static int MIN_AMOUNTOFTREESINFOREST = 95;
+    private final static int MIN_AMOUNTOFTREESINFOREST = 70;
     private static List<Tree> trees;
     private final static int FOREST_REGROW_RATE = 3;
 
@@ -37,9 +40,8 @@ public class CertifiedForest extends Room {
         return "You are standing " + getShortDescription() + "!\n"
             + "This forest will slowly regrow, there are " + trees.size() + " trees" + "\n"
             + "Your options are: \n"
-            + "1 - Cut down a tree and bring it with you \n"
-            + "2 - See how many trees are left in the forest \n"
-            + getExitString();
+            + "Option 1 - Cut down a tree and bring it with you \n"
+            + "Option 2 - See how many trees are left in the forest";
     }
 
     private boolean playerCanCarryMoreTree() {
@@ -50,12 +52,31 @@ public class CertifiedForest extends Room {
         return trees.size() > MIN_AMOUNTOFTREESINFOREST;
     }
 
+    private Tree lastTreeInArray() {
+        return trees.get(trees.size() - 1);
+    }
+
     @Override
     public void option1() {
         if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
+            while (lastTreeInArray().getTreeHealth() - humanPlayer.getTreeDamage() > 0) {
+                lastTreeInArray().reduceTreeHealth(humanPlayer.getTreeDamage());
+                System.out.println("**CHOP**");
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(NonCertifiedForest.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             humanPlayer.increaseAmountOfTreeCarrying(trees.get(0));
             humanPlayer.addClimatePoints(trees.get(0).getTreeClimatePoints());
             trees.remove(trees.size() - 1);
+            System.out.println("**CHOP**");
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(NonCertifiedForest.class.getName()).log(Level.SEVERE, null, ex);
+            }
             System.out.println("You have cut down a tree! You are now carrying "
                 + humanPlayer.getAmountOfLogsCarrying() + (humanPlayer.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
         } else {

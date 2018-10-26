@@ -1,57 +1,55 @@
 package gameFunctionality;
 
-import Locations.CertifiedForest;
-import Locations.LocalSociety;
-import Locations.Room;
-import Locations.NonCertifiedForest;
-import Locations.Store;
-import Locations.Trailer;
+import Locations.*;
 
 public class Game {
 
     private final Parser parser;
-    private Room currentRoom;
-    private final Player player = new Player();
+    private final Player humanPlayer = new Player();
+    private final Axe axe = new Axe("Diamond Axe", 20);
+    private final Room trailer = new Trailer("inside your trailer", humanPlayer);
+    private final Room certifiedForest = new CertifiedForest("in a certified forest", humanPlayer);
+    private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest", humanPlayer);
+    private final Room localVillage = new LocalVillage("in a local village", humanPlayer, (Trailer) trailer);
+    private final Room weatherCenter = new Room("in a weather report center from around the world", humanPlayer);
+    private final Room store = new Store("in the LumberJack shop", humanPlayer, (Trailer) trailer, axe);
 
     public Game() {
-        createRooms();
+        setExitsForRooms();
         parser = new Parser();
     }
 
-    private void createRooms() {
-        Room trailer, certifiedForest, nonCertificedForest, localsoicety, weatherCenter, store;
+    private void setExitsForRooms() {
 
-        trailer = new Trailer("inside your trailer", player);
-        certifiedForest = new CertifiedForest("in a certified forest", player);
-        nonCertificedForest = new NonCertifiedForest("in a non certified forest", player);
-        localsoicety = new LocalSociety("in a local community", player);
-        weatherCenter = new Room("in a weather report center from around the world", player);
-        store = new Store("in the LumberJack shop", player);
-
-        trailer.setExit("east", localsoicety);
+        trailer.setExit("east", localVillage);
         trailer.setExit("south", certifiedForest);
         trailer.setExit("west", weatherCenter);
         trailer.setExit("north", nonCertificedForest);
         trailer.setExit("southwest", store);
 
-        certifiedForest.setExit("east", localsoicety);
+        certifiedForest.setExit("east", localVillage);
         certifiedForest.setExit("north", trailer);
 
         nonCertificedForest.setExit("south", trailer);
-        nonCertificedForest.setExit("east", localsoicety);
+        nonCertificedForest.setExit("east", localVillage);
 
-        localsoicety.setExit("west", trailer);
-        localsoicety.setExit("north", nonCertificedForest);
-        localsoicety.setExit("south", certifiedForest);
+        localVillage.setExit("west", trailer);
+        localVillage.setExit("north", nonCertificedForest);
+        localVillage.setExit("south", certifiedForest);
 
         weatherCenter.setExit("east", trailer);
-        
-        store.setExit("northeast", trailer);
 
-        currentRoom = trailer;
+        store.setExit("northeast", trailer);
     }
 
     public void play() {
+        /**
+         * Der bliver her tilføjet meget samme funktion som der var før, men i stedet for at game klassen holder øje med
+         * hvilket rum spilleren er i, så er det nu 'Player' klassen som holder øje med dette. Det betyder at spilleren
+         * faktisk bevæger sig rundt og ikke spillet der bevæger sig rundt om spilleren.
+         */
+        humanPlayer.setCurrentRoom(trailer);
+
         printWelcome();
 
         boolean finished = false;
@@ -64,10 +62,12 @@ public class Game {
 
     private void printWelcome() {
         System.out.println("Welcome to 'The LumberJack'! \n"
-            + "Your job as a lumberjack, is to cut down trees without \n"
-            + "destroying the earth!");
+            + "Your job as a lumberjack, is to cut down trees. \n"
+            + "You have " + Trailer.getNumPlayDays() +  " days playtime to earn as much money as you can\n"
+            + "without destroying the earth!\n"
+            + "Have fun!");
         System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(humanPlayer.getCurrentRoom().getLongDescription());
     }
 
     private boolean processCommand(Command command) {
@@ -89,13 +89,13 @@ public class Game {
         } else if (commandWord == CommandWord.OPTION) {
             doOption(command);
         } else if (commandWord == CommandWord.EXITS) {
-            System.out.println(currentRoom.getExitString());
+            System.out.println(humanPlayer.getCurrentRoom().getExitString());
         }
         return wantToQuit;
     }
 
     private void printHelp() {
-        System.out.println("You are a lumberjack, your job is to cut down trees! GO DO THAT");
+        System.out.println("You are a lumberjack, your job is to cut down trees!");
         System.out.println("Your command words are:");
         parser.showCommands();
     }
@@ -108,13 +108,13 @@ public class Game {
 
         String direction = command.getSecondWord();
 
-        Room nextRoom = currentRoom.getExit(direction);
+        Room nextRoom = humanPlayer.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no road!");
         } else {
-            currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
+            humanPlayer.setCurrentRoom(nextRoom);
+            System.out.println(humanPlayer.getCurrentRoom().getLongDescription());
         }
     }
 
@@ -136,14 +136,21 @@ public class Game {
         String optionNumber = command.getSecondWord();
         switch (optionNumber) {
             case "1":
-                currentRoom.option1();
+                humanPlayer.getCurrentRoom().option1();
                 break;
             case "2":
-                currentRoom.option2();
+                humanPlayer.getCurrentRoom().option2();
                 break;
             case "3":
-                currentRoom.option3();
+                humanPlayer.getCurrentRoom().option3();
                 break;
+            case "666":
+                System.out.println("THE DEVIL REWARDS YOU FOR YOUR CURIOSITY");
+                humanPlayer.addMoney(9999);
+                System.out.println(9999 + " HAS BEEN ADDED TO YOUR WALLET");
+                break;
+            default:
+                System.out.println("I do not know that option");
         }
     }
 }
