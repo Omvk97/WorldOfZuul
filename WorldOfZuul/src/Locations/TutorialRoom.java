@@ -39,7 +39,12 @@ public class TutorialRoom extends Room{
         }else{
             
             humanPlayer.setCurrentRoom(trailer);
-            return "hello";
+            return "You are standing inside your trailer!\n"
+            + "This is your home, you have " + humanPlayer.getClimatePoints() + " climate points,"
+            + " your options are: \n"
+            + "Option 1 - Load off logs you are carrying \n"
+            + "Option 2 - Look in your wallet \n"
+            + "Option 3 - Sleep";
         }
         
         
