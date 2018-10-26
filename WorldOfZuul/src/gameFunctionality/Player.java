@@ -131,32 +131,25 @@ public class Player {
         money -= newAxe.getPrice();
     }
 
-//    public boolean canUseAxe() {
-//        if (equippedAxe != null) {
-//            if (equippedAxe.getDurability() )
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
+    /**
+     * @return om spilleren har en økse equipped.
+     */
+    public boolean canUseAxe() {
+        return equippedAxe != null;
+    }
 
     /**
-     * Denne metode returnerer true hvis spillerens equipped axe rent faktisk kan bruges.
-     *
-     * @return true hvis øksen kan bruges og false hvis spilleren ikke har en økse.
+     * Denne metode bruges til at reducerer durability.
      */
-//    public void useAxe() {
-//        if (equippedAxe != null) {
-//            equippedAxe.reduceDurability();
-//            if (equippedAxe.getDurability() == (equippedAxe.getStartDurability() * 0.5)) {
-//                System.out.println("Your axe is at half durability");
-//            } else if (equippedAxe.getDurability() == 0) {
-//                System.out.println("Your axe broke, gosh dangit");
-//                equippedAxe = null;
-//            }
-//        } else {
-//        }
-//    }
+    public void useAxe() {
+        equippedAxe.reduceDurability();
+        if (equippedAxe.getDurability() == (equippedAxe.getStartDurability() / 2)) {
+            System.out.println("Your axe is at half durability");
+        } else if (equippedAxe.getDurability() == 0) {
+            System.out.println("Your axe broke, gosh dangit");
+            equippedAxe = null;
+        }
+    }
 
     /**
      * Alle nedenstående metoder arbejde med en gave som Local villagers kan give.

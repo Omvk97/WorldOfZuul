@@ -44,7 +44,7 @@ public class NonCertifiedForest extends Room {
     @Override
     public void option1() {
         if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
-            if (humanPlayer.useAxe()) {
+            if (humanPlayer.canUseAxe()) {
                 System.out.println("You swing your " + humanPlayer.getEquippedAxeDescription() + " at the tree!");
                 while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxeDamage() > 0) {
                     lastTreeInArray().reduceTreeHealth(humanPlayer.getAxeDamage());
@@ -64,6 +64,7 @@ public class NonCertifiedForest extends Room {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(NonCertifiedForest.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                humanPlayer.useAxe();
                 System.out.println("You have cut down a tree! You are now carrying "
                     + humanPlayer.getAmountOfLogsCarrying()
                     + (humanPlayer.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
