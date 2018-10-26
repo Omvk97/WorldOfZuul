@@ -17,22 +17,36 @@ public class Store extends Room {
     public String getLongDescription() {
         return "You are standing " + getShortDescription() + "!\n"
             + "Here you can sell your logs and purchase new equipment \n"
-            + "Option 1 - Sell logs stored in your trailer \n"
+            + "Option 1 - Sell logs\n"
             + "Option 2 - Buy an axe or refresh your old axe \n"
             + "Option 3 - Buy a truck";
     }
 
+    /**
+     * Denne metode benytter sig af information fra 'trailer' og 'player' Den sælger træerne som spilleren enten
+     * går rundt med, eller træer som spilleren har i sit storage. Eller begge dele på en gang.
+     */
     @Override
     public void option1() {
-        if (trailer.getLogsInStorage().isEmpty()) {
-            System.out.println("You have no logs in your storage to sell!");
+        if (trailer.getLogsInStorage().isEmpty() && humanPlayer.getLogsCarrying().isEmpty()) {
+            System.out.println("You have no logs to sell!");
             return;
         }
-        for (Tree tree : trailer.getLogsInStorage()) {
-            humanPlayer.addMoney(tree.getTreePrice());
+        if (! humanPlayer.getLogsCarrying().isEmpty()) {
+            for (Tree tree : humanPlayer.getLogsCarrying()) {
+                humanPlayer.addMoney(tree.getTreePrice());
+            }
+            humanPlayer.loadOfLogs();
+            System.out.println("You have sold alle the logs you were carrying!");
         }
-        trailer.loadOffLogsInStorage();
-        System.out.println("You have sold all the logs in your storage!");
+
+        if (! trailer.getLogsInStorage().isEmpty()) {
+            for (Tree tree : trailer.getLogsInStorage()) {
+                humanPlayer.addMoney(tree.getTreePrice());
+            }
+            trailer.loadOffLogsInStorage();
+            System.out.println("You have sold all the logs in your storage!");
+        }
     }
 
     @Override
