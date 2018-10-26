@@ -13,7 +13,7 @@ public class Game {
     private final Room localVillage = new LocalVillage("in a local village", humanPlayer, (Trailer) trailer);
     private final Room weatherCenter = new Room("in a weather report center from around the world", humanPlayer);
     private final Room store = new Store("in the LumberJack shop", humanPlayer, (Trailer) trailer, axe);
-    private final Room tutorialRoom = new TutorialRoom("the tutorial room", humanPlayer);
+    private final Room tutorialRoom = new TutorialRoom("the tutorial room", humanPlayer, (Trailer) trailer);
 
     public Game() {
         setExitsForRooms();
@@ -50,7 +50,8 @@ public class Game {
          * faktisk bevæger sig rundt og ikke spillet der bevæger sig rundt om spilleren.
          */
         humanPlayer.setCurrentRoom(tutorialRoom);
-
+        
+        
         printWelcome();
 
         boolean finished = false;
