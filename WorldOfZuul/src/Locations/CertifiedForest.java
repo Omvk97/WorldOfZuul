@@ -59,8 +59,8 @@ public class CertifiedForest extends Room {
     @Override
     public void option1() {
         if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
-            while (lastTreeInArray().getTreeHealth() - humanPlayer.getTreeDamage() > 0) {
-                lastTreeInArray().reduceTreeHealth(humanPlayer.getTreeDamage());
+            while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxeDamage() > 0) {
+                lastTreeInArray().reduceTreeHealth(humanPlayer.getAxeDamage());
                 System.out.println("**CHOP**");
                 try {
                     TimeUnit.SECONDS.sleep(1);

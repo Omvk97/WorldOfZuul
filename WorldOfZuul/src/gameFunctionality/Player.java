@@ -13,15 +13,14 @@ public class Player {
     private int climatePoints;
     private boolean giftHasBeenGivenToday;
     private Room currentRoom = null;
-    private int treeDamage;
-    
+    private Axe equippedAxe;
 
-    public Player() {
+    public Player(Axe axe) {
         this.amountOfLogsCarrying = new ArrayList();
         this.money = 0;
         this.climatePoints = 0;
         this.giftHasBeenGivenToday = false;
-        this.treeDamage = 2;
+        this.equippedAxe = axe;
     }
 
     public int getAmountOfLogsCarrying() {
@@ -63,8 +62,9 @@ public class Player {
     }
 
     /**
-     * Metoden benyttes til at checke forskellige steder i spillet om spilleren har nået MAX klimapoints
-     * Hvis dette er tilfældet skal spillet slutte og der skal være Game Over.
+     * Metoden benyttes til at checke forskellige steder i spillet om spilleren har nået MAX klimapoints Hvis dette er
+     * tilfældet skal spillet slutte og der skal være Game Over.
+     *
      * @return int max_climatepoints
      */
     public static int getMIN_CLIMATEPOINTS() {
@@ -96,6 +96,7 @@ public class Player {
 
     /**
      * Bruges til at bevæge spilleren rundt i rummene
+     *
      * @param newRoom: Rummet som spilleren skal bevæge sig til.
      */
     public void setCurrentRoom(Room newRoom) {
@@ -103,26 +104,49 @@ public class Player {
     }
 
     /**
-     * Denne metode returnere en meget simpel udregning på et eksempel af hvordan highscore kan udregnes
-     * benyttes alle steder hvor spillet skal lukke ned
+     * Denne metode returnere en meget simpel udregning på et eksempel af hvordan highscore kan udregnes benyttes alle
+     * steder hvor spillet skal lukke ned.
+     *
      * @return int værdi som nu højere nu bedre for spilleren.
      */
     public int getHighScore() {
         return money + climatePoints;
     }
 
-    public int getTreeDamage() {
-        return treeDamage;
+    public String getEquippedAxeDescription() {
+        return equippedAxe.getDescription();
     }
-    
+
+    public int getAxeDamage() {
+        return equippedAxe.getDamage();
+    }
+
     /**
-     * Bruges af Store til at kunne ændre spillerens skade på træer.
-     * @param axeDamage er hvad øksen skader
-     * @param axePrice er hvad øksen koster
+     * Bruges af Store hvis spilleren køber en ny økse
+     * @param newAxe den nye økse der kan købes i Store.
      */
-    public void boughtAxe(int axeDamage, int axePrice) {
-        treeDamage = axeDamage;
-        money -= axePrice;
+    public void boughtAxe(Axe newAxe) {
+        equippedAxe = newAxe;
+        money -= newAxe.getPrice();
+    }
+
+    /**
+     * Denne metode returnerer true hvis spillerens equipped axe rent faktisk kan bruges.
+     * @return true hvis øksen kan bruges og false hvis spilleren ikke har en økse.
+     */
+    public boolean useAxe() {
+        if (equippedAxe != null) {
+            equippedAxe.reduceDurability();
+            if (equippedAxe.getDurability() == (equippedAxe.getStartDurability() * 0.5)) {
+                System.out.println("Your axe is at half durability");
+            } else if (equippedAxe.getDurability() == 0) {
+                System.out.println("Your axe broke, gosh dangit");
+                equippedAxe = null;
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
