@@ -66,9 +66,7 @@ public class Game {
         System.out.println("Welcome to 'The LumberJack'! \n"
             + "Your job as a lumberjack, is to cut down trees. \n"
             + "You have " + Trailer.getNumPlayDays() +  " days playtime to earn as much money as you can\n"
-            + "without destroying the earth!\n"
-            + "Have fun!");
-        System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
+            + "without destroying the earth!\n");
         System.out.println(humanPlayer.getCurrentRoom().getLongDescription());
     }
 
