@@ -12,7 +12,9 @@ public class Game {
     private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest", humanPlayer);
     private final Room localVillage = new LocalVillage("in a local village", humanPlayer, (Trailer) trailer);
     private final Room weatherCenter = new Room("in a weather report center from around the world", humanPlayer);
-    private final Room store = new Store("in the LumberJack shop", humanPlayer, (Trailer) trailer);
+    private final Room store = new Store("in the LumberJack shop", humanPlayer, (Trailer) trailer, axe);
+    private final Room tutorialRoom = new TutorialRoom("the tutorial room", humanPlayer, (Trailer) trailer);
+
 
     public Game() {
         setExitsForRooms();
@@ -48,8 +50,9 @@ public class Game {
          * hvilket rum spilleren er i, så er det nu 'Player' klassen som holder øje med dette. Det betyder at spilleren
          * faktisk bevæger sig rundt og ikke spillet der bevæger sig rundt om spilleren.
          */
-        humanPlayer.setCurrentRoom(trailer);
-
+        humanPlayer.setCurrentRoom(tutorialRoom);
+        
+        
         printWelcome();
 
         boolean finished = false;
@@ -64,9 +67,7 @@ public class Game {
         System.out.println("Welcome to 'The LumberJack'! \n"
             + "Your job as a lumberjack, is to cut down trees. \n"
             + "You have " + Trailer.getNumPlayDays() +  " days playtime to earn as much money as you can\n"
-            + "without destroying the earth!\n"
-            + "Have fun!");
-        System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
+            + "without destroying the earth!\n");
         System.out.println(humanPlayer.getCurrentRoom().getLongDescription());
     }
 
