@@ -5,8 +5,8 @@ import Locations.*;
 public class Game {
 
     private final Parser parser;
-    private final Player humanPlayer = new Player();
-    private final Axe axe = new Axe("Diamond Axe", 20);
+    private final Axe starterAxe = new Axe("axe", 3, 10, 79);
+    private final Player humanPlayer = new Player(starterAxe);
     private final Room trailer = new Trailer("inside your trailer", humanPlayer);
     private final Room certifiedForest = new CertifiedForest("in a certified forest", humanPlayer);
     private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest", humanPlayer);
@@ -14,6 +14,7 @@ public class Game {
     private final Room weatherCenter = new Room("in a weather report center from around the world", humanPlayer);
     private final Room store = new Store("in the LumberJack shop", humanPlayer, (Trailer) trailer, axe);
     private final Room tutorialRoom = new TutorialRoom("the tutorial room", humanPlayer, (Trailer) trailer);
+
 
     public Game() {
         setExitsForRooms();
@@ -80,16 +81,24 @@ public class Game {
             return false;
         }
 
-        if (commandWord == CommandWord.HELP) {
-            printHelp();
-        } else if (commandWord == CommandWord.GO) {
-            goRoom(command);
-        } else if (commandWord == CommandWord.QUIT) {
-            wantToQuit = quit(command);
-        } else if (commandWord == CommandWord.OPTION) {
-            doOption(command);
-        } else if (commandWord == CommandWord.EXITS) {
-            System.out.println(humanPlayer.getCurrentRoom().getExitString());
+        if (null != commandWord) switch (commandWord) {
+            case HELP:
+                printHelp();
+                break;
+            case GO:
+                goRoom(command);
+                break;
+            case QUIT:
+                wantToQuit = quit(command);
+                break;
+            case OPTION:
+                doOption(command);
+                break;
+            case EXITS:
+                System.out.println(humanPlayer.getCurrentRoom().getExitString());
+                break;
+            default:
+                break;
         }
         return wantToQuit;
     }
