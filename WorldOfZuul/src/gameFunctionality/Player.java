@@ -14,6 +14,9 @@ public class Player {
     private boolean giftHasBeenGivenToday;
     private Room currentRoom = null;
     private Axe equippedAxe;
+    private int saplingBundleAmount;
+    private boolean saplingsPlanted;
+    private boolean hasChoppedTrees;
 
     public Player(Axe axe) {
         this.amountOfLogsCarrying = new ArrayList();
@@ -21,6 +24,8 @@ public class Player {
         this.climatePoints = 0;
         this.giftHasBeenGivenToday = false;
         this.equippedAxe = axe;
+        this.saplingBundleAmount = 0;
+        this.hasChoppedTrees = false;
     }
 
     public int getAmountOfLogsCarrying() {
@@ -151,20 +156,63 @@ public class Player {
         }
     }
 
+    public int getSaplingAmount() {
+        return saplingBundleAmount;
+    }
+
+    public boolean buySaplingBundle(int saplingBundleAmount, int saplingCost) {
+        if (saplingCost <= money) {
+            money -= saplingCost;
+            this.saplingBundleAmount += saplingBundleAmount;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void plantSeeds() {
+        saplingsPlanted = true;
+        saplingBundleAmount--;
+    }
+
+    public boolean hasPlantedSeeds() {
+        return saplingsPlanted;
+    }
+
+    public boolean getHasChoppedTrees() {
+        return this.hasChoppedTrees;
+    }
+
+    public void setHasChoppedTreesInCertifiedForest() {
+        hasChoppedTrees = true;
+    }
+
+    public void givePlayerFine() {
+        money -= 200;
+    }
+
+    /**
+     * Metoden her resetter alle de booleans vi bruger til at tjekke forskellige conditions. For eksempel
+     * om spilleren skal have en bøde, det skal ikke carry over til næste dage. Og gifthasbeengiventoday er for at
+     * sikre at spilleren ikke kan udnytte local village gaver.
+     */
+    public void newDay() {
+        saplingsPlanted = false;
+        hasChoppedTrees = false;
+        this.giftHasBeenGivenToday = false;
+
+    }
+
     /**
      * Alle nedenstående metoder arbejde med en gave som Local villagers kan give.
      *
      * @return en boolean som fortæller om gaven har været givet på den pågældene dag
      */
-    public boolean isGiftHasBeenGivenToday() {
+    public boolean hasGiftBeenGivenToday() {
         return this.giftHasBeenGivenToday;
     }
 
     public void giftHasBeenGiven() {
         this.giftHasBeenGivenToday = true;
-    }
-
-    public void resetGift() {
-        this.giftHasBeenGivenToday = false;
     }
 }

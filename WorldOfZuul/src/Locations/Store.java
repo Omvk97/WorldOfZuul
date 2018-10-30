@@ -11,8 +11,9 @@ public class Store extends Room {
     private final Axe steelAxe = new Axe("steel axe", 4, 40, 119);
     private final Axe diamondAxe = new Axe("diamond axe", 6, 60, 149);
     private final Axe fireAxe = new Axe("fire axe", 12, 120, 349);
+    private final int SAPLING_BUNDLE_PRICE = 12;
 
-    Scanner axeChoice = new Scanner(System.in);
+    Scanner userPurchaseChoice = new Scanner(System.in);
 
     public Store(String description, Player player, Trailer trailer) {
         super(description, player);
@@ -25,7 +26,8 @@ public class Store extends Room {
             + "Here you can sell your logs and purchase new equipment \n"
             + "Option 1 - Sell logs\n"
             + "Option 2 - Buy a new axe\n"
-            + "Option 3 - Buy a truck";
+            + "Option 3 - Buy a truck \n"
+            + "Option 4 - Buy saplings";
     }
 
     /**
@@ -45,7 +47,7 @@ public class Store extends Room {
             humanPlayer.loadOfLogs();
             System.out.println("You have sold all the logs you were carrying!");
         }
-        
+
         if (!trailer.getLogsInStorage().isEmpty()) {
             trailer.getLogsInStorage().forEach((tree) -> {
                 humanPlayer.addMoney(tree.getTreePrice());
@@ -64,7 +66,7 @@ public class Store extends Room {
             + "\nFire Axe: " + fireAxe.getPrice());
 
         System.out.println("Which axe would you like to buy?");
-        String userAxeChoice = axeChoice.nextLine();
+        String userAxeChoice = userPurchaseChoice.nextLine();
         String userChoiceWithoutBloat = userAxeChoice.toLowerCase().replaceAll("\\s+", "");
         switch (userChoiceWithoutBloat) {
             case "1":
@@ -72,44 +74,68 @@ public class Store extends Room {
                 if (humanPlayer.getMoney() >= ironAxe.getPrice()) {
                     System.out.println("You just bought a " + ironAxe.getDescription() + "!\n"
                         + "It costs you " + ironAxe.getPrice() + " gold coins"
-                            + "\nEnjoy it while it lasts!");
+                        + "\nEnjoy it while it lasts!");
                     humanPlayer.boughtAxe(ironAxe);
                 } else {
                     System.out.println("YOU NEED " + ironAxe.getPrice() + " GOLD COINS TO BUY THIS. CHOPSUEY");
-                }   break;
+                }
+                break;
             case "2":
             case "steelaxe":
                 if (humanPlayer.getMoney() >= steelAxe.getPrice()) {
                     System.out.println("You just bought a " + steelAxe.getDescription() + "!\n"
                         + "It costs you " + steelAxe.getPrice() + " gold coins"
-                            + "\nEnjoy it while it lasts!");
+                        + "\nEnjoy it while it lasts!");
                     humanPlayer.boughtAxe(steelAxe);
                 } else {
                     System.out.println("YOU NEED " + steelAxe.getPrice() + " GOLD COINS TO BUY THIS. CHOPSUEY");
-                }   break;
+                }
+                break;
             case "3":
             case "diamondaxe":
                 if (humanPlayer.getMoney() >= diamondAxe.getPrice()) {
                     System.out.println("You just bought a " + diamondAxe.getDescription() + "!\n"
                         + "It costs you " + diamondAxe.getPrice() + " gold coins"
-                            + "\nEnjoy it while it lasts!");
+                        + "\nEnjoy it while it lasts!");
                     humanPlayer.boughtAxe(diamondAxe);
                 } else {
                     System.out.println("YOU NEED " + diamondAxe.getPrice() + " GOLD COINS TO BUY THIS. CHOPSUEY");
-                }   break;
+                }
+                break;
             case "4":
             case "fireaxe":
                 if (humanPlayer.getMoney() >= fireAxe.getPrice()) {
                     System.out.println("You just bought a " + fireAxe.getDescription() + "!\n"
                         + "It costs you " + fireAxe.getPrice() + " gold coins"
-                            + "\nEnjoy it while it lasts!");
+                        + "\nEnjoy it while it lasts!");
                     humanPlayer.boughtAxe(fireAxe);
                 } else {
                     System.out.println("YOU NEED " + fireAxe.getPrice() + " GOLD COINS TO BUY THIS. CHOPSUEY");
-                }   break;
+                }
+                break;
             default:
                 System.out.println("I don't know what you mean");
                 break;
+        }
+    }
+
+    @Override
+    public void option4() {
+        System.out.println("Yes, you see here my friend, these saplings are cheap \nand make your trees grow quickly! \n"
+            + "Only " + SAPLING_BUNDLE_PRICE + " gold coins per bundle!\n"
+            + "How many bundles would you like to buy, friend?");
+        String saplingAmountString = userPurchaseChoice.nextLine();
+        try {
+            int saplingAmountInt = Integer.parseInt(saplingAmountString);
+            int saplingCost = saplingAmountInt * SAPLING_BUNDLE_PRICE;
+            if (humanPlayer.buySaplingBundle(saplingAmountInt, saplingCost)) {
+                System.out.println("You have bought " + saplingAmountInt + " for " + saplingCost + " gold coins \n"
+                    + "You have " + humanPlayer.getMoney() + " gold coins left");
+            } else {
+                System.out.println("You don't have enough money for that friend");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("I don't know you mean, friend");
         }
     }
 }

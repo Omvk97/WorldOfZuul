@@ -24,7 +24,7 @@ public class Trailer extends Room {
             + "This is your home, you have " + humanPlayer.getClimatePoints() + " climate points,"
             + " your options are: \n"
             + "Option 1 - Load off logs you are carrying \n"
-            + "Option 2 - Look in your wallet \n"
+            + "Option 2 - Look in your backpack \n"
             + "Option 3 - Sleep";
     }
 
@@ -37,10 +37,11 @@ public class Trailer extends Room {
     public static int getNumPlayDays() {
         return Trailer.NUM_PLAY_DAYS;
     }
-    
+
     /**
-     * Denne metode benyttes til at få information omkring oplagring af træerne. 
-     * Den benyttes i 'Local Village' og 'Store'.
+     * Denne metode benyttes til at få information omkring oplagring af træerne. Den benyttes i 'Local Village' og
+     * 'Store'.
+     *
      * @return arrayList som indeholder både certificeret og ikke certificeret træer i storage space.
      */
     public ArrayList<Tree> getLogsInStorage() {
@@ -50,7 +51,7 @@ public class Trailer extends Room {
     public void loadOffLogsInStorage() {
         this.logsInStorage = new ArrayList();
     }
-    
+
     /**
      * Denne metode er til for at se om storage med træer er fyldt med træer, Den bruges i LocalVillage
      *
@@ -103,10 +104,12 @@ public class Trailer extends Room {
     @Override
     public void option2() {
         if (humanPlayer.getMoney() == 0) {
-            System.out.println("Your wallet is empty! What a shame!");
+            System.out.println("Your backpack is empty! What a shame!");
         } else {
             System.out.println("You wallet holds " + humanPlayer.getMoney() + " gold coins");
         }
+
+        System.out.println(humanPlayer.getSaplingAmount());
     }
 
     @Override
@@ -126,8 +129,13 @@ public class Trailer extends Room {
             + "ZzzzZzzzZzzzZzzz");
         System.out.println("The sun rises and you are ready to tackle the day! \n"
             + (daysleft > 1 ? "There are " + daysleft + " days left!" : "This is your last day as a lumberjack!"));
-        CertifiedForest.regrowTrees();
-        humanPlayer.resetGift();
+        if (!humanPlayer.hasPlantedSeeds() && humanPlayer.getHasChoppedTrees()) {
+            System.out.println("YOU MOTHERFUCKER YOU DIDN'T REPLANT TREES HERE IS A FINE OF 200 GOLD COINS");
+            humanPlayer.givePlayerFine();
+        } else if (humanPlayer.hasPlantedSeeds() && humanPlayer.getHasChoppedTrees()) {
+            CertifiedForest.regrowTrees();
+        }
+        humanPlayer.newDay();
     }
 
 }
