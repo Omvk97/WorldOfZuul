@@ -28,7 +28,7 @@ public class Store extends Room {
             + "Here you can sell your logs and purchase new equipment \n"
             + "Option 1 - Sell logs\n"
             + "Option 2 - Buy a new axe\n"
-            + "Option 3 - Upgrade your storage and backpack";
+            + "Option 3 - Upgrade your backpack";
     }
 
     /**
@@ -37,16 +37,16 @@ public class Store extends Room {
      */
     @Override
     public void option1() {
-        if (trailer.getLogsInStorage().isEmpty() && humanPlayer.getLogsCarrying().isEmpty()) {
+        if (trailer.getLogsInStorage().isEmpty() && humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
             System.out.println("You have no logs to sell!");
             return;
         }
-        if (!humanPlayer.getLogsCarrying().isEmpty()) {
-            for (Tree tree : humanPlayer.getLogsCarrying()) {
+        if (!humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
+            for (Tree tree : humanPlayer.backPack().getLogsInBackPack()) {
                 humanPlayer.addMoney(tree.getTreePrice());
             }
-            humanPlayer.loadOfLogs();
-            System.out.println("You have sold all the logs you were carrying!");
+            humanPlayer.backPack().emptyBackpack();
+            System.out.println("You have sold all the logs in your backpack!");
         }
 
         if (!trailer.getLogsInStorage().isEmpty()) {
@@ -61,10 +61,10 @@ public class Store extends Room {
     @Override
     public void option2() {
         System.out.println("You see here my good friend! 4 different axes, sharp as an arrowtip.\n"
-            + "Iron Axe: " + ironAxe.getPrice()
-            + "\nSteel Axe: " + steelAxe.getPrice()
-            + "\nDiamond Axe: " + diamondAxe.getPrice()
-            + "\nFire Axe: " + fireAxe.getPrice());
+            + ironAxe + "\n"
+            + steelAxe + "\n"
+            + diamondAxe + "\n"
+            + fireAxe);
 
         System.out.println("Which axe would you like to buy?");
         String userAxeChoice = userPurchaseChoice.nextLine();

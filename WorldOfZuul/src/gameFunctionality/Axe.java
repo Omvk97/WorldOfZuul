@@ -28,5 +28,10 @@ public class Axe extends Items {
     public int reduceDurability() {
         return --durability;
     }
+    
 
+    @Override
+    public String toString() {
+        return getDescription() + ": " + getPrice();
+    }
 }
