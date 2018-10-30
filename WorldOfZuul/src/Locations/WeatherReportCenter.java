@@ -1,16 +1,13 @@
 package Locations;
 
 import gameFunctionality.Player;
-import gameFunctionality.NPC_Player;
 
 public class WeatherReportCenter extends Room {
 
-    // import af NPC player og hund 
-    NPC_Player WeatherReporter = new NPC_Player("Human", "Stine : ", "Hi I´m your reporter");
-    NPC_Player dog = new NPC_Player("dog ", "Bent :", " wuff !! \nwuff !! \nwuff !! \nwuff !! \nwuff !! \nwuff !! \nwuff !! \nwuff !! \n");
+    private final String weatherReporter = "Jensen: ";
 
-    // clime points 
-    private final int[] Scenatiepoint = new int[]{-249, -199, -149, -99, -49, 0, 49, 99, 149, 199, 249};
+    // clime points = 0.-50,-100.-150.-200.50.10.150.200.250
+    int[] Scenatiepoint = new int[]{0, -50, -100, -150, -200, 50, 100, 150, 200, 250};
 
     public WeatherReportCenter(String description, Player player) {
         super(description, player);
@@ -23,8 +20,7 @@ public class WeatherReportCenter extends Room {
         return "You are standing "
             + getShortDescription()
             + "!\n"
-            + WeatherReporter.getNPC_name() + WeatherReporter.getNPC_drecription()
-            + "\n----------------------------------\n"
+            + weatherReporter + "Hi I´m your reporter"
             + "you have 3 options  \n"
             + "----------------------------------\n"
             + "option 1 - go global news\n"
@@ -37,62 +33,142 @@ public class WeatherReportCenter extends Room {
     @Override
     public void option1() {
         int climePoints = humanPlayer.getClimatePoints();
-        System.out.printf("%syou chose global news. \n", WeatherReporter.getNPC_name());
         // nigative Globale clime point
-        if (climePoints == Scenatiepoint[6]) {
-            System.out.printf(" %sthe weather is fine \n", WeatherReporter.getNPC_name());
-        } else if (climePoints < Scenatiepoint[5]) {
-            System.out.printf("%sthe animals are leving the forest\n", WeatherReporter.getNPC_name());
-        } else if (climePoints < Scenatiepoint[4] && climePoints < Scenatiepoint[5]) {
-            System.out.printf("%sThere are a storm on it way \nI hope the Non Certified Forest will stop the wind\n", WeatherReporter.getNPC_name());
-        } else if (climePoints < Scenatiepoint[3] && climePoints > Scenatiepoint[4]) {
-            System.out.printf("%sbecours the forest is gong the animals is dead and the world are close to an end\n", WeatherReporter.getNPC_name());
-        } else if (climePoints < Scenatiepoint[2] && climePoints > Scenatiepoint[3]) {
-            System.out.printf("%sThe word had endet and you lost you doog !!\n", WeatherReporter.getNPC_name());
-        } else {
-            System.out.println("Erro I dont know");
-
+        if (climePoints == Scenatiepoint[0]) {
+            System.out.printf("%sInfo :The weather is fine\n"
+                + "temp : 30\n"
+                + "water level: normal\n"
+                ,weatherReporter);
+        } else if (climePoints < Scenatiepoint[0] && climePoints >= Scenatiepoint[1]) {
+            System.out.printf("$sInfo: heat wave over the hell world \n"
+                + "Temp: 35 \n"
+                + "water level: +1 \n"
+                , weatherReporter);
+        } else if (climePoints < Scenatiepoint[1] && climePoints >= Scenatiepoint[2]) {
+            System.out.printf("$sInfo: the snow is melting\n"
+                + "Temp: 40 \n"
+                + "water level: +4\n"
+                , weatherReporter);
+        } else if (climePoints < Scenatiepoint[2] && climePoints >= Scenatiepoint[3]) {
+            System.out.printf("$sInfo: giant storms threaten the world\n"
+                + "Temp: 45\n"
+                + "water level: +6\n", weatherReporter);
+        } else if (climePoints < Scenatiepoint[3] && climePoints >= Scenatiepoint[4]) {
+            System.out.printf("$sInfo: Large parts of the world are flooded\n"
+                + "Temp: 50\n"
+                + "water level: +15\n"
+                , weatherReporter);
+        } else if (climePoints < Scenatiepoint[4]) {
+            System.out.printf("$sInfo: The world is in war. more countries conquer others to get space\n"
+                + "Temp: 55\n"
+                + "water level: +20\n"
+                , weatherReporter);
+            // positive climepoint
+        } else if (climePoints > Scenatiepoint[0] && climePoints <= Scenatiepoint[5]) {
+            System.out.printf( "$sInfo: The amount of co2 begins to disappear\n"
+                + "Temp: 30 \n"
+                + "water level: 0\n"
+                , weatherReporter);
+        } else if (climePoints > Scenatiepoint[5] && climePoints <= Scenatiepoint[6]) {
+            System.out.printf("$sInfo: China can remove their masks\n"
+                + "Temp: 30\n"
+                + "water level: 0\n"
+                , weatherReporter);
+        } else if (climePoints > Scenatiepoint[6] && climePoints <= Scenatiepoint[7]) {
+            System.out.printf("$sInfo: new forests appear all over the world\n"
+                + "Temp: 30\n"
+                + "water level: 0\n", weatherReporter);
+        } else if (climePoints > Scenatiepoint[7] && climePoints <= Scenatiepoint[8]) {
+            System.out.printf("$sInfo: animals return to the forests\n"
+                + "Temp: 30\n"
+                + "water level: 0\n"
+                , weatherReporter);
+        } else if (climePoints > Scenatiepoint[8] && climePoints <= Scenatiepoint[9]) {
+            System.out.printf("$sInfo: people live longer\n"
+                + "Temp: 30\n"
+                + "water level: 0\n", weatherReporter);
+        } else if (climePoints > Scenatiepoint[9]) {
+            System.out.printf("$sInfo: a meteor heading towards the world\n"
+                + "Temp: 30\n"
+                + "water level: 0\n"
+                , weatherReporter);
         }
     }
 
-    /**
-     *
-     */
     @Override
     public void option2() {
         int climePoints = humanPlayer.getClimatePoints();
-        System.out.println(WeatherReporter.getNPC_name() + "The local news are");
-
         // nigative Globale clime point
-        if (climePoints == Scenatiepoint[6]) {
-            System.out.printf(" %the Village is saved \n", WeatherReporter.getNPC_name());
-        } else if (climePoints < Scenatiepoint[5]) {
-            System.out.printf("%sThe animals are leving the city \n", WeatherReporter.getNPC_name());
-        } else if (climePoints < Scenatiepoint[4] && climePoints >Scenatiepoint[5]) {
-            System.out.printf("%sThe people in the city are angry  \nI plizz stop!!! \n", WeatherReporter.getNPC_name());
-        } else if (climePoints < Scenatiepoint[3] && climePoints > Scenatiepoint[4]) {
-            System.out.printf("%sI hate you\n", WeatherReporter.getNPC_name());
-        } else if (climePoints < Scenatiepoint[2] && climePoints > Scenatiepoint[3]) {
-            System.out.printf("%sI will kill you for this \n", WeatherReporter.getNPC_name());
-            // god  clime point
-        } else if (climePoints< Scenatiepoint[7]){
-           System.out.printf("%s great job you are saving the woods \n", WeatherReporter.getNPC_name());    
-        }else if (climePoints< Scenatiepoint[8] && climePoints> Scenatiepoint[7]){
-        System.out.printf("%sThe world industri are stopping cutting the notcertifietforest \n", WeatherReporter.getNPC_name());
-        }else if (climePoints<Scenatiepoint[9]&& climePoints> Scenatiepoint[8]){
-            System.out.printf("%sThe world animals are returning to the forest\n ", WeatherReporter.getNPC_name());
-            
-        }
-        else {
-            System.out.println("Erro I dont know ");
+        if (climePoints == Scenatiepoint[0]) {
+            System.out.printf("%s info: The weather is god\n"
+                + "temp: 30\n"
+                + "wind: \n"
+                , weatherReporter);
+        } else if (climePoints < Scenatiepoint[0] && climePoints >= Scenatiepoint[1]) {
+            System.out.printf("%s info: heat wave on our way\n"
+                + "temp: 40\n"
+                + "wind: \n"
+                , weatherReporter);
+        } else if (climePoints < Scenatiepoint[1] && climePoints >= Scenatiepoint[2]) {
+            System.out.printf("%s"
+                + "info: giant rainways\n"
+                + "temp: 30\n"
+                + "wind: 20m/sec\n", weatherReporter);
+        } else if (climePoints < Scenatiepoint[2] && climePoints >= Scenatiepoint[3]) {
+            System.out.printf("%s info: Storm is comming\n"
+                + "temp: 30\n"
+                + "wind: 32m/sec\n"
+                , weatherReporter);
+        } else if (climePoints < Scenatiepoint[3] && climePoints >= Scenatiepoint[4]) {
+            System.out.printf("%s info: a tonado destroys the city\n"
+                + "temp: 30\n"
+                + "wind: 150m/sec\n", weatherReporter);
+        } else if (climePoints < Scenatiepoint[4]) {
+            System.out.printf("$s is dead\n"
+                + "info:  Erro\n"
+                + "temp:  Erro\n"
+                + "vwind: Erro\n"
+                , weatherReporter);
+            // positive climepoint
+        } else if (climePoints > Scenatiepoint[0] && climePoints <= Scenatiepoint[5]) {
+            System.out.printf("%sinfo: The weather is god\n"
+                + "temp: 30"
+                + "wind: \n"
+                , weatherReporter);
+        } else if (climePoints > Scenatiepoint[5] && climePoints <= Scenatiepoint[6]) {
+            System.out.printf("%sinfo: a littel rain\n"
+                + "temp: 25\n"
+                + "wind: 7m/sec\n"
+                , weatherReporter);
+        } else if (climePoints > Scenatiepoint[6] && climePoints <= Scenatiepoint[7]) {
+            System.out.printf("%sinfo: the son shines\n"
+                + "temp: 35\n"
+                + "wind: 2m/sec\n"
+                , weatherReporter);
+        } else if (climePoints > Scenatiepoint[7] && climePoints <= Scenatiepoint[8]) {
+            System.out.printf("%sinfo: good wind\n"
+                + "temp: 32\n"
+                + "wind: 10M/sek\n"
+                , weatherReporter);
+        } else if (climePoints > Scenatiepoint[8] && climePoints <= Scenatiepoint[9]) {
+            System.out.printf("%sinfo: son all day\n"
+                + "temp: 35\n"
+                + "wind: 2m/sek\n"
+                , weatherReporter);
+        } else if (climePoints > Scenatiepoint[9]) {
+            System.out.printf(
+                 "%s\n"
+                + "info: coold day\n"
+                + "temp: 20\n"
+                + "wind: 6m/sek\n"
+                , weatherReporter);
 
         }
-
     }
 
     @Override
     public void option3() {
-        System.out.println(dog+ " it is comming soon !!");
 
+        System.out.println("not yet !!");
     }
 }
