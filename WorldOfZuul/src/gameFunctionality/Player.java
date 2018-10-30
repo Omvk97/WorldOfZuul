@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class Player {
 
-    private final static int MAX_TREECARRY = 5;
     private final static int MIN_CLIMATEPOINTS = -250;
 
     private ArrayList<Tree> amountOfLogsCarrying;
@@ -14,14 +13,17 @@ public class Player {
     private boolean giftHasBeenGivenToday;
     private Room currentRoom = null;
     private Axe equippedAxe;
+    private BackPack equippedBackPack;
 
-    public Player(Axe axe) {
+    public Player(Axe starterAxe, BackPack starterBackPack) {
         this.amountOfLogsCarrying = new ArrayList();
         this.money = 0;
         this.climatePoints = 0;
         this.giftHasBeenGivenToday = false;
-        this.equippedAxe = axe;
+        this.equippedAxe = starterAxe;
+        this.equippedBackPack = starterBackPack;
     }
+
 
     public int getAmountOfLogsCarrying() {
         return this.amountOfLogsCarrying.size();
@@ -57,8 +59,8 @@ public class Player {
         this.amountOfLogsCarrying.remove(0);
     }
 
-    public static int getMAX_TREECARRY() {
-        return MAX_TREECARRY;
+    public int getBackPackCapacity() {
+        return equippedBackPack.getBackpackCapacity();
     }
 
     /**
@@ -149,6 +151,10 @@ public class Player {
             System.out.println("Your axe broke, gosh dangit");
             equippedAxe = null;
         }
+    }
+    
+    public void boughtBackPack(BackPack newBackPack) {
+        equippedBackPack = newBackPack;
     }
 
     /**

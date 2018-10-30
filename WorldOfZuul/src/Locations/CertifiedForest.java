@@ -45,7 +45,7 @@ public class CertifiedForest extends Room {
     }
 
     private boolean playerCanCarryMoreTree() {
-        return humanPlayer.getAmountOfLogsCarrying() < Player.getMAX_TREECARRY();
+        return humanPlayer.getAmountOfLogsCarrying() < humanPlayer.getBackPackCapacity();
     }
 
     private boolean thereIsMoreTreesToCut() {
