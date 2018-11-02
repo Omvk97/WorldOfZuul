@@ -12,9 +12,6 @@ public class Player {
     private Room currentRoom = null;
     private Axe equippedAxe;
     private BackPack equippedBackPack;
-    private int saplingBundleAmount;
-    private boolean saplingsPlanted;
-    private boolean hasChoppedTrees;
 
     public Player(Axe starterAxe, BackPack starterBackPack) {
         this.money = 0;
@@ -22,46 +19,6 @@ public class Player {
         this.giftHasBeenGivenToday = false;
         this.equippedAxe = starterAxe;
         this.equippedBackPack = starterBackPack;
-        this.saplingBundleAmount = 0;
-        this.hasChoppedTrees = false;
-    }
-
-    public int getAmountOfLogsCarrying() {
-        return this.amountOfLogsCarrying.size();
-    }
-
-    public ArrayList<Tree> getLogsCarrying() {
-        return this.amountOfLogsCarrying;
-    }
-
-    /**
-     * Denne metode benyttes til at få information om hvilken træ type som spilleren bærer rundt på.
-     *
-     * @param treePosition det er indexet i arrayListen med alle træerne
-     * @return arraylist med træer som spilleren bærer rundt på.
-     */
-    public Tree getTreeType(int treePosition) {
-        return this.amountOfLogsCarrying.get(treePosition);
-    }
-
-    public void increaseAmountOfTreeCarrying(Tree tree) {
-        if (tree instanceof CertifiedTree) {
-            this.amountOfLogsCarrying.add(new CertifiedTree());
-        } else {
-            this.amountOfLogsCarrying.add(new NonCertifiedTree());
-        }
-    }
-
-    public void loadOfLogs() {
-        this.amountOfLogsCarrying = new ArrayList();
-    }
-
-    public void decreaseAmountOfTreeCarrying() {
-        this.amountOfLogsCarrying.remove(0);
-    }
-
-    public static int getMAX_TREECARRY() {
-        return MAX_TREECARRY;
     }
 
     /**
@@ -166,63 +123,20 @@ public class Player {
         equippedBackPack = newBackPack;
     }
 
-    public int getSaplingAmount() {
-        return saplingBundleAmount;
-    }
-
-    public boolean buySaplingBundle(int saplingBundleAmount, int saplingCost) {
-        if (saplingCost <= money) {
-            money -= saplingCost;
-            this.saplingBundleAmount += saplingBundleAmount;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void plantSeeds() {
-        saplingsPlanted = true;
-        saplingBundleAmount--;
-    }
-
-    public boolean hasPlantedSeeds() {
-        return saplingsPlanted;
-    }
-
-    public boolean getHasChoppedTrees() {
-        return this.hasChoppedTrees;
-    }
-
-    public void setHasChoppedTreesInCertifiedForest() {
-        hasChoppedTrees = true;
-    }
-
-    public void givePlayerFine() {
-        money -= 200;
-    }
-
-    /**
-     * Metoden her resetter alle de booleans vi bruger til at tjekke forskellige conditions. For eksempel
-     * om spilleren skal have en bøde, det skal ikke carry over til næste dage. Og gifthasbeengiventoday er for at
-     * sikre at spilleren ikke kan udnytte local village gaver.
-     */
-    public void newDay() {
-        saplingsPlanted = false;
-        hasChoppedTrees = false;
-        this.giftHasBeenGivenToday = false;
-
-    }
-
     /**
      * Alle nedenstående metoder arbejde med en gave som Local villagers kan give.
      *
      * @return en boolean som fortæller om gaven har været givet på den pågældene dag
      */
-    public boolean hasGiftBeenGivenToday() {
+    public boolean isGiftHasBeenGivenToday() {
         return this.giftHasBeenGivenToday;
     }
 
     public void giftHasBeenGiven() {
         this.giftHasBeenGivenToday = true;
+    }
+
+    public void resetGift() {
+        this.giftHasBeenGivenToday = false;
     }
 }
