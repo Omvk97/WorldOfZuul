@@ -10,6 +10,10 @@ public enum CommandWord {
         this.commandString = commandString;
     }
 
+    public String getCommandString() {
+        return commandString;
+    }
+
     @Override
     public String toString() {
         return commandString;

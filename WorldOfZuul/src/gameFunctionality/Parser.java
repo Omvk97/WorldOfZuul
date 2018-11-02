@@ -6,10 +6,12 @@ public class Parser {
 
     private final CommandWords commands;
     private final Scanner reader;
+    private final Player humanPlayer;
 
-    public Parser() {
+    public Parser(Player humanPlayer) {
         commands = new CommandWords();
         reader = new Scanner(System.in);
+        this.humanPlayer = humanPlayer;
     }
 
     public Command getCommand() {
@@ -28,11 +30,16 @@ public class Parser {
                 word2 = tokenizer.next().toLowerCase();
             }
         }
-
+        
+        if (humanPlayer.getCurrentRoom().getOptions(inputLine) != null) {
+            return new Command(CommandWord.OPTION, humanPlayer.getCurrentRoom().getOptions(inputLine));
+        }
         return new Command(commands.getCommandWord(word1), word2);
     }
 
     public void showCommands() {
         commands.showAll();
     }
+    
+    
 }

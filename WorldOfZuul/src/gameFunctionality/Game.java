@@ -19,7 +19,7 @@ public class Game {
 
     public Game() {
         setExitsForRooms();
-        parser = new Parser();
+        parser = new Parser(humanPlayer);
     }
 
     private void setExitsForRooms() {
@@ -43,6 +43,11 @@ public class Game {
         weatherCenter.setExit("east", trailer);
 
         store.setExit("northeast", trailer);
+        
+        weatherCenter.setOptions("global news", "1");
+        weatherCenter.setOptions("local news", "2");
+        
+        trailer.setOptions("store logs", "1");
     }
 
     public void play() {
