@@ -62,4 +62,8 @@ public class Room {
     public void option3() {
         System.out.println("There is no option 3 in this room");
     }
+    
+    public void option4() {
+        System.out.println("There is no option 4 in this room");
+    }
 }
