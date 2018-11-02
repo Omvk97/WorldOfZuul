@@ -5,14 +5,16 @@ import Locations.*;
 public class Game {
 
     private final Parser parser;
-    private final Player humanPlayer = new Player();
-    private final Axe axe = new Axe("Diamond Axe", 20);
+    private final Axe starterAxe = new Axe("axe", 3, 10, 79);
+    private final Player humanPlayer = new Player(starterAxe);
     private final Room trailer = new Trailer("inside your trailer", humanPlayer);
     private final Room certifiedForest = new CertifiedForest("in a certified forest", humanPlayer);
     private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest", humanPlayer);
     private final Room localVillage = new LocalVillage("in a local village", humanPlayer, (Trailer) trailer);
     private final Room weatherCenter = new WeatherReportCenter("in a weather report center from around the world", humanPlayer);
     private final Room store = new Store("in the LumberJack shop", humanPlayer, (Trailer) trailer, axe);
+    private final Room tutorialRoom = new TutorialRoom("the tutorial room", humanPlayer, (Trailer) trailer);
+
 
     public Game() {
         setExitsForRooms();
@@ -48,8 +50,9 @@ public class Game {
          * hvilket rum spilleren er i, så er det nu 'Player' klassen som holder øje med dette. Det betyder at spilleren
          * faktisk bevæger sig rundt og ikke spillet der bevæger sig rundt om spilleren.
          */
-        humanPlayer.setCurrentRoom(trailer);
-
+        humanPlayer.setCurrentRoom(tutorialRoom);
+        
+        
         printWelcome();
 
         boolean finished = false;
@@ -64,9 +67,7 @@ public class Game {
         System.out.println("Welcome to 'The LumberJack'! \n"
             + "Your job as a lumberjack, is to cut down trees. \n"
             + "You have " + Trailer.getNumPlayDays() +  " days playtime to earn as much money as you can\n"
-            + "without destroying the earth!\n"
-            + "Have fun!");
-        System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
+            + "without destroying the earth!\n");
         System.out.println(humanPlayer.getCurrentRoom().getLongDescription());
     }
 
@@ -80,16 +81,24 @@ public class Game {
             return false;
         }
 
-        if (commandWord == CommandWord.HELP) {
-            printHelp();
-        } else if (commandWord == CommandWord.GO) {
-            goRoom(command);
-        } else if (commandWord == CommandWord.QUIT) {
-            wantToQuit = quit(command);
-        } else if (commandWord == CommandWord.OPTION) {
-            doOption(command);
-        } else if (commandWord == CommandWord.EXITS) {
-            System.out.println(humanPlayer.getCurrentRoom().getExitString());
+        if (null != commandWord) switch (commandWord) {
+            case HELP:
+                printHelp();
+                break;
+            case GO:
+                goRoom(command);
+                break;
+            case QUIT:
+                wantToQuit = quit(command);
+                break;
+            case OPTION:
+                doOption(command);
+                break;
+            case EXITS:
+                System.out.println(humanPlayer.getCurrentRoom().getExitString());
+                break;
+            default:
+                break;
         }
         return wantToQuit;
     }

@@ -81,7 +81,7 @@ public class LocalVillage extends Room {
                 humanPlayer.addMoney(moneyAmountGiven);
                 humanPlayer.giftHasBeenGiven();
 
-                return "The villagers are very happy about your envriomental efforts\n"
+                return "The villagers are very happy about your enviromental efforts\n"
                     + "and offer to donate " + moneyAmountGiven + " gold coins and 1 tree to you";
             } else {
                 int moneyAmountGiven = (int) (Math.random() * 10) + 1;
