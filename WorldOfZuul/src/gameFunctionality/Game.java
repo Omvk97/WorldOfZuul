@@ -11,8 +11,8 @@ public class Game {
     private final Room certifiedForest = new CertifiedForest("in a certified forest", humanPlayer);
     private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest", humanPlayer);
     private final Room localVillage = new LocalVillage("in a local village", humanPlayer, (Trailer) trailer);
-    private final Room weatherCenter = new Room("in a weather report center from around the world", humanPlayer);
-    private final Room store = new Store("in the LumberJack shop", humanPlayer, (Trailer) trailer);
+    private final Room weatherCenter = new WeatherReportCenter("in a weather report center from around the world", humanPlayer);
+    private final Room store = new Store("in the LumberJack shop", humanPlayer, (Trailer) trailer, axe);
     private final Room tutorialRoom = new TutorialRoom("the tutorial room", humanPlayer, (Trailer) trailer);
 
 
