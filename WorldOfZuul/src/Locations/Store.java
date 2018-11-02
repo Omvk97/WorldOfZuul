@@ -15,6 +15,8 @@ public class Store extends Room {
     private final BackPack smallBackPack = new BackPack("Small backpack", 129, 10);
     private final BackPack mediumBackPack = new BackPack("Medium backpack", 249, 15);
     private final BackPack largeBackPack = new BackPack("Large backpack", 389, 20);
+  
+    private final int SAPLING_BUNDLE_PRICE = 12;
     Scanner userPurchaseChoice = new Scanner(System.in);
 
     public Store(String description, Player player, Trailer trailer) {
@@ -29,6 +31,7 @@ public class Store extends Room {
             + "Option 1 - Sell logs\n"
             + "Option 2 - Buy a new axe\n"
             + "Option 3 - Upgrade your backpack";
+            + "Option 4 - Buy saplings";
     }
 
     /**
@@ -166,5 +169,25 @@ public class Store extends Room {
                 break;
         }
 
+    }
+
+    @Override
+    public void option4() {
+        System.out.println("Yes, you see here my friend, these saplings are cheap \nand make your trees grow quickly! \n"
+            + "Only " + SAPLING_BUNDLE_PRICE + " gold coins per bundle!\n"
+            + "How many bundles would you like to buy, friend?");
+        String saplingAmountString = userPurchaseChoice.nextLine();
+        try {
+            int saplingAmountInt = Integer.parseInt(saplingAmountString);
+            int saplingCost = saplingAmountInt * SAPLING_BUNDLE_PRICE;
+            if (humanPlayer.buySaplingBundle(saplingAmountInt, saplingCost)) {
+                System.out.println("You have bought " + saplingAmountInt + " for " + saplingCost + " gold coins \n"
+                    + "You have " + humanPlayer.getMoney() + " gold coins left");
+            } else {
+                System.out.println("You don't have enough money for that friend");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("I don't know you mean, friend");
+        }
     }
 }

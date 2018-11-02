@@ -16,7 +16,6 @@ public class Game {
     private final Room store = new Store("in the LumberJack shop", humanPlayer, (Trailer) trailer);
     private final Room tutorialRoom = new TutorialRoom("the tutorial room", humanPlayer, (Trailer) trailer);
 
-
     public Game() {
         setExitsForRooms();
         parser = new Parser();
@@ -52,8 +51,7 @@ public class Game {
          * faktisk bevæger sig rundt og ikke spillet der bevæger sig rundt om spilleren.
          */
         humanPlayer.setCurrentRoom(tutorialRoom);
-        
-        
+
         printWelcome();
 
         boolean finished = false;
@@ -67,7 +65,7 @@ public class Game {
     private void printWelcome() {
         System.out.println("Welcome to 'The LumberJack'! \n"
             + "Your job as a lumberjack, is to cut down trees. \n"
-            + "You have " + Trailer.getNumPlayDays() +  " days playtime to earn as much money as you can\n"
+            + "You have " + Trailer.getNumPlayDays() + " days playtime to earn as much money as you can\n"
             + "without destroying the earth!\n");
         System.out.println(humanPlayer.getCurrentRoom().getLongDescription());
     }
@@ -82,24 +80,26 @@ public class Game {
             return false;
         }
 
-        if (null != commandWord) switch (commandWord) {
-            case HELP:
-                printHelp();
-                break;
-            case GO:
-                goRoom(command);
-                break;
-            case QUIT:
-                wantToQuit = quit(command);
-                break;
-            case OPTION:
-                doOption(command);
-                break;
-            case EXITS:
-                System.out.println(humanPlayer.getCurrentRoom().getExitString());
-                break;
-            default:
-                break;
+        if (null != commandWord) {
+            switch (commandWord) {
+                case HELP:
+                    printHelp();
+                    break;
+                case GO:
+                    goRoom(command);
+                    break;
+                case QUIT:
+                    wantToQuit = quit(command);
+                    break;
+                case OPTION:
+                    doOption(command);
+                    break;
+                case EXITS:
+                    System.out.println(humanPlayer.getCurrentRoom().getExitString());
+                    break;
+                default:
+                    break;
+            }
         }
         return wantToQuit;
     }
@@ -153,6 +153,12 @@ public class Game {
                 break;
             case "3":
                 humanPlayer.getCurrentRoom().option3();
+                break;
+            case "4":
+                humanPlayer.getCurrentRoom().option4();
+                break;
+            case "5":
+                humanPlayer.getCurrentRoom().option5();
                 break;
             case "666":
                 System.out.println("THE DEVIL REWARDS YOU FOR YOUR CURIOSITY");

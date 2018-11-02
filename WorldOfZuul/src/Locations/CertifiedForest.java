@@ -14,7 +14,7 @@ public class CertifiedForest extends Room {
     private final static int MAX_AMOUNTOFTREESINFOREST = 100;
     private final static int MIN_AMOUNTOFTREESINFOREST = 70;
     private static List<Tree> trees;
-    private final static int FOREST_REGROW_RATE = 3;
+    private static final int FOREST_REGROW_RATE = 3;
 
     public CertifiedForest(String description, Player player) {
         super(description, player);
@@ -29,7 +29,7 @@ public class CertifiedForest extends Room {
         while (trees.size() < MAX_AMOUNTOFTREESINFOREST) {
             trees.add(new CertifiedTree());
             counter++;
-            if (counter >= FOREST_REGROW_RATE) {
+            if (counter == FOREST_REGROW_RATE) {
                 break;
             }
         }
@@ -38,10 +38,12 @@ public class CertifiedForest extends Room {
     @Override
     public String getLongDescription() {
         return "You are standing " + getShortDescription() + "!\n"
-            + "This forest will slowly regrow, there are " + trees.size() + " trees" + "\n"
+            + "In this forest you can plant new trees, there currently are " + trees.size() + " trees" + "\n"
+            + "ALERT If you don't seed the forest after felling trees you will be fined the next day! \n"
             + "Your options are: \n"
             + "Option 1 - Cut down a tree and bring it with you \n"
-            + "Option 2 - See how many trees are left in the forest";
+            + "Option 2 - See how many trees are left in the forest \n"
+            + "Option 3 - Replant trees";
     }
 
     private boolean playerCanCarryMoreTree() {
@@ -61,6 +63,9 @@ public class CertifiedForest extends Room {
     public void option1() {
         if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
             System.out.println("You swing your " + humanPlayer.axe().getDescription() + " at the tree!");
+            humanPlayer.setHasChoppedTreesInCertifiedForest();
+            while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxeDamage() > 0) {
+                lastTreeInArray().reduceTreeHealth(humanPlayer.getAxeDamage());
             while (lastTreeInArray().getTreeHealth() - humanPlayer.axe().getDamage() > 0) {
                 lastTreeInArray().reduceTreeHealth(humanPlayer.axe().getDamage());
                 System.out.println("**CHOP**");
@@ -96,4 +101,14 @@ public class CertifiedForest extends Room {
         System.out.println("There are " + trees.size() + " trees left in the forest");
     }
 
+    @Override
+    public void option3() {
+        if (humanPlayer.getSaplingAmount() == 0) {
+            System.out.println("You don't have any saplings in your backpack");
+        } else {
+            humanPlayer.plantSeeds();
+            System.out.println("You just seeded this forest with saplings");
+        }
+    }
+    
 }
