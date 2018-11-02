@@ -26,44 +26,6 @@ public class Player {
         this.hasChoppedTrees = false;
     }
 
-    public int getAmountOfLogsCarrying() {
-        return this.amountOfLogsCarrying.size();
-    }
-
-    public ArrayList<Tree> getLogsCarrying() {
-        return this.amountOfLogsCarrying;
-    }
-
-    /**
-     * Denne metode benyttes til at få information om hvilken træ type som spilleren bærer rundt på.
-     *
-     * @param treePosition det er indexet i arrayListen med alle træerne
-     * @return arraylist med træer som spilleren bærer rundt på.
-     */
-    public Tree getTreeType(int treePosition) {
-        return this.amountOfLogsCarrying.get(treePosition);
-    }
-
-    public void increaseAmountOfTreeCarrying(Tree tree) {
-        if (tree instanceof CertifiedTree) {
-            this.amountOfLogsCarrying.add(new CertifiedTree());
-        } else {
-            this.amountOfLogsCarrying.add(new NonCertifiedTree());
-        }
-    }
-
-    public void loadOfLogs() {
-        this.amountOfLogsCarrying = new ArrayList();
-    }
-
-    public void decreaseAmountOfTreeCarrying() {
-        this.amountOfLogsCarrying.remove(0);
-    }
-
-    public static int getMAX_TREECARRY() {
-        return MAX_TREECARRY;
-    }
-
     /**
      * Metoden benyttes til at checke forskellige steder i spillet om spilleren har nået MAX klimapoints Hvis dette er
      * tilfældet skal spillet slutte og der skal være Game Over.
