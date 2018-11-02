@@ -5,8 +5,9 @@ import Locations.*;
 public class Game {
 
     private final Parser parser;
-    private final Axe starterAxe = new Axe("axe", 3, 10, 79);
-    private final Player humanPlayer = new Player(starterAxe);
+    private final Axe starterAxe = new Axe("axe", 0, 10, 3);
+    private final BackPack starterBackPack = new BackPack("Starter Backpack", 0, 5);
+    private final Player humanPlayer = new Player(starterAxe, starterBackPack);
     private final Room trailer = new Trailer("inside your trailer", humanPlayer);
     private final Room certifiedForest = new CertifiedForest("in a certified forest", humanPlayer);
     private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest", humanPlayer);

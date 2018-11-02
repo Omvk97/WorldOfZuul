@@ -1,64 +1,24 @@
 package gameFunctionality;
 
 import Locations.Room;
-import java.util.ArrayList;
 
 public class Player {
 
-    private final static int MAX_TREECARRY = 5;
     private final static int MIN_CLIMATEPOINTS = -250;
 
-    private ArrayList<Tree> amountOfLogsCarrying;
     private int money;
     private int climatePoints;
     private boolean giftHasBeenGivenToday;
     private Room currentRoom = null;
     private Axe equippedAxe;
+    private BackPack equippedBackPack;
 
-    public Player(Axe axe) {
-        this.amountOfLogsCarrying = new ArrayList();
+    public Player(Axe starterAxe, BackPack starterBackPack) {
         this.money = 0;
         this.climatePoints = 0;
         this.giftHasBeenGivenToday = false;
-        this.equippedAxe = axe;
-    }
-
-    public int getAmountOfLogsCarrying() {
-        return this.amountOfLogsCarrying.size();
-    }
-
-    public ArrayList<Tree> getLogsCarrying() {
-        return this.amountOfLogsCarrying;
-    }
-
-    /**
-     * Denne metode benyttes til at få information om hvilken træ type som spilleren bærer rundt på.
-     *
-     * @param treePosition det er indexet i arrayListen med alle træerne
-     * @return arraylist med træer som spilleren bærer rundt på.
-     */
-    public Tree getTreeType(int treePosition) {
-        return this.amountOfLogsCarrying.get(treePosition);
-    }
-
-    public void increaseAmountOfTreeCarrying(Tree tree) {
-        if (tree instanceof CertifiedTree) {
-            this.amountOfLogsCarrying.add(new CertifiedTree());
-        } else {
-            this.amountOfLogsCarrying.add(new NonCertifiedTree());
-        }
-    }
-
-    public void loadOfLogs() {
-        this.amountOfLogsCarrying = new ArrayList();
-    }
-
-    public void decreaseAmountOfTreeCarrying() {
-        this.amountOfLogsCarrying.remove(0);
-    }
-
-    public static int getMAX_TREECARRY() {
-        return MAX_TREECARRY;
+        this.equippedAxe = starterAxe;
+        this.equippedBackPack = starterBackPack;
     }
 
     /**
@@ -113,14 +73,6 @@ public class Player {
         return money + climatePoints;
     }
 
-    public String getEquippedAxeDescription() {
-        return equippedAxe.getDescription();
-    }
-
-    public int getAxeDamage() {
-        return equippedAxe.getDamage();
-    }
-
     /**
      * Bruges af Store hvis spilleren køber en ny økse
      *
@@ -149,6 +101,26 @@ public class Player {
             System.out.println("Your axe broke, gosh dangit");
             equippedAxe = null;
         }
+    }
+    
+    /**
+     * Metoden her er til for at kunne tilgå metoderne fra den økse som spilleren bruger
+     * @return øksen som er equipped
+     */
+    public Axe axe() {
+        return equippedAxe;
+    }
+
+    /**
+     * Metoden her er til for at kunne tilgå metoderne fra den rygsæk som spilleren bruger
+     * @return rygsækken som er equipped
+     */
+    public BackPack backPack() {
+        return equippedBackPack;
+    }
+    
+    public void boughtBackPack(BackPack newBackPack) {
+        equippedBackPack = newBackPack;
     }
 
     /**

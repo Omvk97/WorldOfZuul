@@ -30,7 +30,8 @@ public class NonCertifiedForest extends Room {
     }
 
     private boolean playerCanCarryMoreTree() {
-        return humanPlayer.getAmountOfLogsCarrying() < Player.getMAX_TREECARRY();
+        return humanPlayer.backPack().getAmountOfLogsInBackPack() < 
+            humanPlayer.backPack().getBackpackCapacity();
     }
 
     private boolean thereIsMoreTreesToCut() {
@@ -45,9 +46,9 @@ public class NonCertifiedForest extends Room {
     public void option1() {
         if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
             if (humanPlayer.canUseAxe()) {
-                System.out.println("You swing your " + humanPlayer.getEquippedAxeDescription() + " at the tree!");
-                while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxeDamage() > 0) {
-                    lastTreeInArray().reduceTreeHealth(humanPlayer.getAxeDamage());
+                System.out.println("You swing your " + humanPlayer.axe().getDescription() + " at the tree!");
+                while (lastTreeInArray().getTreeHealth() - humanPlayer.axe().getDamage() > 0) {
+                    lastTreeInArray().reduceTreeHealth(humanPlayer.axe().getDamage());
                     System.out.println("**CHOP**");
                     try {
                         TimeUnit.SECONDS.sleep(1);
@@ -55,7 +56,7 @@ public class NonCertifiedForest extends Room {
                         Logger.getLogger(NonCertifiedForest.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                humanPlayer.increaseAmountOfTreeCarrying(trees.get(0));
+                humanPlayer.backPack().addTreeToBackpack(trees.get(0));
                 humanPlayer.addClimatePoints(trees.get(0).getTreeClimatePoints());
                 trees.remove(trees.size() - 1);
                 System.out.println("**CHOP**");
@@ -66,8 +67,8 @@ public class NonCertifiedForest extends Room {
                 }
                 humanPlayer.useAxe();
                 System.out.println("You have cut down a tree! You are now carrying "
-                    + humanPlayer.getAmountOfLogsCarrying()
-                    + (humanPlayer.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
+                    + humanPlayer.backPack().getAmountOfLogsInBackPack()
+                    + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
             } else {
                 System.out.println("You don't have an axe equipped!");
             }
