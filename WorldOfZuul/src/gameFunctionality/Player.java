@@ -19,6 +19,9 @@ public class Player {
         this.giftHasBeenGivenToday = false;
         this.equippedAxe = starterAxe;
         this.equippedBackPack = starterBackPack;
+        this.saplingBundleAmount = 0;
+        this.hasChoppedTrees = false;
+
     }
 
     /**
