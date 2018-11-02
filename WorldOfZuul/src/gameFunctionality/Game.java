@@ -159,6 +159,12 @@ public class Game {
             case "3":
                 humanPlayer.getCurrentRoom().option3();
                 break;
+            case "4":
+                humanPlayer.getCurrentRoom().option4();
+                break;
+            case "5":
+                humanPlayer.getCurrentRoom().option5();
+                break;
             case "666":
                 System.out.println("THE DEVIL REWARDS YOU FOR YOUR CURIOSITY");
                 humanPlayer.addMoney(9999);

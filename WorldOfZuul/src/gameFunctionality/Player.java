@@ -12,6 +12,8 @@ public class Player {
     private Room currentRoom = null;
     private Axe equippedAxe;
     private BackPack equippedBackPack;
+    private int saplingBundleAmount;
+    private boolean hasChoppedTrees;
 
     public Player(Axe starterAxe, BackPack starterBackPack) {
         this.money = 0;
