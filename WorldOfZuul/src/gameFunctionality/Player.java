@@ -13,6 +13,7 @@ public class Player {
     private Axe equippedAxe;
     private BackPack equippedBackPack;
     private int saplingBundleAmount;
+    private boolean saplingsPlanted;
     private boolean hasChoppedTrees;
 
     public Player(Axe starterAxe, BackPack starterBackPack) {
@@ -22,6 +23,7 @@ public class Player {
         this.equippedAxe = starterAxe;
         this.equippedBackPack = starterBackPack;
         this.saplingBundleAmount = 0;
+        this.saplingsPlanted = false;
         this.hasChoppedTrees = false;
 
     }
@@ -126,6 +128,53 @@ public class Player {
     
     public void boughtBackPack(BackPack newBackPack) {
         equippedBackPack = newBackPack;
+    }
+    
+    public int getSaplingAmount() {
+        return saplingBundleAmount;
+    }
+
+    public boolean buySaplingBundle(int saplingBundleAmount, int saplingCost) {
+        if (saplingCost <= money) {
+            money -= saplingCost;
+            this.saplingBundleAmount += saplingBundleAmount;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void plantSeeds() {
+        saplingsPlanted = true;
+        saplingBundleAmount--;
+    }
+
+    public boolean hasPlantedSeeds() {
+        return saplingsPlanted;
+    }
+
+    public boolean getHasChoppedTrees() {
+        return this.hasChoppedTrees;
+    }
+
+    public void setHasChoppedTreesInCertifiedForest() {
+        hasChoppedTrees = true;
+    }
+
+    public void givePlayerFine() {
+        money -= 200;
+    }
+
+    /**
+     * Metoden her resetter alle de booleans vi bruger til at tjekke forskellige conditions. For eksempel
+     * om spilleren skal have en bøde, det skal ikke carry over til næste dage. Og gifthasbeengiventoday er for at
+     * sikre at spilleren ikke kan udnytte local village gaver.
+     */
+    public void newDay() {
+        saplingsPlanted = false;
+        hasChoppedTrees = false;
+        this.giftHasBeenGivenToday = false;
+
     }
 
     /**
