@@ -1,23 +1,16 @@
 package gameFunctionality;
 
-public class Axe {
+public class Axe extends Items {
 
-    private final String description;
     private final int damage;
     private final int startDurability;
-    private final int price;
     private int durability;
 
-    public Axe(String description, int damage, int startDurability, int price) {
-        this.description = description;
+    public Axe(String description, int price, int startDurability, int damage) {
+        super(description, price);
         this.damage = damage;
         this.startDurability = startDurability;
-        this.price = price;
         this.durability = startDurability;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public int getDamage() {
@@ -28,10 +21,6 @@ public class Axe {
         return startDurability;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
     public int getDurability() {
         return durability;
     }
@@ -39,5 +28,10 @@ public class Axe {
     public int reduceDurability() {
         return --durability;
     }
+    
 
+    @Override
+    public String toString() {
+        return getDescription() + ": " + getPrice();
+    }
 }

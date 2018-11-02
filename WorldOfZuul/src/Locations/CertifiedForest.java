@@ -47,7 +47,8 @@ public class CertifiedForest extends Room {
     }
 
     private boolean playerCanCarryMoreTree() {
-        return humanPlayer.getAmountOfLogsCarrying() < Player.getMAX_TREECARRY();
+        return humanPlayer.backPack().getAmountOfLogsInBackPack()
+            < humanPlayer.backPack().getBackpackCapacity();
     }
 
     private boolean thereIsMoreTreesToCut() {
@@ -61,9 +62,12 @@ public class CertifiedForest extends Room {
     @Override
     public void option1() {
         if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
+            System.out.println("You swing your " + humanPlayer.axe().getDescription() + " at the tree!");
             humanPlayer.setHasChoppedTreesInCertifiedForest();
             while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxeDamage() > 0) {
                 lastTreeInArray().reduceTreeHealth(humanPlayer.getAxeDamage());
+            while (lastTreeInArray().getTreeHealth() - humanPlayer.axe().getDamage() > 0) {
+                lastTreeInArray().reduceTreeHealth(humanPlayer.axe().getDamage());
                 System.out.println("**CHOP**");
                 try {
                     TimeUnit.SECONDS.sleep(1);
@@ -71,7 +75,7 @@ public class CertifiedForest extends Room {
                     Logger.getLogger(NonCertifiedForest.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            humanPlayer.increaseAmountOfTreeCarrying(trees.get(0));
+            humanPlayer.backPack().addTreeToBackpack(trees.get(0));
             humanPlayer.addClimatePoints(trees.get(0).getTreeClimatePoints());
             trees.remove(trees.size() - 1);
             System.out.println("**CHOP**");
@@ -81,7 +85,7 @@ public class CertifiedForest extends Room {
                 Logger.getLogger(NonCertifiedForest.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println("You have cut down a tree! You are now carrying "
-                + humanPlayer.getAmountOfLogsCarrying() + (humanPlayer.getAmountOfLogsCarrying() > 1 ? " logs" : " log"));
+                + humanPlayer.backPack().getAmountOfLogsInBackPack() + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
         } else {
             if (playerCanCarryMoreTree() && !thereIsMoreTreesToCut()) {
                 System.out.println("You have cut too much wood!! Wait for the trees to regrow!"); // Her skal vi overveje hvad der skal stå

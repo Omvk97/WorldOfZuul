@@ -59,7 +59,7 @@ public class LocalVillage extends Room {
         } else if (climatePoints < CLIMATESCENARIO5) {
             return "The village has been forsaken and the wildlife is completely gone.\n"
                 + "Why did you do this? You mindlessly chopped down trees\n"
-                + " and destroyed this village";
+                + "and destroyed this village";
             
             
         } else if (climatePoints > CLIMATESCENARIO_1 && climatePoints < CLIMATESCENARIO_2) {
@@ -81,7 +81,7 @@ public class LocalVillage extends Room {
                 humanPlayer.addMoney(moneyAmountGiven);
                 humanPlayer.giftHasBeenGiven();
 
-                return "The villagers are very happy about your envriomental efforts\n"
+                return "The villagers are very happy about your enviromental efforts\n"
                     + "and offer to donate " + moneyAmountGiven + " gold coins and 1 tree to you";
             } else {
                 int moneyAmountGiven = (int) (Math.random() * 10) + 1;

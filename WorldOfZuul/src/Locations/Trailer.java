@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Trailer extends Room {
 
     private final static int NUM_PLAY_DAYS = 5;
-    private final static int MAX_TREESTORAGEAMOUNT = 15;
+    private final static int MAX_TREESTORAGEAMOUNT = 30;
 
     private int numOfDaysGoneBy;
     private ArrayList<Tree> logsInStorage;
@@ -63,7 +63,7 @@ public class Trailer extends Room {
 
     @Override
     public void option1() {
-        if (humanPlayer.getAmountOfLogsCarrying() == 0) {
+        if (humanPlayer.backPack().getAmountOfLogsInBackPack() == 0) {
             System.out.println("You are not carrying any logs!");
             return;
         }
@@ -72,7 +72,7 @@ public class Trailer extends Room {
          * lagre logs.
          */
         ArrayList<Tree> copyAmountOflogsCarrying = new ArrayList();
-        for (Tree tree : humanPlayer.getLogsCarrying()) {
+        for (Tree tree : humanPlayer.backPack().getLogsInBackPack()) {
             copyAmountOflogsCarrying.add(tree);
         }
 
@@ -85,7 +85,7 @@ public class Trailer extends Room {
         for (Tree tree : copyAmountOflogsCarrying) {
             if (getLogsInStorage().size() < MAX_TREESTORAGEAMOUNT) {
                 getLogsInStorage().add(tree);
-                humanPlayer.decreaseAmountOfTreeCarrying();
+                humanPlayer.backPack().removeLogFromBackpack();
             } else {
                 System.out.println("You carry too many logs to store!");
                 break;
