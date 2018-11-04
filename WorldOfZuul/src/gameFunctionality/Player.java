@@ -2,6 +2,11 @@ package gameFunctionality;
 
 import Locations.Room;
 
+/**
+ * Indeholder en masse information som andre klasser benytter sig af for at bestemme hvad
+ * de skal gøre
+ * @author olive
+ */
 public class Player {
 
     private final static int MIN_CLIMATEPOINTS = -250;
@@ -25,12 +30,11 @@ public class Player {
         this.saplingBundleAmount = 0;
         this.saplingsPlanted = false;
         this.hasChoppedTrees = false;
-
     }
 
     /**
-     * Metoden benyttes til at checke forskellige steder i spillet om spilleren har nået MAX klimapoints Hvis dette er
-     * tilfældet skal spillet slutte og der skal være Game Over.
+     * Metoden benyttes til at checke forskellige steder i spillet om spilleren har nået MAX
+     * klimapoints Hvis dette er tilfældet skal spillet slutte og der skal være Game Over.
      *
      * @return int max_climatepoints
      */
@@ -71,8 +75,8 @@ public class Player {
     }
 
     /**
-     * Denne metode returnere en meget simpel udregning på et eksempel af hvordan highscore kan udregnes benyttes alle
-     * steder hvor spillet skal lukke ned.
+     * Denne metode returnere en meget simpel udregning på et eksempel af hvordan highscore kan
+     * udregnes benyttes alle steder hvor spillet skal lukke ned.
      *
      * @return int værdi som nu højere nu bedre for spilleren.
      */
@@ -109,9 +113,10 @@ public class Player {
             equippedAxe = null;
         }
     }
-    
+
     /**
      * Metoden her er til for at kunne tilgå metoderne fra den økse som spilleren bruger
+     *
      * @return øksen som er equipped
      */
     public Axe axe() {
@@ -120,16 +125,17 @@ public class Player {
 
     /**
      * Metoden her er til for at kunne tilgå metoderne fra den rygsæk som spilleren bruger
+     *
      * @return rygsækken som er equipped
      */
     public BackPack backPack() {
         return equippedBackPack;
     }
-    
+
     public void boughtBackPack(BackPack newBackPack) {
         equippedBackPack = newBackPack;
     }
-    
+
     public int getSaplingAmount() {
         return saplingBundleAmount;
     }
@@ -149,48 +155,32 @@ public class Player {
         saplingBundleAmount--;
     }
 
-    public boolean hasPlantedSeeds() {
-        return saplingsPlanted;
-    }
-
-    public boolean getHasChoppedTrees() {
-        return this.hasChoppedTrees;
-    }
-
     public void setHasChoppedTreesInCertifiedForest() {
         hasChoppedTrees = true;
     }
 
-    public void givePlayerFine() {
-        money -= 200;
-    }
-
     /**
-     * Metoden her resetter alle de booleans vi bruger til at tjekke forskellige conditions. For eksempel
-     * om spilleren skal have en bøde, det skal ikke carry over til næste dage. Og gifthasbeengiventoday er for at
-     * sikre at spilleren ikke kan udnytte local village gaver.
+     * hvis der er blevet fældet træer i den certificerede skov men ikke plantet nye så får
+     * spilleren en bøde. Ellers resetter dagen og spilleren kan modtage gave igen.
+     * @return om spilleren har sovet og har plantet træer eller ej. 
      */
-    public void newDay() {
+    public boolean sleep() {
+        if (!saplingsPlanted && hasChoppedTrees) {
+            System.out.println("YOU DIDN'T REPLANT TREES HERE IS A FINE OF 200 GOLD COINS");
+            money -= 200;
+            return false;
+        }
         saplingsPlanted = false;
         hasChoppedTrees = false;
         this.giftHasBeenGivenToday = false;
-
+        return true;
     }
 
-    /**
-     * Alle nedenstående metoder arbejde med en gave som Local villagers kan give.
-     *
-     * @return en boolean som fortæller om gaven har været givet på den pågældene dag
-     */
     public boolean isGiftHasBeenGivenToday() {
         return this.giftHasBeenGivenToday;
     }
 
     public void giftHasBeenGiven() {
         this.giftHasBeenGivenToday = true;
-    }
-
-    public void resetGift() {
-        this.giftHasBeenGivenToday = false;
     }
 }

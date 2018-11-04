@@ -29,19 +29,21 @@ public class Trailer extends Room {
     }
 
     /**
-     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den bliver brugt i 'game'
-     * klassen.
+     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den
+     * bliver brugt i 'game' klassen.
      *
      * @return mængden af dage spilleren har.
      */
     public static int getNumPlayDays() {
         return Trailer.NUM_PLAY_DAYS;
     }
-    
+
     /**
-     * Denne metode benyttes til at få information omkring oplagring af træerne. 
-     * Den benyttes i 'Local Village' og 'Store'.
-     * @return arrayList som indeholder både certificeret og ikke certificeret træer i storage space.
+     * Denne metode benyttes til at få information omkring oplagring af træerne. Den benyttes i
+     * 'Local Village' og 'Store'.
+     *
+     * @return arrayList som indeholder både certificeret og ikke certificeret træer i storage
+     * space.
      */
     public ArrayList<Tree> getLogsInStorage() {
         return this.logsInStorage;
@@ -50,9 +52,10 @@ public class Trailer extends Room {
     public void loadOffLogsInStorage() {
         this.logsInStorage = new ArrayList();
     }
-    
+
     /**
-     * Denne metode er til for at se om storage med træer er fyldt med træer, Den bruges i LocalVillage
+     * Denne metode er til for at se om storage med træer er fyldt med træer, Den bruges i
+     * LocalVillage
      *
      * @return
      */
@@ -67,8 +70,8 @@ public class Trailer extends Room {
             return;
         }
         /**
-         * Kopier alle elementerne fra den oprindelige arraylist med de logs spilleren bærer når spilleren skal til at
-         * lagre logs.
+         * Kopier alle elementerne fra den oprindelige arraylist med de logs spilleren bærer når
+         * spilleren skal til at lagre logs.
          */
         ArrayList<Tree> copyAmountOflogsCarrying = new ArrayList();
         for (Tree tree : humanPlayer.backPack().getLogsInBackPack()) {
@@ -76,10 +79,10 @@ public class Trailer extends Room {
         }
 
         /**
-         * Adder så mange logs som muligt fra den kopierede arraylist ovenover Fjerner logs fra den oprindelige
-         * arraylist. Dette er for at undgå at man både adder og fjerner fra samme arrayList. Dette betyder at selvom
-         * spilleren har flere logs end der kan være i storage arealet så kan spilleren stadig tilføje så mange som
-         * muligt og så bære rundt på resten.
+         * Adder så mange logs som muligt fra den kopierede arraylist ovenover Fjerner logs fra den
+         * oprindelige arraylist. Dette er for at undgå at man både adder og fjerner fra samme
+         * arrayList. Dette betyder at selvom spilleren har flere logs end der kan være i storage
+         * arealet så kan spilleren stadig tilføje så mange som muligt og så bære rundt på resten.
          */
         for (Tree tree : copyAmountOflogsCarrying) {
             if (getLogsInStorage().size() < MAX_TREESTORAGEAMOUNT) {
@@ -109,25 +112,23 @@ public class Trailer extends Room {
         }
     }
 
+    /**
+     * Sørger for at alle ting som spilleren skal gøre
+     */
     @Override
     public void option3() {
-        /**
-         * This option is for sleeping, this is where the player will rest when there is no more activities left to do,
-         * so that is when he can't cut more wood cuz then the game will go down and there is no more trees left in the
-         * certified forest to cut, so he has to sleep so that there will grow new trees and so he will be able to get
-         * more gifts from the villagers.
-         */
         int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
         if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
-            System.out.println("THERE IS NO MORE DAYS, YOUR HIGHSCORE IS: " + humanPlayer.getHighScore());
+            System.out.println("THERE IS NO MORE DAYS, YOUR HIGHSCORE IS: "
+                + humanPlayer.getHighScore());
             System.exit(0);
         }
         System.out.println("The sun goes down and you sleep tight \n"
             + "ZzzzZzzzZzzzZzzz");
         System.out.println("The sun rises and you are ready to tackle the day! \n"
-            + (daysleft > 1 ? "There are " + daysleft + " days left!" : "This is your last day as a lumberjack!"));
-        CertifiedForest.regrowTrees();
-        humanPlayer.resetGift();
+            + (daysleft > 1 ? "There are " + daysleft + " days left!"
+                : "This is your last day as a lumberjack!"));
+        humanPlayer.sleep();
     }
 
 }
