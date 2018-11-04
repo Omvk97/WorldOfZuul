@@ -36,14 +36,16 @@ public class TutorialRoom extends Room {
                 + "Here you will learn how the game works\n"
                 + "Now you stand inside your trailer!\n"
                 + "From here you can either go north, east, west or south");
-            pause(6000);
+            pause(7000);
             goTutorial();
-            pause(6000);
             optionTutorial();
-            System.out.println("GREAT!\n"
-                + "You are now done with the tutorial!\n"
-                + "Have fun!");
-            System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
+            System.out.println("GREAT!");
+            pause(3000);
+            System.out.print("You are now done with the tutorial!\n"
+                + "Have fun!\n");
+            pause(3000);
+            System.out.println("Type '" + CommandWord.HELP + "' if you ever need help.");
+            pause(5000);
             humanPlayer.setCurrentRoom(trailer);
             return trailer.getLongDescription();
         } else {
@@ -56,23 +58,27 @@ public class TutorialRoom extends Room {
     }
 
     private void optionTutorial() {
-        System.out.println("Great job! You are now standing in the west area\n"
-            + "In each room you have different options you can perform\n"
+        System.out.println("Great job! You are now standing in the west area");
+        pause(3000);
+        System.out.println("In each room you have different options you can perform\n"
             + "In this room you have these options:\n"
             + "Option 1 - Pick up a rock\n"
-            + "Option 2 - Karatechop a twig\n"
-            + "Try typing 'option' followed by the choice you would like to make");
+            + "Option 2 - Karatechop a twig");
+        pause(6000);
+        System.out.print("Try typing 'option' followed by the choice you would like to make \n");
         String option = input.nextLine();
         boolean correctUserOption = false;
         while (!correctUserOption) {
             switch (option) {
                 case "option 1":
                     System.out.println("Great you picked up a rock");
+                    pause(4000);
                     correctUserOption = true;
                     break;
                 case "option 2":
                     System.out.println("You made a furious karatechop and choped a twig in half\n"
                         + "Be proud of yourself!");
+                    pause(4000);
                     correctUserOption = true;
                     break;
                 default:
