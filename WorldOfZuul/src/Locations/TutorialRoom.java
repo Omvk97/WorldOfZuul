@@ -3,6 +3,8 @@ package Locations;
 import gameFunctionality.CommandWord;
 import gameFunctionality.Player;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TutorialRoom extends Room {
 
@@ -16,6 +18,7 @@ public class TutorialRoom extends Room {
     }
 
     private void getAnswer() {
+        pause(6000);
         System.out.println("Would you like to take a tutorial? [Y / N]");
         String playerInput = input.nextLine();
         if (playerInput.toUpperCase().equals("Y")) {
@@ -33,7 +36,9 @@ public class TutorialRoom extends Room {
                 + "Here you will learn how the game works\n"
                 + "Now you stand inside your trailer!\n"
                 + "From here you can either go north, east, west or south");
+            pause(6000);
             goTutorial();
+            pause(6000);
             optionTutorial();
             System.out.println("GREAT!\n"
                 + "You are now done with the tutorial!\n"
@@ -83,6 +88,14 @@ public class TutorialRoom extends Room {
         while (!goWest.equals("go west")) {
             System.out.println("Incorrect, try again");
             goWest = input.nextLine();
+        }
+    }
+    
+    private void pause(int time){
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TutorialRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
