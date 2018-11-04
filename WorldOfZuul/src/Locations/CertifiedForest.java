@@ -54,7 +54,6 @@ public class CertifiedForest extends Forest {
     public void option1() {
         chopWood();
         humanPlayer.setHasChoppedTreesInCertifiedForest();
-
     }
 
     @Override

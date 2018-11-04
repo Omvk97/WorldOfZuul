@@ -18,6 +18,7 @@ public class Game {
 
     public Game() {
         setExitsForRooms();
+        setOptionsForRooms();
         parser = new Parser(humanPlayer);
     }
 
@@ -42,11 +43,14 @@ public class Game {
         weatherCenter.setExit("east", trailer);
 
         store.setExit("northeast", trailer);
+    }
 
+    private void setOptionsForRooms() {
+        trailer.setOptions("store logs", "1");
+        trailer.setOptions("look wallet", "2");
+        trailer.setOptions("sleep", "3");
         weatherCenter.setOptions("global news", "1");
         weatherCenter.setOptions("local news", "2");
-
-        trailer.setOptions("store logs", "1");
     }
 
     public void play() {
