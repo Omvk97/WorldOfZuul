@@ -51,18 +51,18 @@ public class CertifiedForest extends Forest {
     }
 
     @Override
-    public void option1() {
-        chopWood();
+    public void option1(Player humanPlayer) {
+        chopWood(humanPlayer);
         humanPlayer.setHasChoppedTreesInCertifiedForest();
     }
 
     @Override
-    public void option2() {
+    public void option2(Player humanPlayer) {
         System.out.println("There are " + trees.size() + " trees left in the forest");
     }
 
     @Override
-    public void option3() {
+    public void option3(Player humanPlayer) {
         if (humanPlayer.getSaplingAmount() == 0) {
             System.out.println("You don't have any saplings in your backpack");
         } else {

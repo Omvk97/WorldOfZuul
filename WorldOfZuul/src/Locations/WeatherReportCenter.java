@@ -1,5 +1,7 @@
 package Locations;
 
+import gameFunctionality.Player;
+
 public class WeatherReportCenter extends Room {
 
     private final String weatherReporter = "Jensen: ";
@@ -29,7 +31,7 @@ public class WeatherReportCenter extends Room {
     }
 
     @Override
-    public void option1() {
+    public void option1(Player humanPlayer) {
         int climePoints = humanPlayer.getClimatePoints();
         // nigative Globale clime point
         if (climePoints == Scenatiepoint[0]) {
@@ -94,7 +96,7 @@ public class WeatherReportCenter extends Room {
     }
 
     @Override
-    public void option2() {
+    public void option2(Player humanPlayer) {
         int climePoints = humanPlayer.getClimatePoints();
         // nigative Globale clime point
         if (climePoints == Scenatiepoint[0]) {
@@ -165,8 +167,7 @@ public class WeatherReportCenter extends Room {
     }
 
     @Override
-    public void option3() {
-
+    public void option3(Player humanPlayer) {
         System.out.println("not yet !!");
     }
 }

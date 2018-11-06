@@ -29,7 +29,7 @@ public class LocalVillage extends Room {
             + getScenario();
     }
 
-    public String getScenario() {
+    public String getScenario(Player humanPlayer) {
         int climatePoints = humanPlayer.getClimatePoints();
 
         if (climatePoints > CLIMATESCENARIO1 && climatePoints < CLIMATESCENARIO_1) {

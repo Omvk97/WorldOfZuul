@@ -29,8 +29,8 @@ public class NonCertifiedForest extends Forest {
     }
 
     @Override
-    public void option1() {
-        this.chopWood();
+    public void option1(Player humanPlayer) {
+        this.chopWood(humanPlayer);
         if (humanPlayer.getClimatePoints() == Player.getMIN_CLIMATEPOINTS()) {
             System.out.println("YOU DESTROYED THE EARTH, YOU HAVE CUT WAY TOO MUCH \n"
                 + "NON CERTIFIED WOOD.");

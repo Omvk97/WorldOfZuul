@@ -1,7 +1,6 @@
 package Locations;
 
 import gameFunctionality.CommandWord;
-import gameFunctionality.Player;
 import java.util.Scanner;
 
 public class TutorialRoom extends Room {

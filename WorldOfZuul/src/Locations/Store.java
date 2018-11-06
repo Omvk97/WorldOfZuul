@@ -39,12 +39,11 @@ public class Store extends Room {
     }
 
     /**
-     * Denne metode benytter sig af information fra 'trailer' og 'player' Den sælger træerne som
-     * spilleren enten går rundt med, eller træer som spilleren har i sit storage. Eller begge dele
-     * på en gang.
+     * Sells the trees the player is carrying
+     * @param humanPlayer
      */
     @Override
-    public void option1() {
+    public void option1(Player humanPlayer) {
         if (trailer.getLogsInStorage().isEmpty() && humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
             System.out.println("You have no logs to sell!");
             return;
@@ -67,7 +66,7 @@ public class Store extends Room {
     }
 
     @Override
-    public void option2() {
+    public void option2(Player humanPlayer) {
         System.out.println("You see here my good friend! 4 different axes, sharp as an arrowtip.\n"
             + ironAxe + "\n"
             + steelAxe + "\n"
@@ -129,7 +128,7 @@ public class Store extends Room {
     }
 
     @Override
-    public void option3() {
+    public void option3(Player humanPlayer) {
         System.out.println("Mnyess! I have 4 different backpacks for you!\n"
             + smallBackPack + "\n"
             + mediumBackPack + "\n"
@@ -176,7 +175,7 @@ public class Store extends Room {
     }
 
     @Override
-    public void option4() {
+    public void option4(Player humanPlayer) {
         System.out.println("Yes, you see here my friend, these saplings are cheap \nand make your trees grow quickly! \n"
             + "Only " + SAPLING_BUNDLE_PRICE + " gold coins per bundle!\n"
             + "How many bundles would you like to buy?");

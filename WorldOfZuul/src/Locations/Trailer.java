@@ -64,7 +64,7 @@ public class Trailer extends Room {
     }
 
     @Override
-    public void option1() {
+    public void option1(Player humanPlayer) {
         if (humanPlayer.backPack().getAmountOfLogsInBackPack() == 0) {
             System.out.println("You are not carrying any logs!");
             return;
@@ -104,7 +104,7 @@ public class Trailer extends Room {
     }
 
     @Override
-    public void option2() {
+    public void option2(Player humanPlayer) {
         if (humanPlayer.getMoney() == 0) {
             System.out.println("Your wallet is empty! What a shame!");
         } else {
@@ -114,9 +114,10 @@ public class Trailer extends Room {
 
     /**
      * Sørger for at alle ting som spilleren skal gøre
+     * @param humanPlayer
      */
     @Override
-    public void option3() {
+    public void option3(Player humanPlayer) {
         int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
         if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
             System.out.println("THERE IS NO MORE DAYS, YOUR HIGHSCORE IS: "

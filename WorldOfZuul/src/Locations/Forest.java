@@ -21,7 +21,7 @@ public abstract class Forest extends Room {
         super(description);
     }
 
-    protected boolean playerCanCarryMoreTree() {
+    protected boolean playerCanCarryMoreTree(Player humanPlayer) {
         return humanPlayer.backPack().getAmountOfLogsInBackPack()
             < humanPlayer.backPack().getBackpackCapacity();
     }
@@ -37,9 +37,10 @@ public abstract class Forest extends Room {
     /**
      * hugger træ, tilføjer træet til spillerens rygsæk, fjerner træet fra skoven og giver spilleren
      * klima points.
+     * @param humanPlayer The player who is chopping trees
      */
-    protected void chopWood() {
-        if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
+    protected void chopWood(Player humanPlayer) {
+        if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
             if (humanPlayer.canUseAxe()) {
                 System.out.println("You swing your " + humanPlayer.axe().getDescription() + " at the tree!");
                 while (lastTreeInArray().getTreeHealth() - humanPlayer.axe().getDamage() > 0) {
@@ -69,11 +70,11 @@ public abstract class Forest extends Room {
             }
 
         } else {
-            if (playerCanCarryMoreTree() && !thereIsMoreTreesToCut()) {
+            if (playerCanCarryMoreTree(humanPlayer) && !thereIsMoreTreesToCut()) {
                 System.out.println("You have cut too much wood!! \n"
                     + (this instanceof CertifiedForest ? "You have to wait for the forest to regrow!"
                         : "The forest has no more trees!"));
-            } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree()) {
+            } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree(humanPlayer)) {
                 System.out.println("You are carrying too much wood!\n"
                     + "Go back to your trailer and sell or store your logs!");
             }
@@ -81,7 +82,7 @@ public abstract class Forest extends Room {
     }
 
     @Override
-    public void option2() {
+    public void option2(Player humanPlayer) {
         System.out.println("There are " + trees.size() + " trees left in the forest");
     }
 }
