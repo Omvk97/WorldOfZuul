@@ -5,9 +5,8 @@ import Locations.*;
 public class Game {
 
     private final Parser parser;
-    private final Axe starterAxe = new Axe("axe", 0, 10, 3);
     private final BackPack starterBackPack = new BackPack("Starter Backpack", 0, 5);
-    private final Player humanPlayer = new Player(starterAxe, starterBackPack);
+    private final Player humanPlayer = new Player(starterBackPack);
     private final Room trailer = new Trailer("inside your trailer", humanPlayer);
     private final Room certifiedForest = new CertifiedForest("in a certified forest", humanPlayer);
     private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest", humanPlayer);
@@ -16,9 +15,9 @@ public class Game {
     private final Room store = new Store("in the LumberJack shop", humanPlayer, (Trailer) trailer);
     private final Room tutorialRoom = new TutorialRoom("the tutorial room", humanPlayer, (Trailer) trailer);
 
-
     public Game() {
         setExitsForRooms();
+        setOptionsForRooms();
         parser = new Parser(humanPlayer);
     }
 
@@ -43,22 +42,25 @@ public class Game {
         weatherCenter.setExit("east", trailer);
 
         store.setExit("northeast", trailer);
-        
+    }
+
+    private void setOptionsForRooms() {
+        trailer.setOptions("store logs", "1");
+        trailer.setOptions("look wallet", "2");
+        trailer.setOptions("sleep", "3");
         weatherCenter.setOptions("global news", "1");
         weatherCenter.setOptions("local news", "2");
-        
-        trailer.setOptions("store logs", "1");
     }
 
     public void play() {
         /**
-         * Der bliver her tilføjet meget samme funktion som der var før, men i stedet for at game klassen holder øje med
-         * hvilket rum spilleren er i, så er det nu 'Player' klassen som holder øje med dette. Det betyder at spilleren
-         * faktisk bevæger sig rundt og ikke spillet der bevæger sig rundt om spilleren.
+         * Der bliver her tilføjet meget samme funktion som der var før, men i stedet for at game
+         * klassen holder øje med hvilket rum spilleren er i, så er det nu 'Player' klassen som
+         * holder øje med dette. Det betyder at spilleren faktisk bevæger sig rundt og ikke spillet
+         * der bevæger sig rundt om spilleren.
          */
         humanPlayer.setCurrentRoom(tutorialRoom);
-        
-        
+
         printWelcome();
 
         boolean finished = false;
@@ -72,7 +74,7 @@ public class Game {
     private void printWelcome() {
         System.out.println("Welcome to 'The LumberJack'! \n"
             + "Your job as a lumberjack, is to cut down trees. \n"
-            + "You have " + Trailer.getNumPlayDays() +  " days playtime to earn as much money as you can\n"
+            + "You have " + Trailer.getNumPlayDays() + " days playtime to earn as much money as you can\n"
             + "without destroying the earth!\n");
         System.out.println(humanPlayer.getCurrentRoom().getLongDescription());
     }
@@ -87,24 +89,26 @@ public class Game {
             return false;
         }
 
-        if (null != commandWord) switch (commandWord) {
-            case HELP:
-                printHelp();
-                break;
-            case GO:
-                goRoom(command);
-                break;
-            case QUIT:
-                wantToQuit = quit(command);
-                break;
-            case OPTION:
-                doOption(command);
-                break;
-            case EXITS:
-                System.out.println(humanPlayer.getCurrentRoom().getExitString());
-                break;
-            default:
-                break;
+        if (null != commandWord) {
+            switch (commandWord) {
+                case HELP:
+                    printHelp();
+                    break;
+                case GO:
+                    goRoom(command);
+                    break;
+                case QUIT:
+                    wantToQuit = quit(command);
+                    break;
+                case OPTION:
+                    doOption(command);
+                    break;
+                case EXITS:
+                    System.out.println(humanPlayer.getCurrentRoom().getExitString());
+                    break;
+                default:
+                    break;
+            }
         }
         return wantToQuit;
     }

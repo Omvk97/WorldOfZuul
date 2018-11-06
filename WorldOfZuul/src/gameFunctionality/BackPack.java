@@ -6,7 +6,7 @@ public class BackPack extends Items {
 
     private ArrayList<Tree> logsInBackPack;
     private final int backpackCapacity;
-    
+
     public BackPack(String description, int price, int backpackCapacity) {
         super(description, price);
         this.backpackCapacity = backpackCapacity;
@@ -15,6 +15,7 @@ public class BackPack extends Items {
 
     /**
      * For at se hvor mange logs der kan være i rygsækken
+     *
      * @return mængden af pladser i rygsækken
      */
     public int getBackpackCapacity() {
@@ -23,14 +24,16 @@ public class BackPack extends Items {
 
     /**
      * for at kunne bruge selve arraylisten til noget
+     *
      * @return arraylist med de logs der er i arraylisten
      */
     public ArrayList<Tree> getLogsInBackPack() {
         return logsInBackPack;
     }
-    
+
     /**
      * Finder hvor mange logs der er på nuværende tidspunkt i rygsækken
+     *
      * @return størrelsen af arraylisten med logs
      */
     public int getAmountOfLogsInBackPack() {
@@ -39,6 +42,7 @@ public class BackPack extends Items {
 
     /**
      * Denne metode benyttes til at få information om hvilken træ type som spilleren bærer rundt på.
+     *
      * @param treePosition det er indexet i arrayListen med alle træerne
      * @return arraylist med træer som spilleren bærer rundt på.
      */
@@ -48,6 +52,7 @@ public class BackPack extends Items {
 
     /**
      * Bruges til at tilføje træer en af gangen til rygsækken
+     *
      * @param tree det træ som skal tilføjes til rygsækken
      */
     public void addTreeToBackpack(Tree tree) {
@@ -59,16 +64,16 @@ public class BackPack extends Items {
     }
 
     /**
-     * Metoden her bruges til når spilleren enten sælger eller opbevarer deres logs, så
-     * tømmes rygsækken
+     * Metoden her bruges til når spilleren enten sælger eller opbevarer deres logs, så tømmes
+     * rygsækken
      */
     public void emptyBackpack() {
         this.logsInBackPack = new ArrayList();
     }
 
     /**
-     * Bruges til at fjerne træer fra rygsækken en af gangen, starter fra
-     * det første index i arraylisten.
+     * Bruges til at fjerne træer fra rygsækken en af gangen, starter fra det første index i
+     * arraylisten.
      */
     public void removeLogFromBackpack() {
         this.logsInBackPack.remove(0);
@@ -76,9 +81,8 @@ public class BackPack extends Items {
 
     @Override
     public String toString() {
-        return getDescription() + " with a capacity of " + getBackpackCapacity() + 
-            " | " + getPrice() + " gold coins";
+        return getDescription() + " with a capacity of " + getBackpackCapacity()
+            + " | " + getPrice() + " gold coins";
     }
-    
-    
+
 }
