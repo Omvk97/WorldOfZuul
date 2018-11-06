@@ -24,10 +24,8 @@ public class NonCertifiedForest extends Forest {
         return "You are standing " + getShortDescription() + "!\n"
             + "This forest will not regrow, there are " + trees.size() + " trees" + "\n"
             + "Your options are: \n"
-            + "----------------------------------\n"
             + "Option 1 - Cut down a tree and bring it with you \n"
-            + "Option 2 - See how many trees are left in the forest"
-            + "----------------------------------\n";
+            + "Option 2 - See how many trees are left in the forest";
     }
 
     @Override
