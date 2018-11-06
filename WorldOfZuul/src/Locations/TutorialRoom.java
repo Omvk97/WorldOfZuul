@@ -54,8 +54,10 @@ public class TutorialRoom extends Room {
         System.out.println("Great job! You are now standing in the west area\n"
             + "In each room you have different options you can perform\n"
             + "In this room you have these options:\n"
+            + "----------------------------------\n"
             + "Option 1 - Pick up a rock\n"
             + "Option 2 - Karatechop a twig\n"
+            + "----------------------------------\n"
             + "Try typing 'option' followed by the choice you would like to make");
         String option = input.nextLine();
         boolean correctUserOption = false;

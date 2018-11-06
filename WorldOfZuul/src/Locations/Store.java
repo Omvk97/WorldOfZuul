@@ -32,10 +32,12 @@ public class Store extends Room {
     public String getLongDescription() {
         return "You are standing " + getShortDescription() + "!\n"
             + "Here you can sell your logs and purchase new equipment \n"
+            + "----------------------------------\n"
             + "Option 1 - Sell logs\n"
             + "Option 2 - Buy a new axe\n"
             + "Option 3 - Upgrade your backpack\n"
-            + "Option 4 - Buy saplings";
+            + "Option 4 - Buy saplings"
+            + "----------------------------------\n";
     }
 
     /**
