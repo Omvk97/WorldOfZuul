@@ -21,11 +21,10 @@ public class Player {
     private boolean saplingsPlanted;
     private boolean hasChoppedTrees;
 
-    public Player(Axe starterAxe, BackPack starterBackPack) {
+    public Player(BackPack starterBackPack) {
         this.money = 0;
         this.climatePoints = 0;
         this.giftHasBeenGivenToday = false;
-        this.equippedAxe = starterAxe;
         this.equippedBackPack = starterBackPack;
         this.saplingBundleAmount = 0;
         this.saplingsPlanted = false;
@@ -93,12 +92,9 @@ public class Player {
         equippedAxe = newAxe;
         money -= newAxe.getPrice();
     }
-
-    /**
-     * @return om spilleren har en økse equipped.
-     */
-    public boolean canUseAxe() {
-        return equippedAxe != null;
+    
+    public void pickedUpAxe(Axe axe) {
+        equippedAxe = axe;
     }
 
     /**
@@ -119,7 +115,7 @@ public class Player {
      *
      * @return øksen som er equipped
      */
-    public Axe axe() {
+    public Axe getAxe() {
         return equippedAxe;
     }
 
