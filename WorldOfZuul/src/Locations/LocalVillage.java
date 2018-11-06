@@ -18,8 +18,8 @@ public class LocalVillage extends Room {
     private final int CLIMATESCENARIO5 = -59;
     private final Trailer trailer;
 
-    public LocalVillage(String description, Player player, Trailer trailer) {
-        super(description, player);
+    public LocalVillage(String description, Trailer trailer) {
+        super(description);
         this.trailer = trailer;
     }
 

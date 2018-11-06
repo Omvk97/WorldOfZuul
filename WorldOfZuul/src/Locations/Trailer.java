@@ -12,8 +12,8 @@ public class Trailer extends Room {
     private int numOfDaysGoneBy;
     private ArrayList<Tree> logsInStorage;
 
-    public Trailer(String description, Player player) {
-        super(description, player);
+    public Trailer(String description) {
+        super(description);
         this.numOfDaysGoneBy = 1;
         this.logsInStorage = new ArrayList();
     }

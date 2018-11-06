@@ -23,8 +23,8 @@ public class Store extends Room {
     private final int SAPLING_BUNDLE_PRICE = 12;
     private final Scanner userPurchaseChoice = new Scanner(System.in);
 
-    public Store(String description, Player player, Trailer trailer) {
-        super(description, player);
+    public Store(String description, Trailer trailer) {
+        super(description);
         this.trailer = trailer;
     }
 

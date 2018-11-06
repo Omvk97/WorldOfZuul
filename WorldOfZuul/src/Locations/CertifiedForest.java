@@ -15,8 +15,8 @@ public class CertifiedForest extends Forest {
     private final static int MIN_AMOUNTOFTREESINFOREST = 85;
     private final static int FOREST_REGROW_RATE = 3;
 
-    public CertifiedForest(String description, Player player) {
-        super(description, player);
+    public CertifiedForest(String description) {
+        super(description);
         trees = new ArrayList(MAX_AMOUNTOFTREESINFOREST);
         for (int i = 0; i < MAX_AMOUNTOFTREESINFOREST; i++) {
             trees.add(new CertifiedTree());

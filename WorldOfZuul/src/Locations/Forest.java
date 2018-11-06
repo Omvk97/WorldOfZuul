@@ -17,8 +17,8 @@ public abstract class Forest extends Room {
     protected final static int MAX_AMOUNTOFTREESINFOREST = 100;
     protected List<Tree> trees = null;
 
-    public Forest(String description, Player player) {
-        super(description, player);
+    public Forest(String description) {
+        super(description);
     }
 
     protected boolean playerCanCarryMoreTree() {

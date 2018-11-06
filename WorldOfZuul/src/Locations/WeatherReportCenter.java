@@ -1,7 +1,5 @@
 package Locations;
 
-import gameFunctionality.Player;
-
 public class WeatherReportCenter extends Room {
 
     private final String weatherReporter = "Jensen: ";
@@ -9,8 +7,8 @@ public class WeatherReportCenter extends Room {
     // clime points = 0.-50,-100.-150.-200.50.10.150.200.250
     int[] Scenatiepoint = new int[]{0, -50, -100, -150, -200, 50, 100, 150, 200, 250};
 
-    public WeatherReportCenter(String description, Player player) {
-        super(description, player);
+    public WeatherReportCenter(String description) {
+        super(description);
 
     }
 

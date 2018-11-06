@@ -11,8 +11,8 @@ import java.util.ArrayList;
  */
 public class NonCertifiedForest extends Forest {
 
-    public NonCertifiedForest(String description, Player player) {
-        super(description, player);
+    public NonCertifiedForest(String description) {
+        super(description);
         trees = new ArrayList(MAX_AMOUNTOFTREESINFOREST);
         for (int i = 0; i < MAX_AMOUNTOFTREESINFOREST; i++) {
             trees.add(new NonCertifiedTree());

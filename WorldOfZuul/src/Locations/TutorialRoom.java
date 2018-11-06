@@ -10,19 +10,15 @@ public class TutorialRoom extends Room {
     boolean answer;
     private final Trailer trailer;
 
-    public TutorialRoom(String description, Player player, Trailer trailer) {
-        super(description, player);
+    public TutorialRoom(String description, Trailer trailer) {
+        super(description);
         this.trailer = trailer;
     }
 
     private void getAnswer() {
         System.out.println("Would you like to take a tutorial? [Y / N]");
         String playerInput = input.nextLine();
-        if (playerInput.toUpperCase().equals("Y")) {
-            answer = true;
-        } else {
-            answer = false;
-        }
+        answer = playerInput.toUpperCase().equals("Y");
     }
 
     @Override
