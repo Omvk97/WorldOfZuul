@@ -40,7 +40,7 @@ public class CertifiedForest extends Forest {
             + "In this forest you can plant new trees, there currently are " + trees.size() + " trees" + "\n"
             + "ALERT If you don't seed the forest after felling trees you will be fined the next day! \n"
             + "Your options are: \n"
-            + "Cut - Cut down a tree and bring it with you \n"
+            + "Chop Tree - Cut down a tree and bring it with you \n"
             + "Trees left - See how many trees are left in the forest \n"
             + "Replant trees - Replant trees";
     }

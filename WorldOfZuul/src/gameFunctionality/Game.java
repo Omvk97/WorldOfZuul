@@ -28,7 +28,6 @@ public class Game {
         trailer.setExit("west", weatherCenter);
         trailer.setExit("north", nonCertificedForest);
 
-
         certifiedForest.setExit("east", localVillage);
         certifiedForest.setExit("north", trailer);
 
@@ -47,34 +46,36 @@ public class Game {
         store.setExit("northeast", trailer);
 
     }
-    public void setOptionsForRooms(){
+
+    private void setOptionsForRooms() {
         // certiiedForest
-        certifiedForest.setOptions("cut","1");
+        certifiedForest.setOptions("choptree", "1");
         certifiedForest.setOptions("treesleft", "2");
-        certifiedForest.setOptions("replanttrees","3");
+        certifiedForest.setOptions("replanttrees", "3");
         // WeatherRoom
         weatherCenter.setOptions("globalnews", "1");
         weatherCenter.setOptions("localnews", "2");
         weatherCenter.setOptions("scorebord", "3");
         //trailer
         trailer.setOptions("storelogs", "1");
-        trailer.setOptions("wallet", "2");
-        trailer.setOptions("sleep","3");
+        trailer.setOptions("checkwallet", "2");
+        trailer.setOptions("sleep", "3");
+        trailer.setOptions("pickupaxe", "4");
         //nonCertifiedFroest
-        nonCertificedForest.setOptions("cut",   "1");
-        nonCertificedForest.setOptions("seetrees","2");
+        nonCertificedForest.setOptions("choptree", "1");
+        nonCertificedForest.setOptions("treesleft", "2");
         //Store
-        store.setOptions("sell","1");
-        store.setOptions("buy", "2");
-        store.setOptions("upgrate", "3");
+        store.setOptions("selllogs", "1");
+        store.setOptions("buyaxe", "2");
+        store.setOptions("upgrade", "3");
         store.setOptions("saplings", "4");
     }
+
     public void play() {
         /**
-         * Der bliver her tilføjet meget samme funktion som der var før, men i stedet for at game
-         * klassen holder øje med hvilket rum spilleren er i, så er det nu 'Player' klassen som
-         * holder øje med dette. Det betyder at spilleren faktisk bevæger sig rundt og ikke spillet
-         * der bevæger sig rundt om spilleren.
+         * Der bliver her tilføjet meget samme funktion som der var før, men i stedet for at game klassen holder øje med
+         * hvilket rum spilleren er i, så er det nu 'Player' klassen som holder øje med dette. Det betyder at spilleren
+         * faktisk bevæger sig rundt og ikke spillet der bevæger sig rundt om spilleren.
          */
         humanPlayer.setCurrentRoom(tutorialRoom);
 

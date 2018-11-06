@@ -35,7 +35,7 @@ public class Parser {
                 word2 = tokenizer.next().toLowerCase();
             }
         }
-        
+        inputLine = inputLine.toLowerCase().replaceAll("\\s","");
         if (humanPlayer.getCurrentRoom().getOptions(inputLine) != null) {
             return new Command(CommandWord.OPTION, humanPlayer.getCurrentRoom().getOptions(inputLine));
         }

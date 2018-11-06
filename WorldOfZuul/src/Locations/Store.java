@@ -5,8 +5,8 @@ import gameFunctionality.*;
 import java.util.Scanner;
 
 /**
- * Klassen indeholder mange attributter som er instanser af andre klasser, som klassen her kan 
- * "sælge" til spilleren.
+ * Klassen indeholder mange attributter som er instanser af andre klasser, som klassen her kan "sælge" til spilleren.
+ *
  * @author oliver
  */
 public class Store extends Room {
@@ -20,9 +20,6 @@ public class Store extends Room {
     private final BackPack smallBackPack = new BackPack("Small backpack", 129, 10);
     private final BackPack mediumBackPack = new BackPack("Medium backpack", 249, 15);
     private final BackPack largeBackPack = new BackPack("Large backpack", 389, 20);
-
-
-
 
     private final int SAPLING_BUNDLE_PRICE = 12;
     private final Scanner userPurchaseChoice = new Scanner(System.in);
@@ -43,9 +40,7 @@ public class Store extends Room {
     }
 
     /**
-     * Denne metode benytter sig af information fra 'trailer' og 'player' Den sælger træerne som
-     * spilleren enten går rundt med, eller træer som spilleren har i sit storage. Eller begge dele
-     * på en gang.
+     * Sells the players logs both the ones carried and the ones in players store.
      */
     @Override
     public void option1() {
