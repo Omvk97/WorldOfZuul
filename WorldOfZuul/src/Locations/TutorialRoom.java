@@ -61,8 +61,10 @@ public class TutorialRoom extends Room {
         pause(1800);
         System.out.println("In each room you have different options you can perform\n"
             + "In this room you have these options:\n"
-            + "Pick up rock - You pick up a rock\n"
-            + "Karatechop - Do a karatechop on a twig");
+            + "----------------------------------\n"
+            + "○ Pick up rock - You pick up a rock\n"
+            + "○ Karatechop - Do a karatechop on a twig\n"
+            + "----------------------------------\n");
         System.out.print("Try typing one of the options \n");
         String option = input.nextLine().toLowerCase().replaceAll("\\s","");
         boolean correctUserOption = false;

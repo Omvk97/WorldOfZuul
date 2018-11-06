@@ -25,9 +25,11 @@ public class Trailer extends Room {
         return "\nYou are standing " + getShortDescription() + "!\n"
             + "This is your home, you have " + humanPlayer.getClimatePoints() + " climate points,"
             + " your choices are: \n"
-            + "Store Logs - store logs you are carrying\n"
-            + "Check Wallet - see how much money you have\n"
-            + "Sleep"
+            + "----------------------------------\n"
+            + "○ Store Logs - store logs you are carrying\n"
+            + "○ Check Wallet - see how much money you have\n"
+            + "○ Sleep\n"
+            + "----------------------------------\n"
             + (starterAxe != null ? "\nPick up Axe" : "");
     }
 
