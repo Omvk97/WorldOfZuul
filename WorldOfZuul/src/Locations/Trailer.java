@@ -20,7 +20,7 @@ public class Trailer extends Room {
 
     @Override
     public String getLongDescription() {
-        return "You are standing " + getShortDescription() + "!\n"
+        return "\nYou are standing " + getShortDescription() + "!\n"
             + "This is your home, you have " + humanPlayer.getClimatePoints() + " climate points,"
             + " your options are: \n"
             + "Option 1 - Load off logs you are carrying \n"
