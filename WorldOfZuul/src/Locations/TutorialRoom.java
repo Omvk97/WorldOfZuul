@@ -3,6 +3,8 @@ package Locations;
 import gameFunctionality.CommandWord;
 import gameFunctionality.Player;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TutorialRoom extends Room {
 
@@ -16,6 +18,7 @@ public class TutorialRoom extends Room {
     }
 
     private void getAnswer() {
+        pause(5000);
         System.out.println("Would you like to take a tutorial? [Y / N]");
         String playerInput = input.nextLine();
         if (playerInput.toUpperCase().equals("Y")) {
@@ -33,12 +36,15 @@ public class TutorialRoom extends Room {
                 + "Here you will learn how the game works\n"
                 + "Now you stand inside your trailer!\n"
                 + "From here you can either go north, east, west or south");
+            pause(4300);
             goTutorial();
             optionTutorial();
-            System.out.println("GREAT!\n"
-                + "You are now done with the tutorial!\n"
-                + "Have fun!");
-            System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
+            System.out.println("GREAT!");
+            System.out.print("You are now done with the tutorial!\n"
+                + "Have fun!\n");
+            pause(2000);
+            System.out.println("Type '" + CommandWord.HELP + "' if you ever need help.");
+            pause(4000);
             humanPlayer.setCurrentRoom(trailer);
             return trailer.getLongDescription();
         } else {
@@ -51,23 +57,26 @@ public class TutorialRoom extends Room {
     }
 
     private void optionTutorial() {
-        System.out.println("Great job! You are now standing in the west area\n"
-            + "In each room you have different options you can perform\n"
+        System.out.println("Great job! You are now standing in the west area.");
+        pause(1800);
+        System.out.println("In each room you have different options you can perform\n"
             + "In this room you have these options:\n"
-            + "Option 1 - Pick up a rock\n"
-            + "Option 2 - Karatechop a twig\n"
-            + "Try typing 'option' followed by the choice you would like to make");
-        String option = input.nextLine();
+            + "Pick up rock - You pick up a rock\n"
+            + "Karatechop - Do a karatechop on a twig");
+        System.out.print("Try typing one of the options \n");
+        String option = input.nextLine().toLowerCase().replaceAll("\\s","");
         boolean correctUserOption = false;
         while (!correctUserOption) {
             switch (option) {
-                case "option 1":
-                    System.out.println("Great you picked up a rock");
+                case "pickuprock":
+                    System.out.println("You picked up a rock");
+                    pause(2000);
                     correctUserOption = true;
                     break;
-                case "option 2":
+                case "karatechop":
                     System.out.println("You made a furious karatechop and choped a twig in half\n"
                         + "Be proud of yourself!");
+                    pause(2000);
                     correctUserOption = true;
                     break;
                 default:
@@ -79,10 +88,18 @@ public class TutorialRoom extends Room {
 
     private void goTutorial() {
         System.out.println("Try typing 'go west'");
-        String goWest = input.nextLine();
-        while (!goWest.equals("go west")) {
+        String goWest = input.nextLine().toLowerCase().replaceAll("\\s", "");
+        while (!goWest.equals("gowest")) {
             System.out.println("Incorrect, try again");
             goWest = input.nextLine();
+        }
+    }
+    
+    private void pause(int time){
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TutorialRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
