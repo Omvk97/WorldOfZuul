@@ -19,6 +19,7 @@ public class Game {
 
     public Game() {
         setExitsForRooms();
+        setOptionForRooms();
         parser = new Parser(humanPlayer);
     }
 
@@ -28,7 +29,7 @@ public class Game {
         trailer.setExit("south", certifiedForest);
         trailer.setExit("west", weatherCenter);
         trailer.setExit("north", nonCertificedForest);
-        trailer.setExit("southwest", store);
+
 
         certifiedForest.setExit("east", localVillage);
         certifiedForest.setExit("north", trailer);
@@ -39,15 +40,36 @@ public class Game {
         localVillage.setExit("west", trailer);
         localVillage.setExit("north", nonCertificedForest);
         localVillage.setExit("south", certifiedForest);
+        localVillage.setExit("east", store);
 
         weatherCenter.setExit("east", trailer);
 
-        store.setExit("northeast", trailer);
-        
-        weatherCenter.setOptions("global news", "1");
-        weatherCenter.setOptions("local news", "2");
-        
-        trailer.setOptions("store logs", "1");
+        store.setExit("west", localVillage);
+
+
+    }
+    public final  void setOptionForRooms(){
+        // certigiedForest
+        certifiedForest.setOptions("cut","1");
+        certifiedForest.setOptions("treesleft", "2");
+        certifiedForest.setOptions("replanttrees","3");
+        // WeatherRoom
+        weatherCenter.setOptions("globalnews", "1");
+        weatherCenter.setOptions("localnews", "2");
+        weatherCenter.setOptions("scorebord", "3");
+        //trailer
+        trailer.setOptions("storelogs", "1");
+        trailer.setOptions("wallet", "2");
+        trailer.setOptions("sleep","3");
+        //nonCertifiedFroest
+        nonCertificedForest.setOptions("cut",   "1");
+        nonCertificedForest.setOptions("seetrees","2");
+        //Store
+        store.setOptions("sell","1");
+        store.setOptions("buy", "2");
+        store.setOptions("upgrate", "3");
+        store.setOptions("saplings", "4");
+        /* Tutorial' */
     }
 
     public void play() {

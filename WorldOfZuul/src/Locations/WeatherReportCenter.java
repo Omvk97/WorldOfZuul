@@ -15,7 +15,7 @@ public class WeatherReportCenter extends Room {
     }
 
     @Override
-    public String getLongDescription() {
+      public String getLongDescription() {
 
         return "You are standing "
             + getShortDescription()
@@ -23,9 +23,9 @@ public class WeatherReportCenter extends Room {
             + weatherReporter + "Hi I´m your reporter"
             + "you have 3 options  \n"
             + "----------------------------------\n"
-            + "option 1 - go global news\n"
-            + "option 2 - go local news \n"
-            + "option 3 - go score bord \n"
+            + "globalnews - go global news\n"
+            + "localnews- go local news \n"
+            + "scorebord- go score bord \n"
             + "----------------------------------\n";
 
     }

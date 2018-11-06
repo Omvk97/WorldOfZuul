@@ -24,13 +24,13 @@ public class Store extends Room {
     }
 
     @Override
-    public String getLongDescription() {
+     public String getLongDescription() {
         return "You are standing " + getShortDescription() + "!\n"
             + "Here you can sell your logs and purchase new equipment \n"
-            + "Option 1 - Sell logs\n"
-            + "Option 2 - Buy a new axe\n"
-            + "Option 3 - Upgrade your backpack"
-            + "Option 4 - Buy saplings";
+            + "Sell - Sell logs\n"
+            + "buy - Buy a new axe\n"
+            + "upgrade - Upgrade your backpack"
+            + "saplings - Buy saplings";
     }
 
     /**
