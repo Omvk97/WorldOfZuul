@@ -42,7 +42,7 @@ public class CertifiedForest extends Room {
             + "ALERT If you don't seed the forest after felling trees you will be fined the next day! \n"
             + "Your options are: \n"
             + "Cut - Cut down a tree and bring it with you \n"
-            + "trees left - See how many trees are left in the forest \n"
+            + "Trees left - See how many trees are left in the forest \n"
             + "Replant trees - Replant trees";
     }
 

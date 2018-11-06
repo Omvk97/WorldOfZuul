@@ -1,12 +1,12 @@
 package Locations;
 
 import gameFunctionality.*;
+
 import java.util.Scanner;
 
 public class Store extends Room {
 
     private final Trailer trailer;
-
     private final Axe ironAxe = new Axe("Iron axe", 49, 30, 3);
     private final Axe steelAxe = new Axe("Steel axe", 119, 40, 4);
     private final Axe diamondAxe = new Axe("Diamond axe", 149, 60, 6);
@@ -15,6 +15,10 @@ public class Store extends Room {
     private final BackPack smallBackPack = new BackPack("Small backpack", 129, 10);
     private final BackPack mediumBackPack = new BackPack("Medium backpack", 249, 15);
     private final BackPack largeBackPack = new BackPack("Large backpack", 389, 20);
+
+
+
+
     private final int SAPLING_BUNDLE_PRICE = 12;
     private final Scanner userPurchaseChoice = new Scanner(System.in);
 
@@ -24,13 +28,13 @@ public class Store extends Room {
     }
 
     @Override
-     public String getLongDescription() {
+    public String getLongDescription() {
         return "You are standing " + getShortDescription() + "!\n"
             + "Here you can sell your logs and purchase new equipment \n"
             + "Sell - Sell logs\n"
-            + "buy - Buy a new axe\n"
-            + "upgrade - Upgrade your backpack"
-            + "saplings - Buy saplings";
+            + "Buy - Buy a new axe\n"
+            + "Upgrade - Upgrade your backpack"
+            + "Saplings - Buy saplings";
     }
 
     /**

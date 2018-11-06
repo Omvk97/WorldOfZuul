@@ -7,8 +7,8 @@ public class BackPack extends Items {
     private ArrayList<Tree> logsInBackPack;
     private final int backpackCapacity;
     
-    public BackPack(String description, int price, int backpackCapacity) {
-        super(description, price);
+    public BackPack(String name, int price, int backpackCapacity) {
+        super(name, price);
         this.backpackCapacity = backpackCapacity;
         this.logsInBackPack = new ArrayList();
     }

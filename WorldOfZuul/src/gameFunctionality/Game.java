@@ -48,7 +48,7 @@ public class Game {
 
 
     }
-    public final  void setOptionForRooms(){
+    public  void setOptionForRooms(){
         // certigiedForest
         certifiedForest.setOptions("cut","1");
         certifiedForest.setOptions("treesleft", "2");
@@ -71,7 +71,6 @@ public class Game {
         store.setOptions("saplings", "4");
         /* Tutorial' */
     }
-
     public void play() {
         /**
          * Der bliver her tilføjet meget samme funktion som der var før, men i stedet for at game klassen holder øje med
