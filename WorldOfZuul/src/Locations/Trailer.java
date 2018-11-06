@@ -24,12 +24,11 @@ public class Trailer extends Room {
     public String getLongDescription() {
         return "You are standing " + getShortDescription() + "!\n"
             + "This is your home, you have " + humanPlayer.getClimatePoints() + " climate points,"
-            + " your options are: \n"
-            + "----------------------------------\n"
-            + "Option 1 - Load off logs you are carrying \n"
-            + "Option 2 - Look in your wallet \n"
-            + "Option 3 - Sleep"
-            + (starterAxe != null ? "\nOption 4 - Pick up your axe" : "");
+            + " your choices are: \n"
+            + "Store Logs - store logs you are carrying\n"
+            + "Check Wallet - see how much money you have\n"
+            + "Sleep"
+            + (starterAxe != null ? "\nPick up Axe" : "");
     }
 
     /**

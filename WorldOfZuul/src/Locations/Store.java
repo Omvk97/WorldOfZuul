@@ -1,17 +1,17 @@
 package Locations;
 
 import gameFunctionality.*;
+
 import java.util.Scanner;
 
 /**
- * Klassen indeholder mange attributter som er instanser af andre klasser, som klassen her kan 
- * "sælge" til spilleren.
+ * Klassen indeholder mange attributter som er instanser af andre klasser, som klassen her kan "sælge" til spilleren.
+ *
  * @author oliver
  */
 public class Store extends Room {
 
     private final Trailer trailer;
-
     private final Axe ironAxe = new Axe("Iron axe", 49, 30, 3);
     private final Axe steelAxe = new Axe("Steel axe", 119, 40, 4);
     private final Axe diamondAxe = new Axe("Diamond axe", 149, 60, 6);
@@ -20,6 +20,7 @@ public class Store extends Room {
     private final BackPack smallBackPack = new BackPack("Small backpack", 129, 10);
     private final BackPack mediumBackPack = new BackPack("Medium backpack", 249, 15);
     private final BackPack largeBackPack = new BackPack("Large backpack", 389, 20);
+
     private final int SAPLING_BUNDLE_PRICE = 12;
     private final Scanner userPurchaseChoice = new Scanner(System.in);
 
@@ -32,16 +33,14 @@ public class Store extends Room {
     public String getLongDescription() {
         return "You are standing " + getShortDescription() + "!\n"
             + "Here you can sell your logs and purchase new equipment \n"
-            + "Option 1 - Sell logs\n"
-            + "Option 2 - Buy a new axe\n"
-            + "Option 3 - Upgrade your backpack\n"
-            + "Option 4 - Buy saplings";
+            + "Sell logs\n"
+            + "Buy axe\n"
+            + "Upgrade backpack"
+            + "Buy Saplings";
     }
 
     /**
-     * Denne metode benytter sig af information fra 'trailer' og 'player' Den sælger træerne som
-     * spilleren enten går rundt med, eller træer som spilleren har i sit storage. Eller begge dele
-     * på en gang.
+     * Sells the players logs both the ones carried and the ones in players store.
      */
     @Override
     public void option1() {

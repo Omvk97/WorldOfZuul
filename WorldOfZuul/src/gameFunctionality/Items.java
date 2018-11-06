@@ -2,6 +2,7 @@ package gameFunctionality;
 
 public abstract class Items {
 
+
     private final String description;
     private final int price;
     

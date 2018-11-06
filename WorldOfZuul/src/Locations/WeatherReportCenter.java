@@ -23,9 +23,9 @@ public class WeatherReportCenter extends Room {
             + weatherReporter + "Hi I´m your reporter"
             + "you have 3 options  \n"
             + "----------------------------------\n"
-            + "option 1 - go global news\n"
-            + "option 2 - go local news \n"
-            + "option 3 - go score bord \n"
+            + "Global news - go global news\n"
+            + "Local news- go local news \n"
+            + "Score bord- go score bord \n"
             + "----------------------------------\n";
 
     }
