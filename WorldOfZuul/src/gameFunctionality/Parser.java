@@ -14,6 +14,11 @@ public class Parser {
         this.humanPlayer = humanPlayer;
     }
 
+    /**
+     * modtager og gemmer userInput og tjekker userInput om det svarer til options i det rum
+     * som de står i.
+     * @return Command som senere tjekkes om det er et Command der er valid eller ej.
+     */
     public Command getCommand() {
         String inputLine;
         String word1 = null;

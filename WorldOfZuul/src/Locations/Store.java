@@ -4,6 +4,11 @@ import gameFunctionality.*;
 
 import java.util.Scanner;
 
+/**
+ * Klassen indeholder mange attributter som er instanser af andre klasser, som klassen her kan 
+ * "sælge" til spilleren.
+ * @author oliver
+ */
 public class Store extends Room {
 
     private final Trailer trailer;
@@ -31,10 +36,10 @@ public class Store extends Room {
     public String getLongDescription() {
         return "You are standing " + getShortDescription() + "!\n"
             + "Here you can sell your logs and purchase new equipment \n"
-            + "Sell - Sell logs\n"
-            + "Buy - Buy a new axe\n"
-            + "Upgrade - Upgrade your backpack"
-            + "Saplings - Buy saplings";
+            + "Sell logs\n"
+            + "Buy axe\n"
+            + "Upgrade backpack"
+            + "Buy Saplings";
     }
 
     /**
@@ -178,13 +183,13 @@ public class Store extends Room {
     public void option4() {
         System.out.println("Yes, you see here my friend, these saplings are cheap \nand make your trees grow quickly! \n"
             + "Only " + SAPLING_BUNDLE_PRICE + " gold coins per bundle!\n"
-            + "How many bundles would you like to buy, friend?");
+            + "How many bundles would you like to buy?");
         String saplingAmountString = userPurchaseChoice.nextLine();
         try {
             int saplingAmountInt = Integer.parseInt(saplingAmountString);
             int saplingCost = saplingAmountInt * SAPLING_BUNDLE_PRICE;
             if (humanPlayer.buySaplingBundle(saplingAmountInt, saplingCost)) {
-                System.out.println("You have bought " + saplingAmountInt + " for " + saplingCost + " gold coins \n"
+                System.out.println("You have bought " + saplingAmountInt + " sapling bundles for " + saplingCost + " gold coins \n"
                     + "You have " + humanPlayer.getMoney() + " gold coins left");
             } else {
                 System.out.println("You don't have enough money for that friend");
