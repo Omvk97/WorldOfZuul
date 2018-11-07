@@ -1,6 +1,8 @@
-package gameFunctionality;
+package game_functionality;
 
-import Locations.Room;
+import game_elements.BackPack;
+import game_elements.Axe;
+import game_locations.Room;
 
 /**
  * Indeholder en masse information som andre klasser benytter sig af for at bestemme hvad

@@ -1,7 +1,7 @@
-package Locations;
+package game_locations;
 
-import gameFunctionality.CommandWord;
-import gameFunctionality.Player;
+import game_functionality.CommandWord;
+import game_functionality.Player;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;

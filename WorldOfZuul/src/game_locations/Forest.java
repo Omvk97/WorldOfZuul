@@ -1,7 +1,7 @@
-package Locations;
+package game_locations;
 
-import gameFunctionality.Player;
-import gameFunctionality.Tree;
+import game_functionality.Player;
+import game_elements.Tree;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;

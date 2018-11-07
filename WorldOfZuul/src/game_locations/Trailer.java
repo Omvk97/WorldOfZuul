@@ -1,8 +1,8 @@
-package Locations;
+package game_locations;
 
-import gameFunctionality.Axe;
-import gameFunctionality.Player;
-import gameFunctionality.Tree;
+import game_elements.Axe;
+import game_functionality.Player;
+import game_elements.Tree;
 import java.util.ArrayList;
 
 public class Trailer extends Room {

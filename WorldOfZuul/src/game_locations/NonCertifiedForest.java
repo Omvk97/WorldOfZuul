@@ -1,6 +1,7 @@
-package Locations;
+package game_locations;
 
-import gameFunctionality.*;
+import game_functionality.Player;
+import game_elements.NonCertifiedTree;
 import java.util.ArrayList;
 
 /**

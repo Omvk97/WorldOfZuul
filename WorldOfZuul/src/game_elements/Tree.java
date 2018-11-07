@@ -1,4 +1,4 @@
-package gameFunctionality;
+package game_elements;
 
 public abstract class Tree {
     protected int treeHealth;

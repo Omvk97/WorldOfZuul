@@ -1,7 +1,7 @@
-package Locations;
+package game_locations;
 
-import gameFunctionality.NonCertifiedTree;
-import gameFunctionality.Player;
+import game_elements.NonCertifiedTree;
+import game_functionality.Player;
 
 public class LocalVillage extends Room {
 

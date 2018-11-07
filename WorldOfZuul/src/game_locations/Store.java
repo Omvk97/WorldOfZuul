@@ -1,6 +1,9 @@
-package Locations;
+package game_locations;
 
-import gameFunctionality.*;
+import game_functionality.Player;
+import game_elements.Tree;
+import game_elements.BackPack;
+import game_elements.Axe;
 
 import java.util.Scanner;
 

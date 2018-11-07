@@ -1,6 +1,6 @@
-package Locations;
+package game_locations;
 
-import gameFunctionality.Player;
+import game_functionality.Player;
 import java.util.Set;
 import java.util.HashMap;
 

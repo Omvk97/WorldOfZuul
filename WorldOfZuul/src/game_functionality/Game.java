@@ -1,6 +1,14 @@
-package gameFunctionality;
+package game_functionality;
 
-import Locations.*;
+import game_locations.CertifiedForest;
+import game_locations.NonCertifiedForest;
+import game_locations.WeatherReportCenter;
+import game_locations.Store;
+import game_locations.Room;
+import game_locations.Trailer;
+import game_locations.TutorialRoom;
+import game_locations.LocalVillage;
+import game_elements.BackPack;
 
 public class Game {
 

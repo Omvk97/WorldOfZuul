@@ -1,4 +1,6 @@
-package gameFunctionality;
+package game_elements;
+
+import game_elements.Tree;
 
 public class CertifiedTree extends Tree {
     
