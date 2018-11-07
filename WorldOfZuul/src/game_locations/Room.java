@@ -11,6 +11,10 @@ public abstract class Room {
     private final HashMap<String, String> options;
     protected final Player humanPlayer;
 
+    private final int[] NEGATIVE_SCENARIO_POINTS = new int[]{-19, -29, -39, -49, -59};
+    private final int[] POSITIVE_SCENARIO_POINTS = new int[]{19, 29, 39, 49, 59};
+    
+
     public Room(String description, Player player) {
         this.description = description;
         this.humanPlayer = player;
@@ -49,6 +53,14 @@ public abstract class Room {
         return exits.get(direction);
     }
 
+    public int[] getNEGATIVE_SCENARIO_POINTS() {
+        return NEGATIVE_SCENARIO_POINTS;
+    }
+
+    public int[] getPOSITIVE_SCENARIO_POINTS() {
+        return POSITIVE_SCENARIO_POINTS;
+    }
+    
     public void option1() {
         System.out.println("There is no option 1 in this room");
     }

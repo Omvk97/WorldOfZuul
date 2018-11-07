@@ -6,9 +6,6 @@ public class WeatherReportCenter extends Room {
 
     private final String weatherReporter = "Jensen: ";
 
-    // climate points = 0.-50,-100.-150.-200.50.10.150.200.250
-    int[] Scenariopoint = new int[]{0, -50, -100, -150, -200, 50, 100, 150, 200, 250};
-
     public WeatherReportCenter(String description, Player player) {
         super(description, player);
 
@@ -18,157 +15,150 @@ public class WeatherReportCenter extends Room {
     public String getLongDescription() {
 
         return "You are standing "
-            + getShortDescription()
-            + "!\n"
-            + weatherReporter + "Hi I´m your reporter"
-            + "you have 3 options  \n"
-            + "----------------------------------\n"
-            + "○ Global news - go global news\n"
-            + "○ Local news- go local news \n"
-            + "○ Score bord- go score bord \n"
-            + "----------------------------------\n";
+                + getShortDescription()
+                + "!\n"
+                + weatherReporter + "Hi I´m your reporter\n"
+                + "you have 3 options\n"
+                + "----------------------------------\n"
+                + "○ Global news - Watch the global news\n"
+                + "○ Local news- Watch the local news \n"
+                + "○ Scorebord- Access the scoreboard \n"
+                + "----------------------------------";
 
     }
 
     @Override
     public void option1() {
         int climatePoints = humanPlayer.getClimatePoints();
-        // negative Globale clime point
-        if (climatePoints == Scenariopoint[0]) {
-            System.out.printf("%sInfo :The weather is fine\n"
-                + "temp : 30\n"
-                + "water level: normal\n"
-                ,weatherReporter);
-        } else if (climatePoints < Scenariopoint[0] && climatePoints >= Scenariopoint[1]) {
-            System.out.printf("$sInfo: heat wave over the hell world \n"
-                + "Temp: 35 \n"
-                + "water level: +1 \n"
-                , weatherReporter);
-        } else if (climatePoints < Scenariopoint[1] && climatePoints >= Scenariopoint[2]) {
-            System.out.printf("$sInfo: the snow is melting\n"
-                + "Temp: 40 \n"
-                + "water level: +4\n"
-                , weatherReporter);
-        } else if (climatePoints < Scenariopoint[2] && climatePoints >= Scenariopoint[3]) {
-            System.out.printf("$sInfo: giant storms threaten the world\n"
-                + "Temp: 45\n"
-                + "water level: +6\n", weatherReporter);
-        } else if (climatePoints < Scenariopoint[3] && climatePoints >= Scenariopoint[4]) {
-            System.out.printf("$sInfo: Large parts of the world are flooded\n"
-                + "Temp: 50\n"
-                + "water level: +15\n"
-                , weatherReporter);
-        } else if (climatePoints < Scenariopoint[4]) {
-            System.out.printf("$sInfo: The world is in war. more countries conquer others to get space\n"
-                + "Temp: 55\n"
-                + "water level: +20\n"
-                , weatherReporter);
+        // negative Globale climate point
+        if (climatePoints < this.getPOSITIVE_SCENARIO_POINTS()[0] && climatePoints >
+                this.getNEGATIVE_SCENARIO_POINTS()[0]) {
+            System.out.printf("%sInfo: Global atmospheric conditions are normal\n"
+                    + "Global Temperature: 21 degrees Celsius\n"
+                    + "Water level: Stable\n",
+                    weatherReporter);
+        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[0] && climatePoints > 
+                this.getNEGATIVE_SCENARIO_POINTS()[1]) {
+            System.out.printf("$sInfo: The world is experiencing a global heat increase\n"
+                    + "Global Temperature: 23 degrees Celsius\n"
+                    + "Water level: Risen 1 meter\n",
+                    weatherReporter);
+        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[1] && climatePoints > 
+                this.getNEGATIVE_SCENARIO_POINTS()[2]) {
+            System.out.printf("$sInfo: The polar ice caps are starting to melt\n"
+                    + "Global Temperature: 26 degrees Celsius\n"
+                    + "Water level: Risen 4 meters\n",
+                    weatherReporter);
+        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[2] && climatePoints > 
+                this.getNEGATIVE_SCENARIO_POINTS()[3]) {
+            System.out.printf("$sInfo: Tropical storms are becoming more commonplace\n"
+                    + "Global Temperature: 26 degrees Celsius\n"
+                    + "Water level: Risen 6 meters\n",
+                    weatherReporter);
+        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[3] && climatePoints > 
+                this.getNEGATIVE_SCENARIO_POINTS()[4]) {
+            System.out.printf("$sInfo: Large parts of the world are flooded."
+                    + "The ice caps are gone\n"
+                    + "Global Temperature: 28 degrees Celsius\n"
+                    + "Water level: Risen 15 meters\n",
+                    weatherReporter);
+        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[4]) {
+            System.out.printf("$sInfo: The world is in anarchy. Civil unrest is at its most violent\n"
+                    + "Global Temperature: 31 degrees Celsius\n"
+                    + "Water Level: Risen 20 meters\n",
+                    weatherReporter);
             // positive climepoint
-        } else if (climatePoints > Scenariopoint[0] && climatePoints <= Scenariopoint[5]) {
-            System.out.printf( "$sInfo: The amount of co2 begins to disappear\n"
-                + "Temp: 30 \n"
-                + "water level: 0\n"
-                , weatherReporter);
-        } else if (climatePoints > Scenariopoint[5] && climatePoints <= Scenariopoint[6]) {
-            System.out.printf("$sInfo: China can remove their masks\n"
-                + "Temp: 30\n"
-                + "water level: 0\n"
-                , weatherReporter);
-        } else if (climatePoints > Scenariopoint[6] && climatePoints <= Scenariopoint[7]) {
-            System.out.printf("$sInfo: new forests appear all over the world\n"
-                + "Temp: 30\n"
-                + "water level: 0\n", weatherReporter);
-        } else if (climatePoints > Scenariopoint[7] && climatePoints <= Scenariopoint[8]) {
-            System.out.printf("$sInfo: animals return to the forests\n"
-                + "Temp: 30\n"
-                + "water level: 0\n"
-                , weatherReporter);
-        } else if (climatePoints > Scenariopoint[8] && climatePoints <= Scenariopoint[9]) {
-            System.out.printf("$sInfo: people live longer\n"
-                + "Temp: 30\n"
-                + "water level: 0\n", weatherReporter);
-        } else if (climatePoints > Scenariopoint[9]) {
-            System.out.printf("$sInfo: a meteor heading towards the world\n"
-                + "Temp: 30\n"
-                + "water level: 0\n"
-                , weatherReporter);
+        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[0] && climatePoints < 
+                this.getPOSITIVE_SCENARIO_POINTS()[1]) {
+            System.out.printf("$sInfo: The CO2 atmospheric concentration is stagnating\n"
+                    + "Global Temperature: 21 degrees Celsius\n"
+                    + "Water Level: Stable\n",
+                    weatherReporter);
+        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[1] && climatePoints < 
+                this.getPOSITIVE_SCENARIO_POINTS()[2]) {
+            System.out.printf("$sInfo: Air pollution is starting to thin out globally\n"
+                    + "Global Temperature: 21 degrees Celsius\n"
+                    + "Water Level: Stable\n",
+                    weatherReporter);
+        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[2] && climatePoints < 
+                this.getPOSITIVE_SCENARIO_POINTS()[3]) {
+            System.out.printf("$sInfo: Forest areas are steadily increasing\n"
+                    + "Global Temperature: 21 degrees Celsius\n"
+                    + "Water Level: Stable\n",
+                    weatherReporter);
+        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[3] && climatePoints < 
+                this.getPOSITIVE_SCENARIO_POINTS()[4]) {
+            System.out.printf("$sInfo: The atmosphere is very stable and optimal\n"
+                    + "Global Temperature: 21 degrees Celsius\n"
+                    + "Water Level: Stable\n",
+                    weatherReporter);
         }
     }
 
     @Override
     public void option2() {
-        int climePoints = humanPlayer.getClimatePoints();
-        // nigative Globale clime point
-        if (climePoints == Scenariopoint[0]) {
-            System.out.printf("%s info: The weather is god\n"
-                + "temp: 30\n"
-                + "wind: \n"
-                , weatherReporter);
-        } else if (climePoints < Scenariopoint[0] && climePoints >= Scenariopoint[1]) {
-            System.out.printf("%s info: heat wave on our way\n"
-                + "temp: 40\n"
-                + "wind: \n"
-                , weatherReporter);
-        } else if (climePoints < Scenariopoint[1] && climePoints >= Scenariopoint[2]) {
-            System.out.printf("%s"
-                + "info: giant rainways\n"
-                + "temp: 30\n"
-                + "wind: 20m/sec\n", weatherReporter);
-        } else if (climePoints < Scenariopoint[2] && climePoints >= Scenariopoint[3]) {
-            System.out.printf("%s info: Storm is comming\n"
-                + "temp: 30\n"
-                + "wind: 32m/sec\n"
-                , weatherReporter);
-        } else if (climePoints < Scenariopoint[3] && climePoints >= Scenariopoint[4]) {
-            System.out.printf("%s info: a tonado destroys the city\n"
-                + "temp: 30\n"
-                + "wind: 150m/sec\n", weatherReporter);
-        } else if (climePoints < Scenariopoint[4]) {
-            System.out.printf("$s is dead\n"
-                + "info:  Erro\n"
-                + "temp:  Erro\n"
-                + "vwind: Erro\n"
-                , weatherReporter);
-            // positive climepoint
-        } else if (climePoints > Scenariopoint[0] && climePoints <= Scenariopoint[5]) {
-            System.out.printf("%sinfo: The weather is god\n"
-                + "temp: 30"
-                + "wind: \n"
-                , weatherReporter);
-        } else if (climePoints > Scenariopoint[5] && climePoints <= Scenariopoint[6]) {
-            System.out.printf("%sinfo: a littel rain\n"
-                + "temp: 25\n"
-                + "wind: 7m/sec\n"
-                , weatherReporter);
-        } else if (climePoints > Scenariopoint[6] && climePoints <= Scenariopoint[7]) {
-            System.out.printf("%sinfo: the son shines\n"
-                + "temp: 35\n"
-                + "wind: 2m/sec\n"
-                , weatherReporter);
-        } else if (climePoints > Scenariopoint[7] && climePoints <= Scenariopoint[8]) {
-            System.out.printf("%sinfo: good wind\n"
-                + "temp: 32\n"
-                + "wind: 10M/sek\n"
-                , weatherReporter);
-        } else if (climePoints > Scenariopoint[8] && climePoints <= Scenariopoint[9]) {
-            System.out.printf("%sinfo: son all day\n"
-                + "temp: 35\n"
-                + "wind: 2m/sek\n"
-                , weatherReporter);
-        } else if (climePoints > Scenariopoint[9]) {
-            System.out.printf(
-                 "%s\n"
-                + "info: coold day\n"
-                + "temp: 20\n"
-                + "wind: 6m/sek\n"
-                , weatherReporter);
-
+        int climatePoints = humanPlayer.getClimatePoints();
+        // negative local clime point
+        if (climatePoints < this.getPOSITIVE_SCENARIO_POINTS()[0] && climatePoints >
+                this.getNEGATIVE_SCENARIO_POINTS()[0]) {
+            System.out.printf("%sinfo: The weather forecast indicates a calm weather\n"
+                    + "Local Temperature: 30 degrees Celsius\n"
+                    + "Wind Speeds: Windstill\n",
+                    weatherReporter);
+        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[0] && climatePoints > 
+                this.getNEGATIVE_SCENARIO_POINTS()[1]) {
+            System.out.printf("%sinfo: The weather forecast indicates a heat wave\n"
+                    + "Local Temperature: 35 degrees Celsius\n"
+                    + "Wind Speeds: Windstill\n",
+                    weatherReporter);
+        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[1] && climatePoints > 
+                this.getNEGATIVE_SCENARIO_POINTS()[2]) {
+            System.out.printf("%sinfo: The weather forecast indicates stronger winds and heavy rain\n"
+                    + "Local Temperature: 30 degrees Celsius\n"
+                    + "Wind Speeds: 20 m/sec\n",
+                    weatherReporter);
+        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[2] && climatePoints > 
+                this.getNEGATIVE_SCENARIO_POINTS()[3]) {
+            System.out.printf("%sinfo: The weather forecast indicates a tropical storm\n"
+                    + "Local Temperature: 25 degrees Celsius\n"
+                    + "Wind Speeds: 32 m/sec\n",
+                    weatherReporter);
+        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[3] && climatePoints > 
+                this.getNEGATIVE_SCENARIO_POINTS()[4]) {
+            System.out.printf("%sinfo: The weather forecast indicates a strong hurricane\n"
+                    + "Local Temperature: 25 degrees Celsius\n"
+                    + "Wind Speeds: 90 m/sec\n",
+                    weatherReporter);
+        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[4]) {
+            System.out.printf("$sinfo: MALFUNCTION weather station destroyed\n"
+                    + "Local Temperature: Error\n"
+                    + "Wind Speeds: Error\n",
+                    weatherReporter);
+            // positive local climatepoints
+        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[0] && climatePoints <
+                this.getPOSITIVE_SCENARIO_POINTS()[1]) {
+            System.out.printf("%sinfo: The weather forecast indicates a calm weather\n"
+                    + "Local Temperature: 30 degrees Celsius\n"
+                    + "Wind speeds: Windstill\n",
+                    weatherReporter);
+        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[1] && climatePoints <
+                this.getPOSITIVE_SCENARIO_POINTS()[2]) {
+            System.out.printf("%sinfo: The weather forecast indicates light rain\n"
+                    + "Local Temperature: 28 degrees Celsius\n"
+                    + "Wind Speeds: 7 m/sec\n",
+                    weatherReporter);
+        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[2] && climatePoints <
+                this.getPOSITIVE_SCENARIO_POINTS()[3]) {
+            System.out.printf("%sinfo: The weather forecast indicates no clouds and warm temperatures\n"
+                    + "Local Temperature: 35 degree Celsius\n"
+                    + "Wind speeds: 2 m/sec\n",
+                    weatherReporter);
+        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[3] && climatePoints <
+                this.getPOSITIVE_SCENARIO_POINTS()[4]) {
+            System.out.printf("%sinfo: The weather forecast indicates mild winds\n"
+                    + "Local Temperature: 32 degree Celsius\n"
+                    + "Wind Speeds: 5 m/sec\n",
+                    weatherReporter);
         }
-    }
-
-    @Override
-    public void option3() {
-
-        System.out.println("not yet !!");
     }
 }

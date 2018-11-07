@@ -18,7 +18,7 @@ public class TutorialRoom extends Room {
     }
 
     private void getAnswer() {
-        pause(5000);
+//        pause(5000);
         System.out.println("Would you like to take a tutorial? [Y / N]");
         String playerInput = input.nextLine();
         if (playerInput.toUpperCase().equals("Y")) {
@@ -64,7 +64,7 @@ public class TutorialRoom extends Room {
             + "----------------------------------\n"
             + "○ Pick up rock - You pick up a rock\n"
             + "○ Karatechop - Do a karatechop on a twig\n"
-            + "----------------------------------\n");
+            + "----------------------------------");
         System.out.print("Try typing one of the options \n");
         String option = input.nextLine().toLowerCase().replaceAll("\\s","");
         boolean correctUserOption = false;

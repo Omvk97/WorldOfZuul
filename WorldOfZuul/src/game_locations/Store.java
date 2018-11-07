@@ -41,7 +41,7 @@ public class Store extends Room {
             + "○ Buy axe\n"
             + "○ Upgrade backpack\n"
             + "○ Buy Saplings\n"
-            + "----------------------------------\n";
+            + "----------------------------------";
     }
 
     /**

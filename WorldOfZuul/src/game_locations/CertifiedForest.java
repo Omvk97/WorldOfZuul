@@ -44,7 +44,7 @@ public class CertifiedForest extends Forest {
             + "○ Chop Tree - Cut down a tree and bring it with you \n"
             + "○ Trees left - See how many trees are left in the forest \n"
             + "○ Replant trees - Replant trees\n"
-            + "----------------------------------\n";
+            + "----------------------------------";
     }
 
     @Override

@@ -28,7 +28,7 @@ public class NonCertifiedForest extends Forest {
             + "----------------------------------\n"
             + "○ Chop Tree - Cut down a tree and bring it with you \n"
             + "○ See tree - See how many trees are left in the forest\n"
-            + "----------------------------------\n";
+            + "----------------------------------";
     }
 
     @Override
