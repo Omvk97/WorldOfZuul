@@ -1,17 +1,16 @@
 package Locations;
 
 import gameFunctionality.CommandWord;
+import gameFunctionality.Player;
 import java.util.Scanner;
 
 public class TutorialRoom extends Room {
 
     Scanner input = new Scanner(System.in);
     boolean answer;
-    private final Trailer trailer;
 
-    public TutorialRoom(String description, Trailer trailer) {
+    public TutorialRoom(String description) {
         super(description);
-        this.trailer = trailer;
     }
 
     private void getAnswer() {
@@ -21,7 +20,8 @@ public class TutorialRoom extends Room {
     }
 
     @Override
-    public String getLongDescription() {
+    public String getLongDescription(Player humanPlayer) {
+        Trailer trailer = humanPlayer.getTrailer();
         getAnswer();
         if (answer) {
             System.out.println("Welcome to the turtorial room! \n"
@@ -34,13 +34,13 @@ public class TutorialRoom extends Room {
                 + "You are now done with the tutorial!\n"
                 + "Have fun!");
             System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
-            humanPlayer.setCurrentRoom(trailer);
-            return trailer.getLongDescription();
+            humanPlayer.throwPlayerBack();
+            return trailer.getLongDescription(humanPlayer);
         } else {
             System.out.println("Alright have fun!");
             System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
-            humanPlayer.setCurrentRoom(trailer);
-            return trailer.getLongDescription();
+            humanPlayer.throwPlayerBack();
+            return trailer.getLongDescription(humanPlayer);
         }
 
     }

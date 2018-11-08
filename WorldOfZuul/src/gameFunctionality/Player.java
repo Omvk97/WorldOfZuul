@@ -1,6 +1,7 @@
 package gameFunctionality;
 
 import Locations.Room;
+import Locations.Trailer;
 
 /**
  * Indeholder en masse information som andre klasser benytter sig af for at bestemme hvad
@@ -20,16 +21,14 @@ public class Player {
     private int saplingBundleAmount;
     private boolean saplingsPlanted;
     private boolean hasChoppedTrees;
+    private final Trailer trailer;
+    private Room previousRoom;
 
-    public Player(Axe starterAxe, BackPack starterBackPack) {
-        this.money = 0;
-        this.climatePoints = 0;
-        this.giftHasBeenGivenToday = false;
+    public Player(Axe starterAxe, BackPack starterBackPack, Trailer trailer) {
         this.equippedAxe = starterAxe;
         this.equippedBackPack = starterBackPack;
-        this.saplingBundleAmount = 0;
-        this.saplingsPlanted = false;
-        this.hasChoppedTrees = false;
+        this.trailer = trailer;
+        this.previousRoom = trailer;
     }
 
     /**
@@ -51,11 +50,11 @@ public class Player {
     }
 
     public int getClimatePoints() {
-        return this.climatePoints;
+        return climatePoints;
     }
 
     public void addClimatePoints(int treeClimatePoints) {
-        this.climatePoints += treeClimatePoints;
+        climatePoints += treeClimatePoints;
     }
 
     /**
@@ -71,7 +70,14 @@ public class Player {
      * @param newRoom: Rummet som spilleren skal bevæge sig til.
      */
     public void setCurrentRoom(Room newRoom) {
-        this.currentRoom = newRoom;
+        if (currentRoom != null) {
+            previousRoom = currentRoom;
+        }
+        currentRoom = newRoom;
+    }
+
+    public void throwPlayerBack() {
+        currentRoom = previousRoom;
     }
 
     /**
@@ -92,6 +98,10 @@ public class Player {
     public void boughtAxe(Axe newAxe) {
         equippedAxe = newAxe;
         money -= newAxe.getPrice();
+    }
+
+    public Trailer getTrailer() {
+        return trailer;
     }
 
     /**

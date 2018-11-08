@@ -28,7 +28,7 @@ public abstract class Room {
         return description;
     }
 
-    abstract public String getLongDescription();
+    abstract public String getLongDescription(Player humanPlayer);
 
     public String getExitString() {
         StringBuilder returnString = new StringBuilder("Exits:");

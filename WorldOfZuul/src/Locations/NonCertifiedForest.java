@@ -20,7 +20,7 @@ public class NonCertifiedForest extends Forest {
     }
 
     @Override
-    public String getLongDescription() {
+    public String getLongDescription(Player humanPlayer) {
         return "You are standing " + getShortDescription() + "!\n"
             + "This forest will not regrow, there are " + trees.size() + " trees" + "\n"
             + "Your options are: \n"

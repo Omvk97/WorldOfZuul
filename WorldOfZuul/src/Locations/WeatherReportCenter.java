@@ -15,7 +15,7 @@ public class WeatherReportCenter extends Room {
     }
 
     @Override
-    public String getLongDescription() {
+    public String getLongDescription(Player humanPlayer) {
 
         return "You are standing "
             + getShortDescription()

@@ -1,11 +1,11 @@
 package gameFunctionality;
 
-public abstract class Items {
+public abstract class Item {
 
     private final String description;
     private final int price;
     
-    public Items(String description, int price) {
+    public Item(String description, int price) {
         this.description = description;
         this.price = price;
     }

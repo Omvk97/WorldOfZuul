@@ -7,14 +7,14 @@ public class Game {
     private final Parser parser;
     private final Axe starterAxe = new Axe("axe", 0, 10, 3);
     private final BackPack starterBackPack = new BackPack("Starter Backpack", 0, 5);
-    private final Player humanPlayer = new Player(starterAxe, starterBackPack);
     private final Room trailer = new Trailer("inside your trailer");
+    private final Player humanPlayer = new Player(starterAxe, starterBackPack, (Trailer) trailer);
     private final Room certifiedForest = new CertifiedForest("in a certified forest");
     private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest");
-    private final Room localVillage = new LocalVillage("in a local village", (Trailer) trailer);
+    private final Room localVillage = new LocalVillage("in a local village");
     private final Room weatherCenter = new WeatherReportCenter("in a weather report center from around the world");
-    private final Room store = new Store("in the LumberJack shop", (Trailer) trailer);
-    private final Room tutorialRoom = new TutorialRoom("the tutorial room", (Trailer) trailer);
+    private final Room store = new Store("in the LumberJack shop");
+    private final Room tutorialRoom = new TutorialRoom("the tutorial room");
 
     public Game() {
         setExitsForRooms();
@@ -77,7 +77,7 @@ public class Game {
             + "Your job as a lumberjack, is to cut down trees. \n"
             + "You have " + Trailer.getNumPlayDays() + " days playtime to earn as much money as you can\n"
             + "without destroying the earth!\n");
-        System.out.println(humanPlayer.getCurrentRoom().getLongDescription());
+        System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
     }
 
     private boolean processCommand(Command command) {
@@ -134,7 +134,7 @@ public class Game {
             System.out.println("There is no road!");
         } else {
             humanPlayer.setCurrentRoom(nextRoom);
-            System.out.println(humanPlayer.getCurrentRoom().getLongDescription());
+            System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
         }
     }
 

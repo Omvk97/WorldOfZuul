@@ -16,21 +16,21 @@ public class LocalVillage extends Room {
     private final int CLIMATESCENARIO3 = -39;
     private final int CLIMATESCENARIO4 = -49;
     private final int CLIMATESCENARIO5 = -59;
-    private final Trailer trailer;
 
-    public LocalVillage(String description, Trailer trailer) {
+    public LocalVillage(String description) {
         super(description);
-        this.trailer = trailer;
     }
 
     @Override
-    public String getLongDescription() {
+    public String getLongDescription(Player humanPlayer) {
         return "You are standing " + getShortDescription() + "!\n"
-            + getScenario();
+            + getScenario(humanPlayer);
     }
 
     public String getScenario(Player humanPlayer) {
         int climatePoints = humanPlayer.getClimatePoints();
+        
+        
 
         if (climatePoints > CLIMATESCENARIO1 && climatePoints < CLIMATESCENARIO_1) {
             return "The local people from the village greet you a kind welcome\nand you observe a "
@@ -45,14 +45,14 @@ public class LocalVillage extends Room {
                 + "and the wildlife is suffering visibly";
 
         } else if (climatePoints > CLIMATESCENARIO4 && climatePoints < CLIMATESCENARIO3) {
-            humanPlayer.setCurrentRoom(trailer);
+            humanPlayer.throwPlayerBack();
             return "You cut too much wood! The local people from the village are enraged \n"
                 + "and chase you out of the village, spitting and throwing rocks after you\n"
                 + "wildlife is decimated \n"
                 + "You now stand in your trailer with a black eye";
 
         } else if (climatePoints > CLIMATESCENARIO5 && climatePoints < CLIMATESCENARIO4) {
-            humanPlayer.setCurrentRoom(trailer);
+            humanPlayer.throwPlayerBack();
             return "Parts of the village have left due to lacking ressources, the remainders\n"
                 + "chase you out of the village with guns \n"
                 + "You now stand in your trailer";
@@ -67,15 +67,16 @@ public class LocalVillage extends Room {
                 + " environmental considerations\nand wildlife is flourishing";
 
         } else if (climatePoints > CLIMATESCENARIO_2) {
-            return giftScenario();
+            return giftScenario(humanPlayer);
         }
 
         return "You successfully broke the game";
     }
 
-    public String giftScenario() {
+    public String giftScenario(Player humanPlayer) {
+        Trailer trailer = humanPlayer.getTrailer();
         if (!humanPlayer.isGiftHasBeenGivenToday()) {
-            if (!trailer.isStorageFull()) {
+            if (trailer.isStorageFull()) {
                 trailer.getLogsInStorage().add(new NonCertifiedTree());
                 int moneyAmountGiven = (int) (Math.random() * 10) + 1;
                 humanPlayer.addMoney(moneyAmountGiven);

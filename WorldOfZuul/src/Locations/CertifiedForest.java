@@ -35,7 +35,7 @@ public class CertifiedForest extends Forest {
     }
 
     @Override
-    public String getLongDescription() {
+    public String getLongDescription(Player humanPlayer) {
         return "You are standing " + getShortDescription() + "!\n"
             + "In this forest you can plant new trees, there currently are " + trees.size() + " trees" + "\n"
             + "ALERT If you don't seed the forest after felling trees you will be fined the next day! \n"
