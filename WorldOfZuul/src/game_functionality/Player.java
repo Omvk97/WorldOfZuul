@@ -1,7 +1,9 @@
-package gameFunctionality;
+package game_functionality;
 
-import Locations.Room;
-import Locations.Trailer;
+import game_elements.BackPack;
+import game_elements.Axe;
+import game_locations.Room;
+import game_locations.Trailer;
 
 /**
  * Indeholder en masse information som andre klasser benytter sig af for at bestemme hvad
@@ -24,8 +26,7 @@ public class Player {
     private final Trailer trailer;
     private Room previousRoom;
 
-    public Player(Axe starterAxe, BackPack starterBackPack, Trailer trailer) {
-        this.equippedAxe = starterAxe;
+    public Player(BackPack starterBackPack, Trailer trailer) {
         this.equippedBackPack = starterBackPack;
         this.trailer = trailer;
         this.previousRoom = trailer;
@@ -99,6 +100,10 @@ public class Player {
         equippedAxe = newAxe;
         money -= newAxe.getPrice();
     }
+    
+    public void pickedUpAxe(Axe axe) {
+        equippedAxe = axe;
+    }
 
     public Trailer getTrailer() {
         return trailer;
@@ -129,7 +134,7 @@ public class Player {
      *
      * @return øksen som er equipped
      */
-    public Axe axe() {
+    public Axe getAxe() {
         return equippedAxe;
     }
 

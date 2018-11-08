@@ -1,7 +1,8 @@
-package Locations;
+package game_locations;
 
-import gameFunctionality.Player;
-import gameFunctionality.Tree;
+import game_elements.Axe;
+import game_functionality.Player;
+import game_elements.Tree;
 import java.util.ArrayList;
 
 public class Trailer extends Room {
@@ -11,6 +12,7 @@ public class Trailer extends Room {
 
     private int numOfDaysGoneBy;
     private ArrayList<Tree> logsInStorage;
+    private Axe starterAxe = new Axe("axe", 0, 10, 3);
 
     public Trailer(String description) {
         super(description);
@@ -22,15 +24,19 @@ public class Trailer extends Room {
     public String getLongDescription(Player humanPlayer) {
         return "You are standing " + getShortDescription() + "!\n"
             + "This is your home, you have " + humanPlayer.getClimatePoints() + " climate points,"
-            + " your options are: \n"
-            + "Option 1 - Load off logs you are carrying \n"
-            + "Option 2 - Look in your wallet \n"
-            + "Option 3 - Sleep";
+            + " your choices are: \n"
+            + "----------------------------------\n"
+            + "○ Store Logs - store logs you are carrying\n"
+            + "○ Check Wallet - see how much money you have\n"
+            + "○ Sleep\n"
+            + (starterAxe != null ? "Pick up Axe\n" : "")                
+            + "----------------------------------";
+
     }
 
     /**
-     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den
-     * bliver brugt i 'game' klassen.
+     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den bliver brugt i 'game'
+     * klassen.
      *
      * @return mængden af dage spilleren har.
      */
@@ -39,11 +45,10 @@ public class Trailer extends Room {
     }
 
     /**
-     * Denne metode benyttes til at få information omkring oplagring af træerne. Den benyttes i
-     * 'Local Village' og 'Store'.
+     * Denne metode benyttes til at få information omkring oplagring af træerne. Den benyttes i 'Local Village' og
+     * 'Store'.
      *
-     * @return arrayList som indeholder både certificeret og ikke certificeret træer i storage
-     * space.
+     * @return arrayList som indeholder både certificeret og ikke certificeret træer i storage space.
      */
     public ArrayList<Tree> getLogsInStorage() {
         return this.logsInStorage;
@@ -54,8 +59,7 @@ public class Trailer extends Room {
     }
 
     /**
-     * Denne metode er til for at se om storage med træer er fyldt med træer, Den bruges i
-     * LocalVillage
+     * Denne metode er til for at se om storage med træer er fyldt med træer, Den bruges i LocalVillage
      *
      * @return
      */
@@ -70,8 +74,8 @@ public class Trailer extends Room {
             return;
         }
         /**
-         * Kopier alle elementerne fra den oprindelige arraylist med de logs spilleren bærer når
-         * spilleren skal til at lagre logs.
+         * Kopier alle elementerne fra den oprindelige arraylist med de logs spilleren bærer når spilleren skal til at
+         * lagre logs.
          */
         ArrayList<Tree> copyAmountOflogsCarrying = new ArrayList();
         for (Tree tree : humanPlayer.backPack().getLogsInBackPack()) {
@@ -79,10 +83,10 @@ public class Trailer extends Room {
         }
 
         /**
-         * Adder så mange logs som muligt fra den kopierede arraylist ovenover Fjerner logs fra den
-         * oprindelige arraylist. Dette er for at undgå at man både adder og fjerner fra samme
-         * arrayList. Dette betyder at selvom spilleren har flere logs end der kan være i storage
-         * arealet så kan spilleren stadig tilføje så mange som muligt og så bære rundt på resten.
+         * Adder så mange logs som muligt fra den kopierede arraylist ovenover Fjerner logs fra den oprindelige
+         * arraylist. Dette er for at undgå at man både adder og fjerner fra samme arrayList. Dette betyder at selvom
+         * spilleren har flere logs end der kan være i storage arealet så kan spilleren stadig tilføje så mange som
+         * muligt og så bære rundt på resten.
          */
         for (Tree tree : copyAmountOflogsCarrying) {
             if (getLogsInStorage().size() < MAX_TREESTORAGEAMOUNT) {
@@ -130,6 +134,21 @@ public class Trailer extends Room {
             + (daysleft > 1 ? "There are " + daysleft + " days left!"
                 : "This is your last day as a lumberjack!"));
         humanPlayer.sleep();
+    }
+
+    /**
+     * If the player hasn't picked up the starterAxe before they will be prompted with the option to pick one up
+     * @param humanPlayer that picks up the starter axe
+     */
+    @Override
+    public void option4(Player humanPlayer) {
+        if (starterAxe != null) {
+            humanPlayer.pickedUpAxe(starterAxe);
+            starterAxe = null;
+            System.out.println("You equipped an axe!");
+        } else {
+            System.out.println("I don't know what you mean");
+        }
     }
 
 }

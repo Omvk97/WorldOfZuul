@@ -1,6 +1,6 @@
-package Locations;
+package game_locations;
 
-import gameFunctionality.Player;
+import game_functionality.Player;
 import java.util.Set;
 import java.util.HashMap;
 
@@ -9,6 +9,10 @@ public abstract class Room {
     private final String description;
     private final HashMap<String, Room> exits;
     private final HashMap<String, String> options;
+
+    private final int[] NEGATIVE_SCENARIO_POINTS = new int[]{-19, -29, -39, -49, -59};
+    private final int[] POSITIVE_SCENARIO_POINTS = new int[]{19, 29, 39, 49, 59};
+    
 
     public Room(String description) {
         this.description = description;
@@ -47,6 +51,14 @@ public abstract class Room {
         return exits.get(direction);
     }
 
+    public int[] getNEGATIVE_SCENARIO_POINTS() {
+        return NEGATIVE_SCENARIO_POINTS;
+    }
+
+    public int[] getPOSITIVE_SCENARIO_POINTS() {
+        return POSITIVE_SCENARIO_POINTS;
+    }
+    
     public void option1(Player humanPlayer) {
         System.out.println("There is no option 1 in this room");
     }

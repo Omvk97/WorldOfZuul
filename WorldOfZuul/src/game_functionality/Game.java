@@ -1,14 +1,21 @@
-package gameFunctionality;
+package game_functionality;
 
-import Locations.*;
+import game_locations.CertifiedForest;
+import game_locations.NonCertifiedForest;
+import game_locations.WeatherReportCenter;
+import game_locations.Store;
+import game_locations.Room;
+import game_locations.Trailer;
+import game_locations.TutorialRoom;
+import game_locations.LocalVillage;
+import game_elements.BackPack;
 
 public class Game {
 
     private final Parser parser;
-    private final Axe starterAxe = new Axe("axe", 0, 10, 3);
     private final BackPack starterBackPack = new BackPack("Starter Backpack", 0, 5);
     private final Room trailer = new Trailer("inside your trailer");
-    private final Player humanPlayer = new Player(starterAxe, starterBackPack, (Trailer) trailer);
+    private final Player humanPlayer = new Player(starterBackPack, (Trailer) trailer);
     private final Room certifiedForest = new CertifiedForest("in a certified forest");
     private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest");
     private final Room localVillage = new LocalVillage("in a local village");
@@ -28,7 +35,6 @@ public class Game {
         trailer.setExit("south", certifiedForest);
         trailer.setExit("west", weatherCenter);
         trailer.setExit("north", nonCertificedForest);
-        trailer.setExit("southwest", store);
 
         certifiedForest.setExit("east", localVillage);
         certifiedForest.setExit("north", trailer);
@@ -39,26 +45,45 @@ public class Game {
         localVillage.setExit("west", trailer);
         localVillage.setExit("north", nonCertificedForest);
         localVillage.setExit("south", certifiedForest);
+        localVillage.setExit("east", store);
 
         weatherCenter.setExit("east", trailer);
 
+        store.setExit("west", localVillage);
+
         store.setExit("northeast", trailer);
+
     }
 
     private void setOptionsForRooms() {
-        trailer.setOptions("store logs", "1");
-        trailer.setOptions("look wallet", "2");
+        // certiiedForest
+        certifiedForest.setOptions("choptree", "1");
+        certifiedForest.setOptions("treesleft", "2");
+        certifiedForest.setOptions("replanttrees", "3");
+        // WeatherRoom
+        weatherCenter.setOptions("globalnews", "1");
+        weatherCenter.setOptions("localnews", "2");
+        weatherCenter.setOptions("scorebord", "3");
+        //trailer
+        trailer.setOptions("storelogs", "1");
+        trailer.setOptions("checkwallet", "2");
         trailer.setOptions("sleep", "3");
-        weatherCenter.setOptions("global news", "1");
-        weatherCenter.setOptions("local news", "2");
+        trailer.setOptions("pickupaxe", "4");
+        //nonCertifiedFroest
+        nonCertificedForest.setOptions("choptree", "1");
+        nonCertificedForest.setOptions("treesleft", "2");
+        //Store
+        store.setOptions("selllogs", "1");
+        store.setOptions("buyaxe", "2");
+        store.setOptions("upgrade", "3");
+        store.setOptions("saplings", "4");
     }
 
     public void play() {
         /**
-         * Der bliver her tilføjet meget samme funktion som der var før, men i stedet for at game
-         * klassen holder øje med hvilket rum spilleren er i, så er det nu 'Player' klassen som
-         * holder øje med dette. Det betyder at spilleren faktisk bevæger sig rundt og ikke spillet
-         * der bevæger sig rundt om spilleren.
+         * Der bliver her tilføjet meget samme funktion som der var før, men i stedet for at game klassen holder øje med
+         * hvilket rum spilleren er i, så er det nu 'Player' klassen som holder øje med dette. Det betyder at spilleren
+         * faktisk bevæger sig rundt og ikke spillet der bevæger sig rundt om spilleren.
          */
         humanPlayer.setCurrentRoom(tutorialRoom);
 

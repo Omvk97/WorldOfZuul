@@ -1,4 +1,4 @@
-package gameFunctionality;
+package game_functionality;
 
 public class WorldOfZuul {
 

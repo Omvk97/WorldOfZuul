@@ -1,4 +1,4 @@
-package gameFunctionality;
+package game_elements;
 
 public class Axe extends Item {
 
@@ -6,8 +6,8 @@ public class Axe extends Item {
     private final int startDurability;
     private int durability;
 
-    public Axe(String description, int price, int startDurability, int damage) {
-        super(description, price);
+    public Axe(String name, int price, int startDurability, int damage) {
+        super(name, price);
         this.damage = damage;
         this.startDurability = startDurability;
         this.durability = startDurability;

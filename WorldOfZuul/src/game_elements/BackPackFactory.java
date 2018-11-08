@@ -1,6 +1,4 @@
-package Locations;
-
-import gameFunctionality.BackPack;
+package game_elements;
 
 public class BackPackFactory {
 

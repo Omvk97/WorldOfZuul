@@ -1,4 +1,4 @@
-package gameFunctionality;
+package game_elements;
 
 import java.util.ArrayList;
 
@@ -6,9 +6,9 @@ public class BackPack extends Item {
 
     private ArrayList<Tree> logsInBackPack;
     private final int backpackCapacity;
-
-    public BackPack(String description, int price, int backpackCapacity) {
-        super(description, price);
+    
+    public BackPack(String name, int price, int backpackCapacity) {
+        super(name, price);
         this.backpackCapacity = backpackCapacity;
         this.logsInBackPack = new ArrayList();
     }

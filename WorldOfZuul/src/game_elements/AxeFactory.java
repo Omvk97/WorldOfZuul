@@ -1,6 +1,4 @@
-package Locations;
-
-import gameFunctionality.Axe;
+package game_elements;
 
 public class AxeFactory {
 

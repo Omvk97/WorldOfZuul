@@ -1,13 +1,14 @@
-package Locations;
+package game_locations;
 
-import gameFunctionality.*;
+import game_functionality.Player;
+import game_elements.Tree;
+import game_elements.BackPack;
+import game_elements.Axe;
+import game_elements.AxeFactory;
+import game_elements.BackPackFactory;
+
 import java.util.Scanner;
 
-/**
- * Klassen indeholder mange attributter som er instanser af andre klasser, som klassen her kan 
- * "sælge" til spilleren.
- * @author oliver
- */
 public class Store extends Room {
     
     private final int SAPLING_BUNDLE_PRICE = 12;
@@ -21,10 +22,12 @@ public class Store extends Room {
     public String getLongDescription(Player humanPlayer) {
         return "You are standing " + getShortDescription() + "!\n"
             + "Here you can sell your logs and purchase new equipment \n"
-            + "Option 1 - Sell logs\n"
-            + "Option 2 - Buy a new axe\n"
-            + "Option 3 - Upgrade your backpack\n"
-            + "Option 4 - Buy saplings";
+            + "----------------------------------\n"
+            + "○ Sell logs\n"
+            + "○ Buy axe\n"
+            + "○ Upgrade backpack\n"
+            + "○ Buy Saplings\n"
+            + "----------------------------------";
     }
 
     /**
