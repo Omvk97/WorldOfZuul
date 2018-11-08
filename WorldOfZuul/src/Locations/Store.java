@@ -9,27 +9,16 @@ import java.util.Scanner;
  * @author oliver
  */
 public class Store extends Room {
-
-    private final Trailer trailer;
-
-    private final Axe ironAxe = new Axe("Iron axe", 49, 30, 3);
-    private final Axe steelAxe = new Axe("Steel axe", 119, 40, 4);
-    private final Axe diamondAxe = new Axe("Diamond axe", 149, 60, 6);
-    private final Axe fireAxe = new Axe("Fire axe", 349, 120, 12);
-
-    private final BackPack smallBackPack = new BackPack("Small backpack", 129, 10);
-    private final BackPack mediumBackPack = new BackPack("Medium backpack", 249, 15);
-    private final BackPack largeBackPack = new BackPack("Large backpack", 389, 20);
+    
     private final int SAPLING_BUNDLE_PRICE = 12;
     private final Scanner userPurchaseChoice = new Scanner(System.in);
 
-    public Store(String description, Trailer trailer) {
+    public Store(String description) {
         super(description);
-        this.trailer = trailer;
     }
 
     @Override
-    public String getLongDescription() {
+    public String getLongDescription(Player humanPlayer) {
         return "You are standing " + getShortDescription() + "!\n"
             + "Here you can sell your logs and purchase new equipment \n"
             + "Option 1 - Sell logs\n"
@@ -44,6 +33,7 @@ public class Store extends Room {
      */
     @Override
     public void option1(Player humanPlayer) {
+        Trailer trailer = humanPlayer.getTrailer();
         if (trailer.getLogsInStorage().isEmpty() && humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
             System.out.println("You have no logs to sell!");
             return;
@@ -67,6 +57,10 @@ public class Store extends Room {
 
     @Override
     public void option2(Player humanPlayer) {
+        Axe ironAxe = AxeFactory.createIronAxe();
+        Axe steelAxe = AxeFactory.createSteelAxe();
+        Axe diamondAxe = AxeFactory.createDiamondAxe();
+        Axe fireAxe = AxeFactory.createFireAxe();
         System.out.println("You see here my good friend! 4 different axes, sharp as an arrowtip.\n"
             + ironAxe + "\n"
             + steelAxe + "\n"
@@ -76,6 +70,11 @@ public class Store extends Room {
         System.out.println("Which axe would you like to buy?");
         String userAxeChoice = userPurchaseChoice.nextLine();
         String userChoiceWithoutBloat = userAxeChoice.toLowerCase().replaceAll("\\s+", "");
+        
+//        String input = "ookiikkiki          ironaxe   njj jn nn ";
+//        
+//        input.contains("ironaxe");
+        
         switch (userChoiceWithoutBloat) {
             case "1":
             case "ironaxe":
@@ -129,6 +128,10 @@ public class Store extends Room {
 
     @Override
     public void option3(Player humanPlayer) {
+        BackPack smallBackPack = BackPackFactory.createSmallBackPack();
+        BackPack mediumBackPack = BackPackFactory.createMediumBackPack();
+        BackPack largeBackPack = BackPackFactory.createLargeBackPack();
+        
         System.out.println("Mnyess! I have 4 different backpacks for you!\n"
             + smallBackPack + "\n"
             + mediumBackPack + "\n"

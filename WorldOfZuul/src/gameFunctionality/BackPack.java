@@ -2,7 +2,7 @@ package gameFunctionality;
 
 import java.util.ArrayList;
 
-public class BackPack extends Items {
+public class BackPack extends Item {
 
     private ArrayList<Tree> logsInBackPack;
     private final int backpackCapacity;
@@ -15,7 +15,7 @@ public class BackPack extends Items {
 
     /**
      * For at se hvor mange logs der kan være i rygsækken
-     *
+     
      * @return mængden af pladser i rygsækken
      */
     public int getBackpackCapacity() {
@@ -77,8 +77,8 @@ public class BackPack extends Items {
      */
     public void removeLogFromBackpack() {
         this.logsInBackPack.remove(0);
-    }
-
+    }  
+    
     @Override
     public String toString() {
         return getDescription() + " with a capacity of " + getBackpackCapacity()
