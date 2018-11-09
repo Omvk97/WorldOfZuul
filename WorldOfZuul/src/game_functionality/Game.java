@@ -68,6 +68,7 @@ public class Game {
         trailer.setOptions("checkwallet", "2");
         trailer.setOptions("sleep", "3");
         trailer.setOptions("pickupaxe", "4");
+        trailer.setOptions("axe", "4");
         //nonCertifiedFroest
         nonCertificedForest.setOptions("choptree", "1");
         nonCertificedForest.setOptions("treesleft", "2");

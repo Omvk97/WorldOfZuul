@@ -7,11 +7,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * abstract klasse som de to skove kan arve fra for at mindske duplikation af kode.
- *
- * @author oliver
- */
 public abstract class Forest extends Room {
 
     protected final static int MAX_AMOUNTOFTREESINFOREST = 100;

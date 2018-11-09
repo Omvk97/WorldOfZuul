@@ -29,7 +29,7 @@ public class Trailer extends Room {
             + "○ Store Logs - store logs you are carrying\n"
             + "○ Check Wallet - see how much money you have\n"
             + "○ Sleep\n"
-            + (starterAxe != null ? "Pick up Axe\n" : "")
+            + (starterAxe != null ? "○ Pick up Axe\n" : "")
             + "----------------------------------";
 
     }

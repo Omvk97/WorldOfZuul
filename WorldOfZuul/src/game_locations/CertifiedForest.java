@@ -4,12 +4,6 @@ import game_elements.CertifiedTree;
 import game_functionality.Player;
 import java.util.ArrayList;
 
-/**
- * Denne skov er anderledes fra en normal skov da man ikke kan blive ved med at fælde træer Derudover gror træerne i
- * skoven tilbage efterhånden som spilleren sover.
- *
- * @author oliver
- */
 public class CertifiedForest extends Forest {
 
     private final static int MIN_AMOUNTOFTREESINFOREST = 85;

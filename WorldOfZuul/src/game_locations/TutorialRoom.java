@@ -45,7 +45,7 @@ public class TutorialRoom extends Room {
         } else {
             System.out.println("Alright have fun!");
             System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
-            humanPlayer.throwPlayerBack();
+            humanPlayer.setCurrentRoom(trailer);
             return trailer.getLongDescription(humanPlayer);
         }
 

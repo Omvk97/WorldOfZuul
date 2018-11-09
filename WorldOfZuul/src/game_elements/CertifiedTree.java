@@ -1,7 +1,5 @@
 package game_elements;
 
-import game_elements.Tree;
-
 public class CertifiedTree extends Tree {
 
     private final int TREE_CLIMATE_POINTS = 5;

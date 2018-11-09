@@ -1,6 +1,9 @@
 package game_locations;
 
+import Scenarios.Scenario;
+import Scenarios.ScenarioFactory;
 import game_functionality.Player;
+import java.util.ArrayList;
 
 public class WeatherReportCenter extends Room {
 
@@ -27,70 +30,86 @@ public class WeatherReportCenter extends Room {
 
     @Override
     public void option1(Player humanPlayer) {
-        int climatePoints = humanPlayer.getClimatePoints();
-        // negative Globale climate point
-        if (climatePoints < this.getPOSITIVE_SCENARIO_POINTS()[0] && climatePoints
-            > this.getNEGATIVE_SCENARIO_POINTS()[0]) {
-            System.out.printf("%sInfo: Global atmospheric conditions are normal\n"
-                + "Global Temperature: 21 degrees Celsius\n"
-                + "Water level: Stable\n",
-                weatherReporter);
-        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[0] && climatePoints
-            > this.getNEGATIVE_SCENARIO_POINTS()[1]) {
-            System.out.printf("$sInfo: The world is experiencing a global heat increase\n"
-                + "Global Temperature: 23 degrees Celsius\n"
-                + "Water level: Risen 1 meter\n",
-                weatherReporter);
-        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[1] && climatePoints
-            > this.getNEGATIVE_SCENARIO_POINTS()[2]) {
-            System.out.printf("$sInfo: The polar ice caps are starting to melt\n"
-                + "Global Temperature: 26 degrees Celsius\n"
-                + "Water level: Risen 4 meters\n",
-                weatherReporter);
-        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[2] && climatePoints
-            > this.getNEGATIVE_SCENARIO_POINTS()[3]) {
-            System.out.printf("$sInfo: Tropical storms are becoming more commonplace\n"
-                + "Global Temperature: 26 degrees Celsius\n"
-                + "Water level: Risen 6 meters\n",
-                weatherReporter);
-        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[3] && climatePoints
-            > this.getNEGATIVE_SCENARIO_POINTS()[4]) {
-            System.out.printf("$sInfo: Large parts of the world are flooded."
-                + "The ice caps are gone\n"
-                + "Global Temperature: 28 degrees Celsius\n"
-                + "Water level: Risen 15 meters\n",
-                weatherReporter);
-        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[4]) {
-            System.out.printf("$sInfo: The world is in anarchy. Civil unrest is at its most violent\n"
-                + "Global Temperature: 31 degrees Celsius\n"
-                + "Water Level: Risen 20 meters\n",
-                weatherReporter);
-            // positive climepoint
-        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[0] && climatePoints
-            < this.getPOSITIVE_SCENARIO_POINTS()[1]) {
-            System.out.printf("$sInfo: The CO2 atmospheric concentration is stagnating\n"
-                + "Global Temperature: 21 degrees Celsius\n"
-                + "Water Level: Stable\n",
-                weatherReporter);
-        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[1] && climatePoints
-            < this.getPOSITIVE_SCENARIO_POINTS()[2]) {
-            System.out.printf("$sInfo: Air pollution is starting to thin out globally\n"
-                + "Global Temperature: 21 degrees Celsius\n"
-                + "Water Level: Stable\n",
-                weatherReporter);
-        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[2] && climatePoints
-            < this.getPOSITIVE_SCENARIO_POINTS()[3]) {
-            System.out.printf("$sInfo: Forest areas are steadily increasing\n"
-                + "Global Temperature: 21 degrees Celsius\n"
-                + "Water Level: Stable\n",
-                weatherReporter);
-        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[3] && climatePoints
-            < this.getPOSITIVE_SCENARIO_POINTS()[4]) {
-            System.out.printf("$sInfo: The atmosphere is very stable and optimal\n"
-                + "Global Temperature: 21 degrees Celsius\n"
-                + "Water Level: Stable\n",
-                weatherReporter);
+        ArrayList<Scenario> tester = new ArrayList(); 
+        tester.add(ScenarioFactory.createStandardScenario());
+        tester.add(ScenarioFactory.createPositiveScenario1());
+        tester.add(ScenarioFactory.createPositiveScenario2());
+        tester.add(ScenarioFactory.createPositiveScenario3());
+        tester.add(ScenarioFactory.createPositiveScenario4());
+        tester.add(ScenarioFactory.createNegativeScenario1());
+        tester.add(ScenarioFactory.createNegativeScenario2());
+        tester.add(ScenarioFactory.createNegativeScenario3());
+        tester.add(ScenarioFactory.createNegativeScenario4());
+        tester.add(ScenarioFactory.createNegativeScenario5());
+        
+        for (Scenario test : tester) {
+            System.out.print(test.scenario(humanPlayer));
         }
+        
+//        int climatePoints = humanPlayer.getClimatePoints();
+//
+//        if (climatePoints < this.getPOSITIVE_SCENARIO_POINTS()[0] && climatePoints
+//            > this.getNEGATIVE_SCENARIO_POINTS()[0]) {
+//            System.out.printf("%sInfo: Global atmospheric conditions are normal\n"
+//                + "Global Temperature: 21 degrees Celsius\n"
+//                + "Water level: Stable\n",
+//                weatherReporter);
+//        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[0] && climatePoints
+//            > this.getNEGATIVE_SCENARIO_POINTS()[1]) {
+//            System.out.printf("$sInfo: The world is experiencing a global heat increase\n"
+//                + "Global Temperature: 23 degrees Celsius\n"
+//                + "Water level: Risen 1 meter\n",
+//                weatherReporter);
+//        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[1] && climatePoints
+//            > this.getNEGATIVE_SCENARIO_POINTS()[2]) {
+//            System.out.printf("$sInfo: The polar ice caps are starting to melt\n"
+//                + "Global Temperature: 26 degrees Celsius\n"
+//                + "Water level: Risen 4 meters\n",
+//                weatherReporter);
+//        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[2] && climatePoints
+//            > this.getNEGATIVE_SCENARIO_POINTS()[3]) {
+//            System.out.printf("$sInfo: Tropical storms are becoming more commonplace\n"
+//                + "Global Temperature: 26 degrees Celsius\n"
+//                + "Water level: Risen 6 meters\n",
+//                weatherReporter);
+//        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[3] && climatePoints
+//            > this.getNEGATIVE_SCENARIO_POINTS()[4]) {
+//            System.out.printf("$sInfo: Large parts of the world are flooded."
+//                + "The ice caps are gone\n"
+//                + "Global Temperature: 28 degrees Celsius\n"
+//                + "Water level: Risen 15 meters\n",
+//                weatherReporter);
+//        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[4]) {
+//            System.out.printf("$sInfo: The world is in anarchy. Civil unrest is at its most violent\n"
+//                + "Global Temperature: 31 degrees Celsius\n"
+//                + "Water Level: Risen 20 meters\n",
+//                weatherReporter);
+//            // positive climepoint
+//        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[0] && climatePoints
+//            < this.getPOSITIVE_SCENARIO_POINTS()[1]) {
+//            System.out.printf("$sInfo: The CO2 atmospheric concentration is stagnating\n"
+//                + "Global Temperature: 21 degrees Celsius\n"
+//                + "Water Level: Stable\n",
+//                weatherReporter);
+//        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[1] && climatePoints
+//            < this.getPOSITIVE_SCENARIO_POINTS()[2]) {
+//            System.out.printf("$sInfo: Air pollution is starting to thin out globally\n"
+//                + "Global Temperature: 21 degrees Celsius\n"
+//                + "Water Level: Stable\n",
+//                weatherReporter);
+//        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[2] && climatePoints
+//            < this.getPOSITIVE_SCENARIO_POINTS()[3]) {
+//            System.out.printf("$sInfo: Forest areas are steadily increasing\n"
+//                + "Global Temperature: 21 degrees Celsius\n"
+//                + "Water Level: Stable\n",
+//                weatherReporter);
+//        } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[3] && climatePoints
+//            < this.getPOSITIVE_SCENARIO_POINTS()[4]) {
+//            System.out.printf("$sInfo: The atmosphere is very stable and optimal\n"
+//                + "Global Temperature: 21 degrees Celsius\n"
+//                + "Water Level: Stable\n",
+//                weatherReporter);
+//        }
     }
 
     @Override
