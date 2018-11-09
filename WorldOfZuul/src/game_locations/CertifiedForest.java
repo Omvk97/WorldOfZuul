@@ -5,8 +5,8 @@ import game_functionality.Player;
 import java.util.ArrayList;
 
 /**
- * Denne skov er anderledes fra en normal skov da man ikke kan blive ved med at fælde træer
- * Derudover gror træerne i skoven tilbage efterhånden som spilleren sover.
+ * Denne skov er anderledes fra en normal skov da man ikke kan blive ved med at fælde træer Derudover gror træerne i
+ * skoven tilbage efterhånden som spilleren sover.
  *
  * @author oliver
  */

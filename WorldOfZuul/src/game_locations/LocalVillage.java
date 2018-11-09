@@ -17,15 +17,13 @@ public class LocalVillage extends Room {
 
     public String getScenario(Player humanPlayer) {
         int climatePoints = humanPlayer.getClimatePoints();
-        
-        
 
         if (climatePoints < this.getPOSITIVE_SCENARIO_POINTS()[0] && climatePoints > this.getNEGATIVE_SCENARIO_POINTS()[0]) {
             return "The local people from the village greet you a kind welcome\nand you observe a "
                 + "healthy and vibrant wildlife";
 
-        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[0] && climatePoints > 
-                this.getNEGATIVE_SCENARIO_POINTS()[1]) {
+        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[0] && climatePoints
+            > this.getNEGATIVE_SCENARIO_POINTS()[1]) {
             return "The local people from the village greet you welcome\nand you observe "
                 + "the wildlife steadily decaying";
 

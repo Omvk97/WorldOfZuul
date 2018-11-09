@@ -5,8 +5,8 @@ import game_elements.NonCertifiedTree;
 import java.util.ArrayList;
 
 /**
- * Denne klasse minder meget om superklassen, bortset fra at den tjekker om man har opnået for mange
- * klimapoint hver gang man fælder et træ, hvis dette er tilfældet så sluttes spillet.
+ * Denne klasse minder meget om superklassen, bortset fra at den tjekker om man har opnået for mange klimapoint hver
+ * gang man fælder et træ, hvis dette er tilfældet så sluttes spillet.
  *
  * @author oliver
  */

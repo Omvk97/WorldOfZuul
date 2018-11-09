@@ -12,7 +12,6 @@ public abstract class Room {
 
     private final int[] NEGATIVE_SCENARIO_POINTS = new int[]{-19, -29, -39, -49, -59};
     private final int[] POSITIVE_SCENARIO_POINTS = new int[]{19, 29, 39, 49, 59};
-    
 
     public Room(String description) {
         this.description = description;
@@ -58,7 +57,7 @@ public abstract class Room {
     public int[] getPOSITIVE_SCENARIO_POINTS() {
         return POSITIVE_SCENARIO_POINTS;
     }
-    
+
     public void option1(Player humanPlayer) {
         System.out.println("There is no option 1 in this room");
     }

@@ -10,7 +10,7 @@ import game_elements.BackPackFactory;
 import java.util.Scanner;
 
 public class Store extends Room {
-    
+
     private final int SAPLING_BUNDLE_PRICE = 12;
     private final Scanner userPurchaseChoice = new Scanner(System.in);
 
@@ -32,6 +32,7 @@ public class Store extends Room {
 
     /**
      * Sells the trees the player is carrying
+     *
      * @param humanPlayer
      */
     @Override
@@ -73,11 +74,10 @@ public class Store extends Room {
         System.out.println("Which axe would you like to buy?");
         String userAxeChoice = userPurchaseChoice.nextLine();
         String userChoiceWithoutBloat = userAxeChoice.toLowerCase().replaceAll("\\s+", "");
-        
+
 //        String input = "ookiikkiki          ironaxe   njj jn nn ";
 //        
 //        input.contains("ironaxe");
-        
         switch (userChoiceWithoutBloat) {
             case "1":
             case "ironaxe":
@@ -134,7 +134,7 @@ public class Store extends Room {
         BackPack smallBackPack = BackPackFactory.createSmallBackPack();
         BackPack mediumBackPack = BackPackFactory.createMediumBackPack();
         BackPack largeBackPack = BackPackFactory.createLargeBackPack();
-        
+
         System.out.println("Mnyess! I have 4 different backpacks for you!\n"
             + smallBackPack + "\n"
             + mediumBackPack + "\n"

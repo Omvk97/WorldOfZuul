@@ -44,6 +44,7 @@ public abstract class Forest extends Room {
 
     /**
      * hugger træ, tilføjer træet til spillerens rygsæk, fjerner træet fra skoven og giver spilleren klima points.
+     *
      * @param humanPlayer chopping a tree
      */
     protected void chopWoodWithAxe(Player humanPlayer) {
@@ -85,6 +86,7 @@ public abstract class Forest extends Room {
 
     /**
      * If player doesn't have an getAxe equipped they can instead use their hands to chop down a tree with a damage of 2
+     *
      * @param humanPlayer chopping the trees
      */
     protected void chopWoodWithHands(Player humanPlayer) {

@@ -4,7 +4,7 @@ public class BackPackFactory {
 
     private BackPackFactory() {
     }
-    
+
     public static BackPack createSmallBackPack() {
         return new BackPack("Small backpack", 129, 10);
     }

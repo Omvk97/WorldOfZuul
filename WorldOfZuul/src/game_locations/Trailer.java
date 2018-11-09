@@ -29,7 +29,7 @@ public class Trailer extends Room {
             + "○ Store Logs - store logs you are carrying\n"
             + "○ Check Wallet - see how much money you have\n"
             + "○ Sleep\n"
-            + (starterAxe != null ? "Pick up Axe\n" : "")                
+            + (starterAxe != null ? "Pick up Axe\n" : "")
             + "----------------------------------";
 
     }
@@ -118,6 +118,7 @@ public class Trailer extends Room {
 
     /**
      * Sørger for at alle ting som spilleren skal gøre
+     *
      * @param humanPlayer
      */
     @Override
@@ -138,6 +139,7 @@ public class Trailer extends Room {
 
     /**
      * If the player hasn't picked up the starterAxe before they will be prompted with the option to pick one up
+     *
      * @param humanPlayer that picks up the starter axe
      */
     @Override

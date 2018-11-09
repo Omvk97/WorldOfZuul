@@ -6,7 +6,7 @@ public class BackPack extends Item {
 
     private ArrayList<Tree> logsInBackPack;
     private final int backpackCapacity;
-    
+
     public BackPack(String name, int price, int backpackCapacity) {
         super(name, price);
         this.backpackCapacity = backpackCapacity;
@@ -15,7 +15,7 @@ public class BackPack extends Item {
 
     /**
      * For at se hvor mange logs der kan være i rygsækken
-     
+     *
      * @return mængden af pladser i rygsækken
      */
     public int getBackpackCapacity() {
@@ -64,21 +64,19 @@ public class BackPack extends Item {
     }
 
     /**
-     * Metoden her bruges til når spilleren enten sælger eller opbevarer deres logs, så tømmes
-     * rygsækken
+     * Metoden her bruges til når spilleren enten sælger eller opbevarer deres logs, så tømmes rygsækken
      */
     public void emptyBackpack() {
         this.logsInBackPack = new ArrayList();
     }
 
     /**
-     * Bruges til at fjerne træer fra rygsækken en af gangen, starter fra det første index i
-     * arraylisten.
+     * Bruges til at fjerne træer fra rygsækken en af gangen, starter fra det første index i arraylisten.
      */
     public void removeLogFromBackpack() {
         this.logsInBackPack.remove(0);
-    }  
-    
+    }
+
     @Override
     public String toString() {
         return getDescription() + " with a capacity of " + getBackpackCapacity()

@@ -1,12 +1,10 @@
 package game_elements;
 
-import game_elements.Tree;
-
 public class NonCertifiedTree extends Tree {
-    
+
     private final int TREE_CLIMATE_POINTS = -10;
     private final int TREE_SELL_PRICE = 10;
-    
+
     @Override
     public int getTreeClimatePoints() {
         return TREE_CLIMATE_POINTS;

@@ -61,7 +61,7 @@ public class TutorialRoom extends Room {
             + "○ Karatechop - Do a karatechop on a twig\n"
             + "----------------------------------");
         System.out.print("Try typing one of the options \n");
-        String option = input.nextLine().toLowerCase().replaceAll("\\s","");
+        String option = input.nextLine().toLowerCase().replaceAll("\\s", "");
         boolean correctUserOption = false;
         while (!correctUserOption) {
             switch (option) {
@@ -91,8 +91,8 @@ public class TutorialRoom extends Room {
             goWest = input.nextLine();
         }
     }
-    
-    private void pause(int time){
+
+    private void pause(int time) {
         try {
             Thread.sleep(time);
         } catch (InterruptedException ex) {
