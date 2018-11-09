@@ -3,3 +3,5 @@
 /WorldOfZuul/dist/
 .idea/
 
+*.class
+WorldOfZuul/WorldOfZuul.iml
