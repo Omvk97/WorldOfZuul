@@ -4,33 +4,19 @@ import game_functionality.Player;
 import game_elements.Tree;
 import game_elements.BackPack;
 import game_elements.Axe;
+import game_elements.AxeFactory;
+import game_elements.BackPackFactory;
 
 import java.util.Scanner;
 
-/**
- * Klassen indeholder mange attributter som er instanser af andre klasser, som klassen her kan "sælge" til spilleren.
- *
- * @author oliver
- */
 public class Store extends Room {
-    private String StoreOwner = "Reginald: ";
-    private final Trailer trailer;
-    // akses
-    private final Axe ironAxe = new Axe("Iron axe", 49, 30, 3);
-    private final Axe steelAxe = new Axe("Steel axe", 119, 40, 4);
-    private final Axe diamondAxe = new Axe("Diamond axe", 149, 60, 6);
-    private final Axe fireAxe = new Axe("Fire axe", 349, 120, 12);
-    //Bacbpacks
-    private final BackPack smallBackPack = new BackPack("Small backpack", 129, 10);
-    private final BackPack mediumBackPack = new BackPack("Medium backpack", 249, 15);
-    private final BackPack largeBackPack = new BackPack("Large backpack", 389, 20);
 
+    private String StoreOwner = "Reginald: ";
     private final int SAPLING_BUNDLE_PRICE = 12;
     private final Scanner userPurchaseChoice = new Scanner(System.in);
 
-    public Store(String description, Player player, Trailer trailer) {
-        super(description, player);
-        this.trailer = trailer;
+    public Store(String description) {
+        super(description);
     }
     @Override
     public String getLongDescription() {
@@ -39,7 +25,7 @@ public class Store extends Room {
                 + " you have 3 options \n"
                 + "---------------------------------------------\n"
                 + "○ Sell - Sell logs\n"
-                + "○ Buy - Buy a new axe\n"
+                + "○ Buy - Buy items\n"
                 + "○ go back - to get to the localvillage \n"
                 + "---------------------------------------------";
 
@@ -58,12 +44,16 @@ public class Store extends Room {
                         + "You have " + humanPlayer.getMoney() + " gold coins left");
             } else {
                 System.out.println(StoreOwner + "You don't have enough money for that friend");
+
             }
         } catch (NumberFormatException e) {
             System.out.println(StoreOwner + "I don't know you mean, friend");
         }
     }
     private void BackPack_menu() {
+        BackPack smallBackPack = BackPackFactory.createSmallBackPack();
+        BackPack mediumBackPack = BackPackFactory.createMediumBackPack();
+        BackPack largeBackPack = BackPackFactory.createLargeBackPack();
         System.out.println(StoreOwner + "you can look at my Backpacks");
         System.out.println(StoreOwner + "Mnyess! I have 4 different backpacks for you!\n"
                 + smallBackPack + "\n"
@@ -110,6 +100,10 @@ public class Store extends Room {
         }
     }
     private void Axe_menu() {
+        Axe ironAxe = AxeFactory.createIronAxe();
+        Axe steelAxe = AxeFactory.createSteelAxe();
+        Axe diamondAxe = AxeFactory.createDiamondAxe();
+        Axe fireAxe = AxeFactory.createFireAxe();
         System.out.println(StoreOwner + "you Can now Buy Axes");
         System.out.println(StoreOwner + "You see here my good friend! 4 different axes, sharp as an arrowtip.\n"
                 + ironAxe + "\n"
@@ -171,6 +165,7 @@ public class Store extends Room {
         }
     }
 
+
     private void first_menu() {
         System.out.println(StoreOwner + " you choose to buy \n " + " we have Axe or sapling and backpack \n");
         System.out.println("---------------------------");
@@ -184,12 +179,10 @@ public class Store extends Room {
                 System.out.println(StoreOwner + "You picked Backpack menu ");
                 BackPack_menu();
                 break;
-
             case "sapling":
                 System.out.println(StoreOwner + "You picked sapling menu");
                 sapling_menu();
                 break;
-
             case "axe":
                 System.out.println(StoreOwner + "You picked Axe menu");
                 Axe_menu();
@@ -216,6 +209,7 @@ public class Store extends Room {
         if (!humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
             for (Tree tree : humanPlayer.backPack().getLogsInBackPack()) {
                 humanPlayer.addMoney(tree.getTreePrice());
+
             }
             humanPlayer.backPack().emptyBackpack();
             System.out.println(StoreOwner + "You have sold all the logs in your backpack!");

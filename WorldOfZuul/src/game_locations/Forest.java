@@ -17,11 +17,11 @@ public abstract class Forest extends Room {
     protected final static int MAX_AMOUNTOFTREESINFOREST = 100;
     protected List<Tree> trees = null;
 
-    public Forest(String description, Player player) {
-        super(description, player);
+    public Forest(String description) {
+        super(description);
     }
 
-    protected boolean playerCanCarryMoreTree() {
+    protected boolean playerCanCarryMoreTree(Player humanPlayer) {
         return humanPlayer.backPack().getAmountOfLogsInBackPack()
             < humanPlayer.backPack().getBackpackCapacity();
     }
@@ -34,19 +34,21 @@ public abstract class Forest extends Room {
         return trees.get(trees.size() - 1);
     }
 
-    protected void chopWood() {
+    protected void chopWood(Player humanPlayer) {
         if (humanPlayer.getAxe() != null) {
-            chopWoodWithAxe();
+            chopWoodWithAxe(humanPlayer);
         } else {
-            chopWoodWithHands();
+            chopWoodWithHands(humanPlayer);
         }
     }
 
     /**
      * hugger træ, tilføjer træet til spillerens rygsæk, fjerner træet fra skoven og giver spilleren klima points.
+     *
+     * @param humanPlayer chopping a tree
      */
-    protected void chopWoodWithAxe() {
-        if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
+    protected void chopWoodWithAxe(Player humanPlayer) {
+        if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
             System.out.println("You swing your " + humanPlayer.getAxe().getDescription() + " at the tree!");
             while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxe().getDamage() > 0) {
                 lastTreeInArray().reduceTreeHealth(humanPlayer.getAxe().getDamage());
@@ -71,11 +73,11 @@ public abstract class Forest extends Room {
                 + humanPlayer.backPack().getAmountOfLogsInBackPack()
                 + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
         } else {
-            if (playerCanCarryMoreTree() && !thereIsMoreTreesToCut()) {
+            if (playerCanCarryMoreTree(humanPlayer) && !thereIsMoreTreesToCut()) {
                 System.out.println("You have cut too much wood!! \n"
                     + (this instanceof CertifiedForest ? "You have to wait for the forest to regrow!"
                         : "The forest has no more trees!"));
-            } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree()) {
+            } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree(humanPlayer)) {
                 System.out.println("You are carrying too much wood!\n"
                     + "Go back to your trailer and sell or store your logs!");
             }
@@ -84,9 +86,11 @@ public abstract class Forest extends Room {
 
     /**
      * If player doesn't have an getAxe equipped they can instead use their hands to chop down a tree with a damage of 2
+     *
+     * @param humanPlayer chopping the trees
      */
-    protected void chopWoodWithHands() {
-        if (playerCanCarryMoreTree() && thereIsMoreTreesToCut()) {
+    protected void chopWoodWithHands(Player humanPlayer) {
+        if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
             System.out.println("You punch the tree!");
             while (lastTreeInArray().getTreeHealth() - 2 > 0) {
                 lastTreeInArray().reduceTreeHealth(2);
@@ -110,11 +114,11 @@ public abstract class Forest extends Room {
                 + humanPlayer.backPack().getAmountOfLogsInBackPack()
                 + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
         } else {
-            if (playerCanCarryMoreTree() && !thereIsMoreTreesToCut()) {
+            if (playerCanCarryMoreTree(humanPlayer) && !thereIsMoreTreesToCut()) {
                 System.out.println("You have cut too much wood!! \n"
                     + (this instanceof CertifiedForest ? "You have to wait for the forest to regrow!"
                         : "The forest has no more trees!"));
-            } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree()) {
+            } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree(humanPlayer)) {
                 System.out.println("You are carrying too much wood!\n"
                     + "Go back to your trailer and sell or store your logs!");
             }
@@ -122,7 +126,7 @@ public abstract class Forest extends Room {
     }
 
     @Override
-    public void option2() {
+    public void option2(Player humanPlayer) {
         System.out.println("There are " + trees.size() + " trees left in the forest");
     }
 }

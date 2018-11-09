@@ -14,22 +14,22 @@ public class Trailer extends Room {
     private ArrayList<Tree> logsInStorage;
     private Axe starterAxe = new Axe("axe", 0, 10, 3);
 
-    public Trailer(String description, Player player) {
-        super(description, player);
+    public Trailer(String description) {
+        super(description);
         this.numOfDaysGoneBy = 1;
         this.logsInStorage = new ArrayList();
     }
 
     @Override
-    public String getLongDescription() {
-        return "\nYou are standing " + getShortDescription() + "!\n"
+    public String getLongDescription(Player humanPlayer) {
+        return "You are standing " + getShortDescription() + "!\n"
             + "This is your home, you have " + humanPlayer.getClimatePoints() + " climate points,"
             + " your choices are: \n"
             + "----------------------------------\n"
             + "○ Store Logs - store logs you are carrying\n"
             + "○ Check Wallet - see how much money you have\n"
             + "○ Sleep\n"
-            + (starterAxe != null ? "Pick up Axe\n" : "")                
+            + (starterAxe != null ? "Pick up Axe\n" : "")
             + "----------------------------------";
 
     }
@@ -68,7 +68,7 @@ public class Trailer extends Room {
     }
 
     @Override
-    public void option1() {
+    public void option1(Player humanPlayer) {
         if (humanPlayer.backPack().getAmountOfLogsInBackPack() == 0) {
             System.out.println("You are not carrying any logs!");
             return;
@@ -108,7 +108,7 @@ public class Trailer extends Room {
     }
 
     @Override
-    public void option2() {
+    public void option2(Player humanPlayer) {
         if (humanPlayer.getMoney() == 0) {
             System.out.println("Your wallet is empty! What a shame!");
         } else {
@@ -118,9 +118,11 @@ public class Trailer extends Room {
 
     /**
      * Sørger for at alle ting som spilleren skal gøre
+     *
+     * @param humanPlayer
      */
     @Override
-    public void option3() {
+    public void option3(Player humanPlayer) {
         int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
         if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
             System.out.println("THERE IS NO MORE DAYS, YOUR HIGHSCORE IS: "
@@ -137,9 +139,11 @@ public class Trailer extends Room {
 
     /**
      * If the player hasn't picked up the starterAxe before they will be prompted with the option to pick one up
+     *
+     * @param humanPlayer that picks up the starter axe
      */
     @Override
-    public void option4() {
+    public void option4(Player humanPlayer) {
         if (starterAxe != null) {
             humanPlayer.pickedUpAxe(starterAxe);
             starterAxe = null;
