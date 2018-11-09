@@ -4,36 +4,22 @@ import game_functionality.Player;
 import game_elements.Tree;
 import game_elements.BackPack;
 import game_elements.Axe;
+import game_elements.AxeFactory;
+import game_elements.BackPackFactory;
 
 import java.util.Scanner;
 
-/**
- * Klassen indeholder mange attributter som er instanser af andre klasser, som klassen her kan "sælge" til spilleren.
- *
- * @author oliver
- */
 public class Store extends Room {
-
-    private final Trailer trailer;
-    private final Axe ironAxe = new Axe("Iron axe", 49, 30, 3);
-    private final Axe steelAxe = new Axe("Steel axe", 119, 40, 4);
-    private final Axe diamondAxe = new Axe("Diamond axe", 149, 60, 6);
-    private final Axe fireAxe = new Axe("Fire axe", 349, 120, 12);
-
-    private final BackPack smallBackPack = new BackPack("Small backpack", 129, 10);
-    private final BackPack mediumBackPack = new BackPack("Medium backpack", 249, 15);
-    private final BackPack largeBackPack = new BackPack("Large backpack", 389, 20);
 
     private final int SAPLING_BUNDLE_PRICE = 12;
     private final Scanner userPurchaseChoice = new Scanner(System.in);
 
-    public Store(String description, Player player, Trailer trailer) {
-        super(description, player);
-        this.trailer = trailer;
+    public Store(String description) {
+        super(description);
     }
 
     @Override
-    public String getLongDescription() {
+    public String getLongDescription(Player humanPlayer) {
         return "You are standing " + getShortDescription() + "!\n"
             + "Here you can sell your logs and purchase new equipment \n"
             + "----------------------------------\n"
@@ -45,10 +31,13 @@ public class Store extends Room {
     }
 
     /**
-     * Sells the players logs both the ones carried and the ones in players store.
+     * Sells the trees the player is carrying
+     *
+     * @param humanPlayer
      */
     @Override
-    public void option1() {
+    public void option1(Player humanPlayer) {
+        Trailer trailer = humanPlayer.getTrailer();
         if (trailer.getLogsInStorage().isEmpty() && humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
             System.out.println("You have no logs to sell!");
             return;
@@ -71,7 +60,11 @@ public class Store extends Room {
     }
 
     @Override
-    public void option2() {
+    public void option2(Player humanPlayer) {
+        Axe ironAxe = AxeFactory.createIronAxe();
+        Axe steelAxe = AxeFactory.createSteelAxe();
+        Axe diamondAxe = AxeFactory.createDiamondAxe();
+        Axe fireAxe = AxeFactory.createFireAxe();
         System.out.println("You see here my good friend! 4 different axes, sharp as an arrowtip.\n"
             + ironAxe + "\n"
             + steelAxe + "\n"
@@ -81,6 +74,10 @@ public class Store extends Room {
         System.out.println("Which axe would you like to buy?");
         String userAxeChoice = userPurchaseChoice.nextLine();
         String userChoiceWithoutBloat = userAxeChoice.toLowerCase().replaceAll("\\s+", "");
+
+//        String input = "ookiikkiki          ironaxe   njj jn nn ";
+//        
+//        input.contains("ironaxe");
         switch (userChoiceWithoutBloat) {
             case "1":
             case "ironaxe":
@@ -133,7 +130,11 @@ public class Store extends Room {
     }
 
     @Override
-    public void option3() {
+    public void option3(Player humanPlayer) {
+        BackPack smallBackPack = BackPackFactory.createSmallBackPack();
+        BackPack mediumBackPack = BackPackFactory.createMediumBackPack();
+        BackPack largeBackPack = BackPackFactory.createLargeBackPack();
+
         System.out.println("Mnyess! I have 4 different backpacks for you!\n"
             + smallBackPack + "\n"
             + mediumBackPack + "\n"
@@ -180,7 +181,7 @@ public class Store extends Room {
     }
 
     @Override
-    public void option4() {
+    public void option4(Player humanPlayer) {
         System.out.println("Yes, you see here my friend, these saplings are cheap \nand make your trees grow quickly! \n"
             + "Only " + SAPLING_BUNDLE_PRICE + " gold coins per bundle!\n"
             + "How many bundles would you like to buy?");

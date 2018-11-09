@@ -3,10 +3,10 @@ package game_elements;
 import game_elements.Tree;
 
 public class CertifiedTree extends Tree {
-    
+
     private final int TREE_CLIMATE_POINTS = 5;
     private final int TREE_SELL_PRICE = 15;
-    
+
     @Override
     public int getTreeClimatePoints() {
         return TREE_CLIMATE_POINTS;
@@ -26,8 +26,5 @@ public class CertifiedTree extends Tree {
     public int getTreeHealth() {
         return this.treeHealth;
     }
-    
-    
-    
-    
+
 }

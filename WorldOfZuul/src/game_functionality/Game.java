@@ -14,14 +14,14 @@ public class Game {
 
     private final Parser parser;
     private final BackPack starterBackPack = new BackPack("Starter Backpack", 0, 5);
-    private final Player humanPlayer = new Player(starterBackPack);
-    private final Room trailer = new Trailer("inside your trailer", humanPlayer);
-    private final Room certifiedForest = new CertifiedForest("in a certified forest", humanPlayer);
-    private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest", humanPlayer);
-    private final Room localVillage = new LocalVillage("in a local village", humanPlayer, (Trailer) trailer);
-    private final Room weatherCenter = new WeatherReportCenter("in a weather report center from around the world", humanPlayer);
-    private final Room store = new Store("in the LumberJack shop", humanPlayer, (Trailer) trailer);
-    private final Room tutorialRoom = new TutorialRoom("the tutorial room", humanPlayer, (Trailer) trailer);
+    private final Room trailer = new Trailer("inside your trailer");
+    private final Player humanPlayer = new Player(starterBackPack, (Trailer) trailer);
+    private final Room certifiedForest = new CertifiedForest("in a certified forest");
+    private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest");
+    private final Room localVillage = new LocalVillage("in a local village");
+    private final Room weatherCenter = new WeatherReportCenter("in a weather report center from around the world");
+    private final Room store = new Store("in the LumberJack shop");
+    private final Room tutorialRoom = new TutorialRoom("the tutorial room");
 
     public Game() {
         setExitsForRooms();
@@ -102,7 +102,7 @@ public class Game {
             + "Your job as a lumberjack, is to cut down trees. \n"
             + "You have " + Trailer.getNumPlayDays() + " days playtime to earn as much money as you can\n"
             + "without destroying the earth!\n");
-        System.out.println(humanPlayer.getCurrentRoom().getLongDescription());
+        System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
     }
 
     private boolean processCommand(Command command) {
@@ -159,7 +159,7 @@ public class Game {
             System.out.println("There is no road!");
         } else {
             humanPlayer.setCurrentRoom(nextRoom);
-            System.out.println(humanPlayer.getCurrentRoom().getLongDescription());
+            System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
         }
     }
 
@@ -181,16 +181,16 @@ public class Game {
         String optionNumber = command.getSecondWord();
         switch (optionNumber) {
             case "1":
-                humanPlayer.getCurrentRoom().option1();
+                humanPlayer.getCurrentRoom().option1(humanPlayer);
                 break;
             case "2":
-                humanPlayer.getCurrentRoom().option2();
+                humanPlayer.getCurrentRoom().option2(humanPlayer);
                 break;
             case "3":
-                humanPlayer.getCurrentRoom().option3();
+                humanPlayer.getCurrentRoom().option3(humanPlayer);
                 break;
             case "4":
-                humanPlayer.getCurrentRoom().option4();
+                humanPlayer.getCurrentRoom().option4(humanPlayer);
                 break;
             case "666":
                 System.out.println("THE DEVIL REWARDS YOU FOR YOUR CURIOSITY");

@@ -3,6 +3,7 @@ package game_functionality;
 import game_elements.BackPack;
 import game_elements.Axe;
 import game_locations.Room;
+import game_locations.Trailer;
 
 /**
  * Indeholder en masse information som andre klasser benytter sig af for at bestemme hvad
@@ -22,15 +23,13 @@ public class Player {
     private int saplingBundleAmount;
     private boolean saplingsPlanted;
     private boolean hasChoppedTrees;
+    private final Trailer trailer;
+    private Room previousRoom;
 
-    public Player(BackPack starterBackPack) {
-        this.money = 0;
-        this.climatePoints = 0;
-        this.giftHasBeenGivenToday = false;
+    public Player(BackPack starterBackPack, Trailer trailer) {
         this.equippedBackPack = starterBackPack;
-        this.saplingBundleAmount = 0;
-        this.saplingsPlanted = false;
-        this.hasChoppedTrees = false;
+        this.trailer = trailer;
+        this.previousRoom = trailer;
     }
 
     /**
@@ -52,11 +51,11 @@ public class Player {
     }
 
     public int getClimatePoints() {
-        return this.climatePoints;
+        return climatePoints;
     }
 
     public void addClimatePoints(int treeClimatePoints) {
-        this.climatePoints += treeClimatePoints;
+        climatePoints += treeClimatePoints;
     }
 
     /**
@@ -72,7 +71,14 @@ public class Player {
      * @param newRoom: Rummet som spilleren skal bevæge sig til.
      */
     public void setCurrentRoom(Room newRoom) {
-        this.currentRoom = newRoom;
+        if (currentRoom != null) {
+            previousRoom = currentRoom;
+        }
+        currentRoom = newRoom;
+    }
+
+    public void throwPlayerBack() {
+        currentRoom = previousRoom;
     }
 
     /**
@@ -97,6 +103,17 @@ public class Player {
     
     public void pickedUpAxe(Axe axe) {
         equippedAxe = axe;
+    }
+
+    public Trailer getTrailer() {
+        return trailer;
+    }
+
+    /**
+     * @return om spilleren har en økse equipped.
+     */
+    public boolean canUseAxe() {
+        return equippedAxe != null;
     }
 
     /**

@@ -5,28 +5,25 @@ import game_functionality.Player;
 
 public class LocalVillage extends Room {
 
-    private final Trailer trailer;
-
-    public LocalVillage(String description, Player player, Trailer trailer) {
-        super(description, player);
-        this.trailer = trailer;
+    public LocalVillage(String description) {
+        super(description);
     }
 
     @Override
-    public String getLongDescription() {
+    public String getLongDescription(Player humanPlayer) {
         return "You are standing " + getShortDescription() + "!\n"
-            + getScenario();
+            + getScenario(humanPlayer);
     }
 
-    public String getScenario() {
+    public String getScenario(Player humanPlayer) {
         int climatePoints = humanPlayer.getClimatePoints();
 
         if (climatePoints < this.getPOSITIVE_SCENARIO_POINTS()[0] && climatePoints > this.getNEGATIVE_SCENARIO_POINTS()[0]) {
             return "The local people from the village greet you a kind welcome\nand you observe a "
                 + "healthy and vibrant wildlife";
 
-        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[0] && climatePoints > 
-                this.getNEGATIVE_SCENARIO_POINTS()[1]) {
+        } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[0] && climatePoints
+            > this.getNEGATIVE_SCENARIO_POINTS()[1]) {
             return "The local people from the village greet you welcome\nand you observe "
                 + "the wildlife steadily decaying";
 
@@ -35,14 +32,14 @@ public class LocalVillage extends Room {
                 + "and the wildlife is suffering visibly";
 
         } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[2] && climatePoints > this.getNEGATIVE_SCENARIO_POINTS()[3]) {
-            humanPlayer.setCurrentRoom(trailer);
+            humanPlayer.throwPlayerBack();
             return "You cut too much wood! The local people from the village are enraged \n"
                 + "and chase you out of the village, spitting and throwing rocks after you\n"
                 + "wildlife is decimated \n"
                 + "You now stand in your trailer with a black eye";
 
         } else if (climatePoints < this.getNEGATIVE_SCENARIO_POINTS()[3] && climatePoints > this.getNEGATIVE_SCENARIO_POINTS()[4]) {
-            humanPlayer.setCurrentRoom(trailer);
+            humanPlayer.throwPlayerBack();
             return "Parts of the village have left due to lacking ressources, the remainders\n"
                 + "chase you out of the village with guns \n"
                 + "You now stand in your trailer";
@@ -57,15 +54,16 @@ public class LocalVillage extends Room {
                 + " environmental considerations\nand wildlife is flourishing";
 
         } else if (climatePoints > this.getPOSITIVE_SCENARIO_POINTS()[1]) {
-            return giftScenario();
+            return giftScenario(humanPlayer);
         }
 
         return "You successfully broke the game";
     }
 
-    public String giftScenario() {
+    public String giftScenario(Player humanPlayer) {
+        Trailer trailer = humanPlayer.getTrailer();
         if (!humanPlayer.isGiftHasBeenGivenToday()) {
-            if (!trailer.isStorageFull()) {
+            if (trailer.isStorageFull()) {
                 trailer.getLogsInStorage().add(new NonCertifiedTree());
                 int moneyAmountGiven = (int) (Math.random() * 10) + 1;
                 humanPlayer.addMoney(moneyAmountGiven);

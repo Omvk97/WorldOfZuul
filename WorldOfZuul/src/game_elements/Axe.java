@@ -1,6 +1,6 @@
 package game_elements;
 
-public class Axe extends Items {
+public class Axe extends Item {
 
     private final int damage;
     private final int startDurability;
@@ -28,7 +28,6 @@ public class Axe extends Items {
     public int reduceDurability() {
         return --durability;
     }
-    
 
     @Override
     public String toString() {

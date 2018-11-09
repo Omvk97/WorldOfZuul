@@ -9,15 +9,12 @@ public abstract class Room {
     private final String description;
     private final HashMap<String, Room> exits;
     private final HashMap<String, String> options;
-    protected final Player humanPlayer;
 
     private final int[] NEGATIVE_SCENARIO_POINTS = new int[]{-19, -29, -39, -49, -59};
     private final int[] POSITIVE_SCENARIO_POINTS = new int[]{19, 29, 39, 49, 59};
-    
 
-    public Room(String description, Player player) {
+    public Room(String description) {
         this.description = description;
-        this.humanPlayer = player;
         exits = new HashMap();
         options = new HashMap();
     }
@@ -34,7 +31,7 @@ public abstract class Room {
         return description;
     }
 
-    abstract public String getLongDescription();
+    abstract public String getLongDescription(Player humanPlayer);
 
     public String getExitString() {
         StringBuilder returnString = new StringBuilder("Exits:");
@@ -60,20 +57,20 @@ public abstract class Room {
     public int[] getPOSITIVE_SCENARIO_POINTS() {
         return POSITIVE_SCENARIO_POINTS;
     }
-    
-    public void option1() {
+
+    public void option1(Player humanPlayer) {
         System.out.println("There is no option 1 in this room");
     }
 
-    public void option2() {
+    public void option2(Player humanPlayer) {
         System.out.println("There is no option 2 in this room");
     }
 
-    public void option3() {
+    public void option3(Player humanPlayer) {
         System.out.println("There is no option 3 in this room");
     }
 
-    public void option4() {
+    public void option4(Player humanPlayer) {
         System.out.println("There is no option 4 in this room");
     }
 }

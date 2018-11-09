@@ -10,26 +10,21 @@ public class TutorialRoom extends Room {
 
     Scanner input = new Scanner(System.in);
     boolean answer;
-    private final Trailer trailer;
 
-    public TutorialRoom(String description, Player player, Trailer trailer) {
-        super(description, player);
-        this.trailer = trailer;
+    public TutorialRoom(String description) {
+        super(description);
     }
 
     private void getAnswer() {
 //        pause(5000);
         System.out.println("Would you like to take a tutorial? [Y / N]");
         String playerInput = input.nextLine();
-        if (playerInput.toUpperCase().equals("Y")) {
-            answer = true;
-        } else {
-            answer = false;
-        }
+        answer = playerInput.toUpperCase().equals("Y");
     }
 
     @Override
-    public String getLongDescription() {
+    public String getLongDescription(Player humanPlayer) {
+        Trailer trailer = humanPlayer.getTrailer();
         getAnswer();
         if (answer) {
             System.out.println("Welcome to the turtorial room! \n"
@@ -46,12 +41,12 @@ public class TutorialRoom extends Room {
             System.out.println("Type '" + CommandWord.HELP + "' if you ever need help.");
             pause(4000);
             humanPlayer.setCurrentRoom(trailer);
-            return trailer.getLongDescription();
+            return trailer.getLongDescription(humanPlayer);
         } else {
             System.out.println("Alright have fun!");
             System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
-            humanPlayer.setCurrentRoom(trailer);
-            return trailer.getLongDescription();
+            humanPlayer.throwPlayerBack();
+            return trailer.getLongDescription(humanPlayer);
         }
 
     }
@@ -66,7 +61,7 @@ public class TutorialRoom extends Room {
             + "○ Karatechop - Do a karatechop on a twig\n"
             + "----------------------------------");
         System.out.print("Try typing one of the options \n");
-        String option = input.nextLine().toLowerCase().replaceAll("\\s","");
+        String option = input.nextLine().toLowerCase().replaceAll("\\s", "");
         boolean correctUserOption = false;
         while (!correctUserOption) {
             switch (option) {
@@ -96,8 +91,8 @@ public class TutorialRoom extends Room {
             goWest = input.nextLine();
         }
     }
-    
-    private void pause(int time){
+
+    private void pause(int time) {
         try {
             Thread.sleep(time);
         } catch (InterruptedException ex) {
