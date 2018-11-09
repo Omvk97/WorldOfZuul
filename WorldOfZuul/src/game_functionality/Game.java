@@ -1,13 +1,6 @@
 package game_functionality;
 
-import game_locations.CertifiedForest;
-import game_locations.NonCertifiedForest;
-import game_locations.WeatherReportCenter;
-import game_locations.Store;
-import game_locations.Room;
-import game_locations.Trailer;
-import game_locations.TutorialRoom;
-import game_locations.LocalVillage;
+import game_locations.*;
 import game_elements.BackPack;
 
 public class Game {
@@ -22,6 +15,8 @@ public class Game {
     private final Room weatherCenter = new WeatherReportCenter("in a weather report center from around the world");
     private final Room store = new Store("in the LumberJack shop");
     private final Room tutorialRoom = new TutorialRoom("the tutorial room");
+    private final Room blacksmith = new BlackSmith("the Blacksmith");
+
 
     public Game() {
         setExitsForRooms();
@@ -46,10 +41,12 @@ public class Game {
         localVillage.setExit("north", nonCertificedForest);
         localVillage.setExit("south", certifiedForest);
         localVillage.setExit("store", store);
+        localVillage.setExit("blacksmitch", blacksmith);
 
         weatherCenter.setExit("east", trailer);
 
         store.setExit("back", localVillage);
+        blacksmith.setExit("back", localVillage);
 
         store.setExit("northeast", trailer);
     }
@@ -74,6 +71,10 @@ public class Game {
         //Store
         store.setOptions("selllogs", "1");
         store.setOptions("buyitems", "2");
+        //Blacksmith
+        blacksmith.setOptions("repair","1");
+        blacksmith.setOptions("Buy", "2");
+
     }
 
     public void play() {
