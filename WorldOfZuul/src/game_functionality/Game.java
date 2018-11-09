@@ -45,14 +45,13 @@ public class Game {
         localVillage.setExit("west", trailer);
         localVillage.setExit("north", nonCertificedForest);
         localVillage.setExit("south", certifiedForest);
-        localVillage.setExit("east", store);
+        localVillage.setExit("store", store);
 
         weatherCenter.setExit("east", trailer);
 
-        store.setExit("west", localVillage);
+        store.setExit("back", localVillage);
 
         store.setExit("northeast", trailer);
-
     }
 
     private void setOptionsForRooms() {
