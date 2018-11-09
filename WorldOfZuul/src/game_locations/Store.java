@@ -1,9 +1,9 @@
 package game_locations;
 
-import game_functionality.Player;
-import game_elements.Tree;
 import game_elements.BackPack;
 import game_elements.BackPackFactory;
+import game_elements.Tree;
+import game_functionality.Player;
 
 import java.util.Scanner;
 
@@ -100,8 +100,8 @@ public class Store extends Room {
     private void first_menu(Player humanPlayer) {
         System.out.println(StoreOwner + "What would you like to buy?\n"
             + "--------------------------- \n"
-            + "○ Backpack - Buy Backpacks \n"
-            + "○ Sapling - Buy saplings \n"
+                + "○ Backpack ➨ For buy Backpacks \n"
+                + "○ Sapling  ➨ For buy saplings \n"
             + "---------------------------");
         Scanner in = new Scanner(System.in);
         switch (in.nextLine()) {

@@ -1,7 +1,7 @@
 package game_functionality;
 
-import game_locations.*;
 import game_elements.BackPack;
+import game_locations.*;
 
 public class Game {
 
@@ -73,7 +73,7 @@ public class Game {
         store.setOptions("buyitems", "2");
         //Blacksmith
         blacksmith.setOptions("repair","1");
-        blacksmith.setOptions("Buy", "2");
+        blacksmith.setOptions("buy", "2");
 
     }
 

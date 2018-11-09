@@ -8,7 +8,8 @@ import game_functionality.Player;
 import java.util.Scanner;
 
 public class BlackSmith extends Room {
-    private String BlackSmith= " Smith";
+    private final int grindPrise = 10;
+    private String BlackSmith = " Smith:\n";
     private final Scanner userPurchaseChoice = new Scanner(System.in);
 
     public BlackSmith(String description) {
@@ -18,7 +19,11 @@ public class BlackSmith extends Room {
     @Override
     public String getLongDescription(Player humanplayer) {
         return "Hi " + "You are standing " + getShortDescription() + "!\n"
-                + "---------------------------------------------";
+                + "---------------------------------------------\n" +
+                "If you pay I wil make you axe Stronger \n " +
+                "------------------------------------\n" +
+                "○ Repair  -For repair your axe for you\n" +
+                "○ Buy     -For buy an axe";
 
     }
     private void Axe_menu(Player humanPlayer) {
@@ -54,6 +59,10 @@ public class BlackSmith extends Room {
             case "fireaxe":
                 getAxeInfo(humanPlayer, fireAxe);
                 break;
+            case "5":
+            case "back":
+                System.out.println("Se yo later ");
+                break;
             default:
                 System.out.println(BlackSmith + "I don't know what you mean");
                 break;
@@ -72,15 +81,51 @@ public class BlackSmith extends Room {
         }
     }
 
-    @Override
-    public void option1(Player humanPlayer) {
+    private void grindAxe_menu(Player humanPlayer) {
 
 
+        if (humanPlayer.getAxe() == null) {
+            System.out.println("You dont have a Axe want to buy one ?");
+            return;
+        } else if (humanPlayer.getAxe().getDurability() == humanPlayer.getAxe().getStartDurability()) {
+            System.out.println("You dont need to get your axe fixt");
+        } else if (humanPlayer.getAxe().getDurability() < humanPlayer.getAxe().getStartDurability()) {
+            System.out.println(BlackSmith + "I will grind you axe for you. plezz wait");
+            int timeToWait = 6;
+            try {
+                for (int i = 0; i < timeToWait; i++) {
+                    Thread.sleep(1000);
+                    System.out.println("  ( ͡° ͜ʖ ͡°) Ding  ( ͡° ͜ʖ ͡°) ");
+                }
+                System.out.println(" (◣_◢) Your axe is done  (◣_◢)");
+
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+
+            }
+            Scanner input = new Scanner(System.in);
+            String grindOption = input.nextLine();
+            switch (grindOption) {
+                case "yes":
+                    System.out.println(BlackSmith + "Okay my friend \n I will go to work");
+                    humanPlayer.getAxe().grindAxe();
+                    break;
+                case "no":
+                    System.out.println(BlackSmith + " Get out of her !!!!");
+                    break;
+
+            }
+        }
     }
 
     @Override
-    public void option2(Player humanPlayer) {
-    Axe_menu(humanPlayer);
+    public void option1(Player humanPlayer) {
+        grindAxe_menu(humanPlayer);
 
+
+    }
+    @Override
+    public void option2(Player humanPlayer) {
+        Axe_menu(humanPlayer);
         }
 }
