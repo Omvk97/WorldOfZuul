@@ -73,9 +73,7 @@ public class Game {
         nonCertificedForest.setOptions("treesleft", "2");
         //Store
         store.setOptions("selllogs", "1");
-        store.setOptions("buyaxe", "2");
-        store.setOptions("upgrade", "3");
-        store.setOptions("saplings", "4");
+        store.setOptions("buyitems", "2");
     }
 
     public void play() {
