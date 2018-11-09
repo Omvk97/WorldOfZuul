@@ -23,9 +23,9 @@ public class Store extends Room {
             + "Here you can sell your logs and purchase new equipment \n"
             + "you have 3 options \n"
             + "---------------------------------------------\n"
-            + "○ Sell - Sell logs\n"
-            + "○ Buy - Buy items\n"
-            + "○ Go back - Go to the localvillage \n"
+                + "○ Sell    ➤ Sell logs\n"
+                + "○ Buy     ➤ Buy items\n"
+                + "○ Go back ➤ Go to the localvillage \n"
             + "---------------------------------------------";
 
     }

@@ -16,6 +16,7 @@ public class Game {
     private final Room store = new Store("in the LumberJack shop");
     private final Room tutorialRoom = new TutorialRoom("the tutorial room");
     private final Room blacksmith = new BlackSmith("the Blacksmith");
+    private final Room library = new Library("the Libray");
 
 
     public Game() {
@@ -38,15 +39,15 @@ public class Game {
         nonCertificedForest.setExit("east", localVillage);
 
         localVillage.setExit("west", trailer);
-        localVillage.setExit("north", nonCertificedForest);
-        localVillage.setExit("south", certifiedForest);
         localVillage.setExit("store", store);
         localVillage.setExit("blacksmitch", blacksmith);
+        localVillage.setExit("library", library);
 
         weatherCenter.setExit("east", trailer);
 
         store.setExit("back", localVillage);
         blacksmith.setExit("back", localVillage);
+        library.setExit("back", localVillage);
 
         store.setExit("northeast", trailer);
     }
@@ -74,7 +75,9 @@ public class Game {
         //Blacksmith
         blacksmith.setOptions("repair","1");
         blacksmith.setOptions("buy", "2");
-
+        // library
+        library.setOptions("learn fsc", "1");
+        library.setOptions("learn PFSC", "2");
     }
 
     public void play() {

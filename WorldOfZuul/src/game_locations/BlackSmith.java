@@ -22,8 +22,8 @@ public class BlackSmith extends Room {
                 + "---------------------------------------------\n" +
                 "If you pay I wil make you axe Stronger \n " +
                 "------------------------------------\n" +
-                "○ Repair  -For repair your axe for you\n" +
-                "○ Buy     -For buy an axe";
+                "○ Repair  ➤ For repair your axe for you\n" +
+                "○ Buy     ➤ For buy an axe";
 
     }
     private void Axe_menu(Player humanPlayer) {

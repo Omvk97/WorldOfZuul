@@ -2,6 +2,7 @@ package game_locations;
 
 import game_functionality.CommandWord;
 import game_functionality.Player;
+
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,8 +58,8 @@ public class TutorialRoom extends Room {
         System.out.println("In each room you have different options you can perform\n"
             + "In this room you have these options:\n"
             + "----------------------------------\n"
-            + "○ Pick up rock - You pick up a rock\n"
-            + "○ Karatechop - Do a karatechop on a twig\n"
+                + "○ Pick up rock ➤ You pick up a rock\n"
+                + "○ Karatechop   ➤ Do a karatechop on a twig\n"
             + "----------------------------------");
         System.out.print("Try typing one of the options \n");
         String option = input.nextLine().toLowerCase().replaceAll("\\s", "");
