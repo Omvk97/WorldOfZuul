@@ -29,7 +29,6 @@ public class Game {
 
         trailer.setExit("east", localVillage);
         trailer.setExit("south", certifiedForest);
-        trailer.setExit("west", weatherCenter);
         trailer.setExit("north", nonCertificedForest);
 
         certifiedForest.setExit("east", localVillage);
@@ -42,14 +41,14 @@ public class Game {
         localVillage.setExit("store", store);
         localVillage.setExit("blacksmitch", blacksmith);
         localVillage.setExit("library", library);
-
-        weatherCenter.setExit("east", trailer);
+        localVillage.setExit("weathercenter", weatherCenter);
 
         store.setExit("back", localVillage);
         blacksmith.setExit("back", localVillage);
         library.setExit("back", localVillage);
+        weatherCenter.setExit("back", localVillage);
 
-        store.setExit("northeast", trailer);
+
     }
 
     private void setOptionsForRooms() {
@@ -76,8 +75,8 @@ public class Game {
         blacksmith.setOptions("repair","1");
         blacksmith.setOptions("buy", "2");
         // library
-        library.setOptions("learn fsc", "1");
-        library.setOptions("learn pefc", "2");
+        library.setOptions("learnfsc", "1");
+        library.setOptions("learnpefc", "2");
     }
 
     public void play() {
@@ -99,7 +98,7 @@ public class Game {
     }
 
     private void printWelcome() {
-        System.out.println("Welcome to 'The LumberJack'! \n"
+        System.out.println("ಠ_ಠ  Welcome to 'The LumberJack'! ಠ_ಠ   \n"
             + "Your job as a lumberjack, is to cut down trees. \n"
             + "You have " + Trailer.getNumPlayDays() + " days playtime to earn as much money as you can\n"
             + "without destroying the earth!\n");

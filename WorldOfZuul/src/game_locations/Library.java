@@ -2,6 +2,8 @@ package game_locations;
 
 import game_functionality.Player;
 
+import java.util.Scanner;
+
 public class Library extends Room {
     String libraryOwner = "Anna: \n";
 
@@ -15,16 +17,41 @@ public class Library extends Room {
     public String getLongDescription(Player humanplayer) {
         return libraryOwner + "Hi " + "You are standing " + getShortDescription() + "!\n"
                 + "---------------------------------------------\n" +
-                "If you pay I wil make you axe Stronger \n " +
+                "If you want to learn more about fsc FSC and PEFC \n " +
                 "------------------------------------\n" +
                 "○ learn fsc    ➤ For learn about fsc\n" +
-                "○ learn PFSC   ➤ For learn about PFSC";
-
+                "○ learn pefc  ➤ For learn about PEFC";
     }
 
     @Override
     public void option1(Player humanPlayer) {
-        System.out.println(libraryOwner + "So you want to learn about FSC");
+        System.out.println(libraryOwner +
+                "So you want to learn about FSC\n" +
+                "");
+        Scanner input = new Scanner(System.in);
+        String chose = input.nextLine();
+        switch (chose) {
+            case "1":
+            case "what isFSC":
+                fscIs();
+                break;
+            case "2":
+            case "fsc numbers ":
+                System.out.println(libraryOwner +
+                        "201,7 mio ha forest are certified for FSC\n" +
+                        "34,133 companys is CoC-certified (Chain oF Custody\n" +
+                        "");
+
+                break;
+            case "3":
+            case "largebackpack":
+
+                break;
+            default:
+                System.out.println(libraryOwner + "I don't know what you mean");
+
+                break;
+        }
 
     }
 
@@ -33,4 +60,10 @@ public class Library extends Room {
         System.out.println(libraryOwner + "So you want to learn about PEFC");
     }
 
+    private void fscIs() {
+        System.out.println();
+    }
+
+
 }
+

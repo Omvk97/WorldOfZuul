@@ -8,15 +8,12 @@ import game_functionality.Player;
 import java.util.Scanner;
 
 public class Store extends Room {
-
     private static final int SAPLING_BUNDLE_PRICE = 10 ;
     private final String StoreOwner = "Reginald:\n";
     private final Scanner userPurchaseChoice = new Scanner(System.in);
-
     public Store(String description) {
         super(description);
     }
-
     @Override
     public String getLongDescription(Player humanPlayer) {
         return StoreOwner + "Hi " + "You are standing " + getShortDescription() + "!\n"
@@ -27,9 +24,7 @@ public class Store extends Room {
                 + "○ Buy     ➤ Buy items\n"
                 + "○ Go back ➤ Go to the localvillage \n"
             + "---------------------------------------------";
-
     }
-
     private void sapling_menu(Player humanPlayer) {
         System.out.println(StoreOwner + "you can now Buy saplings");
         System.out.println(StoreOwner + "Yes, you see here my friend, these saplings are cheap \n and make your trees grow quickly! \n"
@@ -51,7 +46,6 @@ public class Store extends Room {
             first_menu(humanPlayer);
         }
     }
-
     private void BackPack_menu(Player humanPlayer) {
         BackPack smallBackPack = BackPackFactory.createSmallBackPack();
         BackPack mediumBackPack = BackPackFactory.createMediumBackPack();
@@ -62,7 +56,6 @@ public class Store extends Room {
             + mediumBackPack + "\n"
             + largeBackPack + "\n"
             + "which one do you want?");
-
         String userBackPackChoice = userPurchaseChoice.nextLine();
         String userChoiceWithoutBloat = userBackPackChoice.toLowerCase().replaceAll("\\s+", "");
         switch (userChoiceWithoutBloat) {
@@ -84,7 +77,6 @@ public class Store extends Room {
                 break;
         }
     }
-
     private void getBackPackInfo(Player humanPlayer, BackPack backPack) {
         if (humanPlayer.getMoney() >= backPack.getPrice()) {
             System.out.println(StoreOwner + "You just bought a " + backPack.getDescription() + "!\n"
@@ -95,8 +87,6 @@ public class Store extends Room {
             first_menu(humanPlayer);
         }
     }
-
-
     private void first_menu(Player humanPlayer) {
         System.out.println(StoreOwner + "What would you like to buy?\n"
             + "--------------------------- \n"
@@ -128,19 +118,16 @@ public class Store extends Room {
         if (!humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
             for (Tree tree : humanPlayer.backPack().getLogsInBackPack()) {
                 humanPlayer.addMoney(tree.getTreePrice());
-
             }
             humanPlayer.backPack().emptyBackpack();
             System.out.println(StoreOwner + "You have sold all the logs in your backpack!");
         }
-
         if (!humanPlayer.getTrailer().getLogsInStorage().isEmpty()) {
             humanPlayer.getTrailer().getLogsInStorage().forEach((tree) -> humanPlayer.addMoney(tree.getTreePrice()));
             humanPlayer.getTrailer().loadOffLogsInStorage();
             System.out.println(StoreOwner + "You have sold all the logs in your storage!");
         }
     }
-
     @Override
     public void option2(Player humanPlayer) {
         first_menu(humanPlayer);
