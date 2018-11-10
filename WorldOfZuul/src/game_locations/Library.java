@@ -13,7 +13,7 @@ public class Library extends Room {
 
     @Override
     public String getLongDescription(Player humanplayer) {
-        return "Hi " + "You are standing " + getShortDescription() + "!\n"
+        return libraryOwner + "Hi " + "You are standing " + getShortDescription() + "!\n"
                 + "---------------------------------------------\n" +
                 "If you pay I wil make you axe Stronger \n " +
                 "------------------------------------\n" +
@@ -24,12 +24,13 @@ public class Library extends Room {
 
     @Override
     public void option1(Player humanPlayer) {
-
+        System.out.println(libraryOwner + "So you want to learn about FSC");
 
     }
 
     @Override
     public void option2(Player humanPlayer) {
-
+        System.out.println(libraryOwner + "So you want to learn about PEFC");
     }
+
 }

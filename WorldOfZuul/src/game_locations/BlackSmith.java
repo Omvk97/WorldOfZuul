@@ -117,11 +117,9 @@ public class BlackSmith extends Room {
             }
         }
     }
-
     @Override
     public void option1(Player humanPlayer) {
         grindAxe_menu(humanPlayer);
-
 
     }
     @Override

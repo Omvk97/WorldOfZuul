@@ -77,7 +77,7 @@ public class Game {
         blacksmith.setOptions("buy", "2");
         // library
         library.setOptions("learn fsc", "1");
-        library.setOptions("learn PFSC", "2");
+        library.setOptions("learn pefc", "2");
     }
 
     public void play() {
