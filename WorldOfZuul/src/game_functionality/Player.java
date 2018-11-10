@@ -71,6 +71,10 @@ public class Player {
         }
         currentRoom = newRoom;
     }
+    
+    public Room getPreviousRoom() {
+        return previousRoom;
+    }
 
     /**
      * A simple method of calculating highScore, not finally implemented yet

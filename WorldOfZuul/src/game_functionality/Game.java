@@ -30,28 +30,30 @@ public class Game {
     }
 
     private void setExitsForRooms() {
-
         trailer.setExit("east", localVillage);
         trailer.setExit("south", certifiedForest);
         trailer.setExit("west", weatherCenter);
         trailer.setExit("north", nonCertificedForest);
+        trailer.setExit("back", humanPlayer.getPreviousRoom());
 
         certifiedForest.setExit("east", localVillage);
         certifiedForest.setExit("north", trailer);
+        certifiedForest.setExit("back", humanPlayer.getPreviousRoom());
 
         nonCertificedForest.setExit("south", trailer);
         nonCertificedForest.setExit("east", localVillage);
+        nonCertificedForest.setExit("back", humanPlayer.getPreviousRoom());
 
         localVillage.setExit("west", trailer);
         localVillage.setExit("north", nonCertificedForest);
         localVillage.setExit("south", certifiedForest);
         localVillage.setExit("store", store);
+        localVillage.setExit("back", humanPlayer.getPreviousRoom());
 
         weatherCenter.setExit("east", trailer);
+        weatherCenter.setExit("back", humanPlayer.getPreviousRoom());
 
-        store.setExit("back", localVillage);
-
-        store.setExit("northeast", trailer);
+        store.setExit("back", humanPlayer.getPreviousRoom());
     }
 
     private void setOptionsForRooms() {
@@ -62,7 +64,6 @@ public class Game {
         // WeatherRoom
         weatherCenter.setOptions("globalnews", "1");
         weatherCenter.setOptions("localnews", "2");
-        weatherCenter.setOptions("scorebord", "3");
         //trailer
         trailer.setOptions("storelogs", "1");
         trailer.setOptions("checkwallet", "2");
@@ -74,15 +75,12 @@ public class Game {
         nonCertificedForest.setOptions("treesleft", "2");
         //Store
         store.setOptions("selllogs", "1");
+        store.setOptions("sell", "1");
         store.setOptions("buyitems", "2");
+        store.setOptions("buy", "2");
     }
 
     public void play() {
-        /**
-         * Der bliver her tilføjet meget samme funktion som der var før, men i stedet for at game klassen holder øje med
-         * hvilket rum spilleren er i, så er det nu 'Player' klassen som holder øje med dette. Det betyder at spilleren
-         * faktisk bevæger sig rundt og ikke spillet der bevæger sig rundt om spilleren.
-         */
         humanPlayer.setCurrentRoom(tutorialRoom);
 
         printWelcome();
