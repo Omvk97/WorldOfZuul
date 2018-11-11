@@ -47,7 +47,6 @@ public class LocalVillage extends Room {
                 return scenarios.get(keySet.get(i));
             }
         }
-        
         return "You successfully broke the game";
     }
 

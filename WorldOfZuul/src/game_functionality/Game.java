@@ -32,7 +32,7 @@ public class Game {
     private void setExitsForRooms() {
         trailer.setExit("village", localVillage);
         trailer.setExit("south", certifiedForest);
-        trailer.setExit("go center", weatherCenter);
+        trailer.setExit("center", weatherCenter);
         trailer.setExit("north", nonCertificedForest);
 
         certifiedForest.setExit("village", localVillage);
@@ -52,19 +52,25 @@ public class Game {
     private void setOptionsForRooms() {
         // certiiedForest
         certifiedForest.setOptions("choptree", "1");
+        certifiedForest.setOptions("chop", "1");
         certifiedForest.setOptions("treesleft", "2");
         certifiedForest.setOptions("replanttrees", "3");
         // WeatherRoom
         weatherCenter.setOptions("globalnews", "1");
+        weatherCenter.setOptions("global", "1");
         weatherCenter.setOptions("localnews", "2");
+        weatherCenter.setOptions("local", "2");
         //trailer
         trailer.setOptions("storelogs", "1");
+        trailer.setOptions("store", "1");
         trailer.setOptions("checkwallet", "2");
+        trailer.setOptions("check", "2");
         trailer.setOptions("sleep", "3");
         trailer.setOptions("pickupaxe", "4");
         trailer.setOptions("axe", "4");
         //nonCertifiedFroest
         nonCertificedForest.setOptions("choptree", "1");
+        nonCertificedForest.setOptions("chop", "1");
         nonCertificedForest.setOptions("treesleft", "2");
         //Store
         store.setOptions("selllogs", "1");
