@@ -8,7 +8,6 @@ public class Game {
     private final Parser parser;
     private final BackPack starterBackPack = new BackPack("Starter Backpack", 0, 5);
     private final Room trailer = new Trailer("inside your trailer");
-    private final Player humanPlayer = new Player(starterBackPack, (Trailer) trailer);
     private final Room certifiedForest = new CertifiedForest("in a certified forest");
     private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest");
     private final Room localVillage = new LocalVillage("in a local village");
@@ -16,7 +15,7 @@ public class Game {
     private final Room store = new Store("in the LumberJack shop");
     private final Room tutorialRoom = new TutorialRoom("the tutorial room");
     private final Room blacksmith = new BlackSmith("the Blacksmith");
-    private final Room library = new Library("the Libray");
+    private final Room library = new Library("the Library");
 
 
     public Game() {
@@ -26,7 +25,6 @@ public class Game {
     }
 
     private void setExitsForRooms() {
-
         trailer.setExit("east", localVillage);
         trailer.setExit("south", certifiedForest);
         trailer.setExit("north", nonCertificedForest);
@@ -47,8 +45,6 @@ public class Game {
         blacksmith.setExit("back", localVillage);
         library.setExit("back", localVillage);
         weatherCenter.setExit("back", localVillage);
-
-
     }
 
     private void setOptionsForRooms() {
@@ -94,7 +90,7 @@ public class Game {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing The LumberJack. Goodbye.");
+        System.out.println("Thank you for playing The LumberJack. Goodbye. ");
     }
 
     private void printWelcome() {

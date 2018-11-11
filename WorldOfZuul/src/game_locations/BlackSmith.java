@@ -83,7 +83,6 @@ public class BlackSmith extends Room {
 
     private void grindAxe_menu(Player humanPlayer) {
 
-
         if (humanPlayer.getAxe() == null) {
             System.out.println("You dont have a Axe want to buy one ?");
             return;
@@ -99,23 +98,14 @@ public class BlackSmith extends Room {
                 }
                 System.out.println(" (◣_◢) Your axe is done  (◣_◢)");
 
+
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
 
             }
-            Scanner input = new Scanner(System.in);
-            String grindOption = input.nextLine();
-            switch (grindOption) {
-                case "yes":
-                    System.out.println(BlackSmith + "Okay my friend \n I will go to work");
-                    humanPlayer.getAxe().grindAxe();
-                    break;
-                case "no":
-                    System.out.println(BlackSmith + " Get out of her !!!!");
-                    break;
 
             }
-        }
+
     }
     @Override
     public void option1(Player humanPlayer) {
