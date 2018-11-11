@@ -1,6 +1,5 @@
 package game_locations;
 
-
 import game_elements.Axe;
 import game_elements.AxeFactory;
 import game_functionality.Player;
@@ -8,7 +7,7 @@ import game_functionality.Player;
 import java.util.Scanner;
 
 public class BlackSmith extends Room {
-    private final int grindPrise = 10;
+    private final int GrindPrise = 10;
     private String BlackSmith = " Smith:\n";
     private final Scanner userPurchaseChoice = new Scanner(System.in);
 
@@ -77,7 +76,6 @@ public class BlackSmith extends Room {
             humanPlayer.boughtAxe(axe);
         } else {
             System.out.println(BlackSmith + "YOU NEED " + axe.getPrice() + " GOLD COINS TO BUY THIS AXE");
-
         }
     }
 
@@ -94,23 +92,17 @@ public class BlackSmith extends Room {
             try {
                 for (int i = 0; i < timeToWait; i++) {
                     Thread.sleep(1000);
-                    System.out.println("  ( ͡° ͜ʖ ͡°) Ding  ( ͡° ͜ʖ ͡°) ");
+                    System.out.println(" Ding ");
                 }
-                System.out.println(" (◣_◢) Your axe is done  (◣_◢)");
-
-
+                System.out.println(" Your axe is done");
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
-
             }
-
-            }
-
+        }
     }
     @Override
     public void option1(Player humanPlayer) {
         grindAxe_menu(humanPlayer);
-
     }
     @Override
     public void option2(Player humanPlayer) {

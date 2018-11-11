@@ -22,7 +22,6 @@ public class Store extends Room {
             + "---------------------------------------------\n"
                 + "○ Sell    ➤ Sell logs\n"
                 + "○ Buy     ➤ Buy items\n"
-                + "○ Go back ➤ Go to the localvillage \n"
             + "---------------------------------------------";
     }
     private void sapling_menu(Player humanPlayer) {

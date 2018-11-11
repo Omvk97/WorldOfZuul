@@ -8,6 +8,7 @@ public class Game {
     private final Parser parser;
     private final BackPack starterBackPack = new BackPack("Starter Backpack", 0, 5);
     private final Room trailer = new Trailer("inside your trailer");
+    private final Player humanPlayer = new Player(starterBackPack, (Trailer) trailer);
     private final Room certifiedForest = new CertifiedForest("in a certified forest");
     private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest");
     private final Room localVillage = new LocalVillage("in a local village");
@@ -94,7 +95,7 @@ public class Game {
     }
 
     private void printWelcome() {
-        System.out.println("ಠ_ಠ  Welcome to 'The LumberJack'! ಠ_ಠ   \n"
+        System.out.println(" Welcome to 'The LumberJack'! \n"
             + "Your job as a lumberjack, is to cut down trees. \n"
             + "You have " + Trailer.getNumPlayDays() + " days playtime to earn as much money as you can\n"
             + "without destroying the earth!\n");

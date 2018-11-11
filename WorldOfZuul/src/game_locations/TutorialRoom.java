@@ -22,7 +22,6 @@ public class TutorialRoom extends Room {
         String playerInput = input.nextLine();
         answer = playerInput.toUpperCase().equals("Y");
     }
-
     @Override
     public String getLongDescription(Player humanPlayer) {
         Trailer trailer = humanPlayer.getTrailer();
@@ -49,9 +48,7 @@ public class TutorialRoom extends Room {
             humanPlayer.throwPlayerBack();
             return trailer.getLongDescription(humanPlayer);
         }
-
     }
-
     private void optionTutorial() {
         System.out.println("Great job! You are now standing in the west area.");
         pause(1800);
@@ -83,7 +80,6 @@ public class TutorialRoom extends Room {
             }
         }
     }
-
     private void goTutorial() {
         System.out.println("Try typing 'go west'");
         String goWest = input.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -92,7 +88,6 @@ public class TutorialRoom extends Room {
             goWest = input.nextLine();
         }
     }
-
     private void pause(int time) {
         try {
             Thread.sleep(time);

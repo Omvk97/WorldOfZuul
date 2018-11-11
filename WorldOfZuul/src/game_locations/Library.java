@@ -41,15 +41,9 @@ public class Library extends Room {
                         "201,7 mio ha forest are certified for FSC\n" +
                         "34,133 companys is CoC-certified (Chain oF Custody\n" +
                         "");
-
-                break;
-            case "3":
-            case "largebackpack":
-
                 break;
             default:
                 System.out.println(libraryOwner + "I don't know what you mean");
-
                 break;
         }
 
