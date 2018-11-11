@@ -30,30 +30,23 @@ public class Game {
     }
 
     private void setExitsForRooms() {
-        trailer.setExit("east", localVillage);
+        trailer.setExit("village", localVillage);
         trailer.setExit("south", certifiedForest);
-        trailer.setExit("west", weatherCenter);
+        trailer.setExit("go center", weatherCenter);
         trailer.setExit("north", nonCertificedForest);
-        trailer.setExit("back", humanPlayer.getPreviousRoom());
 
-        certifiedForest.setExit("east", localVillage);
-        certifiedForest.setExit("north", trailer);
-        certifiedForest.setExit("back", humanPlayer.getPreviousRoom());
+        certifiedForest.setExit("village", localVillage);
+        certifiedForest.setExit("trailer", trailer);
 
-        nonCertificedForest.setExit("south", trailer);
-        nonCertificedForest.setExit("east", localVillage);
-        nonCertificedForest.setExit("back", humanPlayer.getPreviousRoom());
+        nonCertificedForest.setExit("trailer", trailer);
+        nonCertificedForest.setExit("village", localVillage);
 
-        localVillage.setExit("west", trailer);
+        localVillage.setExit("trailer", trailer);
         localVillage.setExit("north", nonCertificedForest);
         localVillage.setExit("south", certifiedForest);
         localVillage.setExit("store", store);
-        localVillage.setExit("back", humanPlayer.getPreviousRoom());
 
-        weatherCenter.setExit("east", trailer);
-        weatherCenter.setExit("back", humanPlayer.getPreviousRoom());
-
-        store.setExit("back", humanPlayer.getPreviousRoom());
+        weatherCenter.setExit("trailer", trailer);
     }
 
     private void setOptionsForRooms() {
@@ -148,6 +141,16 @@ public class Game {
         }
 
         String direction = command.getSecondWord();
+        
+        // makes sure that the player can always just write go back to get back
+        if (direction.equals("back")) {
+            Room nextRoom = humanPlayer.getPreviousRoom();
+            if (nextRoom != null) {
+                humanPlayer.setCurrentRoom(humanPlayer.getPreviousRoom());
+                System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
+                return;
+            }
+        }
 
         Room nextRoom = humanPlayer.getCurrentRoom().getExit(direction);
 

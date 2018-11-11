@@ -12,7 +12,7 @@ public class Trailer extends Room {
 
     private int numOfDaysGoneBy;
     private ArrayList<Tree> logsInStorage;
-    private Axe starterAxe = new Axe("axe", 0, 10, 3);
+    private Axe starterAxe = new Axe("axe", 0, 10, 14);
 
     public Trailer(String description) {
         super(description);
