@@ -91,13 +91,13 @@ public class Game {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing The LumberJack. Goodbye. ");
+        System.out.println("Thank you for playing The LumberJack. Goodbye.");
     }
 
     private void printWelcome() {
         System.out.println(" Welcome to 'The LumberJack'! \n"
             + "Your job as a lumberjack, is to cut down trees. \n"
-            + "You have " + Trailer.getNumPlayDays() + " days playtime to earn as much money as you can\n"
+            + "You have " +Player.getNumPlayDays() + " days playtime to earn as much money as you can\n"
             + "without destroying the earth!\n");
         System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
     }

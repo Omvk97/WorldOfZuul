@@ -7,17 +7,17 @@ import game_functionality.Player;
 import java.util.ArrayList;
 
 public class Trailer extends Room {
-
-    private final static int NUM_PLAY_DAYS = 5;
     private final static int MAX_TREESTORAGEAMOUNT = 30;
 
-    private int numOfDaysGoneBy;
+
+
+
     private ArrayList<Tree> logsInStorage;
     private Axe starterAxe = new Axe("axe", 0, 10, 3);
 
     public Trailer(String description) {
         super(description);
-        this.numOfDaysGoneBy = 1;
+
         this.logsInStorage = new ArrayList();
     }
 
@@ -36,15 +36,7 @@ public class Trailer extends Room {
 
     }
 
-    /**
-     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den bliver brugt i 'game'
-     * klassen.
-     *
-     * @return mængden af dage spilleren har.
-     */
-    public static int getNumPlayDays() {
-        return Trailer.NUM_PLAY_DAYS;
-    }
+
 
     /**
      * Denne metode benyttes til at få information omkring oplagring af træerne. Den benyttes i 'Local Village' og
@@ -125,18 +117,7 @@ public class Trailer extends Room {
      */
     @Override
     public void option3(Player humanPlayer) {
-        int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
-        if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
-            System.out.println("THERE IS NO MORE DAYS, YOUR HIGHSCORE IS: "
-                + humanPlayer.getHighScore());
-            System.exit(0);
-        }
-        System.out.println("The sun goes down and you sleep tight \n"
-            + "ZzzzZzzzZzzzZzzz");
-        System.out.println("The sun rises and you are ready to tackle the day! \n"
-            + (daysleft > 1 ? "There are " + daysleft + " days left!"
-                : "This is your last day as a lumberjack!"));
-        humanPlayer.sleep();
+        humanPlayer.time(humanPlayer);
     }
 
     /**

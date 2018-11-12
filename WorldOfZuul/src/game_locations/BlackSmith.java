@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class BlackSmith extends Room {
     private final int GrindPrise = 10;
-    private String BlackSmith = " Smith:\n";
+    private String BlackSmith = "Smith:\n";
     private final Scanner userPurchaseChoice = new Scanner(System.in);
 
     public BlackSmith(String description) {
@@ -92,7 +92,7 @@ public class BlackSmith extends Room {
             try {
                 for (int i = 0; i < timeToWait; i++) {
                     Thread.sleep(1000);
-                    System.out.println(" Ding ");
+                    System.out.println("**Ding**");
                 }
                 System.out.println(" Your axe is done");
             } catch (InterruptedException ie) {

@@ -12,6 +12,9 @@ import game_locations.Trailer;
  */
 public class Player {
 
+    private final static int NUM_PLAY_DAYS = 5;
+    private int numOfDaysGoneBy;
+
     private final static int MIN_CLIMATEPOINTS = -250;
 
     private int money;
@@ -30,6 +33,7 @@ public class Player {
         this.equippedBackPack = starterBackPack;
         this.trailer = trailer;
         this.previousRoom = trailer;
+        this.numOfDaysGoneBy = 1;
     }
 
     /**
@@ -197,5 +201,30 @@ public class Player {
 
     public void giftHasBeenGiven() {
         this.giftHasBeenGivenToday = true;
+    }
+
+    /**
+     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den bliver brugt i 'game'
+     * klassen.
+     *
+     * @return mængden af dage spilleren har.
+     */
+    public static int getNumPlayDays() {
+        return Player.NUM_PLAY_DAYS;
+    }
+
+    public void time(Player humanPlayer){
+        int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
+        if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
+            System.out.println("THERE IS NO MORE DAYS, YOUR HIGHSCORE IS: "
+                    + humanPlayer.getHighScore());
+            System.exit(0);
+        }
+        System.out.println("The sun goes down and you sleep tight \n"
+                + "ZzzzZzzzZzzzZzzz");
+        System.out.println("The sun rises and you are ready to tackle the day! \n"
+                + (daysleft > 1 ? "There are " + daysleft + " days left!"
+                : "This is your last day as a lumberjack!"));
+        humanPlayer.sleep();
     }
 }
