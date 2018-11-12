@@ -15,7 +15,6 @@ public class Trailer extends Room {
 
         this.logsInStorage = new ArrayList();
     }
-
     @Override
     public String getLongDescription(Player humanPlayer) {
         return "You are standing " + getShortDescription() + "!\n"
@@ -28,7 +27,6 @@ public class Trailer extends Room {
                 + (starterAxe != null ?
                 "○ Pick up Axe   ➤ For pick up your axe\n" : "")
             + "----------------------------------";
-
     }
     /**
      * Denne metode benyttes til at få information omkring oplagring af træerne. Den benyttes i 'Local Village' og
@@ -66,7 +64,6 @@ public class Trailer extends Room {
         for (Tree tree : humanPlayer.backPack().getLogsInBackPack()) {
             copyAmountOflogsCarrying.add(tree);
         }
-
         /**
          * Adder så mange logs som muligt fra den kopierede arraylist ovenover Fjerner logs fra den oprindelige
          * arraylist. Dette er for at undgå at man både adder og fjerner fra samme arrayList. Dette betyder at selvom
@@ -91,7 +88,6 @@ public class Trailer extends Room {
                 + (getLogsInStorage().size() > 1 ? " logs" : " log") + " stored!");
         }
     }
-
     @Override
     public void option2(Player humanPlayer) {
         if (humanPlayer.getMoney() == 0) {
@@ -100,7 +96,6 @@ public class Trailer extends Room {
             System.out.println("You wallet holds " + humanPlayer.getMoney() + " gold coins");
         }
     }
-
     /**
      * Sørger for at alle ting som spilleren skal gøre
      *
@@ -108,9 +103,8 @@ public class Trailer extends Room {
      */
     @Override
     public void option3(Player humanPlayer) {
-        humanPlayer.time(humanPlayer);
+        humanPlayer.dayCounter(humanPlayer);
     }
-
     /**
      * If the player hasn't picked up the starterAxe before they will be prompted with the option to pick one up
      *
