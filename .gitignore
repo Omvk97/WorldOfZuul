@@ -2,6 +2,7 @@
 /WorldOfZuul/build/
 /WorldOfZuul/dist/
 .idea/
-
+*.iml
 *.class
 WorldOfZuul/WorldOfZuul.iml
+

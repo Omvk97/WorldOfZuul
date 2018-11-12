@@ -1,14 +1,7 @@
 package game_functionality;
 
-import game_locations.CertifiedForest;
-import game_locations.NonCertifiedForest;
-import game_locations.WeatherReportCenter;
-import game_locations.Store;
-import game_locations.Room;
-import game_locations.Trailer;
-import game_locations.TutorialRoom;
-import game_locations.LocalVillage;
 import game_elements.BackPack;
+import game_locations.*;
 
 public class Game {
 
@@ -22,6 +15,9 @@ public class Game {
     private final Room weatherCenter = new WeatherReportCenter("in a weather report center from around the world");
     private final Room store = new Store("in the LumberJack shop");
     private final Room tutorialRoom = new TutorialRoom("the tutorial room");
+    private final Room blacksmith = new BlackSmith("the Blacksmith");
+    private final Room library = new Library("the Library");
+
 
     public Game() {
         setExitsForRooms();
@@ -30,10 +26,8 @@ public class Game {
     }
 
     private void setExitsForRooms() {
-
         trailer.setExit("east", localVillage);
         trailer.setExit("south", certifiedForest);
-        trailer.setExit("west", weatherCenter);
         trailer.setExit("north", nonCertificedForest);
 
         certifiedForest.setExit("east", localVillage);
@@ -43,15 +37,15 @@ public class Game {
         nonCertificedForest.setExit("east", localVillage);
 
         localVillage.setExit("west", trailer);
-        localVillage.setExit("north", nonCertificedForest);
-        localVillage.setExit("south", certifiedForest);
         localVillage.setExit("store", store);
-
-        weatherCenter.setExit("east", trailer);
+        localVillage.setExit("blacksmitch", blacksmith);
+        localVillage.setExit("library", library);
+        localVillage.setExit("weathercenter", weatherCenter);
 
         store.setExit("back", localVillage);
-
-        store.setExit("northeast", trailer);
+        blacksmith.setExit("back", localVillage);
+        library.setExit("back", localVillage);
+        weatherCenter.setExit("back", localVillage);
     }
 
     private void setOptionsForRooms() {
@@ -74,6 +68,12 @@ public class Game {
         //Store
         store.setOptions("selllogs", "1");
         store.setOptions("buyitems", "2");
+        //Blacksmith
+        blacksmith.setOptions("repair","1");
+        blacksmith.setOptions("buy", "2");
+        // library
+        library.setOptions("learnfsc", "1");
+        library.setOptions("learnpefc", "2");
     }
 
     public void play() {
@@ -95,9 +95,9 @@ public class Game {
     }
 
     private void printWelcome() {
-        System.out.println("Welcome to 'The LumberJack'! \n"
+        System.out.println(" Welcome to 'The LumberJack'! \n"
             + "Your job as a lumberjack, is to cut down trees. \n"
-            + "You have " + Trailer.getNumPlayDays() + " days playtime to earn as much money as you can\n"
+            + "You have " +Player.getNumPlayDays() + " days playtime to earn as much money as you can\n"
             + "without destroying the earth!\n");
         System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
     }
@@ -147,7 +147,6 @@ public class Game {
             System.out.println("Go where?");
             return;
         }
-
         String direction = command.getSecondWord();
 
         Room nextRoom = humanPlayer.getCurrentRoom().getExit(direction);
@@ -159,7 +158,6 @@ public class Game {
             System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
         }
     }
-
     private boolean quit(Command command) {
         if (command.hasSecondWord()) {
             System.out.println("Quit what?");
@@ -168,13 +166,11 @@ public class Game {
             return true;
         }
     }
-
     private void doOption(Command command) {
         if (!command.hasSecondWord()) {
             System.out.println("Do what?");
             return;
         }
-
         String optionNumber = command.getSecondWord();
         switch (optionNumber) {
             case "1":

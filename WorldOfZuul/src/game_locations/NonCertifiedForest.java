@@ -1,7 +1,8 @@
 package game_locations;
 
-import game_functionality.Player;
 import game_elements.NonCertifiedTree;
+import game_functionality.Player;
+
 import java.util.ArrayList;
 
 /**
@@ -26,8 +27,8 @@ public class NonCertifiedForest extends Forest {
             + "This forest will not regrow, there are " + trees.size() + " trees" + "\n"
             + "Your options are: \n"
             + "----------------------------------\n"
-            + "○ Chop Tree - Cut down a tree and bring it with you \n"
-            + "○ See tree - See how many trees are left in the forest\n"
+                + "○ Chop Tree   ➤ Cut down a tree and bring it with you \n"
+                + "○ See tree    ➤ See how many trees are left in the forest\n"
             + "----------------------------------";
     }
 

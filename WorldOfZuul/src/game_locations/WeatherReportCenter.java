@@ -19,9 +19,9 @@ public class WeatherReportCenter extends Room {
             + weatherReporter + "Hi I´m your reporter\n"
             + "you have 3 options\n"
             + "----------------------------------\n"
-            + "○ Global news - Watch the global news\n"
-            + "○ Local news- Watch the local news \n"
-            + "○ Scorebord- Access the scoreboard \n"
+                + "○ Global news  ➤ Watch the global news\n"
+                + "○ Local news   ➤ Watch the local news \n"
+                + "○ Scorebord    ➤ Access the scoreboard \n"
             + "----------------------------------";
     }
 
