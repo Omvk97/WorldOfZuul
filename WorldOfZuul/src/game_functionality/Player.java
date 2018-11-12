@@ -1,7 +1,7 @@
 package game_functionality;
 
-import game_elements.BackPack;
 import game_elements.Axe;
+import game_elements.BackPack;
 import game_locations.Room;
 import game_locations.Trailer;
 
@@ -14,9 +14,7 @@ public class Player {
 
     private final static int NUM_PLAY_DAYS = 5;
     private int numOfDaysGoneBy;
-
     private final static int MIN_CLIMATEPOINTS = -250;
-
     private int money;
     private int climatePoints;
     private boolean giftHasBeenGivenToday;
@@ -35,7 +33,6 @@ public class Player {
         this.previousRoom = trailer;
         this.numOfDaysGoneBy = 1;
     }
-
     /**
      * Metoden benyttes til at checke forskellige steder i spillet om spilleren har nået MAX
      * klimapoints Hvis dette er tilfældet skal spillet slutte og der skal være Game Over.
@@ -80,7 +77,6 @@ public class Player {
         }
         currentRoom = newRoom;
     }
-
     public void throwPlayerBack() {
         currentRoom = previousRoom;
     }

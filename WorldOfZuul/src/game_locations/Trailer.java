@@ -8,13 +8,8 @@ import java.util.ArrayList;
 
 public class Trailer extends Room {
     private final static int MAX_TREESTORAGEAMOUNT = 30;
-
-
-
-
     private ArrayList<Tree> logsInStorage;
     private Axe starterAxe = new Axe("axe", 0, 10, 3);
-
     public Trailer(String description) {
         super(description);
 
@@ -35,9 +30,6 @@ public class Trailer extends Room {
             + "----------------------------------";
 
     }
-
-
-
     /**
      * Denne metode benyttes til at få information omkring oplagring af træerne. Den benyttes i 'Local Village' og
      * 'Store'.
@@ -47,7 +39,6 @@ public class Trailer extends Room {
     public ArrayList<Tree> getLogsInStorage() {
         return this.logsInStorage;
     }
-
     public void loadOffLogsInStorage() {
         this.logsInStorage = new ArrayList();
     }

@@ -45,7 +45,6 @@ public class Library extends Room {
         }
 
     }
-
     @Override
     public void option2(Player humanPlayer) {
         System.out.println(libraryOwner + "So you want to learn about PEFC \n" +

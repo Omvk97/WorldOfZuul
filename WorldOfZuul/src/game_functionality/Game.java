@@ -147,7 +147,6 @@ public class Game {
             System.out.println("Go where?");
             return;
         }
-
         String direction = command.getSecondWord();
 
         Room nextRoom = humanPlayer.getCurrentRoom().getExit(direction);
@@ -159,7 +158,6 @@ public class Game {
             System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
         }
     }
-
     private boolean quit(Command command) {
         if (command.hasSecondWord()) {
             System.out.println("Quit what?");
@@ -168,13 +166,11 @@ public class Game {
             return true;
         }
     }
-
     private void doOption(Command command) {
         if (!command.hasSecondWord()) {
             System.out.println("Do what?");
             return;
         }
-
         String optionNumber = command.getSecondWord();
         switch (optionNumber) {
             case "1":
