@@ -3,35 +3,47 @@ package game_elements;
 public abstract class Tree {
 
     protected int treeHealth;
+    protected final int TREE_CLIMATE_POINTS;
+    protected final int TREE_SELL_PRICE;
 
-    public Tree() {
+    public Tree(int treeClimatePoints, int treeSellPrice) {
         this.treeHealth = 12;
+        this.TREE_CLIMATE_POINTS = treeClimatePoints;
+        this.TREE_SELL_PRICE = treeSellPrice;
     }
 
     /**
-     * @return mængden af klima points som det pågældende træ har.
+     * @return amount of climate points the tree gives.
      */
-    abstract public int getTreeClimatePoints();
+    public int getTreeClimatePoints() {
+        return TREE_CLIMATE_POINTS;
+    }
 
     /**
-     * Bruges så store kan vide hvor mange penge træerne giver.
+     * Returns the price of the current tree.
      *
-     * @return mængden af penge et træ giver
+     * @return amount worth of tree.
      */
-    abstract public int getTreePrice();
+    public int getTreePrice() {
+        return TREE_SELL_PRICE;
+    }
 
     /**
-     * Denne metode er til for at træerne kan have liv så spilleren skal slå flere gange afhængig af spillerens økse.
+     * Reducing the tree health by the amount damaged by the player
      *
-     * @param reduceAmount er hvor meget spilleren skal "skade".
+     * @param reduceAmount how much damage the tree has taken
      */
-    abstract public void reduceTreeHealth(int reduceAmount);
+    public void reduceTreeHealth(int reduceAmount) {
+        this.treeHealth -= reduceAmount;
+    }
 
     /**
-     * Bruges til at finde ud af om træet er "dødt" altså at treeHealth er 0.
+     * Information about tree health
      *
-     * @return træets liv.
+     * @return The tree's life
      */
-    abstract public int getTreeHealth();
+    public int getTreeHealth() {
+        return this.treeHealth;
+    }
 
 }

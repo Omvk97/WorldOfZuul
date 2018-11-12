@@ -27,7 +27,6 @@ public class Store extends Room {
             + "---------------------------------------------\n"
             + "○ Sell logs - Sell logs you are carrying and stored\n"
             + "○ Buy items - Buy axes, backpacks & saplings\n"
-            + "○ Go back - Go to the localvillage \n"
             + "---------------------------------------------";
     }
 
