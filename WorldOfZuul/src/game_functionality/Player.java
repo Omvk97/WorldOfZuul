@@ -89,7 +89,7 @@ public class Player {
     }
 
     /**
-     * Gives the player a new axe if the player buys a new one in Store
+     * Gives the player a new axe if the player buys a new one at the blacksmith
      *
      * @param newAxe The new Axe that is to be equipped
      */
@@ -100,6 +100,9 @@ public class Player {
 
     public void pickedUpAxe(Axe axe) {
         equippedAxe = axe;
+    }
+    public void grindedAxe(int cost){
+        money -= cost;
     }
 
     public Trailer getTrailer() {
