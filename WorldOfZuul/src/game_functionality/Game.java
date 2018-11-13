@@ -150,8 +150,7 @@ public class Game {
         
         // makes sure that the player can always just write go back to get back
         if (direction.equals("back")) {
-            Room nextRoom = humanPlayer.getPreviousRoom();
-            if (nextRoom != null) {
+            if (humanPlayer.getPreviousRoom() != null && !(humanPlayer.getPreviousRoom() instanceof TutorialRoom)) {
                 humanPlayer.setCurrentRoom(humanPlayer.getPreviousRoom());
                 System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
                 return;

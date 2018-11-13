@@ -20,6 +20,7 @@ public class LocalVillage extends Room {
 
     public String getScenario(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap();
+        
         scenarios.put(29, "The local people from the village are happy about your\n"
             + "environmental considerations and wildlife is flourishing");
         scenarios.put(19, "The local people from the village greet you a kind welcome \n"
@@ -41,7 +42,7 @@ public class LocalVillage extends Room {
         for (int i = 0; i < keySet.size(); i++) {
             if (climatePoints > keySet.get(0)) {
                 return giftScenario(humanPlayer);
-            } else if ( climatePoints < keySet.get(keySet.size() - 1)) {
+            } else if (climatePoints < keySet.get(keySet.size() - 1)) {
                 return scenarios.get(keySet.get(keySet.size() - 1));
             } else if (climatePoints < keySet.get(i) && climatePoints > keySet.get(i + 1)) {
                 return scenarios.get(keySet.get(i));
