@@ -38,7 +38,7 @@ public class Game {
 
         localVillage.setExit("west", trailer);
         localVillage.setExit("store", store);
-        localVillage.setExit("blacksmitch", blacksmith);
+        localVillage.setExit("blacksmith", blacksmith);
         localVillage.setExit("library", library);
         localVillage.setExit("weathercenter", weatherCenter);
 

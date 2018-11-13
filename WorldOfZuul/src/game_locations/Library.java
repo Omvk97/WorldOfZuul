@@ -19,8 +19,8 @@ public class Library extends Room {
                 + "---------------------------------------------\n" +
                 "If you want to learn more about fsc FSC and PEFC \n " +
                 "------------------------------------\n" +
-                "○ learn fsc    ➤ For learn about FSC\n" +
-                "○ learn pefc   ➤ For learn about PEFC";
+                "○ learn fsc   ➤ For learning about FSC\n" +
+                "○ learn pefc  ➤ For learning about PEFC";
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Library extends Room {
     }
 
     private void fscIs() {
-        System.out.println(libraryOwner + "The Forest Stewardship Council (FSC) is an international non-profit, multi-stakeholder organization\n" +
+        System.out.println(libraryOwner + "The Forest Stewardship Council (FSC) is an international non-profit organization\n" +
                 "established in 1993 to promote responsible management of the world’s forests. The FSC does this by \n" +
                 "setting standards on forest products, along with certifying and labeling them as eco-friendly.\n\n" +
                 "The FSC’s stated mission is to promote environmentally appropriate, socially beneficial and economically \n" +
@@ -75,7 +75,7 @@ public class Library extends Room {
     }
 
     private void PEFCis(){
-        System.out.println("tekst kommer her");
+        System.out.println(libraryOwner + "tekst kommer her");
 
 
     }
