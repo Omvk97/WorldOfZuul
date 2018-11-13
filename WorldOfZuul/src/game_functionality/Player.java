@@ -31,8 +31,8 @@ public class Player {
     }
 
     /**
-     * Used to determine whether or not the game should end. If the climatepoints
-     * goes over this threshold, the game is over, the world is destroyed
+     * Used to determine whether or not the game should end. If the climatepoints goes over this threshold, the game is
+     * over, the world is destroyed
      *
      * @return int max_climatepoints
      */
@@ -74,7 +74,7 @@ public class Player {
         }
         currentRoom = newRoom;
     }
-    
+
     public Room getPreviousRoom() {
         return previousRoom;
     }
@@ -101,7 +101,8 @@ public class Player {
     public void pickedUpAxe(Axe axe) {
         equippedAxe = axe;
     }
-    public void grindedAxe(int cost){
+
+    public void grindedAxe(int cost) {
         money -= cost;
     }
 
@@ -175,9 +176,8 @@ public class Player {
     }
 
     /**
-     * Resets all the things that the player can interact with during a day. And also checks
-     * for if the player has choppedTrees without replanting, if this is the case the player will
-     * recieve a fine.
+     * Resets all the things that the player can interact with during a day. And also checks for if the player has
+     * choppedTrees without replanting, if this is the case the player will recieve a fine.
      */
     public boolean sleep() {
         Boolean correctAnswer = true;
@@ -189,32 +189,39 @@ public class Player {
             System.out.println("You didn't replant trees in the ceritifed forest\n"
                 + "here is a chance to redeem yourself");
             int randomNum = (int) (Math.random() * 3) + 1;
-            if (randomNum == 1) {
-                System.out.println(questionOne);
-                String userAnswer = questionAnswer.nextLine();
-                if (userAnswer.equals("7")) {
-                    System.out.println("Oh okay you will only receive a fine of 100 instead");
-                    money -= 100;
-                } else {
-                    correctAnswer = false;
+            switch (randomNum) {
+                case 1: {
+                    System.out.println(questionOne);
+                    String userAnswer = questionAnswer.nextLine();
+                    if (userAnswer.equals("7")) {
+                        System.out.println("Oh okay you will only receive a fine of 100 instead");
+                        money -= 100;
+                    } else {
+                        correctAnswer = false;
+                    }
+                    break;
                 }
-            } else if (randomNum == 2) {
-                System.out.println(questionTwo);
-                String userAnswer = questionAnswer.nextLine();
-                if (userAnswer.equals("200")) {
-                    System.out.println("Oh okay you will only receive a fine of 100 instead");
-                    money -= 100;
-                } else {
-                    correctAnswer = false;
+                case 2: {
+                    System.out.println(questionTwo);
+                    String userAnswer = questionAnswer.nextLine();
+                    if (userAnswer.equals("200")) {
+                        System.out.println("Oh okay you will only receive a fine of 100 instead");
+                        money -= 100;
+                    } else {
+                        correctAnswer = false;
+                    }
+                    break;
                 }
-            } else {
-                System.out.println(questionThree);
-                String userAnswer = questionAnswer.nextLine();
-                if (userAnswer.equals("300")) {
-                    System.out.println("Oh okay you will only receive a fine of 100 instead");
-                    money -= 100;
-                } else {
-                    correctAnswer = false;
+                default: {
+                    System.out.println(questionThree);
+                    String userAnswer = questionAnswer.nextLine();
+                    if (userAnswer.equals("300")) {
+                        System.out.println("Oh okay you will only receive a fine of 100 instead");
+                        money -= 100;
+                    } else {
+                        correctAnswer = false;
+                    }
+                    break;
                 }
             }
         }
@@ -237,8 +244,8 @@ public class Player {
     }
 
     /**
-     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den
-     * bliver brugt i 'game' klassen.
+     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den bliver brugt i 'game'
+     * klassen.
      *
      * @return mængden af dage spilleren har.
      */
@@ -259,5 +266,9 @@ public class Player {
         System.out.println("The sun rises and you are ready to tackle the day! \n"
             + (daysleft > 1 ? "There are " + daysleft + " days left!"
                 : "This is your last day as a lumberjack!"));
+    }
+
+    public boolean isHasChoppedTrees() {
+        return hasChoppedTrees;
     }
 }

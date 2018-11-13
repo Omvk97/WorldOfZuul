@@ -11,9 +11,6 @@ public abstract class Room {
     private final HashMap<String, Room> exits;
     private final HashMap<String, String> options;
 
-    private final int[] NEGATIVE_SCENARIO_POINTS = new int[]{-49, -99, -149, -199, -249};
-    private final int[] POSITIVE_SCENARIO_POINTS = new int[]{49, 99, 149, 199, 249};
-
     public Room(String description) {
         this.description = description;
         exits = new HashMap();
@@ -49,14 +46,6 @@ public abstract class Room {
 
     public Room getExit(String direction) {
         return exits.get(direction);
-    }
-
-    public int[] getNEGATIVE_SCENARIO_POINTS() {
-        return NEGATIVE_SCENARIO_POINTS;
-    }
-
-    public int[] getPOSITIVE_SCENARIO_POINTS() {
-        return POSITIVE_SCENARIO_POINTS;
     }
 
     public void option1(Player humanPlayer) {

@@ -2,15 +2,12 @@ package game_locations;
 
 import game_functionality.Player;
 
-import java.util.Scanner;
-
 public class Library extends Room {
 
     String libraryOwner = "Anna: \n";
 
     public Library(String description) {
         super(description);
-
     }
 
     @Override

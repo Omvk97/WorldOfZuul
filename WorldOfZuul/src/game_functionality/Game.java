@@ -18,7 +18,6 @@ public class Game {
     private final Room blacksmith = new BlackSmith("the Blacksmith");
     private final Room library = new Library("the Library");
 
-
     public Game() {
         setExitsForRooms();
         setOptionsForRooms();
@@ -30,25 +29,30 @@ public class Game {
         trailer.setExit("south", certifiedForest);
         trailer.setExit("north", nonCertificedForest);
 
-        certifiedForest.setExit("village", localVillage);
         certifiedForest.setExit("trailer", trailer);
 
         nonCertificedForest.setExit("trailer", trailer);
-        nonCertificedForest.setExit("village", localVillage);
 
         localVillage.setExit("trailer", trailer);
         localVillage.setExit("store", store);
         localVillage.setExit("blacksmith", blacksmith);
         localVillage.setExit("library", library);
-        localVillage.setExit("center", weatherCenter);
+        localVillage.setExit("weathercenter", weatherCenter);
+        
+        blacksmith.setExit("village", localVillage);
+        
+        library.setExit("village", localVillage);
     }
 
     private void setOptionsForRooms() {
         // certifiedForest
         certifiedForest.setOptions("choptree", "1");
         certifiedForest.setOptions("chop", "1");
+        certifiedForest.setOptions("chopwood", "1");
         certifiedForest.setOptions("treesleft", "2");
+        certifiedForest.setOptions("trees", "2");
         certifiedForest.setOptions("replanttrees", "3");
+        certifiedForest.setOptions("replant", "3");
         // WeatherCenter
         weatherCenter.setOptions("globalnews", "1");
         weatherCenter.setOptions("global", "1");
@@ -65,6 +69,7 @@ public class Game {
         //NonCertifiedForest
         nonCertificedForest.setOptions("choptree", "1");
         nonCertificedForest.setOptions("chop", "1");
+        nonCertificedForest.setOptions("chopwood", "1");
         nonCertificedForest.setOptions("treesleft", "2");
         nonCertificedForest.setOptions("trees", "2");
         //Store
@@ -100,7 +105,7 @@ public class Game {
     }
 
     private void printWelcome() {
-        System.out.println(" Welcome to 'The LumberJack'! \n"
+        System.out.println("Welcome to 'The LumberJack'! \n"
             + "Your job as a lumberjack, is to cut down trees. \n"
             + "You have " +Player.getNumPlayDays() + " days playtime to earn as much money as you can\n"
             + "without destroying the earth!\n");

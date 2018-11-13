@@ -16,17 +16,15 @@ public class Store extends Room {
     }
     @Override
     public String getLongDescription(Player humanPlayer) {
-        return StoreOwner + "Hi " + "You are standing " + getShortDescription() + "!\n"
-            + "Here you can sell your logs and purchase new equipment \n"+
-            "You have "+ humanPlayer.getMoney()+ " gold coins\n"
-            + "you have 3 options \n"
+        return StoreOwner + "Hi " + "Welcome to my store!\n"
+            + "Here you can sell your logs and purchase new equipment \n"
             + "---------------------------------------------\n"
             + "○ Sell logs ➤ Sell logs you are carrying and stored\n"
             + "○ Buy items ➤ Buy axes, backpacks & saplings\n"
             + "---------------------------------------------";
     }
     private void sapling_menu(Player humanPlayer) {
-        System.out.println(StoreOwner + "These saplings are cheap \n and make your trees grow quickly! \n"
+        System.out.println(StoreOwner + "These saplings are cheap \nand make your trees grow quickly! \n"
             + "Only " + SAPLING_BUNDLE_PRICE + " gold coins per bundle!\n"
             + "How many bundles would you like to buy, friend?");
         String saplingAmountString = userPurchaseChoice.nextLine();
@@ -34,7 +32,7 @@ public class Store extends Room {
             int saplingAmountInt = Integer.parseInt(saplingAmountString);
             int saplingCost = saplingAmountInt * SAPLING_BUNDLE_PRICE;
             if (humanPlayer.buySaplingBundle(saplingAmountInt, saplingCost)) {
-                System.out.println(StoreOwner + "You have bought " + saplingAmountInt + " for " + saplingCost + " gold coins \n"
+                System.out.println(StoreOwner + "You have bought " + saplingAmountInt + " sapling for " + saplingCost + " gold coins \n"
                     + "You have " + humanPlayer.getMoney() + " gold coins left");
             } else {
                 System.out.println(StoreOwner + "You don't have enough money for that friend");
@@ -88,10 +86,10 @@ public class Store extends Room {
     }
     private void first_menu(Player humanPlayer) {
         System.out.println(StoreOwner + "What would you like to buy?\n"
-            + "Your wallet contains " + humanPlayer.getMoney() + "\n"
+            + "Your wallet contains " + humanPlayer.getMoney() + " gold coins \n"
             + "--------------------------- \n"
-                + "○ Backpack ➨ For buy Backpacks \n"
-                + "○ Sapling  ➨ For buy saplings \n"
+                + "○ Backpack ➤ For buy Backpacks \n"
+                + "○ Sapling  ➤ For buy saplings \n"
             + "---------------------------");
         Scanner in = new Scanner(System.in);
         switch (in.nextLine()) {

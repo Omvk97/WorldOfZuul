@@ -36,9 +36,9 @@ public class CertifiedForest extends Forest {
             + "ALERT If you don't seed the forest after felling trees you will be fined the next day! \n"
             + "Your options are: \n"
             + "----------------------------------\n"
-                + "○ Chop Tree      ➤ Cut down a tree and bring it with you \n"
-                + "○ Trees left     ➤ See how many trees are left in the forest \n"
-                + "○ Replant trees  ➤ Replant trees\n"
+            + "○ Chop Tree      ➤ Cut down a tree and bring it with you \n"
+            + "○ Trees left     ➤ See how many trees are left in the forest \n"
+            + "○ Replant trees  ➤ Replant trees\n"
             + "----------------------------------";
     }
 
@@ -55,11 +55,15 @@ public class CertifiedForest extends Forest {
 
     @Override
     public void option3(Player humanPlayer) {
-        if (humanPlayer.getSaplingAmount() == 0) {
-            System.out.println("You don't have any saplings in your backpack");
+        if (humanPlayer.isHasChoppedTrees()) {
+            if (humanPlayer.getSaplingAmount() == 0) {
+                System.out.println("You don't have any saplings in your backpack");
+            } else {
+                humanPlayer.plantSeeds();
+                System.out.println("You just seeded this forest with saplings");
+            }
         } else {
-            humanPlayer.plantSeeds();
-            System.out.println("You just seeded this forest with saplings");
+            System.out.println("You haven't chopped any trees today!");
         }
     }
 }
