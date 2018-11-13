@@ -19,7 +19,7 @@ public class BlackSmith extends Room {
         return "Hi " + "You are standing " + getShortDescription() + "!\n"
                 + "---------------------------------------------\n" +
                 "If you pay I wil make you axe Stronger \n " +
-                "------------------------------------\n" +
+                "-----------------------------------------------\n" +
                 "○ Repair  ➤ For repair your axe for you\n" +
                 "○ Buy     ➤ For buy an axe";
 
