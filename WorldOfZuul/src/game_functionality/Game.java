@@ -40,21 +40,21 @@ public class Game {
         localVillage.setExit("store", store);
         localVillage.setExit("blacksmith", blacksmith);
         localVillage.setExit("library", library);
-        localVillage.setExit("weathercenter", weatherCenter);
+        localVillage.setExit("center", weatherCenter);
     }
 
     private void setOptionsForRooms() {
-        // certiiedForest
+        // certifiedForest
         certifiedForest.setOptions("choptree", "1");
         certifiedForest.setOptions("chop", "1");
         certifiedForest.setOptions("treesleft", "2");
         certifiedForest.setOptions("replanttrees", "3");
-        // WeatherRoom
+        // WeatherCenter
         weatherCenter.setOptions("globalnews", "1");
         weatherCenter.setOptions("global", "1");
         weatherCenter.setOptions("localnews", "2");
         weatherCenter.setOptions("local", "2");
-        //trailer
+        //Trailer
         trailer.setOptions("storelogs", "1");
         trailer.setOptions("store", "1");
         trailer.setOptions("checkwallet", "2");
@@ -62,10 +62,11 @@ public class Game {
         trailer.setOptions("sleep", "3");
         trailer.setOptions("pickupaxe", "4");
         trailer.setOptions("axe", "4");
-        //nonCertifiedFroest
+        //NonCertifiedForest
         nonCertificedForest.setOptions("choptree", "1");
         nonCertificedForest.setOptions("chop", "1");
         nonCertificedForest.setOptions("treesleft", "2");
+        nonCertificedForest.setOptions("trees", "2");
         //Store
         store.setOptions("selllogs", "1");
         store.setOptions("sell", "1");
@@ -73,11 +74,16 @@ public class Game {
         store.setOptions("buy", "2");
         //Blacksmith
         blacksmith.setOptions("repair","1");
+        blacksmith.setOptions("repairaxe","1");
         blacksmith.setOptions("buy", "2");
+        blacksmith.setOptions("buyaxe", "2");
         // library
         library.setOptions("readbook1", "1");
+        library.setOptions("book1", "1");
         library.setOptions("readbook2", "2");
+        library.setOptions("book2", "2");
         library.setOptions("readbook3", "3");
+        library.setOptions("book3", "3");
     }
 
     public void play() {
