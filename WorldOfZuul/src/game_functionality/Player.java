@@ -4,10 +4,12 @@ import game_elements.Axe;
 import game_elements.BackPack;
 import game_locations.Room;
 import game_locations.Trailer;
+import java.util.Scanner;
 
 /**
- * Indeholder en masse information som andre klasser benytter sig af for at bestemme hvad
- * de skal gøre
+ * Indeholder en masse information som andre klasser benytter sig af for at bestemme hvad de skal
+ * gøre
+ *
  * @author olive
  */
 public class Player {
@@ -33,6 +35,7 @@ public class Player {
         this.previousRoom = trailer;
         this.numOfDaysGoneBy = 1;
     }
+
     /**
      * Metoden benyttes til at checke forskellige steder i spillet om spilleren har nået MAX
      * klimapoints Hvis dette er tilfældet skal spillet slutte og der skal være Game Over.
@@ -77,6 +80,7 @@ public class Player {
         }
         currentRoom = newRoom;
     }
+
     public void throwPlayerBack() {
         currentRoom = previousRoom;
     }
@@ -100,7 +104,7 @@ public class Player {
         equippedAxe = newAxe;
         money -= newAxe.getPrice();
     }
-    
+
     public void pickedUpAxe(Axe axe) {
         equippedAxe = axe;
     }
@@ -177,13 +181,51 @@ public class Player {
     /**
      * hvis der er blevet fældet træer i den certificerede skov men ikke plantet nye så får
      * spilleren en bøde. Ellers resetter dagen og spilleren kan modtage gave igen.
-     * @return om spilleren har sovet og har plantet træer eller ej. 
+     *
+     * @return om spilleren har sovet og har plantet træer eller ej.
      */
     public boolean sleep() {
+        Boolean correctAnswer = true;
+        Scanner questionAnswer = new Scanner(System.in);
+        String questionOne = "How many million hectare forest area disappear each year?";
+        String questionTwo = "How many million hectare forest area does FSC cover over?";
+        String questionThree = "How many million hectare forest area does PEFC cover over?";
         if (!saplingsPlanted && hasChoppedTrees) {
-            System.out.println("YOU DIDN'T REPLANT TREES HERE IS A FINE OF 200 GOLD COINS");
+            System.out.println("You didn't replant trees in the ceritifed forest\n"
+                + "here is a chance to redeem yourself");
+            int randomNum = (int) (Math.random() * 3) + 1;
+            if (randomNum == 1) {
+                System.out.println(questionOne);
+                String userAnswer = questionAnswer.nextLine();
+                if (userAnswer.equals("7")) {
+                    System.out.println("Oh okay you will only receive a fine of 100 instead");
+                    money -= 100;
+                } else {
+                    correctAnswer = false;
+                }
+            } else if (randomNum == 2) {
+                System.out.println(questionTwo);
+                String userAnswer = questionAnswer.nextLine();
+                if (userAnswer.equals("200")) {
+                    System.out.println("Oh okay you will only receive a fine of 100 instead");
+                    money -= 100;
+                } else {
+                    correctAnswer = false;
+                }
+            } else {
+                System.out.println(questionThree);
+                String userAnswer = questionAnswer.nextLine();
+                if (userAnswer.equals("300")) {
+                    System.out.println("Oh okay you will only receive a fine of 100 instead");
+                    money -= 100;
+                } else {
+                    correctAnswer = false;
+                }
+            }
+        }
+        if (!correctAnswer) {
             money -= 200;
-            return false;
+            System.out.println("WRONG ANSWER, YOU HAVE BEEN FINED 200 GOLD COINS. GO BACK TO SCHOOL");
         }
         saplingsPlanted = false;
         hasChoppedTrees = false;
@@ -200,8 +242,8 @@ public class Player {
     }
 
     /**
-     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den bliver brugt i 'game'
-     * klassen.
+     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den
+     * bliver brugt i 'game' klassen.
      *
      * @return mængden af dage spilleren har.
      */
@@ -209,19 +251,18 @@ public class Player {
         return Player.NUM_PLAY_DAYS;
     }
 
-
     public void dayCounter(Player humanPlayer) {
         int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
+        humanPlayer.sleep();
         if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
             System.out.println("THERE IS NO MORE DAYS, YOUR HIGHSCORE IS: "
-                    + humanPlayer.getHighScore());
+                + humanPlayer.getHighScore());
             System.exit(0);
         }
         System.out.println("The sun goes down and you sleep tight \n"
-                + "ZzzzZzzzZzzzZzzz");
+            + "ZzzzZzzzZzzzZzzz");
         System.out.println("The sun rises and you are ready to tackle the day! \n"
-                + (daysleft > 1 ? "There are " + daysleft + " days left!"
+            + (daysleft > 1 ? "There are " + daysleft + " days left!"
                 : "This is your last day as a lumberjack!"));
-        humanPlayer.sleep();
     }
 }
