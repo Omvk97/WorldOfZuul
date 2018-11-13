@@ -21,11 +21,10 @@ public class Trailer extends Room {
             + "This is your home, you have " + humanPlayer.getClimatePoints() + " climate points,"
             + " your choices are: \n"
             + "----------------------------------\n"
-                + "○ Store Logs    ➤ For store logs you are carrying\n"
-                + "○ Check Wallet  ➤ For see how much money you have\n"
-                + "○ Sleep         ➤ For sleeping\n"
-                + (starterAxe != null ?
-                "○ Pick up Axe   ➤ For pick up your axe\n" : "")
+            + "○ Store Logs ➤ store logs you are carrying\n"
+            + "○ Check Wallet ➤ see how much money you have\n"
+            + "○ Sleep\n"
+            + (starterAxe != null ? "○ Pick up Axe\n" : "")
             + "----------------------------------";
     }
     /**

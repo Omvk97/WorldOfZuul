@@ -6,7 +6,7 @@ public class AxeFactory {
     }
 
     public static Axe createIronAxe() {
-        return new Axe("Iron axe", 49, 2, 3);
+        return new Axe("Iron axe", 49, 20, 3);
     }
 
     public static Axe createSteelAxe() {

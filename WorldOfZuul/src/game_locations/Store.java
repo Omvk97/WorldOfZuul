@@ -21,13 +21,12 @@ public class Store extends Room {
             "You have "+ humanPlayer.getMoney()+ " gold coins\n"
             + "you have 3 options \n"
             + "---------------------------------------------\n"
-                + "○ Sell    ➤ Sell logs\n"
-                + "○ Buy     ➤ Buy items\n"
+            + "○ Sell logs ➤ Sell logs you are carrying and stored\n"
+            + "○ Buy items ➤ Buy axes, backpacks & saplings\n"
             + "---------------------------------------------";
     }
     private void sapling_menu(Player humanPlayer) {
-        System.out.println(StoreOwner + "you can now Buy saplings");
-        System.out.println(StoreOwner + "Yes, you see here my friend, these saplings are cheap \n and make your trees grow quickly! \n"
+        System.out.println(StoreOwner + "These saplings are cheap \n and make your trees grow quickly! \n"
             + "Only " + SAPLING_BUNDLE_PRICE + " gold coins per bundle!\n"
             + "How many bundles would you like to buy, friend?");
         String saplingAmountString = userPurchaseChoice.nextLine();
@@ -89,6 +88,7 @@ public class Store extends Room {
     }
     private void first_menu(Player humanPlayer) {
         System.out.println(StoreOwner + "What would you like to buy?\n"
+            + "Your wallet contains " + humanPlayer.getMoney() + "\n"
             + "--------------------------- \n"
                 + "○ Backpack ➨ For buy Backpacks \n"
                 + "○ Sapling  ➨ For buy saplings \n"
