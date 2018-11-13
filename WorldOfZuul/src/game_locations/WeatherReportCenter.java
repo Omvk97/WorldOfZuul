@@ -20,8 +20,8 @@ public class WeatherReportCenter extends Room {
         return "You are standing " + getShortDescription() + "!\n"
             + weatherReporter + "Hi I´m your reporter\n"
             + "----------------------------------\n"
-            + "○ Global news - Watch the global news\n"
-            + "○ Local news- Watch the local news \n"
+            + "○ Global news ➤ Watch the global news\n"
+            + "○ Local news  ➤ Watch the local news \n"
             + "----------------------------------";
     }
 
@@ -31,30 +31,24 @@ public class WeatherReportCenter extends Room {
         scenarios.put(59, weatherReporter + "The atmosphere is very stable and optimal\n"
             + "Global Temperature: 21 degrees Celsius\n"
             + "Water Level: Stable\n");
-
         scenarios.put(49, weatherReporter + "Forest areas are steadily increasing\n"
             + "Global Temperature: 21 degrees Celsius\n"
             + "Water Level: Stable\n");
-
         scenarios.put(39, weatherReporter + "Air pollution is starting to thin out globally\n"
             + "Global Temperature: 21 degrees Celsius\n"
             + "Water Level: Stable\n");
-
         scenarios.put(29, weatherReporter + "The CO2 atmospheric concentration is stagnating\n"
             + "Global Temperature: 21 degrees Celsius\n"
             + "Water Level: Stable\n");
         scenarios.put(19, weatherReporter + "Global atmospheric conditions are normal\n"
             + "Global Temperature: 21 degrees Celsius\n"
             + "Water level: Stable\n");
-
         scenarios.put(-19, weatherReporter + "The world is experiencing a global heat increase\n"
             + "Global Temperature: 23 degrees Celsius\n"
             + "Water level: Risen 1 meter\n");
-
         scenarios.put(-29, weatherReporter + "The polar ice caps are starting to melt\n"
             + "Global Temperature: 26 degrees Celsius\n"
             + "Water level: Risen 4 meters\n");
-
         scenarios.put(-39, weatherReporter + "Tropical storms are becoming more commonplace\n"
             + "Global Temperature: 26 degrees Celsius\n"
             + "Water level: Risen 6 meters\n");

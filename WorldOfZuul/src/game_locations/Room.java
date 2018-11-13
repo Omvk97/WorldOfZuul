@@ -1,8 +1,9 @@
 package game_locations;
 
 import game_functionality.Player;
-import java.util.Set;
+
 import java.util.HashMap;
+import java.util.Set;
 
 public abstract class Room {
 
@@ -10,8 +11,8 @@ public abstract class Room {
     private final HashMap<String, Room> exits;
     private final HashMap<String, String> options;
 
-    private final int[] NEGATIVE_SCENARIO_POINTS = new int[]{-19, -29, -39, -49, -59};
-    private final int[] POSITIVE_SCENARIO_POINTS = new int[]{19, 29, 39, 49, 59};
+    private final int[] NEGATIVE_SCENARIO_POINTS = new int[]{-49, -99, -149, -199, -249};
+    private final int[] POSITIVE_SCENARIO_POINTS = new int[]{49, 99, 149, 199, 249};
 
     public Room(String description) {
         this.description = description;

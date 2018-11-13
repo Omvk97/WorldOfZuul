@@ -2,6 +2,7 @@ package game_locations;
 
 import game_elements.CertifiedTree;
 import game_functionality.Player;
+
 import java.util.ArrayList;
 
 public class CertifiedForest extends Forest {
@@ -35,9 +36,9 @@ public class CertifiedForest extends Forest {
             + "ALERT If you don't seed the forest after felling trees you will be fined the next day! \n"
             + "Your options are: \n"
             + "----------------------------------\n"
-            + "○ Chop Tree - Cut down a tree and bring it with you \n"
-            + "○ Trees left - See how many trees are left in the forest \n"
-            + "○ Replant trees - Replant trees\n"
+                + "○ Chop Tree      ➤ Cut down a tree and bring it with you \n"
+                + "○ Trees left     ➤ See how many trees are left in the forest \n"
+                + "○ Replant trees  ➤ Replant trees\n"
             + "----------------------------------";
     }
 

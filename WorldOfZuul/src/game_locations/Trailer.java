@@ -1,49 +1,32 @@
 package game_locations;
 
 import game_elements.Axe;
-import game_functionality.Player;
 import game_elements.Tree;
+import game_functionality.Player;
+
 import java.util.ArrayList;
 
 public class Trailer extends Room {
-
-    private final static int NUM_PLAY_DAYS = 5;
     private final static int MAX_TREESTORAGEAMOUNT = 30;
-
-    private int numOfDaysGoneBy;
     private ArrayList<Tree> logsInStorage;
     private Axe starterAxe = new Axe("axe", 0, 10, 3);
-
     public Trailer(String description) {
         super(description);
-        this.numOfDaysGoneBy = 1;
+
         this.logsInStorage = new ArrayList();
     }
-
     @Override
     public String getLongDescription(Player humanPlayer) {
         return "You are standing " + getShortDescription() + "!\n"
             + "This is your home, you have " + humanPlayer.getClimatePoints() + " climate points,"
             + " your choices are: \n"
             + "----------------------------------\n"
-            + "○ Store Logs - store logs you are carrying\n"
-            + "○ Check Wallet - see how much money you have\n"
+            + "○ Store Logs ➤ store logs you are carrying\n"
+            + "○ Check Wallet ➤ see how much money you have\n"
             + "○ Sleep\n"
             + (starterAxe != null ? "○ Pick up Axe\n" : "")
             + "----------------------------------";
-
     }
-
-    /**
-     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den bliver brugt i 'game'
-     * klassen.
-     *
-     * @return mængden af dage spilleren har.
-     */
-    public static int getNumPlayDays() {
-        return Trailer.NUM_PLAY_DAYS;
-    }
-
     /**
      * Denne metode benyttes til at få information omkring oplagring af træerne. Den benyttes i 'Local Village' og
      * 'Store'.
@@ -53,7 +36,6 @@ public class Trailer extends Room {
     public ArrayList<Tree> getLogsInStorage() {
         return this.logsInStorage;
     }
-
     public void loadOffLogsInStorage() {
         this.logsInStorage = new ArrayList();
     }
@@ -81,7 +63,6 @@ public class Trailer extends Room {
         for (Tree tree : humanPlayer.backPack().getLogsInBackPack()) {
             copyAmountOflogsCarrying.add(tree);
         }
-
         /**
          * Adder så mange logs som muligt fra den kopierede arraylist ovenover Fjerner logs fra den oprindelige
          * arraylist. Dette er for at undgå at man både adder og fjerner fra samme arrayList. Dette betyder at selvom
@@ -106,7 +87,6 @@ public class Trailer extends Room {
                 + (getLogsInStorage().size() > 1 ? " logs" : " log") + " stored!");
         }
     }
-
     @Override
     public void option2(Player humanPlayer) {
         if (humanPlayer.getMoney() == 0) {
@@ -115,7 +95,6 @@ public class Trailer extends Room {
             System.out.println("You wallet holds " + humanPlayer.getMoney() + " gold coins");
         }
     }
-
     /**
      * Sørger for at alle ting som spilleren skal gøre
      *
@@ -123,20 +102,8 @@ public class Trailer extends Room {
      */
     @Override
     public void option3(Player humanPlayer) {
-        int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
-        if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
-            System.out.println("THERE IS NO MORE DAYS, YOUR HIGHSCORE IS: "
-                + humanPlayer.getHighScore());
-            System.exit(0);
-        }
-        System.out.println("The sun goes down and you sleep tight \n"
-            + "ZzzzZzzzZzzzZzzz");
-        System.out.println("The sun rises and you are ready to tackle the day! \n"
-            + (daysleft > 1 ? "There are " + daysleft + " days left!"
-                : "This is your last day as a lumberjack!"));
-        humanPlayer.sleep();
+        humanPlayer.dayCounter(humanPlayer);
     }
-
     /**
      * If the player hasn't picked up the starterAxe before they will be prompted with the option to pick one up
      *
