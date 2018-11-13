@@ -7,11 +7,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * abstract klasse som de to skove kan arve fra for at mindske duplikation af kode.
- *
- * @author oliver
- */
 public abstract class Forest extends Room {
 
     protected final static int MAX_AMOUNTOFTREESINFOREST = 100;
@@ -21,7 +16,7 @@ public abstract class Forest extends Room {
         super(description);
     }
 
-    protected boolean playerCanCarryMoreTree(Player humanPlayer) {
+    private boolean playerCanCarryMoreTree(Player humanPlayer) {
         return humanPlayer.backPack().getAmountOfLogsInBackPack()
             < humanPlayer.backPack().getBackpackCapacity();
     }
@@ -30,7 +25,7 @@ public abstract class Forest extends Room {
         return trees.size() > 0;
     }
 
-    protected Tree lastTreeInArray() {
+    private Tree lastTreeInArray() {
         return trees.get(trees.size() - 1);
     }
 
@@ -43,11 +38,12 @@ public abstract class Forest extends Room {
     }
 
     /**
-     * hugger træ, tilføjer træet til spillerens rygsæk, fjerner træet fra skoven og giver spilleren klima points.
+     * Chops wood if the player has an Axe equipped. And adds all the things that are associated with choppping down a
+     * tree
      *
      * @param humanPlayer chopping a tree
      */
-    protected void chopWoodWithAxe(Player humanPlayer) {
+    private void chopWoodWithAxe(Player humanPlayer) {
         if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
             System.out.println("You swing your " + humanPlayer.getAxe().getDescription() + " at the tree!");
             while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxe().getDamage() > 0) {
@@ -89,7 +85,7 @@ public abstract class Forest extends Room {
      *
      * @param humanPlayer chopping the trees
      */
-    protected void chopWoodWithHands(Player humanPlayer) {
+    private void chopWoodWithHands(Player humanPlayer) {
         if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
             System.out.println("You punch the tree!");
             while (lastTreeInArray().getTreeHealth() - 2 > 0) {

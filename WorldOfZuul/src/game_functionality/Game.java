@@ -26,63 +26,67 @@ public class Game {
     }
 
     private void setExitsForRooms() {
-        trailer.setExit("east", localVillage);
+        trailer.setExit("village", localVillage);
         trailer.setExit("south", certifiedForest);
         trailer.setExit("north", nonCertificedForest);
 
-        certifiedForest.setExit("east", localVillage);
-        certifiedForest.setExit("north", trailer);
+        certifiedForest.setExit("village", localVillage);
+        certifiedForest.setExit("trailer", trailer);
 
-        nonCertificedForest.setExit("south", trailer);
-        nonCertificedForest.setExit("east", localVillage);
+        nonCertificedForest.setExit("trailer", trailer);
+        nonCertificedForest.setExit("village", localVillage);
 
-        localVillage.setExit("west", trailer);
+        localVillage.setExit("trailer", trailer);
         localVillage.setExit("store", store);
         localVillage.setExit("blacksmith", blacksmith);
         localVillage.setExit("library", library);
-        localVillage.setExit("weathercenter", weatherCenter);
-
-        store.setExit("back", localVillage);
-        blacksmith.setExit("back", localVillage);
-        library.setExit("back", localVillage);
-        weatherCenter.setExit("back", localVillage);
+        localVillage.setExit("center", weatherCenter);
     }
 
     private void setOptionsForRooms() {
-        // certiiedForest
+        // certifiedForest
         certifiedForest.setOptions("choptree", "1");
+        certifiedForest.setOptions("chop", "1");
         certifiedForest.setOptions("treesleft", "2");
         certifiedForest.setOptions("replanttrees", "3");
-        // WeatherRoom
+        // WeatherCenter
         weatherCenter.setOptions("globalnews", "1");
+        weatherCenter.setOptions("global", "1");
         weatherCenter.setOptions("localnews", "2");
-        weatherCenter.setOptions("scorebord", "3");
-        //trailer
+        weatherCenter.setOptions("local", "2");
+        //Trailer
         trailer.setOptions("storelogs", "1");
+        trailer.setOptions("store", "1");
         trailer.setOptions("checkwallet", "2");
+        trailer.setOptions("check", "2");
         trailer.setOptions("sleep", "3");
         trailer.setOptions("pickupaxe", "4");
-        //nonCertifiedFroest
+        trailer.setOptions("axe", "4");
+        //NonCertifiedForest
         nonCertificedForest.setOptions("choptree", "1");
+        nonCertificedForest.setOptions("chop", "1");
         nonCertificedForest.setOptions("treesleft", "2");
+        nonCertificedForest.setOptions("trees", "2");
         //Store
         store.setOptions("selllogs", "1");
+        store.setOptions("sell", "1");
         store.setOptions("buyitems", "2");
+        store.setOptions("buy", "2");
         //Blacksmith
         blacksmith.setOptions("repair","1");
+        blacksmith.setOptions("repairaxe","1");
         blacksmith.setOptions("buy", "2");
+        blacksmith.setOptions("buyaxe", "2");
         // library
         library.setOptions("readbook1", "1");
+        library.setOptions("book1", "1");
         library.setOptions("readbook2", "2");
+        library.setOptions("book2", "2");
         library.setOptions("readbook3", "3");
+        library.setOptions("book3", "3");
     }
 
     public void play() {
-        /**
-         * Der bliver her tilføjet meget samme funktion som der var før, men i stedet for at game klassen holder øje med
-         * hvilket rum spilleren er i, så er det nu 'Player' klassen som holder øje med dette. Det betyder at spilleren
-         * faktisk bevæger sig rundt og ikke spillet der bevæger sig rundt om spilleren.
-         */
         humanPlayer.setCurrentRoom(tutorialRoom);
 
         printWelcome();
@@ -149,6 +153,15 @@ public class Game {
             return;
         }
         String direction = command.getSecondWord();
+        
+        // makes sure that the player can always just write go back to get back
+        if (direction.equals("back")) {
+            if (humanPlayer.getPreviousRoom() != null && !(humanPlayer.getPreviousRoom() instanceof TutorialRoom)) {
+                humanPlayer.setCurrentRoom(humanPlayer.getPreviousRoom());
+                System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
+                return;
+            }
+        }
 
         Room nextRoom = humanPlayer.getCurrentRoom().getExit(direction);
 

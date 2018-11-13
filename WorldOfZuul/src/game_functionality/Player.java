@@ -6,12 +6,6 @@ import game_locations.Room;
 import game_locations.Trailer;
 import java.util.Scanner;
 
-/**
- * Indeholder en masse information som andre klasser benytter sig af for at bestemme hvad de skal
- * gøre
- *
- * @author olive
- */
 public class Player {
 
     private final static int NUM_PLAY_DAYS = 5;
@@ -37,8 +31,8 @@ public class Player {
     }
 
     /**
-     * Metoden benyttes til at checke forskellige steder i spillet om spilleren har nået MAX
-     * klimapoints Hvis dette er tilfældet skal spillet slutte og der skal være Game Over.
+     * Used to determine whether or not the game should end. If the climatepoints
+     * goes over this threshold, the game is over, the world is destroyed
      *
      * @return int max_climatepoints
      */
@@ -63,16 +57,16 @@ public class Player {
     }
 
     /**
-     * @return rummet som spilleren nuværende står i
+     * @return The room that the player currently resides in
      */
     public Room getCurrentRoom() {
         return this.currentRoom;
     }
 
     /**
-     * Bruges til at bevæge spilleren rundt i rummene
+     * Used to move the player around in the rooms
      *
-     * @param newRoom: Rummet som spilleren skal bevæge sig til.
+     * @param newRoom: The room that the player is moving to
      */
     public void setCurrentRoom(Room newRoom) {
         if (currentRoom != null) {
@@ -80,25 +74,24 @@ public class Player {
         }
         currentRoom = newRoom;
     }
-
-    public void throwPlayerBack() {
-        currentRoom = previousRoom;
+    
+    public Room getPreviousRoom() {
+        return previousRoom;
     }
 
     /**
-     * Denne metode returnere en meget simpel udregning på et eksempel af hvordan highscore kan
-     * udregnes benyttes alle steder hvor spillet skal lukke ned.
+     * A simple method of calculating highScore, not finally implemented yet
      *
-     * @return int værdi som nu højere nu bedre for spilleren.
+     * @return int value that is money added with climatepoints
      */
     public int getHighScore() {
         return money + climatePoints;
     }
 
     /**
-     * Bruges af Store hvis spilleren køber en ny økse
+     * Gives the player a new axe if the player buys a new one in Store
      *
-     * @param newAxe den nye økse der kan købes i Store.
+     * @param newAxe The new Axe that is to be equipped
      */
     public void boughtAxe(Axe newAxe) {
         equippedAxe = newAxe;
@@ -114,14 +107,14 @@ public class Player {
     }
 
     /**
-     * @return om spilleren har en økse equipped.
+     * @return boolean whether or not the player has an axe equipped
      */
     public boolean canUseAxe() {
         return equippedAxe != null;
     }
 
     /**
-     * Denne metode bruges til at reducerer durability.
+     * Used to reduce durability on the players currently equipped Axe
      */
     public void useAxe() {
         equippedAxe.reduceDurability();
@@ -134,18 +127,18 @@ public class Player {
     }
 
     /**
-     * Metoden her er til for at kunne tilgå metoderne fra den økse som spilleren bruger
+     * Used to get access to currently equipped Axe and it's methods.
      *
-     * @return øksen som er equipped
+     * @return Axe that is equipped
      */
     public Axe getAxe() {
         return equippedAxe;
     }
 
     /**
-     * Metoden her er til for at kunne tilgå metoderne fra den rygsæk som spilleren bruger
+     * Used to get access to currently equipped BackPack and it's methods.
      *
-     * @return rygsækken som er equipped
+     * @return BackPack that is currently equipped
      */
     public BackPack backPack() {
         return equippedBackPack;
@@ -179,10 +172,9 @@ public class Player {
     }
 
     /**
-     * hvis der er blevet fældet træer i den certificerede skov men ikke plantet nye så får
-     * spilleren en bøde. Ellers resetter dagen og spilleren kan modtage gave igen.
-     *
-     * @return om spilleren har sovet og har plantet træer eller ej.
+     * Resets all the things that the player can interact with during a day. And also checks
+     * for if the player has choppedTrees without replanting, if this is the case the player will
+     * recieve a fine.
      */
     public boolean sleep() {
         Boolean correctAnswer = true;
@@ -229,16 +221,16 @@ public class Player {
         }
         saplingsPlanted = false;
         hasChoppedTrees = false;
-        this.giftHasBeenGivenToday = false;
+        giftHasBeenGivenToday = false;
         return true;
     }
 
     public boolean isGiftHasBeenGivenToday() {
-        return this.giftHasBeenGivenToday;
+        return giftHasBeenGivenToday;
     }
 
     public void giftHasBeenGiven() {
-        this.giftHasBeenGivenToday = true;
+        giftHasBeenGivenToday = true;
     }
 
     /**
