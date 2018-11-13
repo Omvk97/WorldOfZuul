@@ -209,7 +209,8 @@ public class Player {
         return Player.NUM_PLAY_DAYS;
     }
 
-    public void time(Player humanPlayer){
+
+    public void dayCounter(Player humanPlayer) {
         int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
         if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
             System.out.println("THERE IS NO MORE DAYS, YOUR HIGHSCORE IS: "
