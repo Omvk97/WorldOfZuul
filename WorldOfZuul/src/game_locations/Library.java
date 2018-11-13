@@ -15,12 +15,13 @@ public class Library extends Room {
 
     @Override
     public String getLongDescription(Player humanplayer) {
-        return libraryOwner + "Hi " + "You are standing " + getShortDescription() + "!\n"
+        return libraryOwner + "Hi " + "You are standing at the reception at" + getShortDescription() + "!\n"
                 + "---------------------------------------------\n" +
                 "If you want to learn more about fsc FSC and PEFC \n " +
                 "------------------------------------\n" +
-                "○ learn fsc   ➤ For learning about FSC\n" +
-                "○ learn pefc  ➤ For learning about PEFC";
+                "○ Read book 1 ➤ \"The felling of Trees\"" +
+                "○ Read book 2 ➤ The story of FSC\n" +
+                "○ Read book 3 ➤ The story of PEFC";
     }
 
     @Override

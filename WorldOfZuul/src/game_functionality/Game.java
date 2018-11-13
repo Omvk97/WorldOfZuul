@@ -72,8 +72,9 @@ public class Game {
         blacksmith.setOptions("repair","1");
         blacksmith.setOptions("buy", "2");
         // library
-        library.setOptions("learnfsc", "1");
-        library.setOptions("learnpefc", "2");
+        library.setOptions("readbook1", "1");
+        library.setOptions("readbook2", "2");
+        library.setOptions("readbook3", "3");
     }
 
     public void play() {
