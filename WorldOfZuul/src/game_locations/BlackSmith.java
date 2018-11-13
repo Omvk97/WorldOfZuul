@@ -16,12 +16,13 @@ public class BlackSmith extends Room {
 
     @Override
     public String getLongDescription(Player humanplayer) {
-        return "Hi " + "You are standing " + getShortDescription() + "!\n"
-                + "---------------------------------------------\n" +
-                "If you pay I wil make you axe Stronger \n " +
+        return "Hi " + "You are standing " + getShortDescription() + "!\n"+
+                "If you pay I wil make you axe Stronger \n" +
+                "You have "+humanplayer.getMoney() + " gold coins\n"+
                 "-----------------------------------------------\n" +
                 "○ Repair  ➤ For repair your axe for you\n" +
-                "○ Buy     ➤ For buy an axe";
+                "○ Buy     ➤ For buy an axe\n" +
+                "---------------------------------------------";
 
     }
     private void Axe_menu(Player humanPlayer) {
@@ -78,32 +79,35 @@ public class BlackSmith extends Room {
         }
     }
 
+
     private void grindAxe_menu(Player humanPlayer) {
         int priceForAxeDurability = 2;
-        int db =  humanPlayer.getAxe().getDurability()-humanPlayer.getAxe().getStartDurability();
+        int db =  humanPlayer.getAxe().getStartDurability()-humanPlayer.getAxe().getDurability();
         int fixAxe= priceForAxeDurability * db;
-        if(humanPlayer.getMoney()>fixAxe) {
+
             if (humanPlayer.getAxe() == null) {
                 System.out.println("You dont have a Axe want to buy one ?");
-                return;
             } else if (humanPlayer.getAxe().getDurability() == humanPlayer.getAxe().getStartDurability()) {
                 System.out.println("You dont need to get your axe fixt");
+
             } else if (humanPlayer.getAxe().getDurability() < humanPlayer.getAxe().getStartDurability()) {
-                System.out.println(BlackSmith + "I will grind you axe for you. plezz wait");
-                int timeToWait = 6;
-                try {
-                    for (int i = 0; i < timeToWait; i++) {
-                        Thread.sleep(1000);
-                        System.out.println("**Ding**");
+                if (humanPlayer.getMoney() >= fixAxe) {
+                    System.out.println(BlackSmith + "I will grind you axe for you. plezz wait");
+                    int timeToWait = 6;
+                    try {
+                        for (int i = 0; i < timeToWait; i++) {
+                            Thread.sleep(1000);
+                            System.out.println("**Ding**");
+                        }
+                        humanPlayer.grindedAxe(fixAxe);
+                        System.out.println(" Your axe is done");
+                    } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
                     }
-                    System.out.println(" Your axe is done");
-                } catch (InterruptedException ie) {
-                    Thread.currentThread().interrupt();
-                }
+                }else {
+                System.out.println("You do not have enough money");
             }
-        }else {
-            System.out.println("You do not have enough money");
-        }
+            }
     }
     @Override
     public void option1(Player humanPlayer) {

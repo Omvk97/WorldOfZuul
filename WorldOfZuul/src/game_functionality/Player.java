@@ -92,7 +92,7 @@ public class Player {
     }
 
     /**
-     * Bruges af Store hvis spilleren køber en ny økse
+     * Bruges af Blackssmitch  hvis spilleren køber en ny økse
      *
      * @param newAxe den nye økse der kan købes i Store.
      */
@@ -103,6 +103,9 @@ public class Player {
     
     public void pickedUpAxe(Axe axe) {
         equippedAxe = axe;
+    }
+    public void grindedAxe(int cost){
+        money -= cost;
     }
 
     public Trailer getTrailer() {

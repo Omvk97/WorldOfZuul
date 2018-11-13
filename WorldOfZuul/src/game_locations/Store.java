@@ -17,7 +17,8 @@ public class Store extends Room {
     @Override
     public String getLongDescription(Player humanPlayer) {
         return StoreOwner + "Hi " + "You are standing " + getShortDescription() + "!\n"
-            + "Here you can sell your logs and purchase new equipment \n"
+            + "Here you can sell your logs and purchase new equipment \n"+
+            "You have "+ humanPlayer.getMoney()+ " gold coins\n"
             + "you have 3 options \n"
             + "---------------------------------------------\n"
                 + "○ Sell    ➤ Sell logs\n"
