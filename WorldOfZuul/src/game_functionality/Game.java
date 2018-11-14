@@ -1,22 +1,20 @@
 package game_functionality;
 
-import game_elements.BackPack;
 import game_locations.*;
 
 public class Game {
 
     private final Parser parser;
-    private final BackPack starterBackPack = new BackPack("Starter Backpack", 0, 5);
-    private final Room trailer = new Trailer("inside your trailer");
-    private final Player humanPlayer = new Player(starterBackPack, (Trailer) trailer);
-    private final Room certifiedForest = new CertifiedForest("in a certified forest");
-    private final Room nonCertificedForest = new NonCertifiedForest("in a non certified forest");
-    private final Room localVillage = new LocalVillage("in a local village");
-    private final Room weatherCenter = new WeatherReportCenter("in a weather report center from around the world");
-    private final Room store = new Store("in the LumberJack shop");
-    private final Room tutorialRoom = new TutorialRoom("the tutorial room");
-    private final Room blacksmith = new BlackSmith("the Blacksmith");
-    private final Room library = new Library("the Library");
+    private final Room trailer = new Trailer();
+    private final Player humanPlayer = new Player((Trailer) trailer);
+    private final Room certifiedForest = new CertifiedForest();
+    private final Room nonCertificedForest = new NonCertifiedForest();
+    private final Room localVillage = new LocalVillage();
+    private final Room weatherCenter = new WeatherReportCenter();
+    private final Room store = new Store();
+    private final Room tutorialRoom = new TutorialRoom();
+    private final Room blacksmith = new BlackSmith();
+    private final Room library = new Library();
 
     public Game() {
         setExitsForRooms();
@@ -37,10 +35,10 @@ public class Game {
         localVillage.setExit("store", store);
         localVillage.setExit("blacksmith", blacksmith);
         localVillage.setExit("library", library);
-        localVillage.setExit("weathercenter", weatherCenter);
-        
+        localVillage.setExit("weather-center", weatherCenter);
+
         blacksmith.setExit("village", localVillage);
-        
+
         library.setExit("village", localVillage);
     }
 
@@ -78,8 +76,8 @@ public class Game {
         store.setOptions("buyitems", "2");
         store.setOptions("buy", "2");
         //Blacksmith
-        blacksmith.setOptions("repair","1");
-        blacksmith.setOptions("repairaxe","1");
+        blacksmith.setOptions("repair", "1");
+        blacksmith.setOptions("repairaxe", "1");
         blacksmith.setOptions("buy", "2");
         blacksmith.setOptions("buyaxe", "2");
         // library
@@ -107,7 +105,7 @@ public class Game {
     private void printWelcome() {
         System.out.println("Welcome to 'The LumberJack'! \n"
             + "Your job as a lumberjack, is to cut down trees. \n"
-            + "You have " +Player.getNumPlayDays() + " days playtime to earn as much money as you can\n"
+            + "You have " + Player.getNumPlayDays() + " days playtime to earn as much money as you can\n"
             + "without destroying the earth!\n");
         System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
     }
@@ -158,8 +156,8 @@ public class Game {
             return;
         }
         String direction = command.getSecondWord();
-        
-        // makes sure that the player can always just write go back to get back
+
+        // The player can write "go back" to get back to the room they were in before
         if (direction.equals("back")) {
             if (humanPlayer.getPreviousRoom() != null && !(humanPlayer.getPreviousRoom() instanceof TutorialRoom)) {
                 humanPlayer.setCurrentRoom(humanPlayer.getPreviousRoom());
@@ -177,6 +175,7 @@ public class Game {
             System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
         }
     }
+
     private boolean quit(Command command) {
         if (command.hasSecondWord()) {
             System.out.println("Quit what?");
@@ -185,6 +184,7 @@ public class Game {
             return true;
         }
     }
+
     private void doOption(Command command) {
         if (!command.hasSecondWord()) {
             System.out.println("Do what?");

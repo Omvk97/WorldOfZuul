@@ -5,6 +5,10 @@ public class AxeFactory {
     private AxeFactory() {
     }
 
+    public static Axe createStarterAxe() {
+        return new Axe("axe", 0, 10, 3);
+    }
+
     public static Axe createIronAxe() {
         return new Axe("Iron axe", 49, 20, 3);
     }

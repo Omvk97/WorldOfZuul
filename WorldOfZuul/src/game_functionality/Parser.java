@@ -14,11 +14,6 @@ public class Parser {
         this.humanPlayer = humanPlayer;
     }
 
-    /**
-     * modtager og gemmer userInput og tjekker userInput om det svarer til options i det rum
-     * som de står i.
-     * @return Command som senere tjekkes om det er et Command der er valid eller ej.
-     */
     public Command getCommand() {
         String inputLine;
         String word1 = null;
@@ -35,7 +30,11 @@ public class Parser {
                 word2 = tokenizer.next().toLowerCase();
             }
         }
-        inputLine = inputLine.toLowerCase().replaceAll("\\s","");
+        /*
+         * If the user has typed something that corresponds to one of the options in the room they
+         * currently are in, that option command will be returned.
+         */
+        inputLine = inputLine.toLowerCase().replaceAll("\\s", "");
         if (humanPlayer.getCurrentRoom().getOptions(inputLine) != null) {
             return new Command(CommandWord.OPTION, humanPlayer.getCurrentRoom().getOptions(inputLine));
         }
@@ -45,6 +44,5 @@ public class Parser {
     public void showCommands() {
         commands.showAll();
     }
-    
-    
+
 }

@@ -6,14 +6,12 @@ public class Library extends Room {
 
     String libraryOwner = "Anna: \n";
 
-    public Library(String description) {
-        super(description);
+    public Library() {
     }
 
     @Override
     public String getLongDescription(Player humanplayer) {
-        return libraryOwner + "Hi " + "You are standing at the reception at" + getShortDescription() + "!\n"
-            + "Which book do you want to read?\n"
+        return libraryOwner + "Hi, which book do you want to read?\n"
             + "---------------------------------------------\n"
             + "○ Read book 1 ➤ \"The Felling of Trees\"\n"
             + "○ Read book 2 ➤ \"The Story of FSC\"\n"
@@ -30,7 +28,6 @@ public class Library extends Room {
             + "It is estimated that 15% of all greenhouse gas emissions are the result"
             + "of deforestation.\n"
             + "This is very bad");
-
     }
 
     @Override

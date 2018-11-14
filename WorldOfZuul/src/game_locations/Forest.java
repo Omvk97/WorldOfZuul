@@ -12,8 +12,7 @@ public abstract class Forest extends Room {
     protected final static int MAX_AMOUNTOFTREESINFOREST = 100;
     protected List<Tree> trees = null;
 
-    public Forest(String description) {
-        super(description);
+    public Forest() {
     }
 
     private boolean playerCanCarryMoreTree(Player humanPlayer) {
@@ -38,8 +37,8 @@ public abstract class Forest extends Room {
     }
 
     /**
-     * Chops wood if the player has an Axe equipped. And adds all the things that are associated with choppping down a
-     * tree
+     * Chops wood if the player has an Axe equipped. And adds all the things that are associated
+     * with choppping down a tree
      *
      * @param humanPlayer chopping a tree
      */
@@ -75,13 +74,14 @@ public abstract class Forest extends Room {
                         : "The forest has no more trees!"));
             } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree(humanPlayer)) {
                 System.out.println("You are carrying too much wood!\n"
-                    + "Go back to your trailer and sell or store your logs!");
+                    + "Sell or store your logs!");
             }
         }
     }
 
     /**
-     * If player doesn't have an getAxe equipped they can instead use their hands to chop down a tree with a damage of 2
+     * If player doesn't have an getAxe equipped they can instead use their hands to chop down a
+     * tree with a damage of 2
      *
      * @param humanPlayer chopping the trees
      */

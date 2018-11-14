@@ -2,7 +2,7 @@ package game_elements;
 
 public class NonCertifiedTree extends Tree {
 
-    public NonCertifiedTree() {
-        super(-10, 10);
+    public NonCertifiedTree(int treeHealth) {
+        super(treeHealth, -10, 10);
     }
 }

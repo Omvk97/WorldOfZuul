@@ -8,19 +8,18 @@ import java.util.List;
 
 public class LocalVillage extends Room {
 
-    public LocalVillage(String description) {
-        super(description);
+    public LocalVillage() {
     }
 
     @Override
     public String getLongDescription(Player humanPlayer) {
-        return "You are standing " + getShortDescription() + "!\n"
+        return "You are standing in the local village! \n"
             + getScenario(humanPlayer);
     }
 
     public String getScenario(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap();
-        
+
         scenarios.put(29, "The local people from the village are happy about your\n"
             + "environmental considerations and wildlife is flourishing");
         scenarios.put(19, "The local people from the village greet you a kind welcome \n"
@@ -28,14 +27,17 @@ public class LocalVillage extends Room {
         scenarios.put(-19, "The local people from the village greet you welcome"
             + "\nand you observe animals starving");
         scenarios.put(-29, "The local people from the village stopped giving you"
-            + "\nhospitality and the wildlife is suffering heavily");
-        scenarios.put(-39, "You cut too much wood! The local people from the village are enraged!\n"
-            + "Spitting and throwing rocks after you\n "
+            + "\nhospitality and the wildlife is suffering");
+        scenarios.put(-39, "You go and talk to some of the locals...\n"
+            + "They scream and shout at you...\n"
+            + "They are apparently lacking ressources from the forest...\n "
             + "wildlife is decimated");
-        scenarios.put(-49, "Parts of the village have left due to lacking ressources, the remainders"
-            + "\n chase you with guns");
-        scenarios.put(-59, "The village has been forsaken and the wildlife is completely gone\n"
-            + "Why did you do this? You mindlessly chopped down trees and destroyed this village");
+        scenarios.put(-49, "The village is silent and only a couple of humans is around\n"
+            + "You talk to some of them...\n"
+            + "They spit on you... Not very friendly...\n"
+            + "You observe dead animals in the street...");
+        scenarios.put(-59, "The village has been forsaken and wildlife is nowhere to be seen...\n"
+            + "You see a sign \"Death to all lumberjacks\"...");
 
         int climatePoints = humanPlayer.getClimatePoints();
         List<Integer> keySet = new ArrayList(scenarios.keySet());
@@ -55,7 +57,7 @@ public class LocalVillage extends Room {
         Trailer trailer = humanPlayer.getTrailer();
         if (!humanPlayer.isGiftHasBeenGivenToday()) {
             if (trailer.isStorageFull()) {
-                trailer.getLogsInStorage().add(new NonCertifiedTree());
+                trailer.getLogsInStorage().add(new NonCertifiedTree(12));
                 int moneyAmountGiven = (int) (Math.random() * 10) + 1;
                 humanPlayer.addMoney(moneyAmountGiven);
                 humanPlayer.giftHasBeenGiven();
