@@ -2,14 +2,12 @@ package game_locations;
 
 import game_functionality.Player;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 public class WeatherReportCenter extends Room {
 
     private final String weatherReporter = "Jensen: ";
-    HashMap<Integer, HashMap<String, String>> tester = new HashMap();
 
     public WeatherReportCenter() {
     }
