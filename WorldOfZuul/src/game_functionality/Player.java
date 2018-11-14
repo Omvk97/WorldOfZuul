@@ -2,6 +2,7 @@ package game_functionality;
 
 import game_elements.Axe;
 import game_elements.BackPack;
+import game_elements.BackPackFactory;
 import game_locations.Room;
 import game_locations.Trailer;
 import java.util.Scanner;
@@ -23,16 +24,16 @@ public class Player {
     private final Trailer trailer;
     private Room previousRoom;
 
-    public Player(BackPack starterBackPack, Trailer trailer) {
-        this.equippedBackPack = starterBackPack;
+    public Player(Trailer trailer) {
+        this.equippedBackPack = BackPackFactory.createStarterBackPack();
         this.trailer = trailer;
         this.previousRoom = trailer;
         this.numOfDaysGoneBy = 1;
     }
 
     /**
-     * Used to determine whether or not the game should end. If the climatepoints goes over this threshold, the game is
-     * over, the world is destroyed
+     * Used to determine whether or not the game should end. If the climatepoints goes over this
+     * threshold, the game is over, the world has been destroyed.
      *
      * @return int max_climatepoints
      */
@@ -64,7 +65,7 @@ public class Player {
     }
 
     /**
-     * Used to move the player around in the rooms
+     * Used to move the player around the rooms.
      *
      * @param newRoom: The room that the player is moving to
      */
@@ -131,7 +132,7 @@ public class Player {
     }
 
     /**
-     * Used to get access to currently equipped Axe and it's methods.
+     * Used to get access to currently equipped Axe.
      *
      * @return Axe that is equipped
      */
@@ -140,7 +141,7 @@ public class Player {
     }
 
     /**
-     * Used to get access to currently equipped BackPack and it's methods.
+     * Used to get access to currently equipped BackPack.
      *
      * @return BackPack that is currently equipped
      */
@@ -176,10 +177,11 @@ public class Player {
     }
 
     /**
-     * Resets all the things that the player can interact with during a day. And also checks for if the player has
-     * choppedTrees without replanting, if this is the case the player will recieve a fine.
+     * Resets all the things that the player can interact with during a day. Also checks if
+     * the player has choppedTrees without replanting, if this is the case the player will recieve a
+     * fine and a quiz to reduce the fine amount.
      */
-    public boolean sleep() {
+    private void sleep() {
         Boolean correctAnswer = true;
         Scanner questionAnswer = new Scanner(System.in);
         String questionOne = "How many million hectare forest area disappear each year?";
@@ -232,7 +234,6 @@ public class Player {
         saplingsPlanted = false;
         hasChoppedTrees = false;
         giftHasBeenGivenToday = false;
-        return true;
     }
 
     public boolean isGiftHasBeenGivenToday() {
@@ -244,8 +245,8 @@ public class Player {
     }
 
     /**
-     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den bliver brugt i 'game'
-     * klassen.
+     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den
+     * bliver brugt i 'game' klassen.
      *
      * @return mængden af dage spilleren har.
      */

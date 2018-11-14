@@ -1,49 +1,50 @@
 package game_locations;
 
 import game_elements.Axe;
+import game_elements.AxeFactory;
 import game_elements.Tree;
 import game_functionality.Player;
 
 import java.util.ArrayList;
 
 public class Trailer extends Room {
-    private final static int MAX_TREESTORAGEAMOUNT = 30;
-    private ArrayList<Tree> logsInStorage;
-    private Axe starterAxe = new Axe("axe", 0, 10, 3);
-    public Trailer(String description) {
-        super(description);
 
+    private final static int MAX_TREESTORAGEAMOUNT = 30;
+    private final ArrayList<Tree> logsInStorage;
+    private Axe starterAxe = AxeFactory.createStarterAxe();
+
+    public Trailer() {
         this.logsInStorage = new ArrayList();
     }
+
     @Override
     public String getLongDescription(Player humanPlayer) {
-        return "You are standing " + getShortDescription() + "!\n"
-            + "This is your home, you have " + humanPlayer.getClimatePoints() + " climate points,"
-            + " your choices are: \n"
-            + "----------------------------------\n"
+        return "This is your trailer and your home\n"
+            + "You have " + humanPlayer.getClimatePoints() + " climate points\n"
+            + "---------------------------------------------\n"
             + "○ Store Logs   ➤ Store logs you are carrying\n"
             + "○ Check Wallet ➤ See how much money you have\n"
             + "○ Sleep\n"
             + (starterAxe != null ? "○ Pick up Axe\n" : "")
-            + "----------------------------------";
+            + "---------------------------------------------";
     }
+
     /**
-     * Denne metode benyttes til at få information omkring oplagring af træerne. Den benyttes i 'Local Village' og
-     * 'Store'.
-     *
-     * @return arrayList som indeholder både certificeret og ikke certificeret træer i storage space.
+     * @return arrayList with the trees in storage
      */
     public ArrayList<Tree> getLogsInStorage() {
         return this.logsInStorage;
     }
+
+    /**
+     * when the trees are sold at the store, the storage has to be emptied
+     */
     public void loadOffLogsInStorage() {
-        this.logsInStorage = new ArrayList();
+        this.logsInStorage.clear();
     }
 
     /**
-     * Denne metode er til for at se om storage med træer er fyldt med træer, Den bruges i LocalVillage
-     *
-     * @return
+     * @return true if there is no more space left for trees in storage
      */
     public boolean isStorageFull() {
         return getLogsInStorage().size() == MAX_TREESTORAGEAMOUNT;
@@ -56,18 +57,14 @@ public class Trailer extends Room {
             return;
         }
         /**
-         * Kopier alle elementerne fra den oprindelige arraylist med de logs spilleren bærer når spilleren skal til at
-         * lagre logs.
+         * Copies all the elements from the backpack
          */
         ArrayList<Tree> copyAmountOflogsCarrying = new ArrayList();
         for (Tree tree : humanPlayer.backPack().getLogsInBackPack()) {
             copyAmountOflogsCarrying.add(tree);
         }
         /**
-         * Adder så mange logs som muligt fra den kopierede arraylist ovenover Fjerner logs fra den oprindelige
-         * arraylist. Dette er for at undgå at man både adder og fjerner fra samme arrayList. Dette betyder at selvom
-         * spilleren har flere logs end der kan være i storage arealet så kan spilleren stadig tilføje så mange som
-         * muligt og så bære rundt på resten.
+         * Adds trees to storage and removes tree from backpack one by one.
          */
         for (Tree tree : copyAmountOflogsCarrying) {
             if (getLogsInStorage().size() < MAX_TREESTORAGEAMOUNT) {
@@ -87,6 +84,7 @@ public class Trailer extends Room {
                 + (getLogsInStorage().size() > 1 ? " logs" : " log") + " stored!");
         }
     }
+
     @Override
     public void option2(Player humanPlayer) {
         if (humanPlayer.getMoney() == 0) {
@@ -95,19 +93,20 @@ public class Trailer extends Room {
             System.out.println("You wallet holds " + humanPlayer.getMoney() + " gold coins");
         }
     }
+
     /**
-     * Sørger for at alle ting som spilleren skal gøre
-     *
-     * @param humanPlayer
+     * @param humanPlayer the user.
      */
     @Override
     public void option3(Player humanPlayer) {
         humanPlayer.dayCounter(humanPlayer);
     }
+
     /**
-     * If the player hasn't picked up the starterAxe before they will be prompted with the option to pick one up
+     * If the player hasn't picked up the starterAxe they will be prompted with the option to pick
+     * it up
      *
-     * @param humanPlayer that picks up the starter axe
+     * @param humanPlayer user that picks up the starter axe
      */
     @Override
     public void option4(Player humanPlayer) {

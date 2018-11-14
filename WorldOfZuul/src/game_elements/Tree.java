@@ -2,12 +2,14 @@ package game_elements;
 
 public abstract class Tree {
 
+    private final int MAX_TREEHEALTH = 12;
+
     protected int treeHealth;
     protected final int TREE_CLIMATE_POINTS;
     protected final int TREE_SELL_PRICE;
 
-    public Tree(int treeClimatePoints, int treeSellPrice) {
-        this.treeHealth = 12;
+    public Tree(int treeHealth, int treeClimatePoints, int treeSellPrice) {
+        this.treeHealth = treeHealth;
         this.TREE_CLIMATE_POINTS = treeClimatePoints;
         this.TREE_SELL_PRICE = treeSellPrice;
     }
@@ -44,6 +46,14 @@ public abstract class Tree {
      */
     public int getTreeHealth() {
         return this.treeHealth;
+    }
+
+    public void treeGrowth(int amountOfTreeGrowth) {
+        if (amountOfTreeGrowth + treeHealth > MAX_TREEHEALTH) {
+            treeHealth += amountOfTreeGrowth;
+        } else {
+            treeHealth = MAX_TREEHEALTH;
+        }
     }
 
 }

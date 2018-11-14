@@ -7,12 +7,10 @@ import java.util.Set;
 
 public abstract class Room {
 
-    private final String description;
     private final HashMap<String, Room> exits;
     private final HashMap<String, String> options;
 
-    public Room(String description) {
-        this.description = description;
+    public Room() {
         exits = new HashMap();
         options = new HashMap();
     }
@@ -23,10 +21,6 @@ public abstract class Room {
 
     public void setOptions(String userInput, String optionNumber) {
         options.put(userInput, optionNumber);
-    }
-
-    public String getShortDescription() {
-        return description;
     }
 
     abstract public String getLongDescription(Player humanPlayer);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class BackPack extends Item {
 
-    private ArrayList<Tree> logsInBackPack;
+    private final ArrayList<Tree> logsInBackPack;
     private final int backpackCapacity;
 
     public BackPack(String name, int price, int backpackCapacity) {
@@ -14,64 +14,46 @@ public class BackPack extends Item {
     }
 
     /**
-     * For at se hvor mange logs der kan være i rygsækken
-     *
-     * @return mængden af pladser i rygsækken
+     * @return max capacity of the backpack
      */
     public int getBackpackCapacity() {
         return backpackCapacity;
     }
 
     /**
-     * for at kunne bruge selve arraylisten til noget
-     *
-     * @return arraylist med de logs der er i arraylisten
+     * @return ArrayList with Trees currently in the backpack
      */
     public ArrayList<Tree> getLogsInBackPack() {
         return logsInBackPack;
     }
 
     /**
-     * Finder hvor mange logs der er på nuværende tidspunkt i rygsækken
-     *
-     * @return størrelsen af arraylisten med logs
+     * @return Amount of trees in the backpack currently
      */
     public int getAmountOfLogsInBackPack() {
         return this.logsInBackPack.size();
     }
 
     /**
-     * Denne metode benyttes til at få information om hvilken træ type som spilleren bærer rundt på.
-     *
-     * @param treePosition det er indexet i arrayListen med alle træerne
-     * @return arraylist med træer som spilleren bærer rundt på.
-     */
-    public Tree getTreeTypeInBackpack(int treePosition) {
-        return this.logsInBackPack.get(treePosition);
-    }
-
-    /**
-     * Bruges til at tilføje træer en af gangen til rygsækken
-     *
-     * @param tree det træ som skal tilføjes til rygsækken
+     * @param tree that is to be added to the backpack
      */
     public void addTreeToBackpack(Tree tree) {
         if (tree instanceof CertifiedTree) {
-            this.logsInBackPack.add(new CertifiedTree());
+            this.logsInBackPack.add(new CertifiedTree(12));
         } else {
-            this.logsInBackPack.add(new NonCertifiedTree());
+            this.logsInBackPack.add(new NonCertifiedTree(12));
         }
     }
 
     /**
-     * Metoden her bruges til når spilleren enten sælger eller opbevarer deres logs, så tømmes rygsækken
+     * Whenever the backpack's contents is sold.
      */
     public void emptyBackpack() {
-        this.logsInBackPack = new ArrayList();
+        logsInBackPack.clear();
     }
 
     /**
-     * Bruges til at fjerne træer fra rygsækken en af gangen, starter fra det første index i arraylisten.
+     * Used to remove logs from backpack one by one
      */
     public void removeLogFromBackpack() {
         this.logsInBackPack.remove(0);

@@ -7,23 +7,22 @@ import java.util.ArrayList;
 
 public class NonCertifiedForest extends Forest {
 
-    public NonCertifiedForest(String description) {
-        super(description);
+    public NonCertifiedForest() {
         trees = new ArrayList(MAX_AMOUNTOFTREESINFOREST);
         for (int i = 0; i < MAX_AMOUNTOFTREESINFOREST; i++) {
-            trees.add(new NonCertifiedTree());
+            trees.add(new NonCertifiedTree(12));
         }
     }
 
     @Override
     public String getLongDescription(Player humanPlayer) {
-        return "You are standing " + getShortDescription() + "!\n"
+        return "You are standing in a non certified forest! \n"
             + "This forest will not regrow, there are " + trees.size() + " trees" + "\n"
             + "Your options are: \n"
-            + "----------------------------------\n"
-                + "○ Chop Tree   ➤ Cut down a tree and bring it with you \n"
-                + "○ See tree    ➤ See how many trees are left in the forest\n"
-            + "----------------------------------";
+            + "-----------------------------------------------------------\n"
+            + "○ Chop Tree   ➤ Cut down a tree and bring it with you \n"
+            + "○ Trees left  ➤ See how many trees are left in the forest\n"
+            + "-----------------------------------------------------------";
     }
 
     @Override

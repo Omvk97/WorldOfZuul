@@ -12,16 +12,15 @@ public class TutorialRoom extends Room {
     Scanner input = new Scanner(System.in);
     boolean answer;
 
-    public TutorialRoom(String description) {
-        super(description);
+    public TutorialRoom() {
     }
 
     private void getAnswer() {
-//        pause(5000);
         System.out.println("Would you like to take a tutorial? [Y / N]");
         String playerInput = input.nextLine();
         answer = playerInput.toUpperCase().equals("Y");
     }
+
     @Override
     public String getLongDescription(Player humanPlayer) {
         Trailer trailer = humanPlayer.getTrailer();
@@ -49,14 +48,15 @@ public class TutorialRoom extends Room {
             return trailer.getLongDescription(humanPlayer);
         }
     }
+
     private void optionTutorial() {
         System.out.println("Great job! You are now standing in the west area.");
         pause(1800);
         System.out.println("In each room you have different options you can perform\n"
             + "In this room you have these options:\n"
             + "----------------------------------\n"
-                + "○ Pick up rock ➤ You pick up a rock\n"
-                + "○ Karatechop   ➤ Do a karatechop on a twig\n"
+            + "○ Pick up rock ➤ You pick up a rock\n"
+            + "○ Karatechop   ➤ Do a karatechop on a twig\n"
             + "----------------------------------");
         System.out.print("Try typing one of the options \n");
         String option = input.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -80,6 +80,7 @@ public class TutorialRoom extends Room {
             }
         }
     }
+
     private void goTutorial() {
         System.out.println("Try typing 'go west'");
         String goWest = input.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -88,6 +89,7 @@ public class TutorialRoom extends Room {
             goWest = input.nextLine();
         }
     }
+
     private void pause(int time) {
         try {
             Thread.sleep(time);

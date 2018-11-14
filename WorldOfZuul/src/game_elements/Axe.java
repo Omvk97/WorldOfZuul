@@ -32,6 +32,7 @@ public class Axe extends Item {
     public void grindAxe() {
         durability = startDurability;
     }
+
     @Override
     public String toString() {
         return getDescription() + ": " + getPrice();
