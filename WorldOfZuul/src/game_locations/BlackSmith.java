@@ -15,10 +15,10 @@ public class BlackSmith extends Room {
     }
 
     @Override
-    public String getLongDescription(Player humanplayer) {
+    public String roomEntrance(Player humanPlayer) {
         return blackSmith + "Welcome to my shop! \n"
             + "If you pay I will make your axe stronger \n"
-            + "You have " + humanplayer.getMoney() + " gold coins\n"
+            + "You have " + humanPlayer.getMoney() + " gold coins\n"
             + "-----------------------------------------------\n"
             + "○ Repair ➤ Make your axe like new\n"
             + "○ Buy    ➤ Buy a new axe\n"
@@ -76,7 +76,7 @@ public class BlackSmith extends Room {
         final int pricePerAxeDurability = 2;
 
         if (humanPlayer.getAxe() == null) {
-            System.out.println(blackSmith + "You don't have an Axe");
+            System.out.println(blackSmith + "You don't have an axe equipped");
 
         } else if (humanPlayer.getAxe().getDurability() == humanPlayer.getAxe().getStartDurability()) {
             System.out.println("Your axe is fine! Come back if it ever gets dull");

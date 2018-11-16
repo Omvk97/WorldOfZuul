@@ -3,15 +3,16 @@ package game_elements;
 public abstract class Tree {
 
     private final int MAX_TREEHEALTH = 12;
-
     protected int treeHealth;
+    protected int numPlanksWorth;
     protected final int TREE_CLIMATE_POINTS;
-    protected final int TREE_SELL_PRICE;
+    protected final double TREE_SELL_PRICE_PR_HEALTH;
 
-    public Tree(int treeHealth, int treeClimatePoints, int treeSellPrice) {
+    public Tree(int treeHealth, int treeClimatePoints, double treeSellPrice) {
         this.treeHealth = treeHealth;
         this.TREE_CLIMATE_POINTS = treeClimatePoints;
-        this.TREE_SELL_PRICE = treeSellPrice;
+        this.TREE_SELL_PRICE_PR_HEALTH = treeSellPrice;
+        numPlanksWorth = treeHealth;
     }
 
     /**
@@ -22,12 +23,13 @@ public abstract class Tree {
     }
 
     /**
-     * Returns the price of the current tree.
+     * Returns the price of the current tree based on the highest treeHealth the tree had before the player started
+     * chopping it down.
      *
-     * @return amount worth of tree.
+     * @return amount worth of tree. Converted to int because we don't want doubles in the players wallet
      */
     public int getTreePrice() {
-        return TREE_SELL_PRICE;
+        return (int) (TREE_SELL_PRICE_PR_HEALTH * numPlanksWorth);
     }
 
     /**
@@ -39,21 +41,16 @@ public abstract class Tree {
         this.treeHealth -= reduceAmount;
     }
 
-    /**
-     * Information about tree health
-     *
-     * @return The tree's life
-     */
     public int getTreeHealth() {
         return this.treeHealth;
     }
 
     public void treeGrowth(int amountOfTreeGrowth) {
-        if (amountOfTreeGrowth + treeHealth > MAX_TREEHEALTH) {
+        if (amountOfTreeGrowth + treeHealth < MAX_TREEHEALTH) {
             treeHealth += amountOfTreeGrowth;
         } else {
             treeHealth = MAX_TREEHEALTH;
         }
+        numPlanksWorth = treeHealth;
     }
-
 }

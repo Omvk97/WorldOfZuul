@@ -8,52 +8,43 @@ import java.util.List;
 public class Radio {
 
     private final String weatherReporter = "Jensen: ";
-    
+
     public void globalNews(Player humanPlayer) {
-        LinkedHashMap<Integer, String> scenarios = new LinkedHashMap();
-        scenarios.put(59, weatherReporter + "The atmosphere is very stable and optimal\n"
+        LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
+        scenarios.put(249, weatherReporter + "The atmosphere is very stable and optimal\n"
             + "Global Temperature: 21 degrees Celsius\n"
             + "Water Level: Stable\n");
-        
-        scenarios.put(49, weatherReporter + "Forest areas are steadily increasing\n"
+        scenarios.put(199, weatherReporter + "Forest areas are steadily increasing\n"
             + "Global Temperature: 21 degrees Celsius\n"
             + "Water Level: Stable\n");
-        
-        scenarios.put(39, weatherReporter + "Air pollution is starting to thin out globally\n"
+        scenarios.put(149, weatherReporter + "Air pollution is starting to thin out globally\n"
             + "Global Temperature: 21 degrees Celsius\n"
             + "Water Level: Stable\n");
-        
-        scenarios.put(29, weatherReporter + "The CO2 atmospheric concentration is stagnating\n"
+        scenarios.put(99, weatherReporter + "The CO2 atmospheric concentration is stagnating\n"
             + "Global Temperature: 21 degrees Celsius\n"
             + "Water Level: Stable\n");
-        
-        scenarios.put(19, weatherReporter + "Global atmospheric conditions are normal\n"
+        scenarios.put(49, weatherReporter + "Global atmospheric conditions are normal\n"
             + "Global Temperature: 21 degrees Celsius\n"
             + "Water level: Stable\n");
-        
-        scenarios.put(-19, weatherReporter + "The world is experiencing a global heat increase\n"
+        scenarios.put(-49, weatherReporter + "The world is experiencing a global heat increase\n"
             + "Global Temperature: 23 degrees Celsius\n"
             + "Water level: Risen 1 meter\n");
-        
-        scenarios.put(-29, weatherReporter + "The polar ice caps are starting to melt\n"
+        scenarios.put(-99, weatherReporter + "The polar ice caps are starting to melt\n"
             + "Global Temperature: 26 degrees Celsius\n"
             + "Water level: Risen 4 meters\n");
-        
-        scenarios.put(-39, weatherReporter + "Tropical storms are becoming more commonplace\n"
+        scenarios.put(-149, weatherReporter + "Tropical storms are becoming more commonplace\n"
             + "Global Temperature: 26 degrees Celsius\n"
             + "Water level: Risen 6 meters\n");
-        
-        scenarios.put(-49, weatherReporter + "Large parts of the world are flooded. "
+        scenarios.put(-199, weatherReporter + "Large parts of the world are flooded. "
             + "The ice caps are gone\n"
             + "Global Temperature: 28 degrees Celsius\n"
             + "Water level: Risen 15 meters\n");
-        
-        scenarios.put(-59, weatherReporter + "The world is in anarchy. Civil unrest is at its most violent\n"
+        scenarios.put(-249, weatherReporter + "The world is in anarchy. Civil unrest is at its most violent\n"
             + "Global Temperature: 31 degrees Celsius\n"
             + "Water Level: Risen 20 meters\n");
 
         int climatePoints = humanPlayer.getClimatePoints();
-        List<Integer> keySet = new ArrayList(scenarios.keySet());
+        List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {
             if (climatePoints > keySet.get(0)) {
                 System.out.print(scenarios.get(keySet.get(0)));
@@ -66,9 +57,9 @@ public class Radio {
             }
         }
     }
-    
+
     public void localNews(Player humanPlayer) {
-        LinkedHashMap<Integer, String> scenarios = new LinkedHashMap();
+        LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
         scenarios.put(49, weatherReporter + "The weather forecast indicates mild winds\n"
             + "Local Temperature: 32 degree Celsius\n"
             + "Wind Speeds: 5 m/sec\n");
@@ -103,7 +94,7 @@ public class Radio {
             + "Wind Speeds: Error\n");
 
         int climatePoints = humanPlayer.getClimatePoints();
-        List<Integer> keySet = new ArrayList(scenarios.keySet());
+        List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {
             if (climatePoints > keySet.get(0)) {
                 System.out.print(scenarios.get(keySet.get(0)));
