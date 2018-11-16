@@ -7,8 +7,11 @@ import game_functionality.Player;
 public class CertifiedForest extends Forest {
 
     public CertifiedForest() {
-        for (int i = 0; i < MAX_AMOUNTOFTREESINFOREST; i++) {
-            trees.add(new CertifiedTree((int) (Math.random() * 12) + 1));
+        for (int i = 0; i < 15; i++) {
+            trees.add(new CertifiedTree((int) (Math.random() * 12) + 10));
+        }
+        while (trees.size() < MAX_AMOUNTOFTREESINFOREST) {
+            trees.add(new CertifiedTree((int) (Math.random() * 9) + 1));
         }
     }
 
@@ -34,7 +37,7 @@ public class CertifiedForest extends Forest {
     private int numberOfTreesBigEnoughToChop() {
         int counter = 0;
         for (Tree tree : trees) {
-            if (tree.getTreeHealth() > LARGE_TREE_SIZE) {
+            if (tree.getTreeHealth() >= LARGE_TREE_SIZE) {
                 counter++;
             }
         }

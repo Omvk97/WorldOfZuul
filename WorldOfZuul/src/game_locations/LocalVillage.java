@@ -19,24 +19,23 @@ public class LocalVillage extends Room {
 
     public String getScenario(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
-
-        scenarios.put(29, "The local people from the village are happy about your\n"
+        scenarios.put(99, "The local people from the village are happy about your\n"
             + "environmental considerations and wildlife is flourishing");
-        scenarios.put(19, "The local people from the village greet you a kind welcome \n"
+        scenarios.put(49, "The local people from the village greet you a kind welcome \n"
             + "and you observe a healthy and vibrant wildlife");
-        scenarios.put(-19, "The local people from the village greet you welcome"
+        scenarios.put(-49, "The local people from the village greet you welcome"
             + "\nand you observe animals starving");
-        scenarios.put(-29, "The local people from the village stopped giving you"
+        scenarios.put(-99, "The local people from the village stopped giving you"
             + "\nhospitality and the wildlife is suffering");
-        scenarios.put(-39, "You go and talk to some of the locals...\n"
+        scenarios.put(-149, "You go and talk to some of the locals...\n"
             + "They scream and shout at you...\n"
             + "They are apparently lacking ressources from the forest...\n "
             + "wildlife is decimated");
-        scenarios.put(-49, "The village is silent and only a couple of humans is around\n"
+        scenarios.put(-199, "The village is silent and only a couple of humans is around\n"
             + "You talk to some of them...\n"
             + "They spit on you... Not very friendly...\n"
             + "You observe dead animals in the street...");
-        scenarios.put(-59, "The village has been forsaken and wildlife is nowhere to be seen...\n"
+        scenarios.put(-249, "The village has been forsaken and wildlife is nowhere to be seen...\n"
             + "You see a sign \"Death to all lumberjacks\"...");
 
         int climatePoints = humanPlayer.getClimatePoints();

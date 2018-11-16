@@ -7,8 +7,11 @@ import game_functionality.Player;
 public class NonCertifiedForest extends Forest {
 
     public NonCertifiedForest() {
-        for (int i = 0; i < MAX_AMOUNTOFTREESINFOREST; i++) {
-            trees.add(new NonCertifiedTree((int) (Math.random() * 12) + 1));
+        for (int i = 0; i < 15; i++) {
+            trees.add(new NonCertifiedTree((int) (Math.random() * 12) + 7));
+        }
+        while (trees.size() < MAX_AMOUNTOFTREESINFOREST) {
+            trees.add(new NonCertifiedTree((int) (Math.random() * 9) + 1));
         }
     }
 

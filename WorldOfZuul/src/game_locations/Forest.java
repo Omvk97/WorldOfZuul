@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 public abstract class Forest extends Room {
 
     protected final int MEDIUM_TREE_SIZE = 7;
-    protected final int LARGE_TREE_SIZE = 9;
+    protected final int LARGE_TREE_SIZE = 10;
     protected final int MAX_AMOUNTOFTREESINFOREST = 100;
     protected List<Tree> trees;
 
