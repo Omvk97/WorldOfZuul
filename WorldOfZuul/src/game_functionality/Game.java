@@ -10,7 +10,6 @@ public class Game {
     private final Room certifiedForest = new CertifiedForest();
     private final Room nonCertificedForest = new NonCertifiedForest();
     private final Room localVillage = new LocalVillage();
-    private final Room weatherCenter = new WeatherReportCenter();
     private final Room store = new Store();
     private final Room tutorialRoom = new TutorialRoom();
     private final Room blacksmith = new BlackSmith();
@@ -35,7 +34,6 @@ public class Game {
         localVillage.setExit("store", store);
         localVillage.setExit("blacksmith", blacksmith);
         localVillage.setExit("library", library);
-        localVillage.setExit("weather-center", weatherCenter);
 
         blacksmith.setExit("village", localVillage);
 
@@ -51,11 +49,6 @@ public class Game {
         certifiedForest.setOptions("trees", "2");
         certifiedForest.setOptions("replanttrees", "3");
         certifiedForest.setOptions("replant", "3");
-        // WeatherCenter
-        weatherCenter.setOptions("globalnews", "1");
-        weatherCenter.setOptions("global", "1");
-        weatherCenter.setOptions("localnews", "2");
-        weatherCenter.setOptions("local", "2");
         //Trailer
         trailer.setOptions("storelogs", "1");
         trailer.setOptions("store", "1");

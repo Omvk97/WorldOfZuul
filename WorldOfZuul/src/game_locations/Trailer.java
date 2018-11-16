@@ -1,17 +1,22 @@
 package game_locations;
 
+import game_elements.Radio;
 import game_elements.Axe;
 import game_elements.AxeFactory;
 import game_elements.Tree;
 import game_functionality.Player;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Random;
 
 public class Trailer extends Room {
-
+    private final String weatherReporter = "Jensen: ";
     private final static int MAX_TREESTORAGEAMOUNT = 30;
     private final ArrayList<Tree> logsInStorage;
     private Axe starterAxe = AxeFactory.createStarterAxe();
+    private final Radio radio = new Radio();
 
     public Trailer() {
         this.logsInStorage = new ArrayList();
@@ -100,6 +105,12 @@ public class Trailer extends Room {
     @Override
     public void option3(Player humanPlayer) {
         humanPlayer.dayCounter(humanPlayer);
+        Random globalOrLocal = new Random();
+        if (globalOrLocal.nextBoolean()) {
+            radio.globalNews(humanPlayer);
+        } else {
+            radio.localNews(humanPlayer);
+        }
     }
 
     /**
@@ -118,5 +129,4 @@ public class Trailer extends Room {
             System.out.println("I don't know what you mean");
         }
     }
-
 }

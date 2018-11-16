@@ -1,28 +1,15 @@
-package game_locations;
+package game_elements;
 
 import game_functionality.Player;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class WeatherReportCenter extends Room {
+public class Radio {
 
     private final String weatherReporter = "Jensen: ";
-
-    public WeatherReportCenter() {
-    }
-
-    @Override
-    public String getLongDescription(Player humanPlayer) {
-        return weatherReporter + "Hi I´m your reporter\n"
-            + "----------------------------------\n"
-            + "○ Global news ➤ Watch the global news\n"
-            + "○ Local news  ➤ Watch the local news \n"
-            + "----------------------------------";
-    }
-
-    @Override
-    public void option1(Player humanPlayer) {
+    
+    public void globalNews(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap();
         scenarios.put(59, weatherReporter + "The atmosphere is very stable and optimal\n"
             + "Global Temperature: 21 degrees Celsius\n"
@@ -79,9 +66,8 @@ public class WeatherReportCenter extends Room {
             }
         }
     }
-
-    @Override
-    public void option2(Player humanPlayer) {
+    
+    public void localNews(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap();
         scenarios.put(49, weatherReporter + "The weather forecast indicates mild winds\n"
             + "Local Temperature: 32 degree Celsius\n"
