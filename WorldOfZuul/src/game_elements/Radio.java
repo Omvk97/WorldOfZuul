@@ -10,7 +10,7 @@ public class Radio {
     private final String weatherReporter = "Jensen: ";
     
     public void globalNews(Player humanPlayer) {
-        LinkedHashMap<Integer, String> scenarios = new LinkedHashMap();
+        LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
         scenarios.put(59, weatherReporter + "The atmosphere is very stable and optimal\n"
             + "Global Temperature: 21 degrees Celsius\n"
             + "Water Level: Stable\n");
@@ -53,7 +53,7 @@ public class Radio {
             + "Water Level: Risen 20 meters\n");
 
         int climatePoints = humanPlayer.getClimatePoints();
-        List<Integer> keySet = new ArrayList(scenarios.keySet());
+        List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {
             if (climatePoints > keySet.get(0)) {
                 System.out.print(scenarios.get(keySet.get(0)));
@@ -68,7 +68,7 @@ public class Radio {
     }
     
     public void localNews(Player humanPlayer) {
-        LinkedHashMap<Integer, String> scenarios = new LinkedHashMap();
+        LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
         scenarios.put(49, weatherReporter + "The weather forecast indicates mild winds\n"
             + "Local Temperature: 32 degree Celsius\n"
             + "Wind Speeds: 5 m/sec\n");
@@ -103,7 +103,7 @@ public class Radio {
             + "Wind Speeds: Error\n");
 
         int climatePoints = humanPlayer.getClimatePoints();
-        List<Integer> keySet = new ArrayList(scenarios.keySet());
+        List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {
             if (climatePoints > keySet.get(0)) {
                 System.out.print(scenarios.get(keySet.get(0)));

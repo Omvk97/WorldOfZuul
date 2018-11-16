@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Store extends Room {
 
-    private static final int SAPLING_BUNDLE_PRICE = 10;
+    private static final int SAPLING_PRICE = 4;
     private final String StoreOwner = "Reginald:\n";
     private final Scanner userPurchaseChoice = new Scanner(System.in);
 
@@ -17,9 +17,10 @@ public class Store extends Room {
     }
 
     @Override
-    public String getLongDescription(Player humanPlayer) {
+    public String roomEntrance(Player humanPlayer) {
         return StoreOwner + "Hi " + "Welcome to my store!\n"
             + "Here you can sell your logs and purchase new equipment \n"
+            + "You have " + humanPlayer.getMoney() + " gold coins\n"
             + "----------------------------------------------------\n"
             + "○ Sell logs ➤ Sell logs you are carrying and stored\n"
             + "○ Buy items ➤ Buy backpacks & saplings\n"
@@ -28,7 +29,8 @@ public class Store extends Room {
 
     @Override
     public void option1(Player humanPlayer) {
-        if (humanPlayer.getTrailer().getLogsInStorage().isEmpty() && humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
+        if (humanPlayer.getTrailer().getLogsInStorage().isEmpty() && 
+            humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
             System.out.println(StoreOwner + "You have no logs to sell!");
             return;
         }
@@ -37,10 +39,13 @@ public class Store extends Room {
                 humanPlayer.addMoney(tree.getTreePrice());
             }
             humanPlayer.backPack().emptyBackpack();
-            System.out.println("You have sold all the logs in your backpack!");
+            System.out.println("You have sold all the logs in your backpack!\n"
+                + "You now have " + humanPlayer.getMoney() + " gold coins");
+
         }
         if (!humanPlayer.getTrailer().getLogsInStorage().isEmpty()) {
-            humanPlayer.getTrailer().getLogsInStorage().forEach((tree) -> humanPlayer.addMoney(tree.getTreePrice()));
+            humanPlayer.getTrailer().getLogsInStorage().forEach((tree) -> 
+                humanPlayer.addMoney(tree.getTreePrice()));
             humanPlayer.getTrailer().loadOffLogsInStorage();
             System.out.println("You have sold all the logs in your storage!");
         }
@@ -52,22 +57,22 @@ public class Store extends Room {
     }
 
     private void sapling_menu(Player humanPlayer) {
-        System.out.println(StoreOwner + "These saplings are cheap \nand make your trees grow quickly! \n"
-            + "Only " + SAPLING_BUNDLE_PRICE + " gold coins per bundle!\n"
-            + "How many bundles would you like to buy, friend?");
+        System.out.println(StoreOwner + "These saplings are cheap and make your trees grow! \n"
+            + "Only " + SAPLING_PRICE + " gold coins per sapling!\n"
+            + "How many would you like to buy, friend?");
         String saplingAmountString = userPurchaseChoice.nextLine();
         try {
             int saplingAmountInt = Integer.parseInt(saplingAmountString);
-            int saplingCost = saplingAmountInt * SAPLING_BUNDLE_PRICE;
+            int saplingCost = saplingAmountInt * SAPLING_PRICE;
             if (humanPlayer.buySaplingBundle(saplingAmountInt, saplingCost)) {
-                System.out.println(StoreOwner + "You have bought " + saplingAmountInt + " sapling for " + saplingCost + " gold coins \n"
-                    + "You have " + humanPlayer.getMoney() + " gold coins left");
+                System.out.println(StoreOwner + "You have bought " + saplingAmountInt
+                    + " saplings for " + saplingCost + " gold coins");
             } else {
-                System.out.println(StoreOwner + "You don't have enough money for that friend");
+                System.out.println("You don't have enough money for that friend");
                 first_menu(humanPlayer);
             }
         } catch (NumberFormatException e) {
-            System.out.println(StoreOwner + "I don't know you mean, friend");
+            System.out.println("I don't know you mean, friend");
             first_menu(humanPlayer);
         }
     }

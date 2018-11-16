@@ -10,7 +10,7 @@ public class BackPack extends Item {
     public BackPack(String name, int price, int backpackCapacity) {
         super(name, price);
         this.backpackCapacity = backpackCapacity;
-        this.logsInBackPack = new ArrayList();
+        this.logsInBackPack = new ArrayList<>();
     }
 
     /**
@@ -38,11 +38,7 @@ public class BackPack extends Item {
      * @param tree that is to be added to the backpack
      */
     public void addTreeToBackpack(Tree tree) {
-        if (tree instanceof CertifiedTree) {
-            this.logsInBackPack.add(new CertifiedTree(12));
-        } else {
-            this.logsInBackPack.add(new NonCertifiedTree(12));
-        }
+        logsInBackPack.add(tree);
     }
 
     /**

@@ -5,10 +5,10 @@ import game_locations.*;
 public class Game {
 
     private final Parser parser;
-    private final Room trailer = new Trailer();
-    private final Player humanPlayer = new Player((Trailer) trailer);
-    private final Room certifiedForest = new CertifiedForest();
-    private final Room nonCertificedForest = new NonCertifiedForest();
+    private final Trailer trailer = new Trailer();
+    private final Player humanPlayer = new Player(trailer);
+    private final Forest certifiedForest = new CertifiedForest();
+    private final Forest nonCertificedForest = new NonCertifiedForest();
     private final Room localVillage = new LocalVillage();
     private final Room store = new Store();
     private final Room tutorialRoom = new TutorialRoom();
@@ -45,8 +45,9 @@ public class Game {
         certifiedForest.setOptions("choptree", "1");
         certifiedForest.setOptions("chop", "1");
         certifiedForest.setOptions("chopwood", "1");
-        certifiedForest.setOptions("treesleft", "2");
-        certifiedForest.setOptions("trees", "2");
+        certifiedForest.setOptions("treeinfo", "2");
+        certifiedForest.setOptions("info", "2");
+        certifiedForest.setOptions("tree", "2");
         certifiedForest.setOptions("replanttrees", "3");
         certifiedForest.setOptions("replant", "3");
         //Trailer
@@ -61,8 +62,9 @@ public class Game {
         nonCertificedForest.setOptions("choptree", "1");
         nonCertificedForest.setOptions("chop", "1");
         nonCertificedForest.setOptions("chopwood", "1");
-        nonCertificedForest.setOptions("treesleft", "2");
-        nonCertificedForest.setOptions("trees", "2");
+        nonCertificedForest.setOptions("treeinfo", "2");
+        nonCertificedForest.setOptions("tree", "2");
+        nonCertificedForest.setOptions("info", "2");
         //Store
         store.setOptions("selllogs", "1");
         store.setOptions("sell", "1");
@@ -98,9 +100,9 @@ public class Game {
     private void printWelcome() {
         System.out.println("Welcome to 'The LumberJack'! \n"
             + "Your job as a lumberjack, is to cut down trees. \n"
-            + "You have " + Player.getNumPlayDays() + " days playtime to earn as much money as you can\n"
+            + "You have " + trailer.getNUM_PLAY_DAYS() + " days playtime to earn as much money as you can\n"
             + "without destroying the earth!\n");
-        System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
+        System.out.println(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
     }
 
     private boolean processCommand(Command command) {
@@ -154,7 +156,7 @@ public class Game {
         if (direction.equals("back")) {
             if (humanPlayer.getPreviousRoom() != null && !(humanPlayer.getPreviousRoom() instanceof TutorialRoom)) {
                 humanPlayer.setCurrentRoom(humanPlayer.getPreviousRoom());
-                System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
+                System.out.println(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
                 return;
             }
         }
@@ -165,7 +167,7 @@ public class Game {
             System.out.println("There is no road!");
         } else {
             humanPlayer.setCurrentRoom(nextRoom);
-            System.out.println(humanPlayer.getCurrentRoom().getLongDescription(humanPlayer));
+            System.out.println(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
         }
     }
 
@@ -174,6 +176,7 @@ public class Game {
             System.out.println("Quit what?");
             return false;
         } else {
+            System.out.println("Your score is: " + humanPlayer.getHighScore());
             return true;
         }
     }

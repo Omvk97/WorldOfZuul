@@ -11,8 +11,8 @@ public abstract class Room {
     private final HashMap<String, String> options;
 
     public Room() {
-        exits = new HashMap();
-        options = new HashMap();
+        exits = new HashMap<>();
+        options = new HashMap<>();
     }
 
     public void setExit(String direction, Room neighbor) {
@@ -23,7 +23,7 @@ public abstract class Room {
         options.put(userInput, optionNumber);
     }
 
-    abstract public String getLongDescription(Player humanPlayer);
+    abstract public String roomEntrance(Player humanPlayer);
 
     public String getExitString() {
         StringBuilder returnString = new StringBuilder("Exits:");

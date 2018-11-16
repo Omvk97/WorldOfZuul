@@ -10,7 +10,7 @@ public class Library extends Room {
     }
 
     @Override
-    public String getLongDescription(Player humanplayer) {
+    public String roomEntrance(Player humanplayer) {
         return libraryOwner + "Hi, which book do you want to read?\n"
             + "---------------------------------------------\n"
             + "○ Read book 1 ➤ \"The Felling of Trees\"\n"

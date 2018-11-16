@@ -12,13 +12,13 @@ public class LocalVillage extends Room {
     }
 
     @Override
-    public String getLongDescription(Player humanPlayer) {
+    public String roomEntrance(Player humanPlayer) {
         return "You are standing in the local village! \n"
             + getScenario(humanPlayer);
     }
 
     public String getScenario(Player humanPlayer) {
-        LinkedHashMap<Integer, String> scenarios = new LinkedHashMap();
+        LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
 
         scenarios.put(29, "The local people from the village are happy about your\n"
             + "environmental considerations and wildlife is flourishing");
@@ -40,7 +40,7 @@ public class LocalVillage extends Room {
             + "You see a sign \"Death to all lumberjacks\"...");
 
         int climatePoints = humanPlayer.getClimatePoints();
-        List<Integer> keySet = new ArrayList(scenarios.keySet());
+        List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {
             if (climatePoints > keySet.get(0)) {
                 return giftScenario(humanPlayer);

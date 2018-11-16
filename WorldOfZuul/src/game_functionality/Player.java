@@ -5,30 +5,27 @@ import game_elements.BackPack;
 import game_elements.BackPackFactory;
 import game_locations.Room;
 import game_locations.Trailer;
-import java.util.Scanner;
 
 public class Player {
 
-    private final static int NUM_PLAY_DAYS = 5;
-    private int numOfDaysGoneBy;
     private final static int MIN_CLIMATEPOINTS = -250;
+
     private int money;
     private int climatePoints;
     private boolean giftHasBeenGivenToday;
     private Room currentRoom = null;
     private Axe equippedAxe;
     private BackPack equippedBackPack;
-    private int saplingBundleAmount;
-    private boolean saplingsPlanted;
-    private boolean hasChoppedTrees;
+    private int amountOfSaplingsCarrying;
+    private int numChoppedTreesWithoutPlantingSaplings;
     private final Trailer trailer;
     private Room previousRoom;
+    private boolean hasSlept;
 
     public Player(Trailer trailer) {
         this.equippedBackPack = BackPackFactory.createStarterBackPack();
         this.trailer = trailer;
         this.previousRoom = trailer;
-        this.numOfDaysGoneBy = 1;
     }
 
     /**
@@ -99,10 +96,6 @@ public class Player {
         money -= newAxe.getPrice();
     }
 
-    public void pickedUpAxe(Axe axe) {
-        equippedAxe = axe;
-    }
-
     public void grindedAxe(int cost) {
         money -= cost;
     }
@@ -153,87 +146,52 @@ public class Player {
         equippedBackPack = newBackPack;
     }
 
-    public int getSaplingAmount() {
-        return saplingBundleAmount;
+    public int getAmountOfSaplingsCarrying() {
+        return amountOfSaplingsCarrying;
     }
 
     public boolean buySaplingBundle(int saplingBundleAmount, int saplingCost) {
         if (saplingCost <= money) {
             money -= saplingCost;
-            this.saplingBundleAmount += saplingBundleAmount;
+            this.amountOfSaplingsCarrying += saplingBundleAmount;
             return true;
         } else {
             return false;
         }
     }
 
-    public void plantSeeds() {
-        saplingsPlanted = true;
-        saplingBundleAmount--;
+    public int plantSeeds() {
+        int startAmountOfChoppedTrees = numChoppedTreesWithoutPlantingSaplings;
+        int saplingsPlanted = 0;
+        for (int i = 0; i < startAmountOfChoppedTrees; i++) {
+            if (amountOfSaplingsCarrying > 0) {
+                amountOfSaplingsCarrying--;
+                numChoppedTreesWithoutPlantingSaplings--;
+                saplingsPlanted++;
+            }
+        }
+        return saplingsPlanted;
     }
 
-    public void setHasChoppedTreesInCertifiedForest() {
-        hasChoppedTrees = true;
+    public void addChoppedTreesInCertifiedForest() {
+        numChoppedTreesWithoutPlantingSaplings++;
+    }
+
+    public int getNumChoppedTreesWithoutPlantingSaplings() {
+        return numChoppedTreesWithoutPlantingSaplings;
     }
 
     /**
-     * Resets all the things that the player can interact with during a day. Also checks if
-     * the player has choppedTrees without replanting, if this is the case the player will recieve a
+     * Resets all the things that the player can interact with during a day. Also checks if the
+     * player has choppedTrees without replanting, if this is the case the player will recieve a
      * fine and a quiz to reduce the fine amount.
+     * @param fineAmount how much the fine will cost the player, if any
      */
-    private void sleep() {
-        Boolean correctAnswer = true;
-        Scanner questionAnswer = new Scanner(System.in);
-        String questionOne = "How many million hectare forest area disappear each year?";
-        String questionTwo = "How many million hectare forest area does FSC cover over?";
-        String questionThree = "How many million hectare forest area does PEFC cover over?";
-        if (!saplingsPlanted && hasChoppedTrees) {
-            System.out.println("You didn't replant trees in the ceritifed forest\n"
-                + "here is a chance to redeem yourself");
-            int randomNum = (int) (Math.random() * 3) + 1;
-            switch (randomNum) {
-                case 1: {
-                    System.out.println(questionOne);
-                    String userAnswer = questionAnswer.nextLine();
-                    if (userAnswer.equals("7")) {
-                        System.out.println("Oh okay you will only receive a fine of 100 instead");
-                        money -= 100;
-                    } else {
-                        correctAnswer = false;
-                    }
-                    break;
-                }
-                case 2: {
-                    System.out.println(questionTwo);
-                    String userAnswer = questionAnswer.nextLine();
-                    if (userAnswer.equals("200")) {
-                        System.out.println("Oh okay you will only receive a fine of 100 instead");
-                        money -= 100;
-                    } else {
-                        correctAnswer = false;
-                    }
-                    break;
-                }
-                default: {
-                    System.out.println(questionThree);
-                    String userAnswer = questionAnswer.nextLine();
-                    if (userAnswer.equals("300")) {
-                        System.out.println("Oh okay you will only receive a fine of 100 instead");
-                        money -= 100;
-                    } else {
-                        correctAnswer = false;
-                    }
-                    break;
-                }
-            }
-        }
-        if (!correctAnswer) {
-            money -= 200;
-            System.out.println("WRONG ANSWER, YOU HAVE BEEN FINED 200 GOLD COINS. GO BACK TO SCHOOL");
-        }
-        saplingsPlanted = false;
-        hasChoppedTrees = false;
+    public void sleep(int fineAmount) {
+        money -= fineAmount;
+        numChoppedTreesWithoutPlantingSaplings = 0;
         giftHasBeenGivenToday = false;
+        hasSlept = true;
     }
 
     public boolean isGiftHasBeenGivenToday() {
@@ -244,32 +202,11 @@ public class Player {
         giftHasBeenGivenToday = true;
     }
 
-    /**
-     * Denne metode er til for at printe ud når spillet starter hvor mange dage der er i alt. Den
-     * bliver brugt i 'game' klassen.
-     *
-     * @return mængden af dage spilleren har.
-     */
-    public static int getNumPlayDays() {
-        return Player.NUM_PLAY_DAYS;
+    public boolean isHasSlept() {
+        return hasSlept;
     }
 
-    public void dayCounter(Player humanPlayer) {
-        int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
-        humanPlayer.sleep();
-        if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
-            System.out.println("THERE IS NO MORE DAYS, YOUR HIGHSCORE IS: "
-                + humanPlayer.getHighScore());
-            System.exit(0);
-        }
-        System.out.println("The sun goes down and you sleep tight \n"
-            + "ZzzzZzzzZzzzZzzz");
-        System.out.println("The sun rises and you are ready to tackle the day! \n"
-            + (daysleft > 1 ? "There are " + daysleft + " days left!"
-                : "This is your last day as a lumberjack!"));
-    }
-
-    public boolean isHasChoppedTrees() {
-        return hasChoppedTrees;
+    public void setHasSlept(boolean hasSlept) {
+        this.hasSlept = hasSlept;
     }
 }
