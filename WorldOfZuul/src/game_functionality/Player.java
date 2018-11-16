@@ -3,8 +3,10 @@ package game_functionality;
 import game_elements.Axe;
 import game_elements.BackPack;
 import game_elements.BackPackFactory;
+import game_elements.Tree;
 import game_locations.Room;
 import game_locations.Trailer;
+import java.util.ArrayList;
 
 public class Player {
 
@@ -100,10 +102,25 @@ public class Player {
         money -= cost;
     }
 
-    public Trailer getTrailer() {
-        return trailer;
+    public ArrayList<Tree> getLogsInStorage() {
+        return trailer.getLogsInStorage();
     }
 
+    /**
+     * when the trees are sold at the store, the storage has to be emptied
+     */
+    public void loadOffLogsInStorage() {
+        trailer.getLogsInStorage().clear();
+    }
+    
+    public boolean isStorageFull() {
+        return trailer.isStorageFull();
+    }
+    
+    public String putPlayerInTrailer() {
+        setCurrentRoom(trailer);
+        return currentRoom.roomEntrance(this);
+    }
     /**
      * @return boolean whether or not the player has an axe equipped
      */

@@ -53,10 +53,9 @@ public class LocalVillage extends Room {
     }
 
     public String giftScenario(Player humanPlayer) {
-        Trailer trailer = humanPlayer.getTrailer();
         if (!humanPlayer.isGiftHasBeenGivenToday()) {
-            if (trailer.isStorageFull()) {
-                trailer.getLogsInStorage().add(new NonCertifiedTree(12));
+            if (humanPlayer.isStorageFull()) {
+                humanPlayer.getLogsInStorage().add(new NonCertifiedTree(12));
                 int moneyAmountGiven = (int) (Math.random() * 10) + 1;
                 humanPlayer.addMoney(moneyAmountGiven);
                 humanPlayer.giftHasBeenGiven();

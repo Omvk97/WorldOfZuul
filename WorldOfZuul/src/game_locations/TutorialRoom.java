@@ -23,7 +23,6 @@ public class TutorialRoom extends Room {
 
     @Override
     public String roomEntrance(Player humanPlayer) {
-        Trailer trailer = humanPlayer.getTrailer();
         getAnswer();
         if (answer) {
             System.out.println("Welcome to the turtorial room! \n"
@@ -39,13 +38,11 @@ public class TutorialRoom extends Room {
             pause(2000);
             System.out.println("Type '" + CommandWord.HELP + "' if you ever need help.");
             pause(4000);
-            humanPlayer.setCurrentRoom(trailer);
-            return trailer.roomEntrance(humanPlayer);
+            return humanPlayer.putPlayerInTrailer();
         } else {
             System.out.println("Alright have fun!");
             System.out.println("Type '" + CommandWord.HELP + "' if you ever need help. \n");
-            humanPlayer.setCurrentRoom(trailer);
-            return trailer.roomEntrance(humanPlayer);
+            return humanPlayer.putPlayerInTrailer();
         }
     }
 

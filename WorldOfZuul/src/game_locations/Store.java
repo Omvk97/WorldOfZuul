@@ -29,7 +29,7 @@ public class Store extends Room {
 
     @Override
     public void option1(Player humanPlayer) {
-        if (humanPlayer.getTrailer().getLogsInStorage().isEmpty() && 
+        if (humanPlayer.getLogsInStorage().isEmpty() && 
             humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
             System.out.println(StoreOwner + "You have no logs to sell!");
             return;
@@ -43,10 +43,10 @@ public class Store extends Room {
                 + "You now have " + humanPlayer.getMoney() + " gold coins");
 
         }
-        if (!humanPlayer.getTrailer().getLogsInStorage().isEmpty()) {
-            humanPlayer.getTrailer().getLogsInStorage().forEach((tree) -> 
+        if (!humanPlayer.getLogsInStorage().isEmpty()) {
+            humanPlayer.getLogsInStorage().forEach((tree) -> 
                 humanPlayer.addMoney(tree.getTreePrice()));
-            humanPlayer.getTrailer().loadOffLogsInStorage();
+            humanPlayer.loadOffLogsInStorage();
             System.out.println("You have sold all the logs in your storage!");
         }
     }
