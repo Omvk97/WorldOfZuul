@@ -14,7 +14,8 @@ public class LocalVillage extends Room {
     @Override
     public String roomEntrance(Player humanPlayer) {
         return "You are standing in the local village! \n"
-            + getScenario(humanPlayer);
+            + getScenario(humanPlayer) + "\n"
+            + getExitString();
     }
 
     public String getScenario(Player humanPlayer) {

@@ -26,12 +26,8 @@ public abstract class Room {
     abstract public String roomEntrance(Player humanPlayer);
 
     public String getExitString() {
-        StringBuilder returnString = new StringBuilder("Exits:");
         Set<String> keys = exits.keySet();
-        for (String exit : keys) {
-            returnString.append(" ").append(exit);
-        }
-        return returnString.toString();
+        return keys.toString();//returnString.toString();
     }
 
     public String getOptions(String userInput) {

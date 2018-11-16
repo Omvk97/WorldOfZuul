@@ -8,10 +8,10 @@ public class NonCertifiedForest extends Forest {
 
     public NonCertifiedForest() {
         for (int i = 0; i < 15; i++) {
-            trees.add(new NonCertifiedTree((int) (Math.random() * 12) + 7));
+            trees.add(new NonCertifiedTree((int) (Math.random() * 5) + 7));
         }
         while (trees.size() < MAX_AMOUNTOFTREESINFOREST) {
-            trees.add(new NonCertifiedTree((int) (Math.random() * 9) + 1));
+            trees.add(new NonCertifiedTree((int) (Math.random() * 6) + 1));
         }
     }
 
@@ -55,6 +55,6 @@ public class NonCertifiedForest extends Forest {
                 counter++;
             }
         }
-        System.out.println("There are " + counter + " trees left ready to be felled!");
+        System.out.println("There are " + counter + " trees ready to be felled!");
     }
 }

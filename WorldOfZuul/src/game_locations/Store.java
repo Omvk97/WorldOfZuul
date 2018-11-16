@@ -29,8 +29,8 @@ public class Store extends Room {
 
     @Override
     public void option1(Player humanPlayer) {
-        if (humanPlayer.getLogsInStorage().isEmpty() && 
-            humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
+        if (humanPlayer.getLogsInStorage().isEmpty()
+            && humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
             System.out.println(StoreOwner + "You have no logs to sell!");
             return;
         }
@@ -39,16 +39,17 @@ public class Store extends Room {
                 humanPlayer.addMoney(tree.getTreePrice());
             }
             humanPlayer.backPack().emptyBackpack();
-            System.out.println("You have sold all the logs in your backpack!\n"
-                + "You now have " + humanPlayer.getMoney() + " gold coins");
+            System.out.println("You have sold all the logs in your backpack!\n");
 
         }
         if (!humanPlayer.getLogsInStorage().isEmpty()) {
-            humanPlayer.getLogsInStorage().forEach((tree) -> 
-                humanPlayer.addMoney(tree.getTreePrice()));
+            humanPlayer.getLogsInStorage().forEach((tree)
+                -> humanPlayer.addMoney(tree.getTreePrice()));
             humanPlayer.loadOffLogsInStorage();
             System.out.println("You have sold all the logs in your storage!");
         }
+        System.out.println("You now have " + humanPlayer.getMoney() + " gold coins");
+
     }
 
     @Override
@@ -92,17 +93,21 @@ public class Store extends Room {
         switch (userChoiceWithoutBloat) {
             case "1":
             case "smallbackpack":
+            case "small":
                 getBackPackInfo(humanPlayer, smallBackPack);
                 break;
             case "2":
             case "mediumbackpack":
+            case "medium":
                 getBackPackInfo(humanPlayer, mediumBackPack);
                 break;
             case "3":
             case "largebackpack":
+            case "large":
                 getBackPackInfo(humanPlayer, largeBackPack);
                 break;
             default:
+                System.out.println("I don't know what you mean");
                 first_menu(humanPlayer);
                 break;
         }
@@ -114,7 +119,7 @@ public class Store extends Room {
                 + "It costs you " + backPack.getPrice() + " gold coins");
             humanPlayer.boughtBackPack(backPack);
         } else {
-            System.out.println(StoreOwner + "YOU NEED " + backPack.getPrice() + " GOLD COINS TO BUY THIS.");
+            System.out.println(StoreOwner + "You don't have enough money ");
             first_menu(humanPlayer);
         }
     }

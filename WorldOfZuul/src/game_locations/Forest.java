@@ -39,8 +39,8 @@ public abstract class Forest extends Room {
     }
 
     private String treeSize(Tree tree) {
-        if (tree.getTreeHealth() >= MEDIUM_TREE_SIZE && tree.getTreeHealth()
-            <= LARGE_TREE_SIZE) {
+        if (tree.getTreeHealth() > MEDIUM_TREE_SIZE && tree.getTreeHealth()
+            < LARGE_TREE_SIZE) {
             return " at a medium sized tree!";
         } else {
             return " at a large tree!";
@@ -49,7 +49,7 @@ public abstract class Forest extends Room {
 
     public void treeGrowth() {
         for (Tree tree : trees) {
-            tree.treeGrowth((int) (Math.random() * 4) + 1);
+            tree.treeGrowth((int) (Math.random() * 2) + 1);
         }
     }
 
@@ -63,7 +63,7 @@ public abstract class Forest extends Room {
     private boolean chopWoodWithAxe(Player humanPlayer) {
         if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
             System.out.println("You swing your " + humanPlayer.getAxe().getDescription()
-                + treeSize(lastTreeInArray()) + " " + lastTreeInArray().getTreeHealth());
+                + treeSize(lastTreeInArray()));
 
             while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxe().getDamage() >= 0) {
                 lastTreeInArray().reduceTreeHealth(humanPlayer.getAxe().getDamage());
@@ -101,7 +101,7 @@ public abstract class Forest extends Room {
      */
     private boolean chopWoodWithHands(Player humanPlayer) {
         if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
-            System.out.println("You throw a punch" + treeSize(lastTreeInArray()) + " " + lastTreeInArray().getTreeHealth());
+            System.out.println("You throw a punch" + treeSize(lastTreeInArray()));
             while (lastTreeInArray().getTreeHealth() - 2 >= 0) {
                 lastTreeInArray().reduceTreeHealth(2);
                 System.out.println("**POW**");

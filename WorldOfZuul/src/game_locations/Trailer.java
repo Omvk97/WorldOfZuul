@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Trailer extends Room {
-    private final static int NUM_PLAY_DAYS = 30;
+    private final static int NUM_PLAY_DAYS = 20;
     private final static int MAX_TREESTORAGEAMOUNT = 30;
     private final ArrayList<Tree> logsInStorage;
     private Axe starterAxe = AxeFactory.createStarterAxe();

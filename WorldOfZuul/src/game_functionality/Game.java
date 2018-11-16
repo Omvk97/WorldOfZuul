@@ -140,9 +140,9 @@ public class Game {
     }
 
     private void printHelp() {
-        System.out.println("You are a lumberjack, your job is to cut down trees!");
-        System.out.println("Your command words are:");
-        parser.showCommands();
+        System.out.println("You can type 'exits' to get the directions you can go"
+            + "2. You can type 'go back' to go to the place you came from previously"
+            + "3. You can type 'quit' to quit the game");
     }
 
     private void goRoom(Command command) {

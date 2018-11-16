@@ -73,7 +73,7 @@ public class TutorialRoom extends Room {
                     break;
                 default:
                     System.out.println("Incorrect answer, try again!");
-                    option = input.nextLine();
+                    option = input.nextLine().toLowerCase().replaceAll("\\s", "");
             }
         }
     }
@@ -83,7 +83,7 @@ public class TutorialRoom extends Room {
         String goWest = input.nextLine().toLowerCase().replaceAll("\\s", "");
         while (!goWest.equals("gowest")) {
             System.out.println("Incorrect, try again");
-            goWest = input.nextLine();
+            goWest = input.nextLine().toLowerCase().replaceAll("\\s", "");
         }
     }
 

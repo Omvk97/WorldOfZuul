@@ -8,10 +8,10 @@ public class CertifiedForest extends Forest {
 
     public CertifiedForest() {
         for (int i = 0; i < 15; i++) {
-            trees.add(new CertifiedTree((int) (Math.random() * 12) + 10));
+            trees.add(new CertifiedTree((int) (Math.random() * 2) + 10));
         }
         while (trees.size() < MAX_AMOUNTOFTREESINFOREST) {
-            trees.add(new CertifiedTree((int) (Math.random() * 9) + 1));
+            trees.add(new CertifiedTree((int) (Math.random() * 6) + 1));
         }
     }
 
@@ -24,9 +24,10 @@ public class CertifiedForest extends Forest {
         }
         moveChoppableTreesUp();
         return "You are standing in a certified forest!\n"
-            + "In this forest you can plant new trees, but you are only allowed to fell large trees!\n"
+            + "In this forest you can plant new trees, but you are only allowed to \n"
+            + "fell large trees! Also if you don't seed the forest after felling\n"
+            + "you will be fined the next day! \n"
             + "There currently are " + trees.size() + " trees" + "\n"
-            + "If you don't seed the forest after felling trees you will be fined the next day! \n"
             + "-----------------------------------------------------------\n"
             + "○ Chop Tree ➤ Cut down a tree and bring it with you \n"
             + "○ Tree info ➤ Trees left in the forest big enough to chop \n"
@@ -58,7 +59,7 @@ public class CertifiedForest extends Forest {
 
     @Override
     public void option2(Player humanPlayer) {
-        System.out.println("There are " + numberOfTreesBigEnoughToChop() + " trees left ready to be felled!");
+        System.out.println("There are " + numberOfTreesBigEnoughToChop() + " trees ready to be felled!");
     }
 
     @Override
@@ -84,7 +85,7 @@ public class CertifiedForest extends Forest {
      */
     public void plantNewTrees(int numOfTreesToBeAdded) {
         for (int i = 0; i < numOfTreesToBeAdded && trees.size() < numOfTreesToBeAdded; i++) {
-            trees.add(new CertifiedTree((int) (Math.random() * 3) + 1));
+            trees.add(new CertifiedTree((int) (Math.random() * 2) + 1));
         }
     }
 }

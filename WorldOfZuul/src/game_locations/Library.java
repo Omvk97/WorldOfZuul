@@ -25,9 +25,8 @@ public class Library extends Room {
             + "Around the globe 7 million hectare of forest area disappear each year \n"
             + "due to deforestation.\n"
             + "The decreased forest areas causes several species to become endangered.\n"
-            + "It is estimated that 15% of all greenhouse gas emissions are the result"
-            + "of deforestation.\n"
-            + "This is very bad");
+            + "It is estimated that 15% of all greenhouse gas emissions are the result\n"
+            + "of deforestation. This is very bad.");
     }
 
     @Override

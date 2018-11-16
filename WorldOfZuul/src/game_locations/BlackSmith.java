@@ -30,8 +30,8 @@ public class BlackSmith extends Room {
         Axe steelAxe = AxeFactory.createSteelAxe();
         Axe diamondAxe = AxeFactory.createDiamondAxe();
         Axe fireAxe = AxeFactory.createFireAxe();
-        System.out.println(blackSmith + "I have many different axes, all"
-            + "sharp as an arrowtip.\n"
+        System.out.println(blackSmith + "I have many different axes, all "
+            + "sharp as an arrow's tip.\n"
             + ironAxe + "\n"
             + steelAxe + "\n"
             + diamondAxe + "\n"

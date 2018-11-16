@@ -60,36 +60,31 @@ public class Radio {
 
     public void localNews(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
-        scenarios.put(49, weatherReporter + "The weather forecast indicates mild winds\n"
+        scenarios.put(-199, weatherReporter + "The weather forecast indicates mild winds\n"
             + "Local Temperature: 32 degree Celsius\n"
             + "Wind Speeds: 5 m/sec\n");
-
-        scenarios.put(39, weatherReporter + "The weather forecast indicates no clouds and warm temperatures\n"
+        scenarios.put(-149, weatherReporter + "The weather forecast indicates no clouds and warm temperatures\n"
             + "Local Temperature: 35 degree Celsius\n"
             + "Wind speeds: 2 m/sec\n");
-
-        scenarios.put(29, weatherReporter + "The weather forecast indicates light rain\n"
+        scenarios.put(-99, weatherReporter + "The weather forecast indicates light rain\n"
             + "Local Temperature: 28 degrees Celsius\n"
             + "Wind Speeds: 7 m/sec\n");
-        scenarios.put(19, weatherReporter + "The weather forecast indicates a calm weather\n"
+        scenarios.put(49, weatherReporter + "The weather forecast indicates a calm weather\n"
             + "Local Temperature: 30 degrees Celsius\n"
             + "Wind Speeds: Windstill\n");
-
-        scenarios.put(-19, weatherReporter + "The weather forecast indicates a heat wave\n"
+        scenarios.put(-49, weatherReporter + "The weather forecast indicates a heat wave\n"
             + "Local Temperature: 35 degrees Celsius\n"
             + "Wind Speeds: Windstill\n");
-
-        scenarios.put(-29, weatherReporter + "The weather forecast indicates stronger winds and heavy rain\n"
+        scenarios.put(-99, weatherReporter + "The weather forecast indicates stronger winds and heavy rain\n"
             + "Local Temperature: 30 degrees Celsius\n"
             + "Wind Speeds: 20 m/sec\n");
-
-        scenarios.put(-39, weatherReporter + "The weather forecast indicates a tropical storm\n"
+        scenarios.put(-149, weatherReporter + "The weather forecast indicates a tropical storm\n"
             + "Local Temperature: 25 degrees Celsius\n"
             + "Wind Speeds: 32 m/sec\n");
-        scenarios.put(-49, weatherReporter + "The weather forecast indicates a strong hurricane\n"
+        scenarios.put(-199, weatherReporter + "The weather forecast indicates a strong hurricane\n"
             + "Local Temperature: 25 degrees Celsius\n"
             + "Wind Speeds: 90 m/sec\n");
-        scenarios.put(-59, weatherReporter + "MALFUNCTION weather station destroyed\n"
+        scenarios.put(-249, weatherReporter + "MALFUNCTION weather station destroyed\n"
             + "Local Temperature: Error\n"
             + "Wind Speeds: Error\n");
 
