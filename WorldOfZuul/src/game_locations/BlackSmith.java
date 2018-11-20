@@ -12,6 +12,7 @@ public class BlackSmith extends Room {
     private final Scanner userPurchaseChoice = new Scanner(System.in);
 
     public BlackSmith() {
+        
     }
 
     @Override
