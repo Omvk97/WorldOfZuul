@@ -35,7 +35,7 @@ public class Store extends Room {
     public void option1(Player humanPlayer, Label textArea) {
         if (humanPlayer.getLogsInStorage().isEmpty()
             && humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
-            System.out.println(StoreOwner + "You have no logs to sell!");
+            textArea.setText(StoreOwner + "You have no logs to sell!");
             return;
         }
         if (!humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
@@ -43,26 +43,26 @@ public class Store extends Room {
                 humanPlayer.addMoney(tree.getTreePrice());
             }
             humanPlayer.backPack().emptyBackpack();
-            System.out.println("You have sold all the logs in your backpack!\n");
+            textArea.setText("You have sold all the logs in your backpack!\n");
 
         }
         if (!humanPlayer.getLogsInStorage().isEmpty()) {
             humanPlayer.getLogsInStorage().forEach((tree)
                 -> humanPlayer.addMoney(tree.getTreePrice()));
             humanPlayer.loadOffLogsInStorage();
-            System.out.println("You have sold all the logs in your storage!");
+            textArea.setText("You have sold all the logs in your storage!");
         }
-        System.out.println("You now have " + humanPlayer.getMoney() + " gold coins");
+        textArea.setText("You now have " + humanPlayer.getMoney() + " gold coins");
 
     }
 
     @Override
     public void option2(Player humanPlayer, Label textArea) {
-        first_menu(humanPlayer);
+        first_menu(humanPlayer, textArea);
     }
 
-    private void sapling_menu(Player humanPlayer) {
-        System.out.println(StoreOwner + "These saplings are cheap and make your trees grow! \n"
+    private void sapling_menu(Player humanPlayer, Label textArea) {
+        textArea.setText(StoreOwner + "These saplings are cheap and make your trees grow! \n"
             + "Only " + SAPLING_PRICE + " gold coins per sapling!\n"
             + "How many would you like to buy, friend?");
         String saplingAmountString = userPurchaseChoice.nextLine();
@@ -70,24 +70,24 @@ public class Store extends Room {
             int saplingAmountInt = Integer.parseInt(saplingAmountString);
             int saplingCost = saplingAmountInt * SAPLING_PRICE;
             if (humanPlayer.buySaplingBundle(saplingAmountInt, saplingCost)) {
-                System.out.println(StoreOwner + "You have bought " + saplingAmountInt
+                textArea.setText(StoreOwner + "You have bought " + saplingAmountInt
                     + " saplings for " + saplingCost + " gold coins");
             } else {
-                System.out.println("You don't have enough money for that friend");
-                first_menu(humanPlayer);
+                textArea.setText("You don't have enough money for that friend");
+                first_menu(humanPlayer, textArea);
             }
         } catch (NumberFormatException e) {
-            System.out.println("I don't know you mean, friend");
-            first_menu(humanPlayer);
+            textArea.setText("I don't know you mean, friend");
+            first_menu(humanPlayer, textArea);
         }
     }
 
-    private void BackPack_menu(Player humanPlayer) {
+    private void BackPack_menu(Player humanPlayer, Label textArea) {
         BackPack smallBackPack = BackPackFactory.createSmallBackPack();
         BackPack mediumBackPack = BackPackFactory.createMediumBackPack();
         BackPack largeBackPack = BackPackFactory.createLargeBackPack();
 
-        System.out.println(StoreOwner + "Here you see the backpacks I can offer you! \n"
+        textArea.setText(StoreOwner + "Here you see the backpacks I can offer you! \n"
             + smallBackPack + "\n"
             + mediumBackPack + "\n"
             + largeBackPack + "\n"
@@ -98,38 +98,38 @@ public class Store extends Room {
             case "1":
             case "smallbackpack":
             case "small":
-                getBackPackInfo(humanPlayer, smallBackPack);
+                getBackPackInfo(humanPlayer, smallBackPack, textArea);
                 break;
             case "2":
             case "mediumbackpack":
             case "medium":
-                getBackPackInfo(humanPlayer, mediumBackPack);
+                getBackPackInfo(humanPlayer, mediumBackPack, textArea);
                 break;
             case "3":
             case "largebackpack":
             case "large":
-                getBackPackInfo(humanPlayer, largeBackPack);
+                getBackPackInfo(humanPlayer, largeBackPack, textArea);
                 break;
             default:
-                System.out.println("I don't know what you mean");
-                first_menu(humanPlayer);
+                textArea.setText("I don't know what you mean");
+                first_menu(humanPlayer, textArea);
                 break;
         }
     }
 
-    private void getBackPackInfo(Player humanPlayer, BackPack backPack) {
+    private void getBackPackInfo(Player humanPlayer, BackPack backPack, Label textArea) {
         if (humanPlayer.getMoney() >= backPack.getPrice()) {
-            System.out.println(StoreOwner + "You just bought a " + backPack.getDescription() + "!\n"
+            textArea.setText(StoreOwner + "You just bought a " + backPack.getDescription() + "!\n"
                 + "It costs you " + backPack.getPrice() + " gold coins");
             humanPlayer.boughtBackPack(backPack);
         } else {
-            System.out.println(StoreOwner + "You don't have enough money ");
-            first_menu(humanPlayer);
+            textArea.setText(StoreOwner + "You don't have enough money ");
+            first_menu(humanPlayer, textArea);
         }
     }
 
-    private void first_menu(Player humanPlayer) {
-        System.out.println(StoreOwner + "What would you like to buy?\n"
+    private void first_menu(Player humanPlayer, Label textArea) {
+        textArea.setText(StoreOwner + "What would you like to buy?\n"
             + "Your wallet contains " + humanPlayer.getMoney() + " gold coins \n"
             + "----------------------------------------------\n"
             + "○ Backpack ➤ Choose a new and better backpack \n"
@@ -140,11 +140,11 @@ public class Store extends Room {
         switch (userChoiceWithoutBloat) {
             case "backpack":
             case "buy backpack":
-                BackPack_menu(humanPlayer);
+                BackPack_menu(humanPlayer, textArea);
                 break;
             case "sapling":
             case "buy sapling":
-                sapling_menu(humanPlayer);
+                sapling_menu(humanPlayer, textArea);
                 break;
             default:
                 break;

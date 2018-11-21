@@ -68,7 +68,7 @@ public class Trailer extends Room {
     @Override
     public void option1(Player humanPlayer, Label textArea) {
         if (humanPlayer.backPack().getAmountOfLogsInBackPack() == 0) {
-            System.out.println("You are not carrying any logs!");
+            textArea.setText("You are not carrying any logs!");
             return;
         }
         /**
@@ -86,16 +86,16 @@ public class Trailer extends Room {
                 getLogsInStorage().add(tree);
                 humanPlayer.backPack().removeLogFromBackpack();
             } else {
-                System.out.println("You carry too many logs to store!");
+                textArea.setText("You carry too many logs to store!");
                 break;
             }
         }
         if (isStorageFull()) {
-            System.out.println("Your storage contains " + getLogsInStorage().size() + " logs "
+            textArea.setText("Your storage contains " + getLogsInStorage().size() + " logs "
                 + "and is now full! \n"
                 + "Sell your logs in the store or upgrade storage space!");
         } else {
-            System.out.println("You now have " + getLogsInStorage().size()
+            textArea.setText("You now have " + getLogsInStorage().size()
                 + (getLogsInStorage().size() > 1 ? " logs" : " log") + " stored!");
         }
     }
@@ -103,9 +103,9 @@ public class Trailer extends Room {
     @Override
     public void option2(Player humanPlayer, Label textArea) {
         if (humanPlayer.getMoney() == 0) {
-            System.out.println("Your wallet is empty! What a shame!");
+            textArea.setText("Your wallet is empty! What a shame!");
         } else {
-            System.out.println("You wallet holds " + humanPlayer.getMoney() + " gold coins");
+            textArea.setText("You wallet holds " + humanPlayer.getMoney() + " gold coins");
         }
     }
 
@@ -117,18 +117,18 @@ public class Trailer extends Room {
         int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
         int fineAmount = 0;
         if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
-            fineAmount = givePlayerFine(humanPlayer);
-            System.out.println("Your fine amounts to " + fineAmount + " gold coins!");
+            fineAmount = givePlayerFine(humanPlayer, textArea);
+            textArea.setText("Your fine amounts to " + fineAmount + " gold coins!");
         }
         humanPlayer.sleep(fineAmount);
         if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
-            System.out.println("THERE IS NO MORE DAYS, YOUR HIGHSCORE IS: "
+            textArea.setText("THERE IS NO MORE DAYS, YOUR HIGHSCORE IS: "
                 + humanPlayer.getHighScore());
             System.exit(0);
         }
-        System.out.println("The sun goes down and you sleep tight \n"
+        textArea.setText("The sun goes down and you sleep tight \n"
             + "ZzzzZzzzZzzzZzzz");
-        System.out.println("The sun rises and you are ready to tackle the day! \n"
+        textArea.setText("The sun rises and you are ready to tackle the day! \n"
             + (daysleft > 1 ? "It's day " + numOfDaysGoneBy + " and there is " + daysleft + " days left"
                 : "This is your last day as a lumberjack!"));
         Random globalOrLocal = new Random();
@@ -156,39 +156,39 @@ public class Trailer extends Room {
         }
     }
 
-    private int givePlayerFine(Player humanPlayer) {
+    private int givePlayerFine(Player humanPlayer, Label textArea) {
         Boolean correctAnswer = true;
         Scanner questionAnswer = new Scanner(System.in);
         String questionOne = "How many million hectare forest area disappear each year?";
         String questionTwo = "How many million hectare forest area does FSC cover over?";
         String questionThree = "How many million hectare forest area does PEFC cover over?";
-        System.out.println("You didn't replant all the trees in the ceritifed forest!\n"
+        textArea.setText("You didn't replant all the trees in the ceritifed forest!\n"
             + "Here is a chance to redeem yourself");
         int randomNum = (int) (Math.random() * 3) + 1;
         switch (randomNum) {
             case 1:
-                System.out.println(questionOne);
-                correctAnswer = answerValidation(questionAnswer.nextLine(), "7");
+                textArea.setText(questionOne);
+                correctAnswer = answerValidation(questionAnswer.nextLine(), "7", textArea);
                 break;
             case 2:
-                System.out.println(questionTwo);
-                correctAnswer = answerValidation(questionAnswer.nextLine(), "200");
+                textArea.setText(questionTwo);
+                correctAnswer = answerValidation(questionAnswer.nextLine(), "200", textArea);
                 break;
             case 3:
-                System.out.println(questionThree);
-                correctAnswer = answerValidation(questionAnswer.nextLine(), "300");
+                textArea.setText(questionThree);
+                correctAnswer = answerValidation(questionAnswer.nextLine(), "300", textArea);
                 break;
         }
         if (!correctAnswer) {
-            System.out.println("WRONG, study in the library!");
+            textArea.setText("WRONG, study in the library!");
             return (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
         }
         return (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 +100);
     }
 
-    private boolean answerValidation(String userAnswer, String correctAnswer) {
+    private boolean answerValidation(String userAnswer, String correctAnswer, Label textArea) {
         if (userAnswer.contains(correctAnswer)) {
-            System.out.println("Correct! Your fine has been cut in half! We also need you\n"
+            textArea.setText("Correct! Your fine has been cut in half! We also need you\n"
                 + "to cover the cost of planting the trees that you forgot!\n");
             return true;
         } else {
