@@ -6,6 +6,7 @@ import game_functionality.Player;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 
 public class CertifiedForest extends Forest {
 
@@ -54,19 +55,19 @@ public class CertifiedForest extends Forest {
     }
 
     @Override
-    public void option1(Player humanPlayer) {
+    public void option1(Player humanPlayer, Label textArea) {
         if (chopWood(humanPlayer)) {
             humanPlayer.addChoppedTreesInCertifiedForest();
         }
     }
 
     @Override
-    public void option2(Player humanPlayer) {
+    public void option2(Player humanPlayer, Label textArea) {
         System.out.println("There are " + numberOfTreesBigEnoughToChop() + " trees ready to be felled!");
     }
 
     @Override
-    public void option3(Player humanPlayer) {
+    public void option3(Player humanPlayer, Label textArea) {
         if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() > 0) {
             int amountOfSeedsPlanted = humanPlayer.plantSeeds();
             if (amountOfSeedsPlanted > 0) {

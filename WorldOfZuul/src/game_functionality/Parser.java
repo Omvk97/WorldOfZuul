@@ -14,14 +14,12 @@ public class Parser {
         this.humanPlayer = humanPlayer;
     }
 
-    public Command getCommand() {
+    public Command getCommand(String userInput) {
         String inputLine;
         String word1 = null;
         String word2 = null;
-
-        System.out.print("> ");
-
-        inputLine = reader.nextLine();
+        
+        inputLine = userInput;
 
         Scanner tokenizer = new Scanner(inputLine);
         if (tokenizer.hasNext()) {

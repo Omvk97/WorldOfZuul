@@ -5,12 +5,14 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Game extends Application {
 
-//    private final Parser parser;
+    private final Parser parser;
     private final Trailer trailer = new Trailer();
     private final Player humanPlayer = new Player(trailer);
     private final Forest certifiedForest = new CertifiedForest();
@@ -25,7 +27,15 @@ public class Game extends Application {
     public Game() {
         setExitsForRooms();
         setOptionsForRooms();
-//        parser = new Parser(humanPlayer);
+        parser = new Parser(humanPlayer);
+    }
+
+    public Parser getParser() {
+        return parser;
+    }
+
+    public Player getHumanPlayer() {
+        return humanPlayer;
     }
 
     private void setExitsForRooms() {
@@ -93,22 +103,23 @@ public class Game extends Application {
 
     public void play() {
         humanPlayer.setCurrentRoom(trailer);
-        
-        printWelcome();
 
-        boolean finished = false;
+        printWelcome();
 //        while (!finished) {
 //            Command command = parser.getCommand();
 //            finished = processCommand(command);
 //        }
-        System.out.println("Thank you for playing The LumberJack. Goodbye.");
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 
     private void printWelcome() {
         System.out.println("Welcome to 'The LumberJack'! \n"
-                + "Your job as a lumberjack, is to cut down trees. \n"
-                + "You have " + trailer.getNUM_PLAY_DAYS() + " days playtime to earn as much money as you can\n"
-                + "without destroying the earth!\n");
+            + "Your job as a lumberjack, is to cut down trees. \n"
+            + "You have " + trailer.getNUM_PLAY_DAYS() + " days playtime to earn as much money as you can\n"
+            + "without destroying the earth!\n");
         System.out.println(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
     }
 
@@ -145,16 +156,14 @@ public class Game extends Application {
 //        }
 //        return wantToQuit;
 //    }
-
-    private void printHelp() {
-        System.out.println("You can type 'exits' to get the directions you can go"
-                + "2. You can type 'go back' to go to the place you came from previously"
-                + "3. You can type 'quit' to quit the game");
-    }
-
-    public void goRoom(Command command, AnchorPane anchorPane) {
+//    private void printHelp() {
+//        System.out.println("You can type 'exits' to get the directions you can go"
+//                + "2. You can type 'go back' to go to the place you came from previously"
+//                + "3. You can type 'quit' to quit the game");
+//    }
+    public void goRoom(Command command, AnchorPane anchorPane, Label text) {
         if (!command.hasSecondWord()) {
-            System.out.println("Go where?");
+            text.setText("Go where?");
             return;
         }
         String direction = command.getSecondWord();
@@ -163,7 +172,7 @@ public class Game extends Application {
         if (direction.equals("back")) {
             if (humanPlayer.getPreviousRoom() != null && !(humanPlayer.getPreviousRoom() instanceof TutorialRoom)) {
                 humanPlayer.setCurrentRoom(humanPlayer.getPreviousRoom());
-                System.out.println(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
+                text.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
                 return;
             }
         }
@@ -171,51 +180,56 @@ public class Game extends Application {
         Room nextRoom = humanPlayer.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("There is no road!");
+            text.setText("There is no road!");
         } else {
             humanPlayer.setCurrentRoom(nextRoom);
-            System.out.println(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
+            text.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
         }
         anchorPane.getChildren().setAll(humanPlayer.getCurrentRoom().getRoomFXML());
-        
     }
 
-    private boolean quit(Command command) {
+    public void printHelp(Label text) {
+        text.setText("You can type 'exits' to get the directions you can go\n"
+            + "2. You can type 'go back' to go to the place you came from previously\n"
+            + "3. You can type 'quit' to quit the game");
+    }
+
+    public boolean quit(Command command, Label text) {
         if (command.hasSecondWord()) {
-            System.out.println("Quit what?");
+            text.setText("Quit what?");
             return false;
         } else {
-            System.out.println("Your score is: " + humanPlayer.getHighScore());
+            text.setText("Your score is: " + humanPlayer.getHighScore());
             return true;
         }
     }
 
-    private void doOption(Command command) {
+    public void doOption(Command command, Label text) {
         if (!command.hasSecondWord()) {
-            System.out.println("Do what?");
+            text.setText("Do what?");
             return;
         }
         String optionNumber = command.getSecondWord();
         switch (optionNumber) {
             case "1":
-                humanPlayer.getCurrentRoom().option1(humanPlayer);
+                humanPlayer.getCurrentRoom().option1(humanPlayer, text);
                 break;
             case "2":
-                humanPlayer.getCurrentRoom().option2(humanPlayer);
+                humanPlayer.getCurrentRoom().option2(humanPlayer, text);
                 break;
             case "3":
-                humanPlayer.getCurrentRoom().option3(humanPlayer);
+                humanPlayer.getCurrentRoom().option3(humanPlayer, text);
                 break;
             case "4":
-                humanPlayer.getCurrentRoom().option4(humanPlayer);
+                humanPlayer.getCurrentRoom().option4(humanPlayer, text);
                 break;
             case "666":
-                System.out.println("THE DEVIL REWARDS YOU FOR YOUR CURIOSITY");
+                text.setText("THE DEVIL REWARDS YOU FOR YOUR CURIOSITY");
                 humanPlayer.addMoney(9999);
-                System.out.println(9999 + " HAS BEEN ADDED TO YOUR WALLET");
+                text.setText(9999 + " HAS BEEN ADDED TO YOUR WALLET");
                 break;
             default:
-                System.out.println("I do not know that option");
+                text.setText("I do not know that option");
         }
 
     }

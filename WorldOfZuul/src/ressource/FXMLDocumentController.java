@@ -4,51 +4,79 @@ import game_functionality.Command;
 import game_functionality.CommandWord;
 import game_functionality.CommandWords;
 import game_functionality.Game;
-import java.io.IOException;
+import game_functionality.Parser;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class FXMLDocumentController implements Initializable {
 
     @FXML
-    private ImageView player, wallet, gold;
-    private boolean up, down, left, right;
-    private double walletValue;
+    private ImageView player;
     @FXML
     private Label textArea;
     @FXML
     private AnchorPane anchorPane;
-    private CommandWords commands = new CommandWords();
+    @FXML
+    private TextField userAnswers;
+    private final CommandWords commands = new CommandWords();
+    private Command userCommand;
+    private Parser userInput;
+    private final Game game = new Game();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Game game = new Game();
         game.play();
-        player.setOnMouseClicked((MouseEvent key) -> {
-//            if(key.getCode().equals(KeyCode.LEFT)) {
-            System.out.println("hello");
-            game.goRoom(new Command(commands.getCommandWord("go"), "south"), anchorPane);
-//            anchorPane.getChildren().setAll(game.getHumanPlayer().getCurrentRoom().getRoomFXML());
-//            }
+        userInput = new Parser(game.getHumanPlayer());
+        userAnswers.setOnKeyPressed((KeyEvent key) -> {
+            if (key.getCode().equals(KeyCode.ENTER)) {
+                userCommand = userInput.getCommand(userAnswers.getText());
+                textArea.setText(userAnswers.getText());
+                userAnswers.clear();
+                validateCommand(userCommand);
+            }
         });
+    }
 
+    private boolean validateCommand(Command command) {
+        boolean wantToQuit = false;
+
+        CommandWord commandWord = command.getCommandWord();
+
+        if (commandWord == CommandWord.UNKNOWN) {
+            System.out.println("I don't know what you mean...");
+            return false;
+        }
+
+        if (null != commandWord) {
+            switch (commandWord) {
+                case HELP:
+                    game.printHelp(textArea);
+                    break;
+                case GO:
+                    game.goRoom(command, anchorPane, textArea);
+                    break;
+                case QUIT:
+                    wantToQuit = game.quit(command, textArea);
+                    break;
+                case OPTION:
+                    game.doOption(command, textArea);
+                    break;
+                case EXITS:
+                    textArea.setText(game.getHumanPlayer().getCurrentRoom().getExitString());
+                    break;
+                default:
+                    break;
+            }
+        }
+        return wantToQuit;
     }
 
 }

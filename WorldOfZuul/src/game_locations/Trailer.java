@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.Scanner;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 
 public class Trailer extends Room {
     private final static int NUM_PLAY_DAYS = 20;
@@ -65,7 +66,7 @@ public class Trailer extends Room {
     }
 
     @Override
-    public void option1(Player humanPlayer) {
+    public void option1(Player humanPlayer, Label textArea) {
         if (humanPlayer.backPack().getAmountOfLogsInBackPack() == 0) {
             System.out.println("You are not carrying any logs!");
             return;
@@ -100,7 +101,7 @@ public class Trailer extends Room {
     }
 
     @Override
-    public void option2(Player humanPlayer) {
+    public void option2(Player humanPlayer, Label textArea) {
         if (humanPlayer.getMoney() == 0) {
             System.out.println("Your wallet is empty! What a shame!");
         } else {
@@ -112,7 +113,7 @@ public class Trailer extends Room {
      * @param humanPlayer the user.
      */
     @Override
-    public void option3(Player humanPlayer) {
+    public void option3(Player humanPlayer, Label textArea) {
         int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
         int fineAmount = 0;
         if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
@@ -145,13 +146,13 @@ public class Trailer extends Room {
      * @param humanPlayer user that picks up the starter axe
      */
     @Override
-    public void option4(Player humanPlayer) {
+    public void option4(Player humanPlayer, Label textArea) {
         if (starterAxe != null) {
             humanPlayer.boughtAxe(starterAxe);
             starterAxe = null;
-            System.out.println("You equipped an axe!");
+            textArea.setText("You equipped an axe!");
         } else {
-            System.out.println("I don't know what you mean");
+            textArea.setText("I don't know what you mean");
         }
     }
 

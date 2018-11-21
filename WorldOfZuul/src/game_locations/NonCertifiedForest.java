@@ -6,6 +6,7 @@ import game_functionality.Player;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 
 public class NonCertifiedForest extends Forest {
 
@@ -41,7 +42,7 @@ public class NonCertifiedForest extends Forest {
     }
 
     @Override
-    public void option1(Player humanPlayer) {
+    public void option1(Player humanPlayer, Label textArea) {
         this.chopWood(humanPlayer);
         if (humanPlayer.getClimatePoints() == Player.getMIN_CLIMATEPOINTS()) {
             System.out.println("YOU DESTROYED THE EARTH, YOU HAVE CUT WAY TOO MUCH \n"
@@ -51,7 +52,7 @@ public class NonCertifiedForest extends Forest {
     }
 
     @Override
-    public void option2(Player humanPlayer) {
+    public void option2(Player humanPlayer, Label textArea) {
         int counter = 0;
         for (Tree tree : trees) {
             if (tree.getTreeHealth() >= MEDIUM_TREE_SIZE) {

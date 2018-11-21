@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 
 public class BlackSmith extends Room {
 
@@ -111,12 +112,12 @@ public class BlackSmith extends Room {
     }
 
     @Override
-    public void option1(Player humanPlayer) {
+    public void option1(Player humanPlayer, Label textArea) {
         grindAxe_menu(humanPlayer);
     }
 
     @Override
-    public void option2(Player humanPlayer) {
+    public void option2(Player humanPlayer, Label textArea) {
         Axe_menu(humanPlayer);
     }
 

@@ -4,6 +4,7 @@ import game_functionality.Player;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 
 public class Library extends Room {
 
@@ -23,7 +24,7 @@ public class Library extends Room {
     }
 
     @Override
-    public void option1(Player humanPlayer) {
+    public void option1(Player humanPlayer, Label textArea) {
         System.out.println("\"The Felling of Trees\" - written by professors.\n"
             + "Around the globe 7 million hectare of forest area disappear each year \n"
             + "due to deforestation.\n"
@@ -33,7 +34,7 @@ public class Library extends Room {
     }
 
     @Override
-    public void option2(Player humanPlayer) {
+    public void option2(Player humanPlayer, Label textArea) {
         System.out.println("\"The Story of FSC\" - written by FSC.\n"
             + "FSC, Forest Stewardship Council, is one of several large organizations\n"
             + "dedicated to combat deforestation.\n"
@@ -43,7 +44,7 @@ public class Library extends Room {
     }
 
     @Override
-    public void option3(Player humanPlayer) {
+    public void option3(Player humanPlayer, Label textArea) {
         System.out.println("\"The Story of PEFC\" - written by PEFC.\n"
             + "PEFC, Programme for the Endorsement of Forest Certification, is the largest\n"
             + "organization dedicated to combat deforestation.\n"
