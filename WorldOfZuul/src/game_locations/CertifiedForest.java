@@ -56,14 +56,14 @@ public class CertifiedForest extends Forest {
 
     @Override
     public void option1(Player humanPlayer, Label textArea) {
-        if (chopWood(humanPlayer)) {
+        if (chopWood(humanPlayer,textArea)) {
             humanPlayer.addChoppedTreesInCertifiedForest();
         }
     }
 
     @Override
     public void option2(Player humanPlayer, Label textArea) {
-        System.out.println("There are " + numberOfTreesBigEnoughToChop() + " trees ready to be felled!");
+        textArea.setText("There are " + numberOfTreesBigEnoughToChop() + " trees ready to be felled!");
     }
 
     @Override
@@ -72,13 +72,13 @@ public class CertifiedForest extends Forest {
             int amountOfSeedsPlanted = humanPlayer.plantSeeds();
             if (amountOfSeedsPlanted > 0) {
                 plantNewTrees(amountOfSeedsPlanted);
-                System.out.println("You just planted " + (amountOfSeedsPlanted > 1
+                textArea.setText("You just planted " + (amountOfSeedsPlanted > 1
                     ? amountOfSeedsPlanted + " saplings!" : "1 sapling!"));
             } else {
-                System.out.println("You don't have any saplings, go buy some!");
+                textArea.setText("You don't have any saplings, go buy some!");
             }
         } else {
-            System.out.println("You haven't chopped any trees today!");
+            textArea.setText("You haven't chopped any trees today!");
         }
     }
 

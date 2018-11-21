@@ -14,7 +14,7 @@ public class Library extends Room {
     }
 
     @Override
-    public String roomEntrance(Player humanplayer) {
+    public String roomEntrance(Player humanplayer,Label textArea) {
         return libraryOwner + "Hi, which book do you want to read?\n"
             + "---------------------------------------------\n"
             + "○ Read book 1 ➤ \"The Felling of Trees\"\n"
@@ -25,7 +25,7 @@ public class Library extends Room {
 
     @Override
     public void option1(Player humanPlayer, Label textArea) {
-        System.out.println("\"The Felling of Trees\" - written by professors.\n"
+        textArea.setText("\"The Felling of Trees\" - written by professors.\n"
             + "Around the globe 7 million hectare of forest area disappear each year \n"
             + "due to deforestation.\n"
             + "The decreased forest areas causes several species to become endangered.\n"
@@ -35,7 +35,7 @@ public class Library extends Room {
 
     @Override
     public void option2(Player humanPlayer, Label textArea) {
-        System.out.println("\"The Story of FSC\" - written by FSC.\n"
+        textArea.setText("\"The Story of FSC\" - written by FSC.\n"
             + "FSC, Forest Stewardship Council, is one of several large organizations\n"
             + "dedicated to combat deforestation.\n"
             + "Their main function involves certifying and regulating\n"
@@ -45,7 +45,7 @@ public class Library extends Room {
 
     @Override
     public void option3(Player humanPlayer, Label textArea) {
-        System.out.println("\"The Story of PEFC\" - written by PEFC.\n"
+        textArea.setText("\"The Story of PEFC\" - written by PEFC.\n"
             + "PEFC, Programme for the Endorsement of Forest Certification, is the largest\n"
             + "organization dedicated to combat deforestation.\n"
             + "Their main function involves certifying and regulating\n"
