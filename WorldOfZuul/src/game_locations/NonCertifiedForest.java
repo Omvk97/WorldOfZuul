@@ -3,6 +3,9 @@ package game_locations;
 import game_elements.NonCertifiedTree;
 import game_elements.Tree;
 import game_functionality.Player;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class NonCertifiedForest extends Forest {
 
@@ -56,5 +59,16 @@ public class NonCertifiedForest extends Forest {
             }
         }
         System.out.println("There are " + counter + " trees ready to be felled!");
+    }
+    
+    @Override
+    public Parent getRoomFXML() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("NonCertifiedForest.fxml"));
+            return root;
+        } catch (IOException ex) {
+            System.out.println("The fxml does not exist");
+        }
+        return null;
     }
 }

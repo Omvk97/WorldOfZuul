@@ -3,6 +3,9 @@ package game_locations;
 import game_elements.CertifiedTree;
 import game_elements.Tree;
 import game_functionality.Player;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class CertifiedForest extends Forest {
 
@@ -87,5 +90,16 @@ public class CertifiedForest extends Forest {
         for (int i = 0; i < numOfTreesToBeAdded && trees.size() < numOfTreesToBeAdded; i++) {
             trees.add(new CertifiedTree((int) (Math.random() * 2) + 1));
         }
+    }
+    
+    @Override
+    public Parent getRoomFXML() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("CertifiedForest.fxml"));
+            return root;
+        } catch (IOException ex) {
+            System.out.println("The fxml does not exist");
+        }
+        return null;
     }
 }

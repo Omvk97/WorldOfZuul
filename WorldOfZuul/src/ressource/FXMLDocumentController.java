@@ -33,7 +33,6 @@ public class FXMLDocumentController implements Initializable {
         player.setFocusTraversable(true);
         configureKeyPressed();
         configureKeyReleased();
-        configureMousePressed();
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -50,7 +49,6 @@ public class FXMLDocumentController implements Initializable {
                 if (right) {
                     dx += 2;
                 }
-                movePlayerBy(dx, dy);
             }
         };
         timer.start();
@@ -62,6 +60,7 @@ public class FXMLDocumentController implements Initializable {
                 case W:
                 case UP:
                     up = true;
+                    
                     break;
                 case D:
                 case RIGHT:
@@ -101,54 +100,8 @@ public class FXMLDocumentController implements Initializable {
             }
         });
     }
-
-    private double playerCharacterWidth() {
-        return player.getBoundsInLocal().getWidth() / 2;
-    }
-
-    private double playerCharacterHeight() {
-        return player.getBoundsInLocal().getHeight() / 2;
-    }
-
-    private void movePlayerBy(int dx, int dy) {
-        if (dx == 0 && dy == 0) {
-            return;
-        }
-
-        double x = playerCharacterWidth() + player.getLayoutX() + dx;
-        double y = playerCharacterHeight() + player.getLayoutY() + dy;
-
-        movePlayerTo(x, y);
-    }
-
-    private void movePlayerTo(double x, double y) {
-
-        if (x - playerCharacterWidth() >= 0 && x + playerCharacterWidth() <= player.getScene().getWidth()
-            && y - playerCharacterHeight() >= 0 && y + playerCharacterHeight() <= player.getScene().getHeight()) {
-            player.relocate(x - playerCharacterWidth(), y - playerCharacterHeight());
-        }
+    
+    private void goRoom(){
         
-        
-    }
-
-    private void configureMousePressed() {
-        wallet.setOnMouseClicked((MouseEvent event) -> {
-            if (player.getLayoutX() <= 70 && player.getLayoutY() <= 2) {
-                textArea.setText("Your wallet contains " + walletValue + " gold coins!");
-            } else {
-                textArea.setText("You are too far away from your wallet!");
-            }
-        });
-
-        gold.setOnMouseClicked((MouseEvent event) -> {
-            Stage test = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("FXML.fxml"));
-                Scene testerScene = new Scene(root);
-                test.setScene(testerScene);
-            } catch (IOException ex) {
-                System.out.println("Pølse");
-            }
-        });
     }
 }

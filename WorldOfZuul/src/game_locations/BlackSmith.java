@@ -3,8 +3,14 @@ package game_locations;
 import game_elements.Axe;
 import game_elements.AxeFactory;
 import game_functionality.Player;
+import java.io.IOException;
 
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class BlackSmith extends Room {
 
@@ -112,5 +118,16 @@ public class BlackSmith extends Room {
     @Override
     public void option2(Player humanPlayer) {
         Axe_menu(humanPlayer);
+    }
+
+    @Override
+    public Parent getRoomFXML() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Blacksmith.fxml"));
+            return root;
+        } catch (IOException ex) {
+            System.out.println("The fxml does not exist");
+        }
+        return null;
     }
 }

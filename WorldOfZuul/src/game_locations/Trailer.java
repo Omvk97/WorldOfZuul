@@ -5,10 +5,13 @@ import game_elements.Axe;
 import game_elements.AxeFactory;
 import game_elements.Tree;
 import game_functionality.Player;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class Trailer extends Room {
     private final static int NUM_PLAY_DAYS = 20;
@@ -190,6 +193,17 @@ public class Trailer extends Room {
         } else {
             return false;
         }
+    }
+    
+    @Override
+    public Parent getRoomFXML() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Trailer.fxml"));
+            return root;
+        } catch (IOException ex) {
+            System.out.println("The fxml does not exist");
+        }
+        return null;
     }
 
 }

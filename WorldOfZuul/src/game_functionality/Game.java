@@ -1,8 +1,13 @@
 package game_functionality;
 
 import game_locations.*;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class Game {
+public class Game extends Application {
 
     private final Parser parser;
     private final Trailer trailer = new Trailer();
@@ -86,7 +91,7 @@ public class Game {
 
     public void play() {
         humanPlayer.setCurrentRoom(tutorialRoom);
-
+        
         printWelcome();
 
         boolean finished = false;
@@ -99,9 +104,9 @@ public class Game {
 
     private void printWelcome() {
         System.out.println("Welcome to 'The LumberJack'! \n"
-            + "Your job as a lumberjack, is to cut down trees. \n"
-            + "You have " + trailer.getNUM_PLAY_DAYS() + " days playtime to earn as much money as you can\n"
-            + "without destroying the earth!\n");
+                + "Your job as a lumberjack, is to cut down trees. \n"
+                + "You have " + trailer.getNUM_PLAY_DAYS() + " days playtime to earn as much money as you can\n"
+                + "without destroying the earth!\n");
         System.out.println(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
     }
 
@@ -141,8 +146,8 @@ public class Game {
 
     private void printHelp() {
         System.out.println("You can type 'exits' to get the directions you can go"
-            + "2. You can type 'go back' to go to the place you came from previously"
-            + "3. You can type 'quit' to quit the game");
+                + "2. You can type 'go back' to go to the place you came from previously"
+                + "3. You can type 'quit' to quit the game");
     }
 
     private void goRoom(Command command) {
@@ -208,5 +213,16 @@ public class Game {
             default:
                 System.out.println("I do not know that option");
         }
+
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.show();
     }
 }

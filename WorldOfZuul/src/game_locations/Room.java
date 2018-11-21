@@ -4,6 +4,7 @@ import game_functionality.Player;
 
 import java.util.HashMap;
 import java.util.Set;
+import javafx.scene.Parent;
 
 public abstract class Room {
 
@@ -53,4 +54,6 @@ public abstract class Room {
     public void option4(Player humanPlayer) {
         System.out.println("There is no option 4 in this room");
     }
+    
+    abstract public Parent getRoomFXML();
 }

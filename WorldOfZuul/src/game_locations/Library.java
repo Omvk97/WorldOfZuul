@@ -1,6 +1,9 @@
 package game_locations;
 
 import game_functionality.Player;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class Library extends Room {
 
@@ -47,6 +50,17 @@ public class Library extends Room {
             + "Their main function involves certifying and regulating\n"
             + "forest areas to reduce reckless deforestation.\n"
             + "They cover over 300 million hectare certified forest areas globally.");
+    }
+    
+    @Override
+    public Parent getRoomFXML() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Library.fxml"));
+            return root;
+        } catch (IOException ex) {
+            System.out.println("The fxml does not exist");
+        }
+        return null;
     }
 
 }

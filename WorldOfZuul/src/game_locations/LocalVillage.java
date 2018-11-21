@@ -2,9 +2,12 @@ package game_locations;
 
 import game_elements.NonCertifiedTree;
 import game_functionality.Player;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class LocalVillage extends Room {
 
@@ -74,5 +77,16 @@ public class LocalVillage extends Room {
             return "The villagers are very happy about your envriomental efforts\n"
                 + "but they don't have any more gifts for you today";
         }
+    }
+    
+    @Override
+    public Parent getRoomFXML() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("LocalVillage.fxml"));
+            return root;
+        } catch (IOException ex) {
+            System.out.println("The fxml does not exist");
+        }
+        return null;
     }
 }

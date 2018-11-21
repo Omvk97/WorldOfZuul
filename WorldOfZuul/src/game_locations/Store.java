@@ -4,8 +4,11 @@ import game_elements.BackPack;
 import game_elements.BackPackFactory;
 import game_elements.Tree;
 import game_functionality.Player;
+import java.io.IOException;
 
 import java.util.Scanner;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class Store extends Room {
 
@@ -145,6 +148,17 @@ public class Store extends Room {
             default:
                 break;
         }
+    }
+    
+    @Override
+    public Parent getRoomFXML() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Store.fxml"));
+            return root;
+        } catch (IOException ex) {
+            System.out.println("The fxml does not exist");
+        }
+        return null;
     }
 
 }

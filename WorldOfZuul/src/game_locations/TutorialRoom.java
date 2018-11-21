@@ -2,10 +2,13 @@ package game_locations;
 
 import game_functionality.CommandWord;
 import game_functionality.Player;
+import java.io.IOException;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class TutorialRoom extends Room {
 
@@ -93,6 +96,17 @@ public class TutorialRoom extends Room {
         } catch (InterruptedException ex) {
             Logger.getLogger(TutorialRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    @Override
+    public Parent getRoomFXML() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("TutorialRoom.fxml"));
+            return root;
+        } catch (IOException ex) {
+            System.out.println("The fxml does not exist");
+        }
+        return null;
     }
 
 }
