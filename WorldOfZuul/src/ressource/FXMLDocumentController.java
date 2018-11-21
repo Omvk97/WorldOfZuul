@@ -1,5 +1,9 @@
 package ressource;
 
+import game_functionality.Command;
+import game_functionality.CommandWord;
+import game_functionality.CommandWords;
+import game_functionality.Game;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,8 +19,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class FXMLDocumentController implements Initializable {
@@ -27,81 +33,22 @@ public class FXMLDocumentController implements Initializable {
     private double walletValue;
     @FXML
     private Label textArea;
+    @FXML
+    private AnchorPane anchorPane;
+    private CommandWords commands = new CommandWords();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        player.setFocusTraversable(true);
-        configureKeyPressed();
-        configureKeyReleased();
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                int dx = 0, dy = 0;
-                if (up) {
-                    dy -= 2;
-                }
-                if (down) {
-                    dy += 2;
-                }
-                if (left) {
-                    dx -= 2;
-                }
-                if (right) {
-                    dx += 2;
-                }
-            }
-        };
-        timer.start();
+        Game game = new Game();
+        game.play();
+        player.setOnMouseClicked((MouseEvent key) -> {
+//            if(key.getCode().equals(KeyCode.LEFT)) {
+            System.out.println("hello");
+            game.goRoom(new Command(commands.getCommandWord("go"), "south"), anchorPane);
+//            anchorPane.getChildren().setAll(game.getHumanPlayer().getCurrentRoom().getRoomFXML());
+//            }
+        });
+
     }
 
-    private void configureKeyPressed() {
-        player.setOnKeyPressed((KeyEvent key) -> {
-            switch (key.getCode()) {
-                case W:
-                case UP:
-                    up = true;
-                    
-                    break;
-                case D:
-                case RIGHT:
-                    right = true;
-                    break;
-                case S:
-                case DOWN:
-                    down = true;
-                    break;
-                case A:
-                case LEFT:
-                    left = true;
-                    break;
-            }
-        });
-    }
-
-    private void configureKeyReleased() {
-        player.setOnKeyReleased((KeyEvent key) -> {
-            switch (key.getCode()) {
-                case W:
-                case UP:
-                    up = false;
-                    break;
-                case D:
-                case RIGHT:
-                    right = false;
-                    break;
-                case S:
-                case DOWN:
-                    down = false;
-                    break;
-                case A:
-                case LEFT:
-                    left = false;
-                    break;
-            }
-        });
-    }
-    
-    private void goRoom(){
-        
-    }
 }

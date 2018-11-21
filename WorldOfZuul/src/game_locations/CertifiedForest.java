@@ -95,7 +95,7 @@ public class CertifiedForest extends Forest {
     @Override
     public Parent getRoomFXML() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("CertifiedForest.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/CertifiedForest.fxml"));
             return root;
         } catch (IOException ex) {
             System.out.println("The fxml does not exist");

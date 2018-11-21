@@ -4,8 +4,16 @@
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <Button layoutX="272.0" layoutY="190.0" mnemonicParsing="false" text="Button" />
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="0.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="http://icons.iconarchive.com/icons/martin-berube/people/64/lumberjack-icon.png" />
+      </image>
+    </ImageView>
+  </children>
 </AnchorPane>

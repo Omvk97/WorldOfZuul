@@ -5,11 +5,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Game extends Application {
 
-    private final Parser parser;
+//    private final Parser parser;
     private final Trailer trailer = new Trailer();
     private final Player humanPlayer = new Player(trailer);
     private final Forest certifiedForest = new CertifiedForest();
@@ -19,11 +20,12 @@ public class Game extends Application {
     private final Room tutorialRoom = new TutorialRoom();
     private final Room blacksmith = new BlackSmith();
     private final Room library = new Library();
+    private Scene scene;
 
     public Game() {
         setExitsForRooms();
         setOptionsForRooms();
-        parser = new Parser(humanPlayer);
+//        parser = new Parser(humanPlayer);
     }
 
     private void setExitsForRooms() {
@@ -90,15 +92,15 @@ public class Game extends Application {
     }
 
     public void play() {
-        humanPlayer.setCurrentRoom(tutorialRoom);
+        humanPlayer.setCurrentRoom(trailer);
         
         printWelcome();
 
         boolean finished = false;
-        while (!finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
-        }
+//        while (!finished) {
+//            Command command = parser.getCommand();
+//            finished = processCommand(command);
+//        }
         System.out.println("Thank you for playing The LumberJack. Goodbye.");
     }
 
@@ -110,39 +112,39 @@ public class Game extends Application {
         System.out.println(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
     }
 
-    private boolean processCommand(Command command) {
-        boolean wantToQuit = false;
-
-        CommandWord commandWord = command.getCommandWord();
-
-        if (commandWord == CommandWord.UNKNOWN) {
-            System.out.println("I don't know what you mean...");
-            return false;
-        }
-
-        if (null != commandWord) {
-            switch (commandWord) {
-                case HELP:
-                    printHelp();
-                    break;
-                case GO:
-                    goRoom(command);
-                    break;
-                case QUIT:
-                    wantToQuit = quit(command);
-                    break;
-                case OPTION:
-                    doOption(command);
-                    break;
-                case EXITS:
-                    System.out.println(humanPlayer.getCurrentRoom().getExitString());
-                    break;
-                default:
-                    break;
-            }
-        }
-        return wantToQuit;
-    }
+//    private boolean processCommand(Command command) {
+//        boolean wantToQuit = false;
+//
+//        CommandWord commandWord = command.getCommandWord();
+//
+//        if (commandWord == CommandWord.UNKNOWN) {
+//            System.out.println("I don't know what you mean...");
+//            return false;
+//        }
+//
+//        if (null != commandWord) {
+//            switch (commandWord) {
+//                case HELP:
+//                    printHelp();
+//                    break;
+//                case GO:
+//                    goRoom(command);
+//                    break;
+//                case QUIT:
+//                    wantToQuit = quit(command);
+//                    break;
+//                case OPTION:
+//                    doOption(command);
+//                    break;
+//                case EXITS:
+//                    System.out.println(humanPlayer.getCurrentRoom().getExitString());
+//                    break;
+//                default:
+//                    break;
+//            }
+//        }
+//        return wantToQuit;
+//    }
 
     private void printHelp() {
         System.out.println("You can type 'exits' to get the directions you can go"
@@ -150,7 +152,7 @@ public class Game extends Application {
                 + "3. You can type 'quit' to quit the game");
     }
 
-    private void goRoom(Command command) {
+    public void goRoom(Command command, AnchorPane anchorPane) {
         if (!command.hasSecondWord()) {
             System.out.println("Go where?");
             return;
@@ -174,6 +176,8 @@ public class Game extends Application {
             humanPlayer.setCurrentRoom(nextRoom);
             System.out.println(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
         }
+        anchorPane.getChildren().setAll(humanPlayer.getCurrentRoom().getRoomFXML());
+        
     }
 
     private boolean quit(Command command) {
@@ -218,9 +222,9 @@ public class Game extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/ressource/FXMLDocument.fxml"));
 
-        Scene scene = new Scene(root);
+        scene = new Scene(root);
 
         stage.setScene(scene);
         stage.show();
