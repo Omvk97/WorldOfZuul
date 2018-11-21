@@ -45,7 +45,7 @@ public class NonCertifiedForest extends Forest {
     public void option1(Player humanPlayer, Label textArea) {
         this.chopWood(humanPlayer);
         if (humanPlayer.getClimatePoints() == Player.getMIN_CLIMATEPOINTS()) {
-            System.out.println("YOU DESTROYED THE EARTH, YOU HAVE CUT WAY TOO MUCH \n"
+            textArea.setText("YOU DESTROYED THE EARTH, YOU HAVE CUT WAY TOO MUCH \n"
                 + "NON CERTIFIED WOOD.");
             System.exit(0);
         }
@@ -59,7 +59,7 @@ public class NonCertifiedForest extends Forest {
                 counter++;
             }
         }
-        System.out.println("There are " + counter + " trees ready to be felled!");
+        textArea.setText("There are " + counter + " trees ready to be felled!");
     }
     
     @Override
