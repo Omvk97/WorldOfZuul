@@ -1,4 +1,4 @@
-package ressource;
+package room_fxml;
 
 import game_functionality.Command;
 import game_functionality.CommandWord;
@@ -11,15 +11,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class FXMLDocumentController implements Initializable {
 
-    @FXML
-    private ImageView player;
     @FXML
     private Label textArea;
     @FXML

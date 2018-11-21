@@ -6,8 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Game extends Application {
@@ -195,7 +195,7 @@ public class Game extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/ressource/FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/Trailer.fxml"));
 
         scene = new Scene(root);
 
