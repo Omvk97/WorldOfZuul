@@ -133,9 +133,9 @@ public class Trailer extends Room {
                 : "This is your last day as a lumberjack!"));
         Random globalOrLocal = new Random();
         if (globalOrLocal.nextBoolean()) {
-            radio.globalNews(humanPlayer);
+            radio.globalNews(humanPlayer, textArea);
         } else {
-            radio.localNews(humanPlayer);
+            radio.localNews(humanPlayer, textArea);
         }
     }
 
@@ -199,7 +199,7 @@ public class Trailer extends Room {
     @Override
     public Parent getRoomFXML() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("Trailer.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/Trailer.fxml"));
             return root;
         } catch (IOException ex) {
             System.out.println("The fxml does not exist");

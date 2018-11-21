@@ -154,7 +154,7 @@ public class Store extends Room {
     @Override
     public Parent getRoomFXML() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("Store.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/Store.fxml"));
             return root;
         } catch (IOException ex) {
             System.out.println("The fxml does not exist");

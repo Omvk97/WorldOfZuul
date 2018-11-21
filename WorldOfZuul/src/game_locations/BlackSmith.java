@@ -30,12 +30,12 @@ public class BlackSmith extends Room {
             + "---------------------------------------------";
     }
 
-    private void Axe_menu(Player humanPlayer) {
+    private void Axe_menu(Player humanPlayer, Label textArea) {
         Axe ironAxe = AxeFactory.createIronAxe();
         Axe steelAxe = AxeFactory.createSteelAxe();
         Axe diamondAxe = AxeFactory.createDiamondAxe();
         Axe fireAxe = AxeFactory.createFireAxe();
-        System.out.println(blackSmith + "I have many different axes, all "
+        textArea.setText(blackSmith + "I have many different axes, all "
             + "sharp as an arrow's tip.\n"
             + ironAxe + "\n"
             + steelAxe + "\n"
@@ -47,81 +47,81 @@ public class BlackSmith extends Room {
         switch (userChoiceWithoutBloat) {
             case "1":
             case "ironaxe":
-                getAxeInfo(humanPlayer, ironAxe);
+                getAxeInfo(humanPlayer, ironAxe, textArea);
                 break;
             case "2":
             case "steelaxe":
-                getAxeInfo(humanPlayer, steelAxe);
+                getAxeInfo(humanPlayer, steelAxe, textArea);
                 break;
             case "3":
             case "diamondaxe":
-                getAxeInfo(humanPlayer, diamondAxe);
+                getAxeInfo(humanPlayer, diamondAxe, textArea);
                 break;
             case "4":
             case "fireaxe":
-                getAxeInfo(humanPlayer, fireAxe);
+                getAxeInfo(humanPlayer, fireAxe, textArea);
                 break;
             default:
                 break;
         }
     }
 
-    private void getAxeInfo(Player humanPlayer, Axe axe) {
+    private void getAxeInfo(Player humanPlayer, Axe axe, Label textArea) {
         if (humanPlayer.getMoney() >= axe.getPrice()) {
-            System.out.println(blackSmith + "You just bought a " + axe.getDescription() + "!\n"
+            textArea.setText(blackSmith + "You just bought a " + axe.getDescription() + "!\n"
                 + "It costs you " + axe.getPrice() + " gold coins"
                 + "\nEnjoy it while it lasts!");
             humanPlayer.boughtAxe(axe);
         } else {
-            System.out.println(blackSmith + "YOU NEED " + axe.getPrice() + " GOLD COINS TO BUY THIS AXE");
+            textArea.setText(blackSmith + "YOU NEED " + axe.getPrice() + " GOLD COINS TO BUY THIS AXE");
         }
     }
 
-    private void grindAxe_menu(Player humanPlayer) {
+    private void grindAxe_menu(Player humanPlayer, Label textArea) {
         final int pricePerAxeDurability = 2;
 
         if (humanPlayer.getAxe() == null) {
-            System.out.println(blackSmith + "You don't have an axe equipped");
+            textArea.setText(blackSmith + "You don't have an axe equipped");
 
         } else if (humanPlayer.getAxe().getDurability() == humanPlayer.getAxe().getStartDurability()) {
-            System.out.println("Your axe is fine! Come back if it ever gets dull");
+            textArea.setText("Your axe is fine! Come back if it ever gets dull");
 
         } else if (humanPlayer.getAxe().getDurability() < humanPlayer.getAxe().getStartDurability()) {
             int durabilityLostOnAxe = humanPlayer.getAxe().getStartDurability() - humanPlayer.getAxe().getDurability();
             int fixAxePrice = pricePerAxeDurability * durabilityLostOnAxe;
             if (humanPlayer.getMoney() >= fixAxePrice) {
-                System.out.println(blackSmith + "I will grind your axe for you. Please wait");
+                textArea.setText(blackSmith + "I will grind your axe for you. Please wait");
                 int timeToWait = 6;
                 try {
                     for (int i = 0; i < timeToWait; i++) {
                         Thread.sleep(1000);
-                        System.out.println("**Ding**");
+                        textArea.setText("**Ding**");
                     }
                     humanPlayer.grindedAxe(fixAxePrice);
-                    System.out.println("Your axe is done");
+                    textArea.setText("Your axe is done");
                 } catch (InterruptedException ie) {
                     Thread.currentThread().interrupt();
                 }
             } else {
-                System.out.println("You do not have enough money");
+                textArea.setText("You do not have enough money");
             }
         }
     }
 
     @Override
     public void option1(Player humanPlayer, Label textArea) {
-        grindAxe_menu(humanPlayer);
+        grindAxe_menu(humanPlayer, textArea);
     }
 
     @Override
     public void option2(Player humanPlayer, Label textArea) {
-        Axe_menu(humanPlayer);
+        Axe_menu(humanPlayer, textArea);
     }
 
     @Override
     public Parent getRoomFXML() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("Blacksmith.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/Blacksmith.fxml"));
             return root;
         } catch (IOException ex) {
             System.out.println("The fxml does not exist");

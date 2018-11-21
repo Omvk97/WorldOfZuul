@@ -33,12 +33,11 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        game.play();
+        game.play(textArea);
         userInput = new Parser(game.getHumanPlayer());
         userAnswers.setOnKeyPressed((KeyEvent key) -> {
             if (key.getCode().equals(KeyCode.ENTER)) {
                 userCommand = userInput.getCommand(userAnswers.getText());
-                textArea.setText(userAnswers.getText());
                 userAnswers.clear();
                 validateCommand(userCommand);
             }

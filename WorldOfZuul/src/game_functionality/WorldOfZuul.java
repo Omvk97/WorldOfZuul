@@ -26,7 +26,6 @@ public class WorldOfZuul {
     public static void main(String[] args) {
         Application.launch(Game.class, args);
         Game game = new Game();
-        game.play();
     }
     
 }

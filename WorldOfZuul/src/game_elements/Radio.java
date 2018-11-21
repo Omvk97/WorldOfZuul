@@ -4,12 +4,13 @@ import game_functionality.Player;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import javafx.scene.control.Label;
 
 public class Radio {
 
     private final String weatherReporter = "Jensen: ";
 
-    public void globalNews(Player humanPlayer) {
+    public void globalNews(Player humanPlayer, Label textArea) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
         scenarios.put(249, weatherReporter + "The atmosphere is very stable and optimal\n"
             + "Global Temperature: 21 degrees Celsius\n"
@@ -47,18 +48,18 @@ public class Radio {
         List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {
             if (climatePoints > keySet.get(0)) {
-                System.out.print(scenarios.get(keySet.get(0)));
+                textArea.setText(scenarios.get(keySet.get(0)));
                 break;
             } else if (climatePoints < keySet.get(keySet.size() - 1)) {
-                System.out.print(scenarios.get(keySet.get(keySet.size() - 1)));
+                textArea.setText(scenarios.get(keySet.get(keySet.size() - 1)));
                 break;
             } else if (climatePoints < keySet.get(i) && climatePoints > keySet.get(i + 1)) {
-                System.out.print(scenarios.get(keySet.get(i)));
+                textArea.setText(scenarios.get(keySet.get(i)));
             }
         }
     }
 
-    public void localNews(Player humanPlayer) {
+    public void localNews(Player humanPlayer, Label textArea) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
         scenarios.put(-199, weatherReporter + "The weather forecast indicates mild winds\n"
             + "Local Temperature: 32 degree Celsius\n"
@@ -92,13 +93,13 @@ public class Radio {
         List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {
             if (climatePoints > keySet.get(0)) {
-                System.out.print(scenarios.get(keySet.get(0)));
+                textArea.setText(scenarios.get(keySet.get(0)));
                 break;
             } else if (climatePoints < keySet.get(keySet.size() - 1)) {
-                System.out.print(scenarios.get(keySet.get(keySet.size() - 1)));
+                textArea.setText(scenarios.get(keySet.get(keySet.size() - 1)));
                 break;
             } else if (climatePoints < keySet.get(i) && climatePoints > keySet.get(i + 1)) {
-                System.out.print(scenarios.get(keySet.get(i)));
+                textArea.setText(scenarios.get(keySet.get(i)));
             }
         }
     }

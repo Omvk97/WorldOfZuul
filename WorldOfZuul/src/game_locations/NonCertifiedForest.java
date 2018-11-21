@@ -43,7 +43,7 @@ public class NonCertifiedForest extends Forest {
 
     @Override
     public void option1(Player humanPlayer, Label textArea) {
-        this.chopWood(humanPlayer);
+        this.chopWood(humanPlayer, textArea);
         if (humanPlayer.getClimatePoints() == Player.getMIN_CLIMATEPOINTS()) {
             textArea.setText("YOU DESTROYED THE EARTH, YOU HAVE CUT WAY TOO MUCH \n"
                 + "NON CERTIFIED WOOD.");
@@ -65,7 +65,7 @@ public class NonCertifiedForest extends Forest {
     @Override
     public Parent getRoomFXML() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("NonCertifiedForest.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/NonCertifiedForest.fxml"));
             return root;
         } catch (IOException ex) {
             System.out.println("The fxml does not exist");

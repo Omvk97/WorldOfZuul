@@ -14,7 +14,7 @@ public class Library extends Room {
     }
 
     @Override
-    public String roomEntrance(Player humanplayer,Label textArea) {
+    public String roomEntrance(Player humanplayer) {
         return libraryOwner + "Hi, which book do you want to read?\n"
             + "---------------------------------------------\n"
             + "○ Read book 1 ➤ \"The Felling of Trees\"\n"
@@ -56,7 +56,7 @@ public class Library extends Room {
     @Override
     public Parent getRoomFXML() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("Library.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/Library.fxml"));
             return root;
         } catch (IOException ex) {
             System.out.println("The fxml does not exist");

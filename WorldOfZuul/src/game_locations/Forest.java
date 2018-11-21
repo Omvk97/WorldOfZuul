@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Label;
 
 public abstract class Forest extends Room {
 
@@ -30,11 +31,11 @@ public abstract class Forest extends Room {
         return trees.get(trees.size() - 1);
     }
 
-    protected boolean chopWood(Player humanPlayer) {
+    protected boolean chopWood(Player humanPlayer, Label textArea) {
         if (humanPlayer.getAxe() != null) {
-            return chopWoodWithAxe(humanPlayer);
+            return chopWoodWithAxe(humanPlayer, textArea);
         } else {
-            return chopWoodWithHands(humanPlayer);
+            return chopWoodWithHands(humanPlayer, textArea);
         }
     }
 
@@ -60,35 +61,35 @@ public abstract class Forest extends Room {
      * @param humanPlayer chopping a tree
      * @return if the tree cutting was succesfull.
      */
-    private boolean chopWoodWithAxe(Player humanPlayer) {
+    private boolean chopWoodWithAxe(Player humanPlayer, Label textArea) {
         if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
-            System.out.println("You swing your " + humanPlayer.getAxe().getDescription()
+            textArea.setText("You swing your " + humanPlayer.getAxe().getDescription()
                 + treeSize(lastTreeInArray()));
 
             while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxe().getDamage() >= 0) {
                 lastTreeInArray().reduceTreeHealth(humanPlayer.getAxe().getDamage());
-                System.out.println("**CHOP**");
+                textArea.setText("**CHOP**");
                 sleepPause();
             }
             humanPlayer.backPack().addTreeToBackpack(lastTreeInArray());
             humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
             trees.remove(lastTreeInArray());
-            System.out.println("**CHOP**");
+            textArea.setText("**CHOP**");
             sleepPause();
             humanPlayer.useAxe();
-            System.out.println("You felled a tree! You are now carrying "
+            textArea.setText("You felled a tree! You are now carrying "
                 + humanPlayer.backPack().getAmountOfLogsInBackPack()
                 + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " trees" : " tree"));
             return true;
         } else if (playerCanCarryMoreTree(humanPlayer) && !thereIsMoreTreesToCut()) {
-            System.out.println("There is no more trees to fell right now!"
+            textArea.setText("There is no more trees to fell right now!"
                 + (this instanceof CertifiedForest ? "\nYou have to wait for the forest to regrow!"
                     : ""));
         } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree(humanPlayer)) {
-            System.out.println("You are carrying too much wood!\n"
+            textArea.setText("You are carrying too much wood!\n"
                 + "Sell or store your logs!");
         } else {
-            System.out.println("There is no trees to fell and your backpack is full!");
+            textArea.setText("There is no trees to fell and your backpack is full!");
         }
         return false;
     }
@@ -99,32 +100,32 @@ public abstract class Forest extends Room {
      * @param humanPlayer chopping the trees
      * @return if the tree cutting was succesfull.
      */
-    private boolean chopWoodWithHands(Player humanPlayer) {
+    private boolean chopWoodWithHands(Player humanPlayer, Label textArea) {
         if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
-            System.out.println("You throw a punch" + treeSize(lastTreeInArray()));
+            textArea.setText("You throw a punch" + treeSize(lastTreeInArray()));
             while (lastTreeInArray().getTreeHealth() - 2 >= 0) {
                 lastTreeInArray().reduceTreeHealth(2);
-                System.out.println("**POW**");
+                textArea.setText("**POW**");
                 sleepPause();
             }
             humanPlayer.backPack().addTreeToBackpack(lastTreeInArray());
             humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
             trees.remove(lastTreeInArray());
-            System.out.println("**POW**");
+            textArea.setText("**POW**");
             sleepPause();
-            System.out.println("You have punched down a tree! You are now carrying "
+            textArea.setText("You have punched down a tree! You are now carrying "
                 + humanPlayer.backPack().getAmountOfLogsInBackPack()
                 + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
             return true;
         } else if (playerCanCarryMoreTree(humanPlayer) && !thereIsMoreTreesToCut()) {
-            System.out.println("There is no more trees to chop down right now!"
+            textArea.setText("There is no more trees to chop down right now!"
                 + (this instanceof CertifiedForest ? "\nYou have to wait for the forest to regrow!"
                     : ""));
         } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree(humanPlayer)) {
-            System.out.println("You are carrying too much wood!\n"
+            textArea.setText("You are carrying too much wood!\n"
                 + "Sell or store your logs!");
         } else {
-            System.out.println("There is no trees to fell and your backpack is full!");
+            textArea.setText("There is no trees to fell and your backpack is full!");
         }
         return false;
     }

@@ -101,66 +101,24 @@ public class Game extends Application {
         library.setOptions("book3", "3");
     }
 
-    public void play() {
+    public void play(Label textArea) {
         humanPlayer.setCurrentRoom(trailer);
-
-        printWelcome();
-//        while (!finished) {
-//            Command command = parser.getCommand();
-//            finished = processCommand(command);
-//        }
+        printWelcome(textArea);
     }
 
     public Scene getScene() {
         return scene;
     }
 
-    private void printWelcome() {
-        System.out.println("Welcome to 'The LumberJack'! \n"
+    public void printWelcome(Label textArea) {
+        textArea.setText("Welcome to 'The LumberJack'! \n"
             + "Your job as a lumberjack, is to cut down trees. \n"
             + "You have " + trailer.getNUM_PLAY_DAYS() + " days playtime to earn as much money as you can\n"
             + "without destroying the earth!\n");
-        System.out.println(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
+        textArea.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
     }
 
-//    private boolean processCommand(Command command) {
-//        boolean wantToQuit = false;
-//
-//        CommandWord commandWord = command.getCommandWord();
-//
-//        if (commandWord == CommandWord.UNKNOWN) {
-//            System.out.println("I don't know what you mean...");
-//            return false;
-//        }
-//
-//        if (null != commandWord) {
-//            switch (commandWord) {
-//                case HELP:
-//                    printHelp();
-//                    break;
-//                case GO:
-//                    goRoom(command);
-//                    break;
-//                case QUIT:
-//                    wantToQuit = quit(command);
-//                    break;
-//                case OPTION:
-//                    doOption(command);
-//                    break;
-//                case EXITS:
-//                    System.out.println(humanPlayer.getCurrentRoom().getExitString());
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
-//        return wantToQuit;
-//    }
-//    private void printHelp() {
-//        System.out.println("You can type 'exits' to get the directions you can go"
-//                + "2. You can type 'go back' to go to the place you came from previously"
-//                + "3. You can type 'quit' to quit the game");
-//    }
+//    
     public void goRoom(Command command, AnchorPane anchorPane, Label text) {
         if (!command.hasSecondWord()) {
             text.setText("Go where?");
@@ -200,6 +158,7 @@ public class Game extends Application {
             return false;
         } else {
             text.setText("Your score is: " + humanPlayer.getHighScore());
+            System.exit(0);
             return true;
         }
     }

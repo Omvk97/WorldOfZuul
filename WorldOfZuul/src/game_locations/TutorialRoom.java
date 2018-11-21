@@ -101,7 +101,7 @@ public class TutorialRoom extends Room {
     @Override
     public Parent getRoomFXML() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("TutorialRoom.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/TutorialRoom.fxml"));
             return root;
         } catch (IOException ex) {
             System.out.println("The fxml does not exist");

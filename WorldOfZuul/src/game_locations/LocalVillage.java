@@ -82,7 +82,7 @@ public class LocalVillage extends Room {
     @Override
     public Parent getRoomFXML() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("LocalVillage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/LocalVillage.fxml"));
             return root;
         } catch (IOException ex) {
             System.out.println("The fxml does not exist");
