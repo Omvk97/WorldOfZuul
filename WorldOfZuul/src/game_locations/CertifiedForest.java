@@ -58,15 +58,7 @@ public class CertifiedForest extends Forest {
     }
 
     @Override
-    public void option1(Player humanPlayer, AnchorPane anchorPane, Label textArea) {
-        for (Node children : anchorPane.getChildren()) {
-            if (children instanceof ImageView) {
-                if (children.getId().equals("player")) {
-                    children.setLayoutX(children.getLayoutX() + 20);
-                }
-            }
-        }
-
+    public void option1(Player humanPlayer, Label textArea) {
         if (chopWood(humanPlayer, textArea)) {
             humanPlayer.addChoppedTreesInCertifiedForest();
         }

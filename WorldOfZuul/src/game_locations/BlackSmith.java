@@ -110,7 +110,7 @@ public class BlackSmith extends Room {
     }
 
     @Override
-    public void option1(Player humanPlayer, AnchorPane anchorPane, Label textArea) {
+    public void option1(Player humanPlayer, Label textArea) {
         grindAxe_menu(humanPlayer, textArea);
     }
 

@@ -1,9 +1,7 @@
 package game_functionality;
 
 import game_locations.*;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class Game {
@@ -98,13 +96,6 @@ public class Game {
         library.setOptions("book3", "3");
     }
 
-//    public void printWelcome(Label textArea) {
-//        textArea.setText("Welcome to 'The LumberJack'! \n"
-//            + "Your job as a lumberjack, is to cut down trees. \n"
-//            + "You have " + trailer.getNUM_PLAY_DAYS() + " days playtime to earn as much money as you can\n"
-//            + "without destroying the earth!\n");
-//        textArea.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
-//    }
     public void goRoom(Command command, AnchorPane anchorPane, Label text) {
         if (!command.hasSecondWord()) {
             text.setText("Go where?");
@@ -157,7 +148,7 @@ public class Game {
         String optionNumber = command.getSecondWord();
         switch (optionNumber) {
             case "1":
-                humanPlayer.getCurrentRoom().option1(humanPlayer, anchorPane, text);
+                humanPlayer.getCurrentRoom().option1(humanPlayer, text);
                 break;
             case "2":
                 humanPlayer.getCurrentRoom().option2(humanPlayer, text);

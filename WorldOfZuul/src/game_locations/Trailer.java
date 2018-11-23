@@ -32,7 +32,6 @@ public class Trailer extends Room {
     @Override
     public String roomEntrance(Player humanPlayer) {
         return "You stand in your trailer, it is your home\n"
-            + "You have " + humanPlayer.getClimatePoints() + " climate points\n"
             + "---------------------------------------------\n"
             + "○ Store Logs   ➤ Store logs you are carrying\n"
             + "○ Check Wallet ➤ See how much money you have\n"
@@ -67,7 +66,7 @@ public class Trailer extends Room {
     }
 
     @Override
-    public void option1(Player humanPlayer, AnchorPane anchorPane, Label textArea) {
+    public void option1(Player humanPlayer, Label textArea) {
         if (humanPlayer.backPack().getAmountOfLogsInBackPack() == 0) {
             textArea.setText("You are not carrying any logs!");
             return;

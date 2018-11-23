@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Set;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 
 public abstract class Room {
 
@@ -41,7 +40,7 @@ public abstract class Room {
         return exits.get(direction);
     }
 
-    public void option1(Player humanPlayer, AnchorPane anchorPane, Label textArea) {
+    public void option1(Player humanPlayer, Label textArea) {
         System.out.println("There is no option 1 in this room");
     }
 

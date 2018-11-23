@@ -43,7 +43,7 @@ public class NonCertifiedForest extends Forest {
     }
 
     @Override
-    public void option1(Player humanPlayer, AnchorPane anchorPane, Label textArea) {
+    public void option1(Player humanPlayer, Label textArea) {
         this.chopWood(humanPlayer, textArea);
         if (humanPlayer.getClimatePoints() == Player.getMIN_CLIMATEPOINTS()) {
             textArea.setText("YOU DESTROYED THE EARTH, YOU HAVE CUT WAY TOO MUCH \n"

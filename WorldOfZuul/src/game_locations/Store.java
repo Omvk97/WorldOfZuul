@@ -33,7 +33,7 @@ public class Store extends Room {
     }
 
     @Override
-    public void option1(Player humanPlayer, AnchorPane anchorPane, Label textArea) {
+    public void option1(Player humanPlayer, Label textArea) {
         if (humanPlayer.getLogsInStorage().isEmpty()
             && humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
             textArea.setText(StoreOwner + "You have no logs to sell!");

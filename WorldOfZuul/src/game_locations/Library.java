@@ -25,7 +25,7 @@ public class Library extends Room {
     }
 
     @Override
-    public void option1(Player humanPlayer, AnchorPane anchorPane, Label textArea) {
+    public void option1(Player humanPlayer, Label textArea) {
         textArea.setText("\"The Felling of Trees\" - written by professors.\n"
             + "Around the globe 7 million hectare of forest area disappear each year \n"
             + "due to deforestation.\n"
