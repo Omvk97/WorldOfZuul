@@ -13,6 +13,7 @@ import java.util.Scanner;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 public class Trailer extends Room {
     private final static int NUM_PLAY_DAYS = 20;
@@ -66,7 +67,7 @@ public class Trailer extends Room {
     }
 
     @Override
-    public void option1(Player humanPlayer, Label textArea) {
+    public void option1(Player humanPlayer, AnchorPane anchorPane, Label textArea) {
         if (humanPlayer.backPack().getAmountOfLogsInBackPack() == 0) {
             textArea.setText("You are not carrying any logs!");
             return;

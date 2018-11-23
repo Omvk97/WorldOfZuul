@@ -17,9 +17,19 @@
         </ImageView>
         <javafx.scene.control.Label fx:id="textArea" alignment="CENTER" layoutX="150.0" layoutY="268.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
         <TextField fx:id="userAnswers" layoutX="152.0" layoutY="334.0" prefHeight="30.0" prefWidth="300.0" promptText="Write your text here" style="-fx-border-color: red;" />
-        <ImageView fx:id="map" fitHeight="110.0" fitWidth="71.0" layoutX="515.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="largeTree" layoutX="10.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="http://icons.iconarchive.com/icons/bevel-and-emboss/media/96/map-icon.png"/>
+                <Image url="http://icons.iconarchive.com/icons/chrisl21/minecraft/128/3D-Tree-icon.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="mediumTree" layoutX="150.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="http://icons.iconarchive.com/icons/chrisl21/minecraft/72/3D-Tree-icon.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="smallTree" layoutX="250.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="http://icons.iconarchive.com/icons/chrisl21/minecraft/48/3D-Tree-icon.png"/>
             </image>
         </ImageView>
     </children>

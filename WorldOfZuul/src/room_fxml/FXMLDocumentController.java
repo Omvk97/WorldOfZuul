@@ -63,7 +63,7 @@ public class FXMLDocumentController implements Initializable {
                     wantToQuit = game.quit(command, textArea);
                     break;
                 case OPTION:
-                    game.doOption(command, textArea);
+                    game.doOption(command, anchorPane, textArea);
                     break;
                 case EXITS:
                     textArea.setText(game.getHumanPlayer().getCurrentRoom().getExitString());

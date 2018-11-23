@@ -7,6 +7,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 public class NonCertifiedForest extends Forest {
 
@@ -42,7 +43,7 @@ public class NonCertifiedForest extends Forest {
     }
 
     @Override
-    public void option1(Player humanPlayer, Label textArea) {
+    public void option1(Player humanPlayer, AnchorPane anchorPane, Label textArea) {
         this.chopWood(humanPlayer, textArea);
         if (humanPlayer.getClimatePoints() == Player.getMIN_CLIMATEPOINTS()) {
             textArea.setText("YOU DESTROYED THE EARTH, YOU HAVE CUT WAY TOO MUCH \n"

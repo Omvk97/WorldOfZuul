@@ -5,8 +5,11 @@ import game_elements.Tree;
 import game_functionality.Player;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 public class CertifiedForest extends Forest {
 
@@ -48,15 +51,23 @@ public class CertifiedForest extends Forest {
         }
         return counter;
     }
-    
+
     @Override
     protected boolean thereIsMoreTreesToCut() {
         return numberOfTreesBigEnoughToChop() > 0 && trees.size() > 0;
     }
 
     @Override
-    public void option1(Player humanPlayer, Label textArea) {
-        if (chopWood(humanPlayer,textArea)) {
+    public void option1(Player humanPlayer, AnchorPane anchorPane, Label textArea) {
+        for (Node children : anchorPane.getChildren()) {
+            if (children instanceof ImageView) {
+                if (children.getId().equals("player")) {
+                    children.setLayoutX(children.getLayoutX() + 20);
+                }
+            }
+        }
+
+        if (chopWood(humanPlayer, textArea)) {
             humanPlayer.addChoppedTreesInCertifiedForest();
         }
     }
@@ -83,8 +94,10 @@ public class CertifiedForest extends Forest {
     }
 
     /**
-     * This forest always needs to have exactly 10 trees in it, either the player needs to plant
-     * new trees or the player will receive a fine and then the "government" will plant the trees instead.
+     * This forest always needs to have exactly 10 trees in it, either the player needs to plant new
+     * trees or the player will receive a fine and then the "government" will plant the trees
+     * instead.
+     *
      * @param numOfTreesToBeAdded how many new trees that has to be added
      */
     public void plantNewTrees(int numOfTreesToBeAdded) {
@@ -92,7 +105,7 @@ public class CertifiedForest extends Forest {
             trees.add(new CertifiedTree((int) (Math.random() * 2) + 1));
         }
     }
-    
+
     @Override
     public Parent getRoomFXML() {
         try {

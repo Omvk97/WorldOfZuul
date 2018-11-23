@@ -1,7 +1,9 @@
 package game_functionality;
 
 import game_locations.*;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class Game {
@@ -103,21 +105,19 @@ public class Game {
 //            + "without destroying the earth!\n");
 //        textArea.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
 //    }
-
-    
     public void goRoom(Command command, AnchorPane anchorPane, Label text) {
         if (!command.hasSecondWord()) {
             text.setText("Go where?");
             return;
         }
         String direction = command.getSecondWord();
-        System.out.println(direction);
 
         // The player can write "go back" to get back to the room they were in before
         if (direction.equals("back")) {
             if (humanPlayer.getPreviousRoom() != null && !(humanPlayer.getPreviousRoom() instanceof TutorialRoom)) {
                 humanPlayer.setCurrentRoom(humanPlayer.getPreviousRoom());
                 text.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
+                anchorPane.getChildren().setAll(humanPlayer.getCurrentRoom().getRoomFXML());
                 return;
             }
         }
@@ -128,7 +128,6 @@ public class Game {
             text.setText("There is no road!");
         } else {
             humanPlayer.setCurrentRoom(nextRoom);
-            text.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
         }
         anchorPane.getChildren().setAll(humanPlayer.getCurrentRoom().getRoomFXML());
     }
@@ -150,7 +149,7 @@ public class Game {
         }
     }
 
-    public void doOption(Command command, Label text) {
+    public void doOption(Command command, AnchorPane anchorPane, Label text) {
         if (!command.hasSecondWord()) {
             text.setText("Do what?");
             return;
@@ -158,7 +157,7 @@ public class Game {
         String optionNumber = command.getSecondWord();
         switch (optionNumber) {
             case "1":
-                humanPlayer.getCurrentRoom().option1(humanPlayer, text);
+                humanPlayer.getCurrentRoom().option1(humanPlayer, anchorPane, text);
                 break;
             case "2":
                 humanPlayer.getCurrentRoom().option2(humanPlayer, text);

@@ -10,6 +10,7 @@ import java.util.Scanner;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 public class Store extends Room {
 
@@ -32,7 +33,7 @@ public class Store extends Room {
     }
 
     @Override
-    public void option1(Player humanPlayer, Label textArea) {
+    public void option1(Player humanPlayer, AnchorPane anchorPane, Label textArea) {
         if (humanPlayer.getLogsInStorage().isEmpty()
             && humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
             textArea.setText(StoreOwner + "You have no logs to sell!");

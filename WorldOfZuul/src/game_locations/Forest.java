@@ -4,9 +4,6 @@ import game_functionality.Player;
 import game_elements.Tree;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.control.Label;
 
 public abstract class Forest extends Room {
@@ -69,13 +66,13 @@ public abstract class Forest extends Room {
             while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxe().getDamage() >= 0) {
                 lastTreeInArray().reduceTreeHealth(humanPlayer.getAxe().getDamage());
                 textArea.setText("**CHOP**");
-                sleepPause();
+//                sleepPause();
             }
             humanPlayer.backPack().addTreeToBackpack(lastTreeInArray());
             humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
             trees.remove(lastTreeInArray());
             textArea.setText("**CHOP**");
-            sleepPause();
+//            sleepPause();
             humanPlayer.useAxe();
             textArea.setText("You felled a tree! You are now carrying "
                 + humanPlayer.backPack().getAmountOfLogsInBackPack()
@@ -106,13 +103,13 @@ public abstract class Forest extends Room {
             while (lastTreeInArray().getTreeHealth() - 2 >= 0) {
                 lastTreeInArray().reduceTreeHealth(2);
                 textArea.setText("**POW**");
-                sleepPause();
+//                sleepPause();
             }
             humanPlayer.backPack().addTreeToBackpack(lastTreeInArray());
             humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
             trees.remove(lastTreeInArray());
             textArea.setText("**POW**");
-            sleepPause();
+//            sleepPause();
             textArea.setText("You have punched down a tree! You are now carrying "
                 + humanPlayer.backPack().getAmountOfLogsInBackPack()
                 + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
@@ -132,11 +129,10 @@ public abstract class Forest extends Room {
 
     private void sleepPause() {
         try {
-            TimeUnit.SECONDS.sleep(1);
+            Thread.sleep(1000);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(NonCertifiedForest.class
-                .getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Something went wrong");
         }
     }
 
