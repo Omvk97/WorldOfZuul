@@ -5,6 +5,7 @@ import game_functionality.CommandWord;
 import game_functionality.CommandWords;
 import game_functionality.Game;
 import game_functionality.Parser;
+import game_functionality.Player;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -26,11 +27,12 @@ public class FXMLDocumentController implements Initializable {
     private final CommandWords commands = new CommandWords();
     private Command userCommand;
     private Parser userInput;
-    private final Game game = new Game();
+    private final Game game = Game.getInstanceOfSelf();
+    private final Player humanPlayer = game.getHumanPlayer();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        game.play(textArea);
+        textArea.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
         userInput = new Parser(game.getHumanPlayer());
         userAnswers.setOnKeyPressed((KeyEvent key) -> {
             if (key.getCode().equals(KeyCode.ENTER)) {
@@ -41,13 +43,19 @@ public class FXMLDocumentController implements Initializable {
         });
     }
 
+    public Label getTextArea() {
+        return textArea;
+    }
+
     private boolean validateCommand(Command command) {
+        final Game game = Game.getInstanceOfSelf();
+
         boolean wantToQuit = false;
 
         CommandWord commandWord = command.getCommandWord();
 
         if (commandWord == CommandWord.UNKNOWN) {
-            System.out.println("I don't know what you mean...");
+            textArea.setText("I don't know what you mean...");
             return false;
         }
 

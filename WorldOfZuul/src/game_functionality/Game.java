@@ -1,16 +1,10 @@
 package game_functionality;
 
 import game_locations.*;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
-public class Game extends Application {
+public class Game {
 
     private final Parser parser;
     private final Trailer trailer = new Trailer();
@@ -22,20 +16,22 @@ public class Game extends Application {
     private final Room tutorialRoom = new TutorialRoom();
     private final Room blacksmith = new BlackSmith();
     private final Room library = new Library();
-    private Scene scene;
+    private int counter = 0;
+    private static final Game self = new Game();
 
-    public Game() {
+    private Game() {
         setExitsForRooms();
         setOptionsForRooms();
         parser = new Parser(humanPlayer);
+        humanPlayer.setCurrentRoom(trailer);
+    }
+
+    public static Game getInstanceOfSelf() {
+        return self;
     }
 
     public Parser getParser() {
         return parser;
-    }
-
-    public Player getHumanPlayer() {
-        return humanPlayer;
     }
 
     private void setExitsForRooms() {
@@ -102,12 +98,15 @@ public class Game extends Application {
     }
 
     public void play(Label textArea) {
-        humanPlayer.setCurrentRoom(trailer);
-        printWelcome(textArea);
-    }
-
-    public Scene getScene() {
-        return scene;
+        if (counter == 0) {
+            System.out.println("first time");
+            humanPlayer.setCurrentRoom(trailer);
+            textArea.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
+            counter++;
+        } else {
+            System.out.println("after");
+            textArea.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
+        }
     }
 
     public void printWelcome(Label textArea) {
@@ -125,6 +124,7 @@ public class Game extends Application {
             return;
         }
         String direction = command.getSecondWord();
+        System.out.println(direction);
 
         // The player can write "go back" to get back to the room they were in before
         if (direction.equals("back")) {
@@ -193,13 +193,7 @@ public class Game extends Application {
 
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/Trailer.fxml"));
-
-        scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.show();
+    public Player getHumanPlayer() {
+        return humanPlayer;
     }
 }
