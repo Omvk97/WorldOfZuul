@@ -2,7 +2,6 @@ package room_fxml;
 
 import game_functionality.Command;
 import game_functionality.CommandWord;
-import game_functionality.CommandWords;
 import game_functionality.Game;
 import game_functionality.Parser;
 import game_functionality.Player;
@@ -24,7 +23,6 @@ public class FXMLDocumentController implements Initializable {
     private AnchorPane anchorPane;
     @FXML
     private TextField userAnswers;
-    private final CommandWords commands = new CommandWords();
     private Command userCommand;
     private Parser userInput;
     private final Game game = Game.getInstanceOfSelf();
@@ -43,13 +41,7 @@ public class FXMLDocumentController implements Initializable {
         });
     }
 
-    public Label getTextArea() {
-        return textArea;
-    }
-
     private boolean validateCommand(Command command) {
-        final Game game = Game.getInstanceOfSelf();
-
         boolean wantToQuit = false;
 
         CommandWord commandWord = command.getCommandWord();

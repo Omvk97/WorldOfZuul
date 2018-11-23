@@ -16,7 +16,6 @@ public class Game {
     private final Room tutorialRoom = new TutorialRoom();
     private final Room blacksmith = new BlackSmith();
     private final Room library = new Library();
-    private int counter = 0;
     private static final Game self = new Game();
 
     private Game() {
@@ -97,27 +96,15 @@ public class Game {
         library.setOptions("book3", "3");
     }
 
-    public void play(Label textArea) {
-        if (counter == 0) {
-            System.out.println("first time");
-            humanPlayer.setCurrentRoom(trailer);
-            textArea.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
-            counter++;
-        } else {
-            System.out.println("after");
-            textArea.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
-        }
-    }
+//    public void printWelcome(Label textArea) {
+//        textArea.setText("Welcome to 'The LumberJack'! \n"
+//            + "Your job as a lumberjack, is to cut down trees. \n"
+//            + "You have " + trailer.getNUM_PLAY_DAYS() + " days playtime to earn as much money as you can\n"
+//            + "without destroying the earth!\n");
+//        textArea.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
+//    }
 
-    public void printWelcome(Label textArea) {
-        textArea.setText("Welcome to 'The LumberJack'! \n"
-            + "Your job as a lumberjack, is to cut down trees. \n"
-            + "You have " + trailer.getNUM_PLAY_DAYS() + " days playtime to earn as much money as you can\n"
-            + "without destroying the earth!\n");
-        textArea.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
-    }
-
-//    
+    
     public void goRoom(Command command, AnchorPane anchorPane, Label text) {
         if (!command.hasSecondWord()) {
             text.setText("Go where?");
