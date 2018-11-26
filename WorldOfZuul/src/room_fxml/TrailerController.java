@@ -4,11 +4,10 @@ import game_functionality.Command;
 import game_functionality.CommandWord;
 import game_functionality.CommandWords;
 import game_functionality.Game;
-import game_functionality.Parser;
+import game_functionality.Player;
 import game_locations.Trailer;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -30,6 +29,7 @@ public class TrailerController extends Trailer implements Initializable {
     @FXML
     private ImageView player, map, option4;
     private CommandWords commands;
+    private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -38,17 +38,18 @@ public class TrailerController extends Trailer implements Initializable {
         configureOption2();
         configureOption3();
         configureOption4();
+        setExits();
     }
 
     private void configureOption1() {
         option1.setOnMouseClicked((MouseEvent event) -> {
-            option1(Game.getInstanceOfSelf().getHumanPlayer(), textArea);
+            option1(humanPlayer, textArea);
         });
     }
 
     private void configureOption2() {
         option2.setOnMouseClicked((MouseEvent event) -> {
-            option2(Game.getInstanceOfSelf().getHumanPlayer(), textArea);
+            option2(humanPlayer, textArea);
         });
     }
 
@@ -66,9 +67,17 @@ public class TrailerController extends Trailer implements Initializable {
 
     private void setExits() {
         anchorPane.setOnKeyPressed((KeyEvent event) -> {
-            if (event.getCode().equals(KeyCode.UP)) {
+            if (event.getCode().equals(KeyCode.UP) || event.getCode().equals(KeyCode.W)) {
                 Command tester = new Command(CommandWord.GO, "north");
                 Game.getInstanceOfSelf().goRoom(tester, anchorPane, textArea);
+            } else if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+                Command tester = new Command(CommandWord.GO, "south");
+                Game.getInstanceOfSelf().goRoom(tester, anchorPane, textArea);
+            } else if (event.getCode().equals(KeyCode.RIGHT) || event.getCode().equals(KeyCode.D)) {
+                Command tester = new Command(CommandWord.GO, "village");
+                Game.getInstanceOfSelf().goRoom(tester, anchorPane, textArea);
+            } else {
+                textArea.setText("There is no door that way mister!");
             }
         });
     }
