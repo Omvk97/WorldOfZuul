@@ -39,8 +39,6 @@ public class TrailerController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         textArea.setText(gameTrailer.roomEntrance(humanPlayer));
         option4.setRotate(45);
-        System.out.println(option4.getTranslateX());
-        System.out.println(option4.getTranslateY());
     }
 
     @FXML

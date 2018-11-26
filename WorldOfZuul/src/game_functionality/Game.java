@@ -1,7 +1,6 @@
 package game_functionality;
 
 import game_locations.*;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class Game {
@@ -91,9 +90,9 @@ public class Game {
     }
 
     public void goRoom(Command command, AnchorPane anchorPane) {
-//        if (!command.hasSecondWord()) {
-//            return "Go where?";
-//        }
+        if (!command.hasSecondWord()) {
+            System.out.println("Go where?");
+        }
         String direction = command.getSecondWord();
 
         // The player can write "go back" to get back to the room they were in before
@@ -107,30 +106,30 @@ public class Game {
 
         Room nextRoom = humanPlayer.getCurrentRoom().getExit(direction);
 
-//        if (nextRoom == null) {
-//            return "There is no road!";
-//        } else {
-        humanPlayer.setCurrentRoom(nextRoom);
-//        }
+        if (nextRoom == null) {
+            System.out.println("There is no road!");
+        } else {
+            humanPlayer.setCurrentRoom(nextRoom);
+        }
         anchorPane.getScene().setRoot(humanPlayer.getCurrentRoom().getRoomFXML());
     }
 
-    public void printHelp(Label text) {
-        text.setText("You can type 'exits' to get the directions you can go\n"
-            + "2. You can type 'go back' to go to the place you came from previously\n"
-            + "3. You can type 'quit' to quit the game");
-    }
+//    public void printHelp(Label text) {
+//        text.setText("You can type 'exits' to get the directions you can go\n"
+//            + "2. You can type 'go back' to go to the place you came from previously\n"
+//            + "3. You can type 'quit' to quit the game");
+//    }
 
-    public boolean quit(Command command, Label text) {
-        if (command.hasSecondWord()) {
-            text.setText("Quit what?");
-            return false;
-        } else {
-            text.setText("Your score is: " + humanPlayer.getHighScore());
-            System.exit(0);
-            return true;
-        }
-    }
+//    public boolean quit(Command command, Label text) {
+//        if (command.hasSecondWord()) {
+//            text.setText("Quit what?");
+//            return false;
+//        } else {
+//            text.setText("Your score is: " + humanPlayer.getHighScore());
+//            System.exit(0);
+//            return true;
+//        }
+//    }
 
 //    public void doOption(Command command, AnchorPane anchorPane) {
 //        if (!command.hasSecondWord()) {

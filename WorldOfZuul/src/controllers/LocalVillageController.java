@@ -46,9 +46,27 @@ public class LocalVillageController implements Initializable {
     }
 
     @FXML
+    private void handleGoToStore(MouseEvent event) {
+        Command tester = new Command(CommandWord.GO, "store");
+        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+    }
+
+    @FXML
+    private void handleGoToBlacksmith(MouseEvent event) {
+        Command tester = new Command(CommandWord.GO, "blacksmith");
+        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+    }
+    
+        @FXML
+    private void handleGoToLibrary(MouseEvent event) {
+        Command tester = new Command(CommandWord.GO, "library");
+        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+    }
+
+    @FXML
     private void handleExits(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
-            Command tester = new Command(CommandWord.GO, "back");
+        if (event.getCode().equals(KeyCode.LEFT) || event.getCode().equals(KeyCode.A)) {
+            Command tester = new Command(CommandWord.GO, "trailer");
             Game.getInstanceOfSelf().goRoom(tester, anchorPane);
         } else {
             textArea.setText("There is no road!");

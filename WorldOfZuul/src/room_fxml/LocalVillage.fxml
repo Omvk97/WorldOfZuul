@@ -10,7 +10,7 @@
 <?import java.net.URL?>
 
 <AnchorPane id="localVillage" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="controllers.CertifiedForestController" onKeyPressed="#handleExits">
+            fx:controller="controllers.LocalVillageController" onKeyPressed="#handleExits">
     <stylesheets>
         <URL value="@styleSheetForRooms.css" />
     </stylesheets>
@@ -21,12 +21,22 @@
             </image>
         </ImageView>
         <javafx.scene.control.Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="326.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
-        <ImageView fx:id="map" fitHeight="110.0" fitWidth="71.0" layoutX="515.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@http://icons.iconarchive.com/icons/bevel-and-emboss/media/96/map-icon.png" />
-            </image>
-        </ImageView>
         <Button fx:id="option1" layoutX="14.0" layoutY="294.0" mnemonicParsing="false" text="Option 1" onMouseClicked="#handleOption1" />
         <Button fx:id="option2" layoutX="14.0" layoutY="326.0" mnemonicParsing="false" text="Option 2" onMouseClicked="#handleOption2"/>
+        <ImageView fx:id="store" fitHeight="110.0" fitWidth="75.0" layoutX="100.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#handleGoToStore" >
+            <image>
+                <Image url="@http://icons.iconarchive.com/icons/inipagi/business-economic/128/store-icon.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="blacksmith" fitHeight="110.0" fitWidth="75.0" layoutX="450.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#handleGoToBlacksmith" >
+            <image>
+                <Image url="/pictures/blacksmith.jpg" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="library" fitHeight="110.0" fitWidth="75.0" layoutX="450.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#handleGoToLibrary" >
+            <image>
+                <Image url="@http://icons.iconarchive.com/icons/dakirby309/simply-styled/128/Libraries-icon.png" />
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>

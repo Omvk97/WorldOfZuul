@@ -1,10 +1,35 @@
 #cabin {
-    -fx-background-image: url("/pictures/cabin.jpg");
+    -fx-background-image: url("/pictures/cabinBackground.jpg");
     -fx-background-size: cover;
 }
 
 #nonCertifiedForest {
-    -fx-background-image: url("/pictures/forest.jpg");
+    -fx-background-image: url("/pictures/nonCertifiedForestBackground.jpg");
+    -fx-background-size: cover;
+}
+
+#blackSmith {
+    -fx-background-image: url("/pictures/blacksmithBackground.jpg");
+    -fx-background-size: cover;
+}
+
+#certifiedForest {
+    -fx-background-image: url("/pictures/certifiedForestBackground.jpg");
+    -fx-background-size: cover;
+}
+
+#library {
+    -fx-background-image: url("/pictures/libraryBackground.jpg");
+    -fx-background-size: cover;
+}
+
+#localVillage {
+    -fx-background-image: url("/pictures/localVillageBackground.jpg");
+    -fx-background-size: cover;
+}
+
+#store {
+    -fx-background-image: url("/pictures/storeBackground.jpg");
     -fx-background-size: cover;
 }
 

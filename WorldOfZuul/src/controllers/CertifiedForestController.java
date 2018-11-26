@@ -28,7 +28,7 @@ public class CertifiedForestController implements Initializable {
     @FXML
     private ImageView player, map;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
-    private final CertifiedForest gameForest = (CertifiedForest) Game.getInstanceOfSelf().getNonCertificedForest();
+    private final CertifiedForest gameForest = (CertifiedForest) Game.getInstanceOfSelf().getCertifiedForest();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -47,8 +47,8 @@ public class CertifiedForestController implements Initializable {
 
     @FXML
     private void handleExits(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
-            Command tester = new Command(CommandWord.GO, "back");
+        if (event.getCode().equals(KeyCode.UP) || event.getCode().equals(KeyCode.W)) {
+            Command tester = new Command(CommandWord.GO, "trailer");
             Game.getInstanceOfSelf().goRoom(tester, anchorPane);
         } else {
             textArea.setText("There is no road!");
