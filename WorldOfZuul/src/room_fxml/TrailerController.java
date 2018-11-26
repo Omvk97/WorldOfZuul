@@ -55,13 +55,13 @@ public class TrailerController extends Trailer implements Initializable {
 
     private void configureOption3() {
         option3.setOnMouseClicked((MouseEvent event) -> {
-            option3(Game.getInstanceOfSelf().getHumanPlayer(), textArea);
+            option3(humanPlayer, textArea);
         });
     }
 
     private void configureOption4() {
         option4.setOnMouseClicked((MouseEvent event) -> {
-            option4(Game.getInstanceOfSelf().getHumanPlayer(), textArea);
+            option4(humanPlayer, textArea);
         });
     }
 
