@@ -10,7 +10,7 @@ public class Radio {
 
     private final String weatherReporter = "Jensen: ";
 
-    public void globalNews(Player humanPlayer, Label textArea) {
+    public String globalNews(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
         scenarios.put(249, weatherReporter + "The atmosphere is very stable and optimal\n"
             + "Global Temperature: 21 degrees Celsius\n"
@@ -48,18 +48,17 @@ public class Radio {
         List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {
             if (climatePoints > keySet.get(0)) {
-                textArea.setText(scenarios.get(keySet.get(0)));
-                break;
+                return scenarios.get(keySet.get(0));
             } else if (climatePoints < keySet.get(keySet.size() - 1)) {
-                textArea.setText(scenarios.get(keySet.get(keySet.size() - 1)));
-                break;
+                return scenarios.get(keySet.get(keySet.size() - 1));
             } else if (climatePoints < keySet.get(i) && climatePoints > keySet.get(i + 1)) {
-                textArea.setText(scenarios.get(keySet.get(i)));
+                return scenarios.get(keySet.get(i));
             }
         }
+        return "";
     }
 
-    public void localNews(Player humanPlayer, Label textArea) {
+    public String localNews(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
         scenarios.put(-199, weatherReporter + "The weather forecast indicates mild winds\n"
             + "Local Temperature: 32 degree Celsius\n"
@@ -93,14 +92,13 @@ public class Radio {
         List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {
             if (climatePoints > keySet.get(0)) {
-                textArea.setText(scenarios.get(keySet.get(0)));
-                break;
+                return scenarios.get(keySet.get(0));
             } else if (climatePoints < keySet.get(keySet.size() - 1)) {
-                textArea.setText(scenarios.get(keySet.get(keySet.size() - 1)));
-                break;
+                return scenarios.get(keySet.get(keySet.size() - 1));
             } else if (climatePoints < keySet.get(i) && climatePoints > keySet.get(i + 1)) {
-                textArea.setText(scenarios.get(keySet.get(i)));
+                return scenarios.get(keySet.get(i));
             }
         }
+        return "";
     }
 }

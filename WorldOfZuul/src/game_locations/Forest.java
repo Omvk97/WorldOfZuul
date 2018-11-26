@@ -4,7 +4,6 @@ import game_functionality.Player;
 import game_elements.Tree;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.control.Label;
 
 public abstract class Forest extends Room {
 
@@ -28,11 +27,11 @@ public abstract class Forest extends Room {
         return trees.get(trees.size() - 1);
     }
 
-    protected boolean chopWood(Player humanPlayer, Label textArea) {
+    protected String chopWood(Player humanPlayer) {
         if (humanPlayer.getAxe() != null) {
-            return chopWoodWithAxe(humanPlayer, textArea);
+            return chopWoodWithAxe(humanPlayer);
         } else {
-            return chopWoodWithHands(humanPlayer, textArea);
+            return chopWoodWithHands(humanPlayer);
         }
     }
 
@@ -52,87 +51,75 @@ public abstract class Forest extends Room {
     }
 
     /**
-     * Chops wood if the player has an Axe equipped. And adds all the things that are associated with choppping down a
-     * tree
+     * Chops wood if the player has an Axe equipped. And adds all the things that are associated
+     * with choppping down a tree
      *
      * @param humanPlayer chopping a tree
      * @return if the tree cutting was succesfull.
      */
-    private boolean chopWoodWithAxe(Player humanPlayer, Label textArea) {
+    private String chopWoodWithAxe(Player humanPlayer) {
         if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
-            textArea.setText("You swing your " + humanPlayer.getAxe().getDescription()
+            System.out.println("You swing your " + humanPlayer.getAxe().getDescription()
                 + treeSize(lastTreeInArray()));
 
             while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxe().getDamage() >= 0) {
                 lastTreeInArray().reduceTreeHealth(humanPlayer.getAxe().getDamage());
-                textArea.setText("**CHOP**");
-//                sleepPause();
+                System.out.println("**CHOP**");
             }
             humanPlayer.backPack().addTreeToBackpack(lastTreeInArray());
             humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
             trees.remove(lastTreeInArray());
-            textArea.setText("**CHOP**");
-//            sleepPause();
+            System.out.println("**CHOP**");
             humanPlayer.useAxe();
-            textArea.setText("You felled a tree! You are now carrying "
+            if (humanPlayer.getCurrentRoom() instanceof CertifiedForest) {
+                humanPlayer.addChoppedTreesInCertifiedForest();
+            }
+            return ("You felled a tree! You are now carrying "
                 + humanPlayer.backPack().getAmountOfLogsInBackPack()
                 + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " trees" : " tree"));
-            return true;
+
         } else if (playerCanCarryMoreTree(humanPlayer) && !thereIsMoreTreesToCut()) {
-            textArea.setText("There is no more trees to fell right now!"
+            return ("There is no more trees to fell right now!"
                 + (this instanceof CertifiedForest ? "\nYou have to wait for the forest to regrow!"
                     : ""));
         } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree(humanPlayer)) {
-            textArea.setText("You are carrying too much wood!\n"
-                + "Sell or store your logs!");
+            return "You are carrying too much wood!\n"
+                + "Sell or store your logs!";
         } else {
-            textArea.setText("There is no trees to fell and your backpack is full!");
+            return "There is no trees to fell and your backpack is full!";
         }
-        return false;
     }
 
     /**
-     * If player doesn't have an Axe equipped they can instead use their hands to chop down a tree with a damage of 2
+     * If player doesn't have an Axe equipped they can instead use their hands to chop down a tree
+     * with a damage of 2
      *
      * @param humanPlayer chopping the trees
      * @return if the tree cutting was succesfull.
      */
-    private boolean chopWoodWithHands(Player humanPlayer, Label textArea) {
+    private String chopWoodWithHands(Player humanPlayer) {
         if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
-            textArea.setText("You throw a punch" + treeSize(lastTreeInArray()));
+            System.out.println("You throw a punch" + treeSize(lastTreeInArray()));
             while (lastTreeInArray().getTreeHealth() - 2 >= 0) {
                 lastTreeInArray().reduceTreeHealth(2);
-                textArea.setText("**POW**");
-//                sleepPause();
+                System.out.println("**POW**");
             }
             humanPlayer.backPack().addTreeToBackpack(lastTreeInArray());
             humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
             trees.remove(lastTreeInArray());
-            textArea.setText("**POW**");
-//            sleepPause();
-            textArea.setText("You have punched down a tree! You are now carrying "
+            System.out.println("**POW**");
+            return ("You have punched down a tree! You are now carrying "
                 + humanPlayer.backPack().getAmountOfLogsInBackPack()
                 + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
-            return true;
         } else if (playerCanCarryMoreTree(humanPlayer) && !thereIsMoreTreesToCut()) {
-            textArea.setText("There is no more trees to chop down right now!"
+            return "There is no more trees to chop down right now!"
                 + (this instanceof CertifiedForest ? "\nYou have to wait for the forest to regrow!"
-                    : ""));
+                    : "");
         } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree(humanPlayer)) {
-            textArea.setText("You are carrying too much wood!\n"
-                + "Sell or store your logs!");
+            return "You are carrying too much wood!\n"
+                + "Sell or store your logs!";
         } else {
-            textArea.setText("There is no trees to fell and your backpack is full!");
-        }
-        return false;
-    }
-
-    private void sleepPause() {
-        try {
-            Thread.sleep(1000);
-
-        } catch (InterruptedException ex) {
-            System.out.println("Something went wrong");
+            return "There is no trees to fell and your backpack is full!";
         }
     }
 

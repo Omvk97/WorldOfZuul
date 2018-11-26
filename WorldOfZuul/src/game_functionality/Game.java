@@ -90,18 +90,16 @@ public class Game {
         library.setOptions("book3", "3");
     }
 
-    public void goRoom(Command command, AnchorPane anchorPane, Label text) {
-        if (!command.hasSecondWord()) {
-            text.setText("Go where?");
-            return;
-        }
+    public void goRoom(Command command, AnchorPane anchorPane) {
+//        if (!command.hasSecondWord()) {
+//            return "Go where?";
+//        }
         String direction = command.getSecondWord();
 
         // The player can write "go back" to get back to the room they were in before
         if (direction.equals("back")) {
-            if (humanPlayer.getPreviousRoom() != null && !(humanPlayer.getPreviousRoom() instanceof TutorialRoom)) {
+            if (humanPlayer.getPreviousRoom() != null) {
                 humanPlayer.setCurrentRoom(humanPlayer.getPreviousRoom());
-                text.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
                 anchorPane.getScene().setRoot(humanPlayer.getCurrentRoom().getRoomFXML());
                 return;
             }
@@ -109,11 +107,11 @@ public class Game {
 
         Room nextRoom = humanPlayer.getCurrentRoom().getExit(direction);
 
-        if (nextRoom == null) {
-            text.setText("There is no road!");
-        } else {
-            humanPlayer.setCurrentRoom(nextRoom);
-        }
+//        if (nextRoom == null) {
+//            return "There is no road!";
+//        } else {
+        humanPlayer.setCurrentRoom(nextRoom);
+//        }
         anchorPane.getScene().setRoot(humanPlayer.getCurrentRoom().getRoomFXML());
     }
 
@@ -134,36 +132,35 @@ public class Game {
         }
     }
 
-    public void doOption(Command command, AnchorPane anchorPane, Label text) {
-        if (!command.hasSecondWord()) {
-            text.setText("Do what?");
-            return;
-        }
-        String optionNumber = command.getSecondWord();
-        switch (optionNumber) {
-            case "1":
-                humanPlayer.getCurrentRoom().option1(humanPlayer, text);
-                break;
-            case "2":
-                humanPlayer.getCurrentRoom().option2(humanPlayer, text);
-                break;
-            case "3":
-                humanPlayer.getCurrentRoom().option3(humanPlayer, text);
-                break;
-            case "4":
-                humanPlayer.getCurrentRoom().option4(humanPlayer, text);
-                break;
-            case "666":
-                text.setText("THE DEVIL REWARDS YOU FOR YOUR CURIOSITY");
-                humanPlayer.addMoney(9999);
-                text.setText(9999 + " HAS BEEN ADDED TO YOUR WALLET");
-                break;
-            default:
-                text.setText("I do not know that option");
-        }
-
-    }
-
+//    public void doOption(Command command, AnchorPane anchorPane) {
+//        if (!command.hasSecondWord()) {
+//            text.setText("Do what?");
+//            return;
+//        }
+//        String optionNumber = command.getSecondWord();
+//        switch (optionNumber) {
+//            case "1":
+//                humanPlayer.getCurrentRoom().option1(humanPlayer);
+//                break;
+//            case "2":
+//                humanPlayer.getCurrentRoom().option2(humanPlayer);
+//                break;
+//            case "3":
+//                humanPlayer.getCurrentRoom().option3(humanPlayer);
+//                break;
+//            case "4":
+//                humanPlayer.getCurrentRoom().option4(humanPlayer);
+//                break;
+//            case "666":
+//                text.setText("THE DEVIL REWARDS YOU FOR YOUR CURIOSITY");
+//                humanPlayer.addMoney(9999);
+//                text.setText(9999 + " HAS BEEN ADDED TO YOUR WALLET");
+//                break;
+//            default:
+//                text.setText("I do not know that option");
+//        }
+//
+//    }
     public Player getHumanPlayer() {
         return humanPlayer;
     }
@@ -199,6 +196,5 @@ public class Game {
     public Room getLibrary() {
         return library;
     }
-    
-    
+
 }

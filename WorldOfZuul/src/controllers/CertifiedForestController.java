@@ -1,11 +1,10 @@
-package room_fxml;
+package controllers;
 
 import game_functionality.Command;
 import game_functionality.CommandWord;
-import game_functionality.CommandWords;
 import game_functionality.Game;
 import game_functionality.Player;
-import game_locations.Forest;
+import game_locations.CertifiedForest;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -18,7 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class NonCertifiedController implements Initializable {
+public class CertifiedForestController implements Initializable {
 
     @FXML
     private Label textArea;
@@ -28,9 +27,8 @@ public class NonCertifiedController implements Initializable {
     private Button option1, option2;
     @FXML
     private ImageView player, map;
-    private CommandWords commands;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
-    private final Forest gameForest = Game.getInstanceOfSelf().getNonCertificedForest();
+    private final CertifiedForest gameForest = (CertifiedForest) Game.getInstanceOfSelf().getNonCertificedForest();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -39,22 +37,21 @@ public class NonCertifiedController implements Initializable {
 
     @FXML
     private void handleOption1(MouseEvent event) {
-        gameForest.option1(humanPlayer, textArea);
+        textArea.setText(gameForest.option1(humanPlayer));
     }
 
     @FXML
     private void handleOption2(MouseEvent event) {
-        gameForest.option2(humanPlayer, textArea);
+        textArea.setText(gameForest.option2(humanPlayer));
     }
 
     @FXML
     private void handleExits(KeyEvent event) {
         if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
             Command tester = new Command(CommandWord.GO, "back");
-            Game.getInstanceOfSelf().goRoom(tester, anchorPane, textArea);
+            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
         } else {
             textArea.setText("There is no road!");
         }
     }
-
 }

@@ -5,11 +5,7 @@ import game_elements.Tree;
 import game_functionality.Player;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 
 public class CertifiedForest extends Forest {
 
@@ -58,30 +54,28 @@ public class CertifiedForest extends Forest {
     }
 
     @Override
-    public void option1(Player humanPlayer, Label textArea) {
-        if (chopWood(humanPlayer, textArea)) {
-            humanPlayer.addChoppedTreesInCertifiedForest();
-        }
+    public String option1(Player humanPlayer) {
+        return chopWood(humanPlayer);
     }
 
     @Override
-    public void option2(Player humanPlayer, Label textArea) {
-        textArea.setText("There are " + numberOfTreesBigEnoughToChop() + " trees ready to be felled!");
+    public String option2(Player humanPlayer) {
+        return "There are " + numberOfTreesBigEnoughToChop() + " trees ready to be felled!";
     }
 
     @Override
-    public void option3(Player humanPlayer, Label textArea) {
+    public String option3(Player humanPlayer) {
         if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() > 0) {
             int amountOfSeedsPlanted = humanPlayer.plantSeeds();
             if (amountOfSeedsPlanted > 0) {
                 plantNewTrees(amountOfSeedsPlanted);
-                textArea.setText("You just planted " + (amountOfSeedsPlanted > 1
-                    ? amountOfSeedsPlanted + " saplings!" : "1 sapling!"));
+                return "You just planted " + (amountOfSeedsPlanted > 1
+                    ? amountOfSeedsPlanted + " saplings!" : "1 sapling!");
             } else {
-                textArea.setText("You don't have any saplings, go buy some!");
+                return "You don't have any saplings, go buy some!";
             }
         } else {
-            textArea.setText("You haven't chopped any trees today!");
+            return "You haven't chopped any trees today!";
         }
     }
 
