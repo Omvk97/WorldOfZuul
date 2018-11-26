@@ -13,7 +13,6 @@ import java.util.Scanner;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 
 public class Trailer extends Room {
     private final static int NUM_PLAY_DAYS = 20;

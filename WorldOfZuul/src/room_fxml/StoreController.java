@@ -1,7 +1,5 @@
 package room_fxml;
 
-import game_functionality.Command;
-import game_functionality.CommandWord;
 import game_functionality.CommandWords;
 import game_functionality.Game;
 import game_functionality.Player;

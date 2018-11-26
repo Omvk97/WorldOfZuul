@@ -5,10 +5,10 @@ import game_functionality.CommandWord;
 import game_functionality.CommandWords;
 import game_functionality.Game;
 import game_functionality.Player;
-import game_functionality.WorldOfZuul;
 import game_locations.Trailer;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.PathTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,8 +18,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.MoveTo; 
+import javafx.scene.shape.Path;
+import javafx.util.Duration;
 
-public class TrailerController extends Trailer implements Initializable {
+public class TrailerController implements Initializable {
 
     @FXML
     private Label textArea;
@@ -31,59 +36,47 @@ public class TrailerController extends Trailer implements Initializable {
     private ImageView player, map, option4;
     private CommandWords commands;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
+    private final Trailer gameTrailer = Game.getInstanceOfSelf().getTrailer();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("Trailer controller");
-        textArea.setText(this.roomEntrance(humanPlayer));
-        configureOption1();
-        configureOption2();
-        configureOption3();
-        configureOption4();
-//        setExits();
+        textArea.setText(gameTrailer.roomEntrance(humanPlayer));
+        option4.setRotate(45);
+        System.out.println(option4.getTranslateX());
+        System.out.println(option4.getTranslateY());
     }
 
-    private void configureOption1() {
-        option1.setOnMouseClicked((MouseEvent event) -> {
-            option1(humanPlayer, textArea);
-        });
+    @FXML
+    private void handleOption1(MouseEvent event) {
+        gameTrailer.option1(humanPlayer, textArea);
     }
 
-    private void configureOption2() {
-        option2.setOnMouseClicked((MouseEvent event) -> {
-            option2(humanPlayer, textArea);
-        });
+    @FXML
+    private void handleOption2(MouseEvent event) {
+        gameTrailer.option2(humanPlayer, textArea);
     }
 
-    private void configureOption3() {
-        option3.setOnMouseClicked((MouseEvent event) -> {
-            option3(humanPlayer, textArea);
-        });
+    @FXML
+    private void handleOption3(MouseEvent event) {
+        gameTrailer.option3(humanPlayer, textArea);
     }
 
-    private void configureOption4() {
-        option4.setOnMouseClicked((MouseEvent event) -> {
-            option4(humanPlayer, textArea);
-        });
+    @FXML
+    private void handleOption4(MouseEvent event) {
+        Line circle = new Line(player.getLayoutX(), player.getLayoutY(), option4.getLayoutX(), option4.getLayoutY());
+        PathTransition transition = new PathTransition();
+        transition.setNode(player);
+        transition.setDuration(Duration.seconds(3));
+        transition.setPath(circle);
+        transition.setCycleCount(1);
+        transition.play();
+        
+        
+        
+        gameTrailer.option4(humanPlayer, textArea);
+
     }
 
-//    private void setExits() {
-//        anchorPane.setOnKeyPressed((KeyEvent event) -> {
-//            if (event.getCode().equals(KeyCode.UP) || event.getCode().equals(KeyCode.W)) {
-//                Command tester = new Command(CommandWord.GO, "north");
-//                Game.getInstanceOfSelf().goRoom(tester, anchorPane, textArea);
-//            } else if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
-//                Command tester = new Command(CommandWord.GO, "south");
-//                Game.getInstanceOfSelf().goRoom(tester, anchorPane, textArea);
-//            } else if (event.getCode().equals(KeyCode.RIGHT) || event.getCode().equals(KeyCode.D)) {
-//                Command tester = new Command(CommandWord.GO, "village");
-//                Game.getInstanceOfSelf().goRoom(tester, anchorPane, textArea);
-//            } else {
-//                textArea.setText("There is no door that way mister!");
-//            }
-//        });
-//    }
-    
     @FXML
     private void handleExits(KeyEvent event) {
         if (event.getCode().equals(KeyCode.UP) || event.getCode().equals(KeyCode.W)) {
@@ -96,8 +89,7 @@ public class TrailerController extends Trailer implements Initializable {
             Command tester = new Command(CommandWord.GO, "village");
             Game.getInstanceOfSelf().goRoom(tester, anchorPane, textArea);
         } else {
-            textArea.setText("There is no door that way mister!");
+            textArea.setText("There is no road that way!");
         }
     }
-
 }

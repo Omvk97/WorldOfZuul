@@ -6,7 +6,6 @@ import javafx.scene.layout.AnchorPane;
 
 public class Game {
 
-    private final Parser parser;
     private final Trailer trailer = new Trailer();
     private final Player humanPlayer = new Player(trailer);
     private final Forest certifiedForest = new CertifiedForest();
@@ -21,16 +20,11 @@ public class Game {
     private Game() {
         setExitsForRooms();
         setOptionsForRooms();
-        parser = new Parser(humanPlayer);
         humanPlayer.setCurrentRoom(trailer);
     }
 
     public static Game getInstanceOfSelf() {
         return self;
-    }
-
-    public Parser getParser() {
-        return parser;
     }
 
     private void setExitsForRooms() {
@@ -108,7 +102,7 @@ public class Game {
             if (humanPlayer.getPreviousRoom() != null && !(humanPlayer.getPreviousRoom() instanceof TutorialRoom)) {
                 humanPlayer.setCurrentRoom(humanPlayer.getPreviousRoom());
                 text.setText(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
-                anchorPane.getChildren().setAll(humanPlayer.getCurrentRoom().getRoomFXML());
+                anchorPane.getScene().setRoot(humanPlayer.getCurrentRoom().getRoomFXML());
                 return;
             }
         }
@@ -120,7 +114,7 @@ public class Game {
         } else {
             humanPlayer.setCurrentRoom(nextRoom);
         }
-        anchorPane.getChildren().setAll(humanPlayer.getCurrentRoom().getRoomFXML());
+        anchorPane.getScene().setRoot(humanPlayer.getCurrentRoom().getRoomFXML());
     }
 
     public void printHelp(Label text) {
@@ -173,4 +167,38 @@ public class Game {
     public Player getHumanPlayer() {
         return humanPlayer;
     }
+
+    public Trailer getTrailer() {
+        return trailer;
+    }
+
+    public Forest getCertifiedForest() {
+        return certifiedForest;
+    }
+
+    public Forest getNonCertificedForest() {
+        return nonCertificedForest;
+    }
+
+    public Room getLocalVillage() {
+        return localVillage;
+    }
+
+    public Room getStore() {
+        return store;
+    }
+
+    public Room getTutorialRoom() {
+        return tutorialRoom;
+    }
+
+    public Room getBlacksmith() {
+        return blacksmith;
+    }
+
+    public Room getLibrary() {
+        return library;
+    }
+    
+    
 }

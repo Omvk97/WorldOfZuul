@@ -26,8 +26,8 @@
                 <Image url="@http://icons.iconarchive.com/icons/bevel-and-emboss/media/96/map-icon.png" />
             </image>
         </ImageView>
-        <Button fx:id="option1" layoutX="14.0" layoutY="294.0" mnemonicParsing="false" text="Option 1" />
-        <Button fx:id="option2" layoutX="14.0" layoutY="326.0" mnemonicParsing="false" text="Option 2" />
+        <Button fx:id="option1" layoutX="14.0" layoutY="294.0" mnemonicParsing="false" text="Option 1" onMouseClicked="#handleOption1" />
+        <Button fx:id="option2" layoutX="14.0" layoutY="326.0" mnemonicParsing="false" text="Option 2" onMouseClicked="#handleOption2"/>
     </children>
 </AnchorPane>
 
