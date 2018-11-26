@@ -5,8 +5,13 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import java.net.URL?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="room_fxml.TrailerController">
+<AnchorPane id="cabin" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="room_fxml.TrailerController" onKeyPressed="#handleExits" >
+        <stylesheets>
+        <URL value="@styleSheetForRooms.css" />
+    </stylesheets>
     <children>
         <ImageView fx:id="player" fitHeight="60.0" fitWidth="60.0" layoutX="276.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
             <image>

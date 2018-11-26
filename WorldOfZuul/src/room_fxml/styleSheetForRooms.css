@@ -1,2 +1,15 @@
+#cabin {
+    -fx-background-image: url("/pictures/cabin.jpg");
+    -fx-background-size: cover;
+}
 
+#nonCertifiedForest {
+    -fx-background-image: url("/pictures/forest.jpg");
+    -fx-background-size: cover;
+}
 
+.label {
+    -fx-border-color: #000000;
+    -fx-font-size: 10px;
+    -fx-background-color: #f0f8ff;
+}
