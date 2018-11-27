@@ -9,6 +9,8 @@ import game_locations.Trailer;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 public class TrailerController implements Initializable {
 
@@ -59,6 +62,14 @@ public class TrailerController implements Initializable {
 
     @FXML
     private void handleOption4(MouseEvent event) {
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(3), player);
+        transition.setByX(option4.getLayoutX() - player.getLayoutX());
+
+        TranslateTransition transition2 = new TranslateTransition(Duration.seconds(3), player);
+        transition2.setByX(player.getLayoutX() - option4.getLayoutX());
+
+        SequentialTransition axeTransition = new SequentialTransition(transition, transition2);
+        axeTransition.play();
         textArea.setText(gameTrailer.option4(humanPlayer));
     }
 
