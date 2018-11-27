@@ -4,6 +4,8 @@ import game_functionality.Player;
 
 import java.util.HashMap;
 import java.util.Set;
+import javafx.scene.Parent;
+import javafx.scene.control.Label;
 
 public abstract class Room {
 
@@ -38,19 +40,21 @@ public abstract class Room {
         return exits.get(direction);
     }
 
-    public void option1(Player humanPlayer) {
-        System.out.println("There is no option 1 in this room");
+    public String option1(Player humanPlayer) {
+        return "There is no option 1 in this room";
     }
 
-    public void option2(Player humanPlayer) {
-        System.out.println("There is no option 2 in this room");
+    public String option2(Player humanPlayer) {
+        return "There is no option 2 in this room";
     }
 
-    public void option3(Player humanPlayer) {
-        System.out.println("There is no option 3 in this room");
+    public String option3(Player humanPlayer) {
+        return "There is no option 3 in this room";
     }
 
-    public void option4(Player humanPlayer) {
-        System.out.println("There is no option 4 in this room");
+    public String option4(Player humanPlayer) {
+        return "There is no option 4 in this room";
     }
+    
+    abstract public Parent getRoomFXML();
 }

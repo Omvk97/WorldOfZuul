@@ -4,9 +4,6 @@ import game_functionality.Player;
 import game_elements.Tree;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public abstract class Forest extends Room {
 
@@ -30,7 +27,7 @@ public abstract class Forest extends Room {
         return trees.get(trees.size() - 1);
     }
 
-    protected boolean chopWood(Player humanPlayer) {
+    protected String chopWood(Player humanPlayer) {
         if (humanPlayer.getAxe() != null) {
             return chopWoodWithAxe(humanPlayer);
         } else {
@@ -54,13 +51,13 @@ public abstract class Forest extends Room {
     }
 
     /**
-     * Chops wood if the player has an Axe equipped. And adds all the things that are associated with choppping down a
-     * tree
+     * Chops wood if the player has an Axe equipped. And adds all the things that are associated
+     * with choppping down a tree
      *
      * @param humanPlayer chopping a tree
      * @return if the tree cutting was succesfull.
      */
-    private boolean chopWoodWithAxe(Player humanPlayer) {
+    private String chopWoodWithAxe(Player humanPlayer) {
         if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
             System.out.println("You swing your " + humanPlayer.getAxe().getDescription()
                 + treeSize(lastTreeInArray()));
@@ -68,74 +65,61 @@ public abstract class Forest extends Room {
             while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxe().getDamage() >= 0) {
                 lastTreeInArray().reduceTreeHealth(humanPlayer.getAxe().getDamage());
                 System.out.println("**CHOP**");
-                sleepPause();
             }
             humanPlayer.backPack().addTreeToBackpack(lastTreeInArray());
             humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
             trees.remove(lastTreeInArray());
             System.out.println("**CHOP**");
-            sleepPause();
             humanPlayer.useAxe();
-            System.out.println("You felled a tree! You are now carrying "
+            if (humanPlayer.getCurrentRoom() instanceof CertifiedForest) {
+                humanPlayer.addChoppedTreesInCertifiedForest();
+            }
+            return ("You felled a tree! You are now carrying "
                 + humanPlayer.backPack().getAmountOfLogsInBackPack()
                 + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " trees" : " tree"));
-            return true;
+
         } else if (playerCanCarryMoreTree(humanPlayer) && !thereIsMoreTreesToCut()) {
-            System.out.println("There is no more trees to fell right now!"
+            return ("There is no more trees to fell right now!"
                 + (this instanceof CertifiedForest ? "\nYou have to wait for the forest to regrow!"
                     : ""));
         } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree(humanPlayer)) {
-            System.out.println("You are carrying too much wood!\n"
-                + "Sell or store your logs!");
+            return "You are carrying too much wood!\n"
+                + "Sell or store your logs!";
         } else {
-            System.out.println("There is no trees to fell and your backpack is full!");
+            return "There is no trees to fell and your backpack is full!";
         }
-        return false;
     }
 
     /**
-     * If player doesn't have an Axe equipped they can instead use their hands to chop down a tree with a damage of 2
+     * If player doesn't have an Axe equipped they can instead use their hands to chop down a tree
+     * with a damage of 2
      *
      * @param humanPlayer chopping the trees
      * @return if the tree cutting was succesfull.
      */
-    private boolean chopWoodWithHands(Player humanPlayer) {
+    private String chopWoodWithHands(Player humanPlayer) {
         if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
             System.out.println("You throw a punch" + treeSize(lastTreeInArray()));
             while (lastTreeInArray().getTreeHealth() - 2 >= 0) {
                 lastTreeInArray().reduceTreeHealth(2);
                 System.out.println("**POW**");
-                sleepPause();
             }
             humanPlayer.backPack().addTreeToBackpack(lastTreeInArray());
             humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
             trees.remove(lastTreeInArray());
             System.out.println("**POW**");
-            sleepPause();
-            System.out.println("You have punched down a tree! You are now carrying "
+            return ("You have punched down a tree! You are now carrying "
                 + humanPlayer.backPack().getAmountOfLogsInBackPack()
                 + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
-            return true;
         } else if (playerCanCarryMoreTree(humanPlayer) && !thereIsMoreTreesToCut()) {
-            System.out.println("There is no more trees to chop down right now!"
+            return "There is no more trees to chop down right now!"
                 + (this instanceof CertifiedForest ? "\nYou have to wait for the forest to regrow!"
-                    : ""));
+                    : "");
         } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree(humanPlayer)) {
-            System.out.println("You are carrying too much wood!\n"
-                + "Sell or store your logs!");
+            return "You are carrying too much wood!\n"
+                + "Sell or store your logs!";
         } else {
-            System.out.println("There is no trees to fell and your backpack is full!");
-        }
-        return false;
-    }
-
-    private void sleepPause() {
-        try {
-            TimeUnit.SECONDS.sleep(1);
-
-        } catch (InterruptedException ex) {
-            Logger.getLogger(NonCertifiedForest.class
-                .getName()).log(Level.SEVERE, null, ex);
+            return "There is no trees to fell and your backpack is full!";
         }
     }
 

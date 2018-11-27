@@ -3,6 +3,9 @@ package game_locations;
 import game_elements.CertifiedTree;
 import game_elements.Tree;
 import game_functionality.Player;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class CertifiedForest extends Forest {
 
@@ -44,48 +47,59 @@ public class CertifiedForest extends Forest {
         }
         return counter;
     }
-    
+
     @Override
     protected boolean thereIsMoreTreesToCut() {
         return numberOfTreesBigEnoughToChop() > 0 && trees.size() > 0;
     }
 
     @Override
-    public void option1(Player humanPlayer) {
-        if (chopWood(humanPlayer)) {
-            humanPlayer.addChoppedTreesInCertifiedForest();
-        }
+    public String option1(Player humanPlayer) {
+        return chopWood(humanPlayer);
     }
 
     @Override
-    public void option2(Player humanPlayer) {
-        System.out.println("There are " + numberOfTreesBigEnoughToChop() + " trees ready to be felled!");
+    public String option2(Player humanPlayer) {
+        return "There are " + numberOfTreesBigEnoughToChop() + " trees ready to be felled!";
     }
 
     @Override
-    public void option3(Player humanPlayer) {
+    public String option3(Player humanPlayer) {
         if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() > 0) {
             int amountOfSeedsPlanted = humanPlayer.plantSeeds();
             if (amountOfSeedsPlanted > 0) {
                 plantNewTrees(amountOfSeedsPlanted);
-                System.out.println("You just planted " + (amountOfSeedsPlanted > 1
-                    ? amountOfSeedsPlanted + " saplings!" : "1 sapling!"));
+                return "You just planted " + (amountOfSeedsPlanted > 1
+                    ? amountOfSeedsPlanted + " saplings!" : "1 sapling!");
             } else {
-                System.out.println("You don't have any saplings, go buy some!");
+                return "You don't have any saplings, go buy some!";
             }
         } else {
-            System.out.println("You haven't chopped any trees today!");
+            return "You haven't chopped any trees today!";
         }
     }
 
     /**
-     * This forest always needs to have exactly 10 trees in it, either the player needs to plant
-     * new trees or the player will receive a fine and then the "government" will plant the trees instead.
+     * This forest always needs to have exactly 10 trees in it, either the player needs to plant new
+     * trees or the player will receive a fine and then the "government" will plant the trees
+     * instead.
+     *
      * @param numOfTreesToBeAdded how many new trees that has to be added
      */
     public void plantNewTrees(int numOfTreesToBeAdded) {
         for (int i = 0; i < numOfTreesToBeAdded && trees.size() < numOfTreesToBeAdded; i++) {
             trees.add(new CertifiedTree((int) (Math.random() * 2) + 1));
         }
+    }
+
+    @Override
+    public Parent getRoomFXML() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/CertifiedForest.fxml"));
+            return root;
+        } catch (IOException ex) {
+            System.out.println("The fxml does not exist");
+        }
+        return null;
     }
 }

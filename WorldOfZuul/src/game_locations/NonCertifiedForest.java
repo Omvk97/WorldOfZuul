@@ -3,6 +3,9 @@ package game_locations;
 import game_elements.NonCertifiedTree;
 import game_elements.Tree;
 import game_functionality.Player;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class NonCertifiedForest extends Forest {
 
@@ -38,23 +41,34 @@ public class NonCertifiedForest extends Forest {
     }
 
     @Override
-    public void option1(Player humanPlayer) {
-        this.chopWood(humanPlayer);
+    public String option1(Player humanPlayer) {
         if (humanPlayer.getClimatePoints() == Player.getMIN_CLIMATEPOINTS()) {
             System.out.println("YOU DESTROYED THE EARTH, YOU HAVE CUT WAY TOO MUCH \n"
                 + "NON CERTIFIED WOOD.");
             System.exit(0);
         }
+        return chopWood(humanPlayer);
     }
 
     @Override
-    public void option2(Player humanPlayer) {
+    public String option2(Player humanPlayer) {
         int counter = 0;
         for (Tree tree : trees) {
             if (tree.getTreeHealth() >= MEDIUM_TREE_SIZE) {
                 counter++;
             }
         }
-        System.out.println("There are " + counter + " trees ready to be felled!");
+        return "There are " + counter + " trees ready to be felled!";
+    }
+    
+    @Override
+    public Parent getRoomFXML() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/NonCertifiedForest.fxml"));
+            return root;
+        } catch (IOException ex) {
+            System.out.println("The fxml does not exist");
+        }
+        return null;
     }
 }

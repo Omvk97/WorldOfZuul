@@ -1,10 +1,10 @@
 package game_functionality;
 
 import game_locations.*;
+import javafx.scene.layout.AnchorPane;
 
 public class Game {
 
-    private final Parser parser;
     private final Trailer trailer = new Trailer();
     private final Player humanPlayer = new Player(trailer);
     private final Forest certifiedForest = new CertifiedForest();
@@ -14,11 +14,16 @@ public class Game {
     private final Room tutorialRoom = new TutorialRoom();
     private final Room blacksmith = new BlackSmith();
     private final Room library = new Library();
+    private static final Game instance = new Game();
 
-    public Game() {
+    private Game() {
         setExitsForRooms();
         setOptionsForRooms();
-        parser = new Parser(humanPlayer);
+        humanPlayer.setCurrentRoom(trailer);
+    }
+
+    public static Game getInstanceOfSelf() {
+        return instance;
     }
 
     private void setExitsForRooms() {
@@ -84,79 +89,17 @@ public class Game {
         library.setOptions("book3", "3");
     }
 
-    public void play() {
-        humanPlayer.setCurrentRoom(tutorialRoom);
-
-        printWelcome();
-
-        boolean finished = false;
-        while (!finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
-        }
-        System.out.println("Thank you for playing The LumberJack. Goodbye.");
-    }
-
-    private void printWelcome() {
-        System.out.println("Welcome to 'The LumberJack'! \n"
-            + "Your job as a lumberjack, is to cut down trees. \n"
-            + "You have " + trailer.getNUM_PLAY_DAYS() + " days playtime to earn as much money as you can\n"
-            + "without destroying the earth!\n");
-        System.out.println(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
-    }
-
-    private boolean processCommand(Command command) {
-        boolean wantToQuit = false;
-
-        CommandWord commandWord = command.getCommandWord();
-
-        if (commandWord == CommandWord.UNKNOWN) {
-            System.out.println("I don't know what you mean...");
-            return false;
-        }
-
-        if (null != commandWord) {
-            switch (commandWord) {
-                case HELP:
-                    printHelp();
-                    break;
-                case GO:
-                    goRoom(command);
-                    break;
-                case QUIT:
-                    wantToQuit = quit(command);
-                    break;
-                case OPTION:
-                    doOption(command);
-                    break;
-                case EXITS:
-                    System.out.println(humanPlayer.getCurrentRoom().getExitString());
-                    break;
-                default:
-                    break;
-            }
-        }
-        return wantToQuit;
-    }
-
-    private void printHelp() {
-        System.out.println("You can type 'exits' to get the directions you can go"
-            + "2. You can type 'go back' to go to the place you came from previously"
-            + "3. You can type 'quit' to quit the game");
-    }
-
-    private void goRoom(Command command) {
+    public void goRoom(Command command, AnchorPane anchorPane) {
         if (!command.hasSecondWord()) {
             System.out.println("Go where?");
-            return;
         }
         String direction = command.getSecondWord();
 
         // The player can write "go back" to get back to the room they were in before
         if (direction.equals("back")) {
-            if (humanPlayer.getPreviousRoom() != null && !(humanPlayer.getPreviousRoom() instanceof TutorialRoom)) {
+            if (humanPlayer.getPreviousRoom() != null) {
                 humanPlayer.setCurrentRoom(humanPlayer.getPreviousRoom());
-                System.out.println(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
+                anchorPane.getScene().setRoot(humanPlayer.getCurrentRoom().getRoomFXML());
                 return;
             }
         }
@@ -167,46 +110,44 @@ public class Game {
             System.out.println("There is no road!");
         } else {
             humanPlayer.setCurrentRoom(nextRoom);
-            System.out.println(humanPlayer.getCurrentRoom().roomEntrance(humanPlayer));
         }
+        anchorPane.getScene().setRoot(humanPlayer.getCurrentRoom().getRoomFXML());
     }
 
-    private boolean quit(Command command) {
-        if (command.hasSecondWord()) {
-            System.out.println("Quit what?");
-            return false;
-        } else {
-            System.out.println("Your score is: " + humanPlayer.getHighScore());
-            return true;
-        }
+    public Player getHumanPlayer() {
+        return humanPlayer;
     }
 
-    private void doOption(Command command) {
-        if (!command.hasSecondWord()) {
-            System.out.println("Do what?");
-            return;
-        }
-        String optionNumber = command.getSecondWord();
-        switch (optionNumber) {
-            case "1":
-                humanPlayer.getCurrentRoom().option1(humanPlayer);
-                break;
-            case "2":
-                humanPlayer.getCurrentRoom().option2(humanPlayer);
-                break;
-            case "3":
-                humanPlayer.getCurrentRoom().option3(humanPlayer);
-                break;
-            case "4":
-                humanPlayer.getCurrentRoom().option4(humanPlayer);
-                break;
-            case "666":
-                System.out.println("THE DEVIL REWARDS YOU FOR YOUR CURIOSITY");
-                humanPlayer.addMoney(9999);
-                System.out.println(9999 + " HAS BEEN ADDED TO YOUR WALLET");
-                break;
-            default:
-                System.out.println("I do not know that option");
-        }
+    public Trailer getTrailer() {
+        return trailer;
     }
+
+    public Forest getCertifiedForest() {
+        return certifiedForest;
+    }
+
+    public Forest getNonCertificedForest() {
+        return nonCertificedForest;
+    }
+
+    public Room getLocalVillage() {
+        return localVillage;
+    }
+
+    public Room getStore() {
+        return store;
+    }
+
+    public Room getTutorialRoom() {
+        return tutorialRoom;
+    }
+
+    public Room getBlacksmith() {
+        return blacksmith;
+    }
+
+    public Room getLibrary() {
+        return library;
+    }
+
 }

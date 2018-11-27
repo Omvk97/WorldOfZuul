@@ -1,4 +1,4 @@
-package ressource;
+package game_functionality;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -6,21 +6,25 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class MakingCharacterMove extends Application {
+/**
+ *
+ * @author Daniel, Oliver
+ */
+public class WorldOfZuul extends Application {
+
+    private Scene scene;
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/Trailer.fxml"));
 
-        Scene scene = new Scene(root);
+        scene = new Scene(root);
+        stage.setResizable(false);
 
         stage.setScene(scene);
         stage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }

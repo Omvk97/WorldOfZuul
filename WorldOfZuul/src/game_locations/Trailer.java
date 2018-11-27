@@ -5,19 +5,23 @@ import game_elements.Axe;
 import game_elements.AxeFactory;
 import game_elements.Tree;
 import game_functionality.Player;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.Label;
 
 public class Trailer extends Room {
+
     private final static int NUM_PLAY_DAYS = 20;
     private final static int MAX_TREESTORAGEAMOUNT = 30;
     private final ArrayList<Tree> logsInStorage;
     private Axe starterAxe = AxeFactory.createStarterAxe();
     private final Radio radio = new Radio();
     private int numOfDaysGoneBy;
-
 
     public Trailer() {
         this.logsInStorage = new ArrayList<>();
@@ -27,7 +31,6 @@ public class Trailer extends Room {
     @Override
     public String roomEntrance(Player humanPlayer) {
         return "You stand in your trailer, it is your home\n"
-            + "You have " + humanPlayer.getClimatePoints() + " climate points\n"
             + "---------------------------------------------\n"
             + "○ Store Logs   ➤ Store logs you are carrying\n"
             + "○ Check Wallet ➤ See how much money you have\n"
@@ -62,10 +65,9 @@ public class Trailer extends Room {
     }
 
     @Override
-    public void option1(Player humanPlayer) {
+    public String option1(Player humanPlayer) {
         if (humanPlayer.backPack().getAmountOfLogsInBackPack() == 0) {
-            System.out.println("You are not carrying any logs!");
-            return;
+            return "You are not carrying any logs!";
         }
         /**
          * Copies all the elements from the backpack
@@ -81,27 +83,25 @@ public class Trailer extends Room {
             if (getLogsInStorage().size() < MAX_TREESTORAGEAMOUNT) {
                 getLogsInStorage().add(tree);
                 humanPlayer.backPack().removeLogFromBackpack();
-            } else {
-                System.out.println("You carry too many logs to store!");
-                break;
             }
         }
+
         if (isStorageFull()) {
-            System.out.println("Your storage contains " + getLogsInStorage().size() + " logs "
+            return "Your storage contains " + getLogsInStorage().size() + " logs "
                 + "and is now full! \n"
-                + "Sell your logs in the store or upgrade storage space!");
+                + "Sell your logs in the store or upgrade storage space!";
         } else {
-            System.out.println("You now have " + getLogsInStorage().size()
-                + (getLogsInStorage().size() > 1 ? " logs" : " log") + " stored!");
+            return "You now have " + getLogsInStorage().size()
+                + (getLogsInStorage().size() > 1 ? " logs" : " log") + " stored!";
         }
     }
 
     @Override
-    public void option2(Player humanPlayer) {
+    public String option2(Player humanPlayer) {
         if (humanPlayer.getMoney() == 0) {
-            System.out.println("Your wallet is empty! What a shame!");
+            return "Your wallet is empty! What a shame!";
         } else {
-            System.out.println("You wallet holds " + humanPlayer.getMoney() + " gold coins");
+            return "You wallet holds " + humanPlayer.getMoney() + " gold coins";
         }
     }
 
@@ -109,7 +109,7 @@ public class Trailer extends Room {
      * @param humanPlayer the user.
      */
     @Override
-    public void option3(Player humanPlayer) {
+    public String option3(Player humanPlayer) {
         int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
         int fineAmount = 0;
         if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
@@ -123,15 +123,15 @@ public class Trailer extends Room {
             System.exit(0);
         }
         System.out.println("The sun goes down and you sleep tight \n"
-            + "ZzzzZzzzZzzzZzzz");
-        System.out.println("The sun rises and you are ready to tackle the day! \n"
+            + "ZzzzZzzzZzzzZzzz\n"
+            + "The sun rises and you are ready to tackle the day! \n"
             + (daysleft > 1 ? "It's day " + numOfDaysGoneBy + " and there is " + daysleft + " days left"
                 : "This is your last day as a lumberjack!"));
         Random globalOrLocal = new Random();
         if (globalOrLocal.nextBoolean()) {
-            radio.globalNews(humanPlayer);
+            return radio.globalNews(humanPlayer);
         } else {
-            radio.localNews(humanPlayer);
+            return radio.localNews(humanPlayer);
         }
     }
 
@@ -142,13 +142,13 @@ public class Trailer extends Room {
      * @param humanPlayer user that picks up the starter axe
      */
     @Override
-    public void option4(Player humanPlayer) {
+    public String option4(Player humanPlayer) {
         if (starterAxe != null) {
             humanPlayer.boughtAxe(starterAxe);
             starterAxe = null;
-            System.out.println("You equipped an axe!");
+            return "You equipped an axe!";
         } else {
-            System.out.println("I don't know what you mean");
+            return "I don't know what you mean";
         }
     }
 
@@ -179,7 +179,7 @@ public class Trailer extends Room {
             System.out.println("WRONG, study in the library!");
             return (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
         }
-        return (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 +100);
+        return (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
     }
 
     private boolean answerValidation(String userAnswer, String correctAnswer) {
@@ -190,6 +190,17 @@ public class Trailer extends Room {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public Parent getRoomFXML() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/Trailer.fxml"));
+            return root;
+        } catch (IOException ex) {
+            System.out.println("The fxml does not exist");
+        }
+        return null;
     }
 
 }
