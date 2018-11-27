@@ -5,6 +5,7 @@ import game_functionality.CommandWord;
 import game_functionality.Game;
 import game_functionality.Player;
 import game_locations.NonCertifiedForest;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
@@ -12,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -34,13 +36,22 @@ public class NonCertifiedController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        textArea.setText(gameForest.roomEntrance(humanPlayer));
-        if (Game.getInstanceOfSelf().getDirection().equals("goUp")) {
+        
+//        player.setLayoutY(400);
+//        player.setLayoutX(300);
+//        if (Game.getInstanceOfSelf().getDirection().equals("goUp")) {
             TranslateTransition up = new TranslateTransition(Duration.seconds(3), player);
+
             up.setFromY(player.getLayoutY());
             up.setByY(-player.getLayoutY());
             up.play();
-        }
+//        }
+        textArea.setText(gameForest.roomEntrance(humanPlayer));
+        File file = new File("src/pictures/baseCharacter.png");
+        Image image = new Image(file.toURI().toString());
+        player.setImage(image);
+
+
     }
 
     @FXML
