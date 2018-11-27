@@ -14,7 +14,7 @@ public class Game {
     private final Room tutorialRoom = new TutorialRoom();
     private final Room blacksmith = new BlackSmith();
     private final Room library = new Library();
-    private static final Game self = new Game();
+    private static final Game instance = new Game();
 
     private Game() {
         setExitsForRooms();
@@ -23,7 +23,7 @@ public class Game {
     }
 
     public static Game getInstanceOfSelf() {
-        return self;
+        return instance;
     }
 
     private void setExitsForRooms() {
@@ -114,52 +114,6 @@ public class Game {
         anchorPane.getScene().setRoot(humanPlayer.getCurrentRoom().getRoomFXML());
     }
 
-//    public void printHelp(Label text) {
-//        text.setText("You can type 'exits' to get the directions you can go\n"
-//            + "2. You can type 'go back' to go to the place you came from previously\n"
-//            + "3. You can type 'quit' to quit the game");
-//    }
-
-//    public boolean quit(Command command, Label text) {
-//        if (command.hasSecondWord()) {
-//            text.setText("Quit what?");
-//            return false;
-//        } else {
-//            text.setText("Your score is: " + humanPlayer.getHighScore());
-//            System.exit(0);
-//            return true;
-//        }
-//    }
-
-//    public void doOption(Command command, AnchorPane anchorPane) {
-//        if (!command.hasSecondWord()) {
-//            text.setText("Do what?");
-//            return;
-//        }
-//        String optionNumber = command.getSecondWord();
-//        switch (optionNumber) {
-//            case "1":
-//                humanPlayer.getCurrentRoom().option1(humanPlayer);
-//                break;
-//            case "2":
-//                humanPlayer.getCurrentRoom().option2(humanPlayer);
-//                break;
-//            case "3":
-//                humanPlayer.getCurrentRoom().option3(humanPlayer);
-//                break;
-//            case "4":
-//                humanPlayer.getCurrentRoom().option4(humanPlayer);
-//                break;
-//            case "666":
-//                text.setText("THE DEVIL REWARDS YOU FOR YOUR CURIOSITY");
-//                humanPlayer.addMoney(9999);
-//                text.setText(9999 + " HAS BEEN ADDED TO YOUR WALLET");
-//                break;
-//            default:
-//                text.setText("I do not know that option");
-//        }
-//
-//    }
     public Player getHumanPlayer() {
         return humanPlayer;
     }

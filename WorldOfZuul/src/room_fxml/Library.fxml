@@ -15,11 +15,7 @@
         <URL value="@styleSheetForRooms.css" />
     </stylesheets>
     <children>
-        <ImageView fx:id="player" fitHeight="60.0" fitWidth="60.0" layoutX="276.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@http://icons.iconarchive.com/icons/martin-berube/people/64/lumberjack-icon.png" />
-            </image>
-        </ImageView>
+        <ImageView fx:id="player" fitHeight="75.0" fitWidth="75.0" layoutX="276.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true"/>
         <javafx.scene.control.Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="326.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
         <ImageView fx:id="map" fitHeight="110.0" fitWidth="71.0" layoutX="515.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">
             <image>
