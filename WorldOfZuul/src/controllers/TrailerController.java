@@ -11,6 +11,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -40,9 +42,12 @@ public class TrailerController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         textArea.setText(gameTrailer.roomEntrance(humanPlayer));
         option4.setRotate(45);
-        File file = new File("src/pictures/baseCharacter.png");
-        Image image = new Image(file.toURI().toString());
-        player.setImage(image);
+        File characterFilePlacement = new File("src/pictures/baseCharacter.png");
+        Image character = new Image(characterFilePlacement.toURI().toString());
+        player.setImage(character);
+        File starterAxeFilePlacement = new File("src/pictures/starterAxe.png");
+        Image starterAxe = new Image(starterAxeFilePlacement.toURI().toString());
+        option4.setImage(starterAxe);
     }
 
     @FXML
@@ -64,13 +69,22 @@ public class TrailerController implements Initializable {
     private void handleOption4(MouseEvent event) {
         TranslateTransition transition = new TranslateTransition(Duration.seconds(3), player);
         transition.setByX(option4.getLayoutX() - player.getLayoutX());
+        transition.setOnFinished((ActionEvent event1) -> {
+            File file = new File("src/pictures/characterModelWithStarterAxe.png");
+            Image characterWithStarterAxePlacement = new Image(file.toURI().toString());
+            player.setImage(characterWithStarterAxePlacement);
+            textArea.setText(gameTrailer.option4(humanPlayer));
+        });
 
         TranslateTransition transition2 = new TranslateTransition(Duration.seconds(3), player);
         transition2.setByX(player.getLayoutX() - option4.getLayoutX());
 
         SequentialTransition axeTransition = new SequentialTransition(transition, transition2);
         axeTransition.play();
-        textArea.setText(gameTrailer.option4(humanPlayer));
+    }
+
+    private void transition2() {
+
     }
 
     @FXML
