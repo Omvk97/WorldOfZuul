@@ -15,6 +15,15 @@ public class Game {
     private final Room blacksmith = new BlackSmith();
     private final Room library = new Library();
     private static final Game self = new Game();
+    private String direction;
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
 
     private Game() {
         setExitsForRooms();

@@ -7,6 +7,7 @@ import game_functionality.Player;
 import game_locations.NonCertifiedForest;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -16,6 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 public class NonCertifiedController implements Initializable {
 
@@ -33,6 +35,12 @@ public class NonCertifiedController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         textArea.setText(gameForest.roomEntrance(humanPlayer));
+        if (Game.getInstanceOfSelf().getDirection().equals("goUp")) {
+            TranslateTransition up = new TranslateTransition(Duration.seconds(3), player);
+            up.setFromY(player.getLayoutY());
+            up.setByY(-player.getLayoutY());
+            up.play();
+        }
     }
 
     @FXML

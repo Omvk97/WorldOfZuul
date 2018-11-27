@@ -80,7 +80,12 @@ public class TrailerController implements Initializable {
     private void handleExits(KeyEvent event) {
         if (event.getCode().equals(KeyCode.UP) || event.getCode().equals(KeyCode.W)) {
             Command tester = new Command(CommandWord.GO, "north");
-            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            TranslateTransition up = new TranslateTransition(Duration.seconds(3), player);
+            up.setByY(- player.getLayoutY());
+            up.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
+            up.play();
+            Game.getInstanceOfSelf().setDirection("goUp");
+            
         } else if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
             Command tester = new Command(CommandWord.GO, "south");
             Game.getInstanceOfSelf().goRoom(tester, anchorPane);
