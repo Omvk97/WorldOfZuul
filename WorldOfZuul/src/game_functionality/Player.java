@@ -6,6 +6,7 @@ import game_elements.BackPackFactory;
 import game_elements.Tree;
 import game_locations.Room;
 import game_locations.Trailer;
+import java.io.File;
 import java.util.ArrayList;
 
 public class Player {
@@ -23,13 +24,23 @@ public class Player {
     private final Trailer trailer;
     private Room previousRoom;
     private boolean hasSlept;
+    private File characterModel;
 
     public Player(Trailer trailer) {
         this.equippedBackPack = BackPackFactory.createStarterBackPack();
         this.trailer = trailer;
         this.previousRoom = trailer;
+        characterModel = new File("src/pictures/baseCharacter.png");
     }
 
+    public File getCharacterModel() {
+        return characterModel;
+    }
+
+    public void setCharacterModel(File characterModel) {
+        this.characterModel = characterModel;
+    }
+    
     /**
      * Used to determine whether or not the game should end. If the climatepoints goes over this
      * threshold, the game is over, the world has been destroyed.

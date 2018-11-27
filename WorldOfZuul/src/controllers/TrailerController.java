@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -42,8 +41,7 @@ public class TrailerController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         textArea.setText(gameTrailer.roomEntrance(humanPlayer));
         option4.setRotate(45);
-        File characterFilePlacement = new File("src/pictures/baseCharacter.png");
-        Image character = new Image(characterFilePlacement.toURI().toString());
+        Image character = new Image(humanPlayer.getCharacterModel().toURI().toString());
         player.setImage(character);
         File starterAxeFilePlacement = new File("src/pictures/starterAxe.png");
         Image starterAxe = new Image(starterAxeFilePlacement.toURI().toString());
@@ -73,6 +71,7 @@ public class TrailerController implements Initializable {
             File file = new File("src/pictures/characterModelWithStarterAxe.png");
             Image characterWithStarterAxePlacement = new Image(file.toURI().toString());
             player.setImage(characterWithStarterAxePlacement);
+            humanPlayer.setCharacterModel(file);
             textArea.setText(gameTrailer.option4(humanPlayer));
         });
 
