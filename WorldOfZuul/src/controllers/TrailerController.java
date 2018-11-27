@@ -9,6 +9,8 @@ import game_locations.Trailer;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.PathTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -58,13 +60,18 @@ public class TrailerController implements Initializable {
 
     @FXML
     private void handleOption4(MouseEvent event) {
-        Line circle = new Line(player.getLayoutX(), player.getLayoutY(), option4.getLayoutX(), option4.getLayoutY());
-        PathTransition transition = new PathTransition();
-        transition.setNode(player);
-        transition.setDuration(Duration.seconds(3));
-        transition.setPath(circle);
-        transition.setCycleCount(1);
-        transition.play();
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(3), player);
+//        transition.setNode(player);
+//        transition.setDuration(Duration.seconds(3));
+//        transition.setPath(circle);
+        transition.setByX(option4.getLayoutX() - player.getLayoutX());
+        System.out.println("pick up dat axe boi");
+        
+        TranslateTransition transition2 = new TranslateTransition(Duration.seconds(3), player);
+        transition2.setByX(player.getLayoutX() - option4.getLayoutX());
+        
+        SequentialTransition axeTransition = new SequentialTransition(transition, transition2);
+        axeTransition.play();
         textArea.setText(gameTrailer.option4(humanPlayer));
 
     }
