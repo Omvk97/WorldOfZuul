@@ -8,6 +8,7 @@ import game_locations.LocalVillage;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 public class LocalVillageController implements Initializable {
 
@@ -34,6 +36,13 @@ public class LocalVillageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
+        if (Game.getInstanceOfSelf().getDirection().equals("goRight")) {
+            player.setLayoutX(0);
+//            right.setFromX(-player.getLayoutX());
+            right.setByX(276);
+            right.play();
+        }
         textArea.setText(gameVillage.roomEntrance(humanPlayer));
         File file = new File("src/pictures/baseCharacter.png");
         Image image = new Image(file.toURI().toString());
@@ -61,8 +70,8 @@ public class LocalVillageController implements Initializable {
         Command tester = new Command(CommandWord.GO, "blacksmith");
         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
     }
-    
-        @FXML
+
+    @FXML
     private void handleGoToLibrary(MouseEvent event) {
         Command tester = new Command(CommandWord.GO, "library");
         Game.getInstanceOfSelf().goRoom(tester, anchorPane);

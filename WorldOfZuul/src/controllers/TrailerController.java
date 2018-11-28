@@ -68,7 +68,8 @@ public class TrailerController implements Initializable {
 
     @FXML
     private void handleOption4(MouseEvent event) {
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(3), player);
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), player);
+        transition.setByX(option4.getLayoutX() - player.getLayoutX());
 
         transition.setOnFinished((ActionEvent event1) -> {
             File file = new File("src/pictures/characterModelWithStarterAxe.png");
@@ -77,7 +78,7 @@ public class TrailerController implements Initializable {
             textArea.setText(gameTrailer.option4(humanPlayer));
         });
 
-        TranslateTransition transition2 = new TranslateTransition(Duration.seconds(3), player);
+        TranslateTransition transition2 = new TranslateTransition(Duration.seconds(1.5), player);
         transition2.setByX(player.getLayoutX() - option4.getLayoutX());
 
         SequentialTransition axeTransition = new SequentialTransition(transition, transition2);
@@ -91,7 +92,7 @@ public class TrailerController implements Initializable {
                 case UP:
                 case W: {
                     Command tester = new Command(CommandWord.GO, "north");
-                    TranslateTransition up = new TranslateTransition(Duration.seconds(3), player);
+                    TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
                     up.setByY(-player.getLayoutY());
                     up.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
                     up.play();
@@ -107,7 +108,11 @@ public class TrailerController implements Initializable {
                 case RIGHT:
                 case D: {
                     Command tester = new Command(CommandWord.GO, "village");
-                    Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+                    TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
+                    right.setByX(player.getLayoutX());
+                    right.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
+                    right.play();
+                    Game.getInstanceOfSelf().setDirection("goRight");
                     break;
                 }
                 default:

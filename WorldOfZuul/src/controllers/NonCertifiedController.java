@@ -36,21 +36,17 @@ public class NonCertifiedController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-//        player.setLayoutY(400);
-//        player.setLayoutX(300);
-//        if (Game.getInstanceOfSelf().getDirection().equals("goUp")) {
-            TranslateTransition up = new TranslateTransition(Duration.seconds(3), player);
 
-            up.setFromY(player.getLayoutY());
-            up.setByY(-player.getLayoutY());
+        if (Game.getInstanceOfSelf().getDirection().equals("goUp")) {
+            TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
+            player.setLayoutY(player.getLayoutY() * 2);
+            up.setByY(-170);
             up.play();
-//        }
+        }
         textArea.setText(gameForest.roomEntrance(humanPlayer));
         File file = new File("src/pictures/baseCharacter.png");
         Image image = new Image(file.toURI().toString());
         player.setImage(image);
-
 
     }
 
