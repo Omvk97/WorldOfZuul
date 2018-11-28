@@ -23,8 +23,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
-
-
 public class TrailerController implements Initializable {
 
     @FXML
@@ -88,36 +86,36 @@ public class TrailerController implements Initializable {
     @FXML
     private void handleExits(KeyEvent event) {
 
-            switch (event.getCode()) {
-                case UP:
-                case W: {
-                    Command tester = new Command(CommandWord.GO, "north");
-                    TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-                    up.setByY(-player.getLayoutY());
-                    up.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
-                    up.play();
-                    Game.getInstanceOfSelf().setDirection("goUp");
-                    break;
-                }
-                case DOWN:
-                case S: {
-                    Command tester = new Command(CommandWord.GO, "south");
-                    Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-                    break;
-                }
-                case RIGHT:
-                case D: {
-                    Command tester = new Command(CommandWord.GO, "village");
-                    TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
-                    right.setByX(player.getLayoutX());
-                    right.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
-                    right.play();
-                    Game.getInstanceOfSelf().setDirection("goRight");
-                    break;
-                }
-                default:
-                    textArea.setText("There is no road that way!");
-                    break;
+        switch (event.getCode()) {
+            case UP:
+            case W: {
+                Command tester = new Command(CommandWord.GO, "north");
+                TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
+                up.setByY(-player.getLayoutY());
+                up.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
+                up.play();
+                Game.getInstanceOfSelf().setDirection("goUp");
+                break;
             }
+            case DOWN:
+            case S: {
+                Command tester = new Command(CommandWord.GO, "south");
+                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+                break;
+            }
+            case RIGHT:
+            case D: {
+                Command tester = new Command(CommandWord.GO, "village");
+                TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
+                right.setByX(player.getLayoutX() - 70);
+                right.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
+                right.play();
+                Game.getInstanceOfSelf().setDirection("goRight");
+                break;
+            }
+            default:
+                textArea.setText("There is no road that way!");
+                break;
         }
     }
+}

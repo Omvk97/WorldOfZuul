@@ -16,6 +16,7 @@ public class Game {
     private final Room library = new Library();
     private String direction;
     private static final Game instance = new Game();
+    
     public String getDirection() {
         return direction;
     }

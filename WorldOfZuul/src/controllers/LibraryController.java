@@ -8,6 +8,7 @@ import game_locations.Library;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 public class LibraryController implements Initializable {
 
@@ -34,6 +36,12 @@ public class LibraryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        TranslateTransition roomTransition = new TranslateTransition(Duration.seconds(1.5), player);
+        if (Game.getInstanceOfSelf().getDirection().equals("goLibrary")) {
+            player.setLayoutX(0);
+            roomTransition.setByX(276);
+            roomTransition.play();
+        }
         textArea.setText(gameLibrary.roomEntrance(humanPlayer));
         File file = new File("src/pictures/baseCharacter.png");
         Image image = new Image(file.toURI().toString());
@@ -53,8 +61,13 @@ public class LibraryController implements Initializable {
     @FXML
     private void handleExits(KeyEvent event) {
         if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
-            Command tester = new Command(CommandWord.GO, "back");
-            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            TranslateTransition transistionFromLibrary = new TranslateTransition(Duration.seconds(1.5), player);
+            transistionFromLibrary.setByX(-276);
+            transistionFromLibrary.setOnFinished((ActionEvent) -> {
+                Command tester = new Command(CommandWord.GO, "back");
+                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            });
+            transistionFromLibrary.play();
         } else {
             textArea.setText("There is no road!");
         }
