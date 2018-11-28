@@ -35,6 +35,11 @@ public class StartSceneController implements Initializable{
     private AnchorPane anchorPane;
     @FXML
     private Button txtStartGameButton;
+    @FXML
+    private Button btnOptionhandler;
+    @FXML
+    private Button btnEXIT;
+    
 
     /**
      * Initializes the controller class.
@@ -49,6 +54,14 @@ public class StartSceneController implements Initializable{
     private void HandleStartGameAction(ActionEvent event) {
 
         anchorPane.getScene().setRoot(humanPlayer.getCurrentRoom().getRoomFXML());
+    }
+
+    @FXML
+    private void optionAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void ExitAction(ActionEvent event) {
     }
     
 }
