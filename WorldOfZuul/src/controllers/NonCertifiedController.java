@@ -5,10 +5,15 @@ import game_functionality.CommandWord;
 import game_functionality.Game;
 import game_functionality.Player;
 import game_locations.NonCertifiedForest;
+import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -19,6 +24,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 public class NonCertifiedController implements Initializable {
@@ -30,9 +37,12 @@ public class NonCertifiedController implements Initializable {
     @FXML
     private Button option1, option2;
     @FXML
-    private ImageView player, map, largeTree, mediumTree, smallTree;
+    private ImageView player, largeTree, mediumTree, smallTree;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final NonCertifiedForest gameForest = (NonCertifiedForest) Game.getInstanceOfSelf().getNonCertificedForest();
+
+    public NonCertifiedController() {
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -43,16 +53,47 @@ public class NonCertifiedController implements Initializable {
 
     @FXML
     private void handleOption1(MouseEvent event) {
+        File punchFile = new File("src/pictures/PunchSound.wav");
+        Media punchSound = new Media(punchFile.toURI().toString());
+
         TranslateTransition transition = new TranslateTransition(Duration.seconds(3), player);
         transition.setByX(largeTree.getLayoutX() - player.getLayoutX());
-        transition.setByY(largeTree.getLayoutX() - player.getLayoutX());
+        transition.setByY(-(player.getLayoutY() - largeTree.getLayoutY()));
 
-        TranslateTransition transition2 = new TranslateTransition(Duration.millis(500), player);
-        transition2.setCycleCount(5);
-        transition2.setByX(player.getLayoutX() - 10);
+        transition.setOnFinished((ActionEvent event1) -> {
+            textArea.setText(Integer.toString(gameForest.lastTreeInArray().getTreeHealth()));
+            ArrayList<Media> sounds = new ArrayList<>();
+            int number = Integer.parseInt(gameForest.option1(humanPlayer));
+            for (int i = 0; i < number; i++) {
+                sounds.add(punchSound);
+            }
+            playMediaTracks(sounds);
+        });
+
+        TranslateTransition transition2 = new TranslateTransition(Duration.seconds(3), player);
+        transition2.setByX(player.getLayoutX() - largeTree.getLayoutX());
+        transition2.setByY(player.getLayoutY() - largeTree.getLayoutY());
+        transition2.setOnFinished((ActionEvent event1) -> {
+            textArea.setText("You have punched down a tree! You are now carrying "
+                + humanPlayer.backPack().getAmountOfLogsInBackPack()
+                + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
+        });
 
         SequentialTransition axeTransition = new SequentialTransition(transition, transition2);
-        transition.play();
+        axeTransition.play();
+    }
+
+    private void playMediaTracks(ArrayList<Media> mediaList) {
+        if (mediaList.isEmpty()) {
+            return;
+        }
+
+        MediaPlayer mediaplayer = new MediaPlayer(mediaList.remove(0));
+        mediaplayer.play();
+
+        mediaplayer.setOnEndOfMedia(() -> {
+            playMediaTracks(mediaList);
+        });
     }
 
     @FXML

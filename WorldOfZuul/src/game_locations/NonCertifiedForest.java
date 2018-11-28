@@ -47,7 +47,7 @@ public class NonCertifiedForest extends Forest {
                 + "NON CERTIFIED WOOD.");
             System.exit(0);
         }
-        return chopWood(humanPlayer);
+        return Integer.toString(chopWood(humanPlayer));
     }
 
     @Override

@@ -55,7 +55,7 @@ public class CertifiedForest extends Forest {
 
     @Override
     public String option1(Player humanPlayer) {
-        return chopWood(humanPlayer);
+        return Integer.toString(chopWood(humanPlayer));
     }
 
     @Override
