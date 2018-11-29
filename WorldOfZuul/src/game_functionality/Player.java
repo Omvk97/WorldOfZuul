@@ -24,24 +24,44 @@ public class Player {
     private final Trailer trailer;
     private Room previousRoom;
     private boolean hasSlept;
+    private final File baseModelFile = new File("src/pictures/baseCharacter.png");
+    private final File baseModelRightFile = new File("src/pictures/baseCharacterRight.png");
+    private final File modelStarterAxeFile = new File("src/pictures/characterModelWithStarterAxe.png");
+    private final File modelStarterAxeRightFile = new File("src/pictures/characterModelWithStarterAxeRight.png");
     private File characterModel;
 
     public Player(Trailer trailer) {
         this.equippedBackPack = BackPackFactory.createStarterBackPack();
         this.trailer = trailer;
         this.previousRoom = trailer;
-        characterModel = new File("src/pictures/baseCharacter.png");
+        characterModel = baseModelFile;
     }
 
     public File getCharacterModel() {
         return characterModel;
     }
 
-    public void setCharacterModel(File characterModel) {
-        if (characterModel != null) {
-            this.characterModel = characterModel;
+    public void setCharacterModel(boolean characterGoingRight) {
+        if (!characterGoingRight) {
+            if (equippedAxe == null) {
+                characterModel = baseModelFile;
+            } else if (equippedAxe.getDescription().equals("Starter axe")) {
+                characterModel = modelStarterAxeFile;
+            } else if (equippedAxe.getDescription().equals("Iron axe")) {
+            } else if (equippedAxe.getDescription().equals("Steel axe")) {
+            } else if (equippedAxe.getDescription().equals("Diamond axe")) {
+            } else if (equippedAxe.getDescription().equals("Fire axe")) {
+            }
         } else {
-            this.characterModel = new File("src/pictures/baseCharacter.png");
+            if (equippedAxe == null) {
+                characterModel = baseModelRightFile;
+            } else if (equippedAxe.getDescription().equals("Starter axe")) {
+                characterModel = modelStarterAxeRightFile;
+            } else if (equippedAxe.getDescription().equals("Iron axe")) {
+            } else if (equippedAxe.getDescription().equals("Steel axe")) {
+            } else if (equippedAxe.getDescription().equals("Diamond axe")) {
+            } else if (equippedAxe.getDescription().equals("Fire axe")) {
+            }
         }
     }
 

@@ -9,6 +9,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.animation.Interpolator;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -54,8 +55,7 @@ public class CertifiedForestController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         textArea.setText(gameForest.roomEntrance(humanPlayer));
-        Image image = new Image(humanPlayer.getCharacterModel().toURI().toString());
-        player.setImage(image);
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         smallTreeLabel.setText(Integer.toString(gameForest.countSmallTrees()));
         mediumTreeLabel.setText(Integer.toString(gameForest.countMediumTrees()));
         largeTreeLabel.setText(Integer.toString(gameForest.countLargeTrees()));
@@ -84,7 +84,8 @@ public class CertifiedForestController implements Initializable {
                 textArea.setText("There is no trees to fell and your backpack is full!");
             }
 
-        } else {}
+        } else {
+        }
     }
 
     private void treeAnimationToLargeTree(int numOfChops) {
@@ -99,12 +100,19 @@ public class CertifiedForestController implements Initializable {
             }
         }
         sounds.add(treeFallingSound);
+        humanPlayer.setCharacterModel(true);
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
 
         TranslateTransition goToTree = new TranslateTransition(Duration.seconds(3), player);
         goToTree.setByX((largeTree.getLayoutX() - player.getLayoutX()) - 20);
         goToTree.setByY(-(player.getLayoutY() - largeTree.getLayoutY()) + 75);
         goToTree.setOnFinished((ActionEvent event1) -> {
             playMediaTracks(sounds);
+            if (humanPlayer.getAxe() != null) {
+                axeChopAnimation(numOfChops);
+            } else {
+                punchAnimation(numOfChops);
+            }
         });
 
         TranslateTransition goFromTree = new TranslateTransition(Duration.seconds(3), player);
@@ -143,7 +151,7 @@ public class CertifiedForestController implements Initializable {
                 textArea.setText("Your axe is at half durability!");
             } else if (numOfHits == 0) {
                 textArea.setText("Your axe broke!");
-                humanPlayer.setCharacterModel(null);
+                humanPlayer.setCharacterModel(true);
                 player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
             }
         } else {
@@ -154,11 +162,35 @@ public class CertifiedForestController implements Initializable {
         running = false;
     }
 
+    private void axeChopAnimation(int numOfChops) {
+        TranslateTransition hitAnimation = new TranslateTransition(Duration.millis(335), player);
+        hitAnimation.setByX(40);
+        hitAnimation.setAutoReverse(true);
+        hitAnimation.setCycleCount(numOfChops * 2);
+        hitAnimation.setInterpolator(Interpolator.LINEAR);
+        hitAnimation.setOnFinished((ActionEvent event1) -> {
+            player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        });
+        hitAnimation.play();
+    }
+
+    private void punchAnimation(int numOfChops) {
+        TranslateTransition tester = new TranslateTransition(Duration.millis(200), player);
+        tester.setByX(40);
+        tester.setAutoReverse(true);
+        tester.setCycleCount(numOfChops * 2);
+        tester.setInterpolator(Interpolator.LINEAR);
+        tester.setOnFinished((ActionEvent event1) -> {
+            player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        });
+        tester.play();
+    }
+
     @FXML
     private void handleOption2(MouseEvent event) {
         textArea.setText(gameForest.option2(humanPlayer));
     }
-    
+
     @FXML
     private void handleOption3(MouseEvent event) {
         textArea.setText(gameForest.option3(humanPlayer));

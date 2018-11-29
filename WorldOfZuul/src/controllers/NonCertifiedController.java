@@ -9,6 +9,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.animation.Interpolator;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -57,8 +58,7 @@ public class NonCertifiedController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         textArea.setText(gameForest.roomEntrance(humanPlayer));
-        Image image = new Image(humanPlayer.getCharacterModel().toURI().toString());
-        player.setImage(image);
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         smallTreeLabel.setText(Integer.toString(gameForest.countSmallTrees()));
         mediumTreeLabel.setText(Integer.toString(gameForest.countMediumTrees()));
         largeTreeLabel.setText(Integer.toString(gameForest.countLargeTrees()));
@@ -107,13 +107,21 @@ public class NonCertifiedController implements Initializable {
                 sounds.add(punchSound);
             }
         }
+
         sounds.add(treeFallingSound);
+        humanPlayer.setCharacterModel(true);
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
 
         TranslateTransition goToTree = new TranslateTransition(Duration.seconds(3), player);
         goToTree.setByX((largeTree.getLayoutX() - player.getLayoutX()) - 20);
         goToTree.setByY(-(player.getLayoutY() - largeTree.getLayoutY()) + 75);
         goToTree.setOnFinished((ActionEvent event1) -> {
             playMediaTracks(sounds);
+            if (humanPlayer.getAxe() != null) {
+                axeChopAnimation(numOfChops, false);
+            } else {
+                punchAnimation(numOfChops, false);
+            }
         });
 
         TranslateTransition goFromTree = new TranslateTransition(Duration.seconds(3), player);
@@ -141,15 +149,23 @@ public class NonCertifiedController implements Initializable {
             }
         }
         sounds.add(treeFallingSound);
+        
+        humanPlayer.setCharacterModel(false);
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         TranslateTransition goToTree = new TranslateTransition(Duration.seconds(3), player);
-        goToTree.setByX((mediumTree.getLayoutX() - player.getLayoutX()) + 55);
+        goToTree.setByX((mediumTree.getLayoutX() - player.getLayoutX()) + 70);
         goToTree.setByY(-(player.getLayoutY() - mediumTree.getLayoutY()) + 60);
         goToTree.setOnFinished((ActionEvent event1) -> {
             playMediaTracks(sounds);
+            if (humanPlayer.getAxe() != null) {
+                axeChopAnimation(numOfChops, true);
+            } else {
+                punchAnimation(numOfChops, true);
+            }
         });
 
         TranslateTransition goFromTree = new TranslateTransition(Duration.seconds(3), player);
-        goFromTree.setByX((player.getLayoutX() - mediumTree.getLayoutX()) - 55);
+        goFromTree.setByX((player.getLayoutX() - mediumTree.getLayoutX()) - 70);
         goFromTree.setByY((player.getLayoutY() - mediumTree.getLayoutY()) - 60);
         goFromTree.setDelay(Duration.millis(2000));
         goFromTree.setOnFinished((ActionEvent event1) -> {
@@ -173,26 +189,60 @@ public class NonCertifiedController implements Initializable {
             playMediaTracks(sounds);
         });
     }
-    
+
     private void treeFelledConfirmation() {
         if (humanPlayer.getAxe() != null) {
-                textArea.setText("You have chopped down a tree! You are now carrying "
-                    + humanPlayer.backPack().getAmountOfLogsInBackPack()
-                    + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
-                double numOfHits = humanPlayer.useAxe();
-                if (numOfHits == 0.5) {
-                    textArea.setText("Your axe is at half durability!");
-                } else if (numOfHits == 0) {
-                    textArea.setText("Your axe broke!");
-                    humanPlayer.setCharacterModel(null);
-                    player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
-                }
-            } else {
-                textArea.setText("You have punched down a tree! You are now carrying "
-                    + humanPlayer.backPack().getAmountOfLogsInBackPack()
-                    + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
+            textArea.setText("You have chopped down a tree! You are now carrying "
+                + humanPlayer.backPack().getAmountOfLogsInBackPack()
+                + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
+            double numOfHits = humanPlayer.useAxe();
+            if (numOfHits == 0.5) {
+                textArea.setText("Your axe is at half durability!");
+            } else if (numOfHits == 0) {
+                textArea.setText("Your axe broke!");
+                humanPlayer.setCharacterModel(true);
+                player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
             }
-            running = false;
+        } else {
+            textArea.setText("You have punched down a tree! You are now carrying "
+                + humanPlayer.backPack().getAmountOfLogsInBackPack()
+                + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
+        }
+        running = false;
+    }
+
+    private void axeChopAnimation(int numOfChops, boolean characterGoingRight) {
+        TranslateTransition hitAnimation = new TranslateTransition(Duration.millis(335), player);
+        if (!characterGoingRight) {
+            hitAnimation.setByX(40);
+        } else {
+            hitAnimation.setByX(-40);
+        }
+        hitAnimation.setAutoReverse(true);
+        hitAnimation.setCycleCount(numOfChops * 2);
+        hitAnimation.setInterpolator(Interpolator.LINEAR);
+        hitAnimation.setOnFinished((ActionEvent event1) -> {
+            humanPlayer.setCharacterModel(characterGoingRight);
+            player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        });
+        hitAnimation.play();
+    }
+
+    private void punchAnimation(int numOfChops, boolean characterGoingRight) {
+        TranslateTransition hitAnimation = new TranslateTransition(Duration.millis(195), player);
+        if (!characterGoingRight) {
+            hitAnimation.setByX(40);
+        } else {
+            hitAnimation.setByX(-40);
+        }
+        hitAnimation.setAutoReverse(true);
+        hitAnimation.setCycleCount(numOfChops * 2);
+        hitAnimation.setInterpolator(Interpolator.LINEAR);
+        hitAnimation.setOnFinished((ActionEvent event1) -> {
+            humanPlayer.setCharacterModel(characterGoingRight);
+            player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        });
+        hitAnimation.play();
     }
 
     @FXML

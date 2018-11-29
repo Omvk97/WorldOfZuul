@@ -68,11 +68,9 @@ public class TrailerController implements Initializable {
         TranslateTransition transition = new TranslateTransition(Duration.seconds(3), player);
         transition.setByX(option4.getLayoutX() - player.getLayoutX());
         transition.setOnFinished((ActionEvent event1) -> {
-            File file = new File("src/pictures/characterModelWithStarterAxe.png");
-            Image characterWithStarterAxePlacement = new Image(file.toURI().toString());
-            player.setImage(characterWithStarterAxePlacement);
-            humanPlayer.setCharacterModel(file);
             textArea.setText(gameTrailer.option4(humanPlayer));
+            humanPlayer.setCharacterModel(false);
+            player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         });
 
         TranslateTransition transition2 = new TranslateTransition(Duration.seconds(3), player);
