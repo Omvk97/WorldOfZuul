@@ -203,4 +203,9 @@ public class Trailer extends Room {
         return null;
     }
 
+    public int getNumOfDaysGoneBy() {
+        return numOfDaysGoneBy;
+    }
+    
+
 }

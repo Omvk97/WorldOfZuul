@@ -9,6 +9,7 @@ import game_locations.Trailer;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -26,7 +27,7 @@ import javafx.util.Duration;
 public class TrailerController implements Initializable {
 
     @FXML
-    private Label textArea;
+    private Label textArea, daysLeftLabel;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -42,35 +43,41 @@ public class TrailerController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
 //        if (!running) {
-            switch (Game.getInstanceOfSelf().getDirection()) {
-                case "goDown":
-                    running = true;
-                    TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
-                    player.setLayoutY(0);
-                    down.setByY(170);
-                    down.setOnFinished((ActionEvent e) -> {running = false;});
-                    down.play();
-                    break;
-                case "goLeft":
-                    running = true;
-                    TranslateTransition left = new TranslateTransition(Duration.seconds(1.5), player);
-                    player.setLayoutX(2 * player.getLayoutX() - 70);
-                    left.setByX(-206);
-                    left.setOnFinished((ActionEvent e) -> {running = false;});
-                    left.play();
-                    break;
-                case "goUp":
-                    running = true;
-                    TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-                    player.setLayoutY(player.getLayoutY() * 2);
-                    up.setByY(-170);
-                    up.setOnFinished((ActionEvent e) -> {running = false;});
-                    up.play();
-                    break;
-                default:
+        switch (Game.getInstanceOfSelf().getDirection()) {
+            case "goDown":
+                running = true;
+                TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
+                player.setLayoutY(0);
+                down.setByY(170);
+                down.setOnFinished((ActionEvent e) -> {
                     running = false;
-                    break;
-            }
+                });
+                down.play();
+                break;
+            case "goLeft":
+                running = true;
+                TranslateTransition left = new TranslateTransition(Duration.seconds(1.5), player);
+                player.setLayoutX(2 * player.getLayoutX() - 70);
+                left.setByX(-206);
+                left.setOnFinished((ActionEvent e) -> {
+                    running = false;
+                });
+                left.play();
+                break;
+            case "goUp":
+                running = true;
+                TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
+                player.setLayoutY(player.getLayoutY() * 2);
+                up.setByY(-170);
+                up.setOnFinished((ActionEvent e) -> {
+                    running = false;
+                });
+                up.play();
+                break;
+            default:
+                running = false;
+                break;
+        }
 //        } else {
 //            System.out.println("ayo wait up");
 //        }
@@ -96,7 +103,20 @@ public class TrailerController implements Initializable {
 
     @FXML
     private void handleOption3(MouseEvent event) {
-        textArea.setText(gameTrailer.option3(humanPlayer));
+        if (!running) {
+            running = true;
+            textArea.setText(gameTrailer.option3(humanPlayer));
+            FadeTransition sleep = new FadeTransition(Duration.seconds(3), anchorPane);
+            sleep.setFromValue(1);
+            sleep.setToValue(0.1);
+            sleep.setCycleCount(2);
+            sleep.setAutoReverse(true);
+            sleep.play();
+            sleep.setOnFinished((ActionEvent e) -> {
+                daysLeftLabel.setText(gameTrailer.getNUM_PLAY_DAYS() - gameTrailer.getNumOfDaysGoneBy() + " days left");
+                running = false;
+            });
+        }
     }
 
     @FXML
