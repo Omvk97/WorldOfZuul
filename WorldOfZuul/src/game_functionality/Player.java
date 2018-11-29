@@ -38,9 +38,13 @@ public class Player {
     }
 
     public void setCharacterModel(File characterModel) {
-        this.characterModel = characterModel;
+        if (characterModel != null) {
+            this.characterModel = characterModel;
+        } else {
+            this.characterModel = new File("src/pictures/baseCharacter.png");
+        }
     }
-    
+
     /**
      * Used to determine whether or not the game should end. If the climatepoints goes over this
      * threshold, the game is over, the world has been destroyed.
@@ -123,15 +127,16 @@ public class Player {
     public void loadOffLogsInStorage() {
         trailer.getLogsInStorage().clear();
     }
-    
+
     public boolean isStorageFull() {
         return trailer.isStorageFull();
     }
-    
+
     public String putPlayerInTrailer() {
         setCurrentRoom(trailer);
         return currentRoom.roomEntrance(this);
     }
+
     /**
      * @return boolean whether or not the player has an axe equipped
      */
@@ -142,14 +147,15 @@ public class Player {
     /**
      * Used to reduce durability on the players currently equipped Axe
      */
-    public void useAxe() {
+    public double useAxe() {
         equippedAxe.reduceDurability();
         if (equippedAxe.getDurability() == (equippedAxe.getStartDurability() / 2)) {
-            System.out.println("Your axe is at half durability");
+            return 0.5;
         } else if (equippedAxe.getDurability() == 0) {
-            System.out.println("Your axe broke, gosh dangit");
             equippedAxe = null;
+            return 0;
         }
+        return 1;
     }
 
     /**
@@ -213,6 +219,7 @@ public class Player {
      * Resets all the things that the player can interact with during a day. Also checks if the
      * player has choppedTrees without replanting, if this is the case the player will recieve a
      * fine and a quiz to reduce the fine amount.
+     *
      * @param fineAmount how much the fine will cost the player, if any
      */
     public void sleep(int fineAmount) {
