@@ -128,7 +128,7 @@ public class LocalVillageController implements Initializable {
                 Game.getInstanceOfSelf().goRoom(tester, anchorPane);
             });
             transistionToTrailer.play();
-            Game.getInstanceOfSelf().setDirection("goTrailer");
+            Game.getInstanceOfSelf().setDirection("goLeft");
         } else {
             textArea.setText("There is no road!");
         }

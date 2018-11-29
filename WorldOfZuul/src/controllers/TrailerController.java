@@ -36,9 +36,44 @@ public class TrailerController implements Initializable {
     private CommandWords commands;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Trailer gameTrailer = Game.getInstanceOfSelf().getTrailer();
+    private boolean running;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+//        if (!running) {
+            switch (Game.getInstanceOfSelf().getDirection()) {
+                case "goDown":
+                    running = true;
+                    TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
+                    player.setLayoutY(0);
+                    down.setByY(170);
+                    down.setOnFinished((ActionEvent e) -> {running = false;});
+                    down.play();
+                    break;
+                case "goLeft":
+                    running = true;
+                    TranslateTransition left = new TranslateTransition(Duration.seconds(1.5), player);
+                    player.setLayoutX(2 * player.getLayoutX() - 70);
+                    left.setByX(-206);
+                    left.setOnFinished((ActionEvent e) -> {running = false;});
+                    left.play();
+                    break;
+                case "goUp":
+                    running = true;
+                    TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
+                    player.setLayoutY(player.getLayoutY() * 2);
+                    up.setByY(-170);
+                    up.setOnFinished((ActionEvent e) -> {running = false;});
+                    up.play();
+                    break;
+                default:
+                    running = false;
+                    break;
+            }
+//        } else {
+//            System.out.println("ayo wait up");
+//        }
         textArea.setText(gameTrailer.roomEntrance(humanPlayer));
         option4.setRotate(45);
         File characterFilePlacement = new File("src/pictures/baseCharacter.png");
@@ -86,36 +121,57 @@ public class TrailerController implements Initializable {
     @FXML
     private void handleExits(KeyEvent event) {
 
-        switch (event.getCode()) {
-            case UP:
-            case W: {
-                Command tester = new Command(CommandWord.GO, "north");
-                TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-                up.setByY(-player.getLayoutY());
-                up.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
-                up.play();
-                Game.getInstanceOfSelf().setDirection("goUp");
-                break;
+        if (!running) {
+            switch (event.getCode()) {
+                case UP:
+                case W: {
+                    Command tester = new Command(CommandWord.GO, "north");
+                    running = true;
+                    TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
+                    up.setByY(-player.getLayoutY());
+                    up.setOnFinished((ActionEvent e) -> {
+                        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+                        running = false;
+                    });
+                    up.play();
+                    Game.getInstanceOfSelf().setDirection("goUp");
+                    break;
+                }
+                case DOWN:
+                case S: {
+                    Command tester = new Command(CommandWord.GO, "south");
+                    running = true;
+                    TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
+                    down.setByY(player.getLayoutY());
+                    down.setOnFinished((ActionEvent e) -> {
+                        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+                        running = false;
+                    });
+                    down.play();
+                    Game.getInstanceOfSelf().setDirection("goDown");
+                    break;
+                }
+                case RIGHT:
+                case D: {
+                    Command tester = new Command(CommandWord.GO, "village");
+                    running = true;
+                    TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
+                    right.setByX(player.getLayoutX() - 70);
+                    right.setOnFinished((ActionEvent e) -> {
+                        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+                        running = false;
+                    });
+                    right.play();
+                    Game.getInstanceOfSelf().setDirection("goRight");
+                    break;
+                }
+                default:
+                    textArea.setText("There is no road that way!");
+                    break;
             }
-            case DOWN:
-            case S: {
-                Command tester = new Command(CommandWord.GO, "south");
-                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-                break;
-            }
-            case RIGHT:
-            case D: {
-                Command tester = new Command(CommandWord.GO, "village");
-                TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
-                right.setByX(player.getLayoutX() - 70);
-                right.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
-                right.play();
-                Game.getInstanceOfSelf().setDirection("goRight");
-                break;
-            }
-            default:
-                textArea.setText("There is no road that way!");
-                break;
+        } else {
+            System.out.println("ayo wait up");
         }
+
     }
 }

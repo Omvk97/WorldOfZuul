@@ -64,7 +64,11 @@ public class NonCertifiedController implements Initializable {
     private void handleExits(KeyEvent event) {
         if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
             Command tester = new Command(CommandWord.GO, "trailer");
-            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
+            down.setByY(player.getLayoutY() / 2);
+            down.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
+            down.play();
+            Game.getInstanceOfSelf().setDirection("goDown");
         } else {
             textArea.setText("There is no road!");
         }

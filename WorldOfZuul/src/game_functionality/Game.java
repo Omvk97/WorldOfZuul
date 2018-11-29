@@ -14,7 +14,7 @@ public class Game {
     private final Room tutorialRoom = new TutorialRoom();
     private final Room blacksmith = new BlackSmith();
     private final Room library = new Library();
-    private String direction;
+    private String direction = "noDirection";
     private static final Game instance = new Game();
     
     public String getDirection() {
