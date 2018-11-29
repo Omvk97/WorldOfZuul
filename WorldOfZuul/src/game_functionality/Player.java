@@ -26,8 +26,8 @@ public class Player {
     private boolean hasSlept;
     private final File baseModelFile = new File("src/pictures/baseCharacter.png");
     private final File baseModelRightFile = new File("src/pictures/baseCharacterRight.png");
-    private final File modelStarterAxeFile = new File("src/pictures/characterModelWithStarterAxe.png");
-    private final File modelStarterAxeRightFile = new File("src/pictures/characterModelWithStarterAxeRight.png");
+    private final File modelStarterAxeFile = new File("src/pictures/characterWithStarterAxe.png");
+    private final File modelStarterAxeRightFile = new File("src/pictures/characterWithStarterAxeRight.png");
     private File characterModel;
 
     public Player(Trailer trailer) {
