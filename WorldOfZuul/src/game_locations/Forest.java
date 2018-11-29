@@ -16,7 +16,7 @@ public abstract class Forest extends Room {
         trees = new ArrayList<>();
     }
 
-    private boolean playerCanCarryMoreTree(Player humanPlayer) {
+    public boolean playerCanCarryMoreTree(Player humanPlayer) {
         return humanPlayer.backPack().getAmountOfLogsInBackPack()
             < humanPlayer.backPack().getBackpackCapacity();
     }
@@ -51,16 +51,14 @@ public abstract class Forest extends Room {
     }
 
     /**
-     * Chops wood if the player has an Axe equipped. And adds all the things that are associated
-     * with choppping down a tree
+     * Chops wood if the player has an Axe equipped. And adds all the things that are associated with choppping down a
+     * tree
      *
      * @param humanPlayer chopping a tree
      * @return if the tree cutting was succesfull.
      */
     private int chopWoodWithAxe(Player humanPlayer) {
         int numOfChops = 0;
-        if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
-
             while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxe().getDamage() >= 0) {
                 lastTreeInArray().reduceTreeHealth(humanPlayer.getAxe().getDamage());
                 numOfChops++;
@@ -72,30 +70,17 @@ public abstract class Forest extends Room {
             if (humanPlayer.getCurrentRoom() instanceof CertifiedForest) {
                 humanPlayer.addChoppedTreesInCertifiedForest();
             }
-
-        } else if (playerCanCarryMoreTree(humanPlayer) && !thereIsMoreTreesToCut()) {
-            System.out.println("There is no more trees to fell right now!"
-                + (this instanceof CertifiedForest ? "\nYou have to wait for the forest to regrow!"
-                    : ""));
-        } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree(humanPlayer)) {
-            System.out.println("You are carrying too much wood!\n"
-                + "Sell or store your logs!");
-        } else {
-            System.out.println("There is no trees to fell and your backpack is full!");
-        }
         return numOfChops;
     }
 
     /**
-     * If player doesn't have an Axe equipped they can instead use their hands to chop down a tree
-     * with a damage of 2
+     * If player doesn't have an Axe equipped they can instead use their hands to chop down a tree with a damage of 2
      *
      * @param humanPlayer chopping the trees
      * @return if the tree cutting was succesfull.
      */
     private int chopWoodWithHands(Player humanPlayer) {
         int numOfPunches = 0;
-        if (playerCanCarryMoreTree(humanPlayer) && thereIsMoreTreesToCut()) {
             while (lastTreeInArray().getTreeHealth() - 2 >= 0) {
                 lastTreeInArray().reduceTreeHealth(2);
                 numOfPunches++;
@@ -103,17 +88,6 @@ public abstract class Forest extends Room {
             humanPlayer.backPack().addTreeToBackpack(lastTreeInArray());
             humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
             trees.remove(lastTreeInArray());
-            
-        } else if (playerCanCarryMoreTree(humanPlayer) && !thereIsMoreTreesToCut()) {
-            System.out.println("There is no more trees to chop down right now!"
-                + (this instanceof CertifiedForest ? "\nYou have to wait for the forest to regrow!"
-                    : ""));
-        } else if (thereIsMoreTreesToCut() && !playerCanCarryMoreTree(humanPlayer)) {
-            System.out.println("You are carrying too much wood!\n"
-                + "Sell or store your logs!");
-        } else {
-            System.out.println("There is no trees to fell and your backpack is full!");
-        }
         return numOfPunches;
     }
 
@@ -129,5 +103,43 @@ public abstract class Forest extends Room {
                 trees.add(treeToBeMoved);
             }
         }
+    }
+
+    public int countSmallTrees() {
+        int count = 0;
+        for (Tree tree : trees) {
+            if (tree.getTreeHealth() < MEDIUM_TREE_SIZE) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int countMediumTrees() {
+        int count = 0;
+        for (Tree tree : trees) {
+            if (tree.getTreeHealth() >= MEDIUM_TREE_SIZE && tree.getTreeHealth() < LARGE_TREE_SIZE) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int countLargeTrees() {
+        int count = 0;
+        for (Tree tree : trees) {
+            if (tree.getTreeHealth() >= LARGE_TREE_SIZE) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getMEDIUM_TREE_SIZE() {
+        return MEDIUM_TREE_SIZE;
+    }
+
+    public int getLARGE_TREE_SIZE() {
+        return LARGE_TREE_SIZE;
     }
 }
