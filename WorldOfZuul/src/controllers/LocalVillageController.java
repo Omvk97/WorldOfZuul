@@ -29,7 +29,7 @@ public class LocalVillageController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private Button option1, option2;
+    private Button option1, option2, backBtn;
     @FXML
     private ImageView player, map, store, blacksmith, library;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
@@ -38,29 +38,33 @@ public class LocalVillageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         TranslateTransition roomTransition = new TranslateTransition(Duration.seconds(1.5), player);
-        if (Game.getInstanceOfSelf().getDirection().equals("goRight")) {
-            player.setLayoutX(0);
-            roomTransition.setByX(276);
-            roomTransition.play();
-        } else if (Game.getInstanceOfSelf().getDirection().equals("goStore")) {
-            player.setLayoutX(store.getLayoutX());
-            player.setLayoutY(store.getLayoutY());
-            roomTransition.setByX(276 - store.getLayoutX());
-            roomTransition.setByY(170 - store.getLayoutY());
-            roomTransition.play();
-        } else if (Game.getInstanceOfSelf().getDirection().equals("goBlacksmith")) {
-            player.setLayoutX(blacksmith.getLayoutX());
-            player.setLayoutY(blacksmith.getLayoutY());
-            roomTransition.setByX(276 - blacksmith.getLayoutX());
-            roomTransition.setByY(170 - blacksmith.getLayoutY());
-            roomTransition.play();
-        }
-        else if (Game.getInstanceOfSelf().getDirection().equals("goLibrary")){
-            player.setLayoutX(library.getLayoutX());
-            player.setLayoutY(library.getLayoutY());
-            roomTransition.setByX(276 - library.getLayoutX());
-            roomTransition.setByY(170 - library.getLayoutY());
-            roomTransition.play();
+        switch (Game.getInstanceOfSelf().getDirection()) {
+            case "goRight":
+                player.setLayoutX(0);
+                roomTransition.setByX(276);
+                roomTransition.play();
+                break;
+            case "goStore":
+                player.setLayoutX(store.getLayoutX());
+                player.setLayoutY(store.getLayoutY());
+                roomTransition.setByX(276 - store.getLayoutX());
+                roomTransition.setByY(170 - store.getLayoutY());
+                roomTransition.play();
+                break;
+            case "goBlacksmith":
+                player.setLayoutX(blacksmith.getLayoutX());
+                player.setLayoutY(blacksmith.getLayoutY());
+                roomTransition.setByX(276 - blacksmith.getLayoutX());
+                roomTransition.setByY(170 - blacksmith.getLayoutY());
+                roomTransition.play();
+                break;
+            case "goLibrary":
+                player.setLayoutX(library.getLayoutX());
+                player.setLayoutY(library.getLayoutY());
+                roomTransition.setByX(276 - library.getLayoutX());
+                roomTransition.setByY(170 - library.getLayoutY());
+                roomTransition.play();
+                break;
         }
 
         textArea.setText(gameVillage.roomEntrance(humanPlayer));
@@ -77,6 +81,18 @@ public class LocalVillageController implements Initializable {
     @FXML
     private void handleOption2(MouseEvent event) {
         textArea.setText(gameVillage.option2(humanPlayer));
+    }
+    
+    @FXML
+    private void handleBackBtn(MouseEvent event){
+        TranslateTransition transistionToTrailer = new TranslateTransition(Duration.seconds(1.5), player);
+            transistionToTrailer.setByX(-276);
+            transistionToTrailer.setOnFinished((ActionEvent) -> {
+                Command tester = new Command(CommandWord.GO, "trailer");
+                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            });
+            transistionToTrailer.play();
+            Game.getInstanceOfSelf().setDirection("goTrailer");
     }
 
     @FXML
@@ -107,12 +123,12 @@ public class LocalVillageController implements Initializable {
 
     @FXML
     private void handleGoToLibrary(MouseEvent event) {
-         TranslateTransition transistionToLibrary = new TranslateTransition(Duration.seconds(1.5), player);
+        TranslateTransition transistionToLibrary = new TranslateTransition(Duration.seconds(1.5), player);
         transistionToLibrary.setByX(library.getLayoutX() - 276);
         transistionToLibrary.setByY(library.getLayoutY() - 170);
         transistionToLibrary.setOnFinished((ActionEvent) -> {
-        Command tester = new Command(CommandWord.GO, "library");
-        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            Command tester = new Command(CommandWord.GO, "library");
+            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
         });
         transistionToLibrary.play();
         Game.getInstanceOfSelf().setDirection("goLibrary");

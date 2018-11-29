@@ -28,7 +28,7 @@ public class StoreController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private Button option1, option2;
+    private Button option1, option2, backBtn;
     @FXML
     private ImageView player, map;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
@@ -56,6 +56,17 @@ public class StoreController implements Initializable {
     @FXML
     private void handleOption2(MouseEvent event) {
         textArea.setText(gameStore.option2(humanPlayer));
+    }
+
+    @FXML
+    private void handleBackBtn(MouseEvent event) {
+        TranslateTransition transistionFromStore = new TranslateTransition(Duration.seconds(1.5), player);
+        transistionFromStore.setByY(player.getLayoutY());
+        transistionFromStore.setOnFinished((ActionEvent) -> {
+            Command tester = new Command(CommandWord.GO, "back");
+            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+        });
+        transistionFromStore.play();
     }
 
     @FXML

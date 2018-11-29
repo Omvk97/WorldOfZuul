@@ -29,7 +29,7 @@ public class BlacksmithController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private Button option1, option2;
+    private Button option1, option2, backBtn;
     @FXML
     private ImageView player, map;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
@@ -58,6 +58,17 @@ public class BlacksmithController implements Initializable {
     @FXML
     private void handleOption2(MouseEvent event) {
         textArea.setText(gameBlacksmith.option2(humanPlayer));
+    }
+
+    @FXML
+    private void handleBackBtn(MouseEvent event) {
+        TranslateTransition transistionFromBlacksmith = new TranslateTransition(Duration.seconds(1.5), player);
+            transistionFromBlacksmith.setByY(player.getLayoutY());
+            transistionFromBlacksmith.setOnFinished((ActionEvent) -> {
+                Command tester = new Command(CommandWord.GO, "back");
+                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            });
+            transistionFromBlacksmith.play();
     }
 
     @FXML
