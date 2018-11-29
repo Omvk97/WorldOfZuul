@@ -49,7 +49,7 @@ public class CertifiedForest extends Forest {
     }
 
     @Override
-    protected boolean thereIsMoreTreesToCut() {
+    public boolean thereIsMoreTreesToCut() {
         return numberOfTreesBigEnoughToChop() > 0 && trees.size() > 0;
     }
 

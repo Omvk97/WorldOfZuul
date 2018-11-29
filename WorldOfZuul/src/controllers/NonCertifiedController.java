@@ -26,6 +26,10 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
+/**
+ *
+ * @author oliver
+ */
 public class NonCertifiedController implements Initializable {
 
     @FXML
@@ -63,7 +67,6 @@ public class NonCertifiedController implements Initializable {
     @FXML
     private void handleOption1(MouseEvent event) {
         if (!running) {
-            System.out.println("Hello there");
             if (humanPlayer.getClimatePoints() == Player.getMIN_CLIMATEPOINTS()) {
                 System.out.println("YOU DESTROYED THE EARTH, YOU HAVE CUT WAY TOO MUCH \n"
                     + "NON CERTIFIED WOOD.");

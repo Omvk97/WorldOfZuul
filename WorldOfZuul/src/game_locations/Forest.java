@@ -5,6 +5,10 @@ import game_elements.Tree;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author oliver
+ */
 public abstract class Forest extends Room {
 
     protected final int MEDIUM_TREE_SIZE = 7;
@@ -58,7 +62,6 @@ public abstract class Forest extends Room {
      * @return how many chops it took to fell the tree
      */
     private int chopWoodWithAxe(Player humanPlayer) {
-        System.out.println(lastTreeInArray().getTreeHealth());
         int numOfChops = 0;
         while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxe().getDamage() >= 0) {
             lastTreeInArray().reduceTreeHealth(humanPlayer.getAxe().getDamage());
@@ -67,9 +70,6 @@ public abstract class Forest extends Room {
         humanPlayer.backPack().addTreeToBackpack(lastTreeInArray());
         humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
         trees.remove(lastTreeInArray());
-        if (humanPlayer.getCurrentRoom() instanceof CertifiedForest) {
-            humanPlayer.addChoppedTreesInCertifiedForest();
-        }
         return numOfChops;
     }
 
@@ -81,7 +81,6 @@ public abstract class Forest extends Room {
      * @return how many hits it took to fell the tree
      */
     private int chopWoodWithHands(Player humanPlayer) {
-        System.out.println(lastTreeInArray().getTreeHealth());
         int numOfPunches = 0;
         while (lastTreeInArray().getTreeHealth() - 2 >= 0) {
             lastTreeInArray().reduceTreeHealth(2);

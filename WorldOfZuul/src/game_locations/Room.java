@@ -5,8 +5,11 @@ import game_functionality.Player;
 import java.util.HashMap;
 import java.util.Set;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 
+/**
+ *
+ * @author oliver
+ */
 public abstract class Room {
 
     private final HashMap<String, Room> exits;
