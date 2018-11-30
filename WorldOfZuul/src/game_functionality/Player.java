@@ -6,6 +6,7 @@ import game_elements.BackPackFactory;
 import game_elements.Tree;
 import game_locations.Room;
 import game_locations.Trailer;
+import java.io.File;
 import java.util.ArrayList;
 
 public class Player {
@@ -23,11 +24,45 @@ public class Player {
     private final Trailer trailer;
     private Room previousRoom;
     private boolean hasSlept;
+    private final File baseModelFile = new File("src/pictures/baseCharacter.png");
+    private final File baseModelRightFile = new File("src/pictures/baseCharacterRight.png");
+    private final File modelStarterAxeFile = new File("src/pictures/characterWithStarterAxe.png");
+    private final File modelStarterAxeRightFile = new File("src/pictures/characterWithStarterAxeRight.png");
+    private File characterModel;
 
     public Player(Trailer trailer) {
         this.equippedBackPack = BackPackFactory.createStarterBackPack();
         this.trailer = trailer;
         this.previousRoom = trailer;
+        characterModel = baseModelFile;
+    }
+
+    public File getCharacterModel() {
+        return characterModel;
+    }
+
+    public void setCharacterModel(boolean characterGoingRight) {
+        if (!characterGoingRight) {
+            if (equippedAxe == null) {
+                characterModel = baseModelFile;
+            } else if (equippedAxe.getDescription().equals("Starter axe")) {
+                characterModel = modelStarterAxeFile;
+            } else if (equippedAxe.getDescription().equals("Iron axe")) {
+            } else if (equippedAxe.getDescription().equals("Steel axe")) {
+            } else if (equippedAxe.getDescription().equals("Diamond axe")) {
+            } else if (equippedAxe.getDescription().equals("Fire axe")) {
+            }
+        } else {
+            if (equippedAxe == null) {
+                characterModel = baseModelRightFile;
+            } else if (equippedAxe.getDescription().equals("Starter axe")) {
+                characterModel = modelStarterAxeRightFile;
+            } else if (equippedAxe.getDescription().equals("Iron axe")) {
+            } else if (equippedAxe.getDescription().equals("Steel axe")) {
+            } else if (equippedAxe.getDescription().equals("Diamond axe")) {
+            } else if (equippedAxe.getDescription().equals("Fire axe")) {
+            }
+        }
     }
 
     /**
@@ -112,15 +147,16 @@ public class Player {
     public void loadOffLogsInStorage() {
         trailer.getLogsInStorage().clear();
     }
-    
+
     public boolean isStorageFull() {
         return trailer.isStorageFull();
     }
-    
+
     public String putPlayerInTrailer() {
         setCurrentRoom(trailer);
         return currentRoom.roomEntrance(this);
     }
+
     /**
      * @return boolean whether or not the player has an axe equipped
      */
@@ -131,14 +167,15 @@ public class Player {
     /**
      * Used to reduce durability on the players currently equipped Axe
      */
-    public void useAxe() {
+    public double useAxe() {
         equippedAxe.reduceDurability();
         if (equippedAxe.getDurability() == (equippedAxe.getStartDurability() / 2)) {
-            System.out.println("Your axe is at half durability");
+            return 0.5;
         } else if (equippedAxe.getDurability() == 0) {
-            System.out.println("Your axe broke, gosh dangit");
             equippedAxe = null;
+            return 0;
         }
+        return 1;
     }
 
     /**
@@ -202,6 +239,7 @@ public class Player {
      * Resets all the things that the player can interact with during a day. Also checks if the
      * player has choppedTrees without replanting, if this is the case the player will recieve a
      * fine and a quiz to reduce the fine amount.
+     *
      * @param fineAmount how much the fine will cost the player, if any
      */
     public void sleep(int fineAmount) {

@@ -35,19 +35,14 @@ public class NonCertifiedForest extends Forest {
     }
 
     @Override
-    protected boolean thereIsMoreTreesToCut() {
+    public boolean thereIsMoreTreesToCut() {
         return (lastTreeInArray().getTreeHealth() >= MEDIUM_TREE_SIZE
             && trees.size() > 0);
     }
 
     @Override
     public String option1(Player humanPlayer) {
-        if (humanPlayer.getClimatePoints() == Player.getMIN_CLIMATEPOINTS()) {
-            System.out.println("YOU DESTROYED THE EARTH, YOU HAVE CUT WAY TOO MUCH \n"
-                + "NON CERTIFIED WOOD.");
-            System.exit(0);
-        }
-        return chopWood(humanPlayer);
+        return Integer.toString(chopWood(humanPlayer));
     }
 
     @Override
