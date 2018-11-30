@@ -8,6 +8,7 @@ import game_locations.CertifiedForest;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 public class CertifiedForestController implements Initializable {
 
@@ -34,6 +36,11 @@ public class CertifiedForestController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println(Game.getInstanceOfSelf().getDirection());
+        TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
+        player.setLayoutY(player.getLayoutY() * 2);
+        up.setByY(-170);
+        up.play();
         textArea.setText(gameForest.roomEntrance(humanPlayer));
         File file = new File("src/pictures/baseCharacter.png");
         Image image = new Image(file.toURI().toString());
@@ -53,8 +60,10 @@ public class CertifiedForestController implements Initializable {
     @FXML
     private void handleExits(KeyEvent event) {
         if (event.getCode().equals(KeyCode.UP) || event.getCode().equals(KeyCode.W)) {
+            Game.getInstanceOfSelf().setDirection("goUp");
             Command tester = new Command(CommandWord.GO, "trailer");
             Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            System.out.println(Game.getInstanceOfSelf().getDirection());
         } else {
             textArea.setText("There is no road!");
         }

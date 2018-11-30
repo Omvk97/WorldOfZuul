@@ -25,7 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class TrailerController implements Initializable {
-
+   
     @FXML
     private Label textArea, daysLeftLabel;
     @FXML
@@ -41,6 +41,7 @@ public class TrailerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println(Game.getInstanceOfSelf().getDirection());
 
 //        if (!running) {
         switch (Game.getInstanceOfSelf().getDirection()) {
@@ -147,6 +148,7 @@ public class TrailerController implements Initializable {
                 case W: {
                     Command tester = new Command(CommandWord.GO, "north");
                     running = true;
+                    Game.getInstanceOfSelf().setDirection("goUp");
                     TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
                     up.setByY(-player.getLayoutY());
                     up.setOnFinished((ActionEvent e) -> {
@@ -154,13 +156,13 @@ public class TrailerController implements Initializable {
                         running = false;
                     });
                     up.play();
-                    Game.getInstanceOfSelf().setDirection("goUp");
                     break;
                 }
                 case DOWN:
                 case S: {
                     Command tester = new Command(CommandWord.GO, "south");
                     running = true;
+                    Game.getInstanceOfSelf().setDirection("goDown");
                     TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
                     down.setByY(player.getLayoutY());
                     down.setOnFinished((ActionEvent e) -> {
@@ -168,13 +170,13 @@ public class TrailerController implements Initializable {
                         running = false;
                     });
                     down.play();
-                    Game.getInstanceOfSelf().setDirection("goDown");
                     break;
                 }
                 case RIGHT:
                 case D: {
                     Command tester = new Command(CommandWord.GO, "village");
                     running = true;
+                    Game.getInstanceOfSelf().setDirection("goRight");
                     TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
                     right.setByX(player.getLayoutX() - 70);
                     right.setOnFinished((ActionEvent e) -> {
@@ -182,7 +184,6 @@ public class TrailerController implements Initializable {
                         running = false;
                     });
                     right.play();
-                    Game.getInstanceOfSelf().setDirection("goRight");
                     break;
                 }
                 default:

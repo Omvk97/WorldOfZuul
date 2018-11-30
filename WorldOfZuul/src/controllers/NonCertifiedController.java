@@ -36,7 +36,6 @@ public class NonCertifiedController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         if (Game.getInstanceOfSelf().getDirection().equals("goUp")) {
             TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
             player.setLayoutY(player.getLayoutY() * 2);
@@ -63,12 +62,12 @@ public class NonCertifiedController implements Initializable {
     @FXML
     private void handleExits(KeyEvent event) {
         if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+            Game.getInstanceOfSelf().setDirection("goDown");
             Command tester = new Command(CommandWord.GO, "trailer");
             TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
             down.setByY(player.getLayoutY() / 2);
             down.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
             down.play();
-            Game.getInstanceOfSelf().setDirection("goDown");
         } else {
             textArea.setText("There is no road!");
         }
