@@ -169,6 +169,7 @@ public class CertifiedForestController implements Initializable {
         hitAnimation.setCycleCount(numOfChops * 2);
         hitAnimation.setInterpolator(Interpolator.LINEAR);
         hitAnimation.setOnFinished((ActionEvent event1) -> {
+            humanPlayer.setCharacterModel(false);
             player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         });
         hitAnimation.play();
@@ -181,6 +182,7 @@ public class CertifiedForestController implements Initializable {
         tester.setCycleCount(numOfChops * 2);
         tester.setInterpolator(Interpolator.LINEAR);
         tester.setOnFinished((ActionEvent event1) -> {
+            humanPlayer.setCharacterModel(false);
             player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         });
         tester.play();
