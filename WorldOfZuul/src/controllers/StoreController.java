@@ -33,6 +33,7 @@ public class StoreController implements Initializable {
     private ImageView player, map;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Store gameStore = (Store) Game.getInstanceOfSelf().getStore();
+    private boolean running;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -42,6 +43,7 @@ public class StoreController implements Initializable {
             roomTransition.setByY(-170);
             roomTransition.play();
         }
+        running = false;
         textArea.setText(gameStore.roomEntrance(humanPlayer));
         File file = new File("src/pictures/baseCharacter.png");
         Image image = new Image(file.toURI().toString());
@@ -60,18 +62,8 @@ public class StoreController implements Initializable {
 
     @FXML
     private void handleBackBtn(MouseEvent event) {
-        TranslateTransition transistionFromStore = new TranslateTransition(Duration.seconds(1.5), player);
-        transistionFromStore.setByY(player.getLayoutY());
-        transistionFromStore.setOnFinished((ActionEvent) -> {
-            Command tester = new Command(CommandWord.GO, "back");
-            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-        });
-        transistionFromStore.play();
-    }
-
-    @FXML
-    private void handleExits(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+        if (!running) {
+            running = true;
             TranslateTransition transistionFromStore = new TranslateTransition(Duration.seconds(1.5), player);
             transistionFromStore.setByY(player.getLayoutY());
             transistionFromStore.setOnFinished((ActionEvent) -> {
@@ -79,8 +71,24 @@ public class StoreController implements Initializable {
                 Game.getInstanceOfSelf().goRoom(tester, anchorPane);
             });
             transistionFromStore.play();
-        } else {
-            textArea.setText("There is no road!");
+        }
+    }
+
+    @FXML
+    private void handleExits(KeyEvent event) {
+        if (!running) {
+            running = true;
+            if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+                TranslateTransition transistionFromStore = new TranslateTransition(Duration.seconds(1.5), player);
+                transistionFromStore.setByY(player.getLayoutY());
+                transistionFromStore.setOnFinished((ActionEvent) -> {
+                    Command tester = new Command(CommandWord.GO, "back");
+                    Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+                });
+                transistionFromStore.play();
+            } else {
+                textArea.setText("There is no road!");
+            }
         }
     }
 }

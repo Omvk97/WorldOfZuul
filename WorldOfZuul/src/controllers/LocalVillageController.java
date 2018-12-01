@@ -34,6 +34,7 @@ public class LocalVillageController implements Initializable {
     private ImageView player, map, store, blacksmith, library;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final LocalVillage gameVillage = (LocalVillage) Game.getInstanceOfSelf().getLocalVillage();
+    private boolean running;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -43,6 +44,7 @@ public class LocalVillageController implements Initializable {
                 player.setLayoutX(0);
                 roomTransition.setByX(276);
                 roomTransition.play();
+                running = false;
                 break;
             case "goStore":
                 player.setLayoutX(store.getLayoutX());
@@ -50,6 +52,7 @@ public class LocalVillageController implements Initializable {
                 roomTransition.setByX(276 - store.getLayoutX());
                 roomTransition.setByY(170 - store.getLayoutY());
                 roomTransition.play();
+                running = false;
                 break;
             case "goBlacksmith":
                 player.setLayoutX(blacksmith.getLayoutX());
@@ -57,6 +60,7 @@ public class LocalVillageController implements Initializable {
                 roomTransition.setByX(276 - blacksmith.getLayoutX());
                 roomTransition.setByY(170 - blacksmith.getLayoutY());
                 roomTransition.play();
+                running = false;
                 break;
             case "goLibrary":
                 player.setLayoutX(library.getLayoutX());
@@ -64,6 +68,7 @@ public class LocalVillageController implements Initializable {
                 roomTransition.setByX(276 - library.getLayoutX());
                 roomTransition.setByY(170 - library.getLayoutY());
                 roomTransition.play();
+                running = false;
                 break;
         }
 
@@ -82,61 +87,11 @@ public class LocalVillageController implements Initializable {
     private void handleOption2(MouseEvent event) {
         textArea.setText(gameVillage.option2(humanPlayer));
     }
-    
-    @FXML
-    private void handleBackBtn(MouseEvent event){
-        TranslateTransition transistionToTrailer = new TranslateTransition(Duration.seconds(1.5), player);
-            transistionToTrailer.setByX(-276);
-            transistionToTrailer.setOnFinished((ActionEvent) -> {
-                Command tester = new Command(CommandWord.GO, "trailer");
-                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-            });
-            transistionToTrailer.play();
-            Game.getInstanceOfSelf().setDirection("goTrailer");
-    }
 
     @FXML
-    private void handleGoToStore(MouseEvent event) {
-        TranslateTransition transistionToStore = new TranslateTransition(Duration.seconds(1.5), player);
-        transistionToStore.setByX(store.getLayoutX() - 276);
-        transistionToStore.setByY(store.getLayoutY() - 170);
-        transistionToStore.setOnFinished((ActionEvent) -> {
-            Command tester = new Command(CommandWord.GO, "store");
-            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-        });
-        transistionToStore.play();
-        Game.getInstanceOfSelf().setDirection("goStore");
-    }
-
-    @FXML
-    private void handleGoToBlacksmith(MouseEvent event) {
-        TranslateTransition transistionToBlacksmith = new TranslateTransition(Duration.seconds(1.5), player);
-        transistionToBlacksmith.setByX(blacksmith.getLayoutX() - 276);
-        transistionToBlacksmith.setByY(blacksmith.getLayoutY() - 170);
-        transistionToBlacksmith.setOnFinished((ActionEvent) -> {
-            Command tester = new Command(CommandWord.GO, "blacksmith");
-            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-        });
-        transistionToBlacksmith.play();
-        Game.getInstanceOfSelf().setDirection("goBlacksmith");
-    }
-
-    @FXML
-    private void handleGoToLibrary(MouseEvent event) {
-        TranslateTransition transistionToLibrary = new TranslateTransition(Duration.seconds(1.5), player);
-        transistionToLibrary.setByX(library.getLayoutX() - 276);
-        transistionToLibrary.setByY(library.getLayoutY() - 170);
-        transistionToLibrary.setOnFinished((ActionEvent) -> {
-            Command tester = new Command(CommandWord.GO, "library");
-            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-        });
-        transistionToLibrary.play();
-        Game.getInstanceOfSelf().setDirection("goLibrary");
-    }
-
-    @FXML
-    private void handleExits(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.LEFT) || event.getCode().equals(KeyCode.A)) {
+    private void handleBackBtn(MouseEvent event) {
+        if (!running) {
+            running = true;
             TranslateTransition transistionToTrailer = new TranslateTransition(Duration.seconds(1.5), player);
             transistionToTrailer.setByX(-276);
             transistionToTrailer.setOnFinished((ActionEvent) -> {
@@ -144,9 +99,74 @@ public class LocalVillageController implements Initializable {
                 Game.getInstanceOfSelf().goRoom(tester, anchorPane);
             });
             transistionToTrailer.play();
-            Game.getInstanceOfSelf().setDirection("goLeft");
-        } else {
-            textArea.setText("There is no road!");
+            Game.getInstanceOfSelf().setDirection("goTrailer");
+        }
+    }
+
+    @FXML
+    private void handleGoToStore(MouseEvent event) {
+        if (!running) {
+            running = true;
+            TranslateTransition transistionToStore = new TranslateTransition(Duration.seconds(1.5), player);
+            transistionToStore.setByX(store.getLayoutX() - 276);
+            transistionToStore.setByY(store.getLayoutY() - 170);
+            transistionToStore.setOnFinished((ActionEvent) -> {
+                Command tester = new Command(CommandWord.GO, "store");
+                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            });
+            transistionToStore.play();
+            Game.getInstanceOfSelf().setDirection("goStore");
+        }
+    }
+
+    @FXML
+    private void handleGoToBlacksmith(MouseEvent event) {
+        if (!running) {
+            running = true;
+            TranslateTransition transistionToBlacksmith = new TranslateTransition(Duration.seconds(1.5), player);
+            transistionToBlacksmith.setByX(blacksmith.getLayoutX() - 276);
+            transistionToBlacksmith.setByY(blacksmith.getLayoutY() - 170);
+            transistionToBlacksmith.setOnFinished((ActionEvent) -> {
+                Command tester = new Command(CommandWord.GO, "blacksmith");
+                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            });
+            transistionToBlacksmith.play();
+            Game.getInstanceOfSelf().setDirection("goBlacksmith");
+        }
+    }
+
+    @FXML
+    private void handleGoToLibrary(MouseEvent event) {
+        if (!running) {
+            running = true;
+            TranslateTransition transistionToLibrary = new TranslateTransition(Duration.seconds(1.5), player);
+            transistionToLibrary.setByX(library.getLayoutX() - 276);
+            transistionToLibrary.setByY(library.getLayoutY() - 170);
+            transistionToLibrary.setOnFinished((ActionEvent) -> {
+                Command tester = new Command(CommandWord.GO, "library");
+                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            });
+            transistionToLibrary.play();
+            Game.getInstanceOfSelf().setDirection("goLibrary");
+        }
+    }
+
+    @FXML
+    private void handleExits(KeyEvent event) {
+        if (!running) {
+            running = true;
+            if (event.getCode().equals(KeyCode.LEFT) || event.getCode().equals(KeyCode.A)) {
+                TranslateTransition transistionToTrailer = new TranslateTransition(Duration.seconds(1.5), player);
+                transistionToTrailer.setByX(-276);
+                transistionToTrailer.setOnFinished((ActionEvent) -> {
+                    Command tester = new Command(CommandWord.GO, "trailer");
+                    Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+                });
+                transistionToTrailer.play();
+                Game.getInstanceOfSelf().setDirection("goLeft");
+            } else {
+                textArea.setText("There is no road!");
+            }
         }
     }
 }

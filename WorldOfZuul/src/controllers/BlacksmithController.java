@@ -34,6 +34,7 @@ public class BlacksmithController implements Initializable {
     private ImageView player, map;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final BlackSmith gameBlacksmith = (BlackSmith) Game.getInstanceOfSelf().getBlacksmith();
+    private boolean running;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -43,7 +44,7 @@ public class BlacksmithController implements Initializable {
             roomTransition.setByY(-170);
             roomTransition.play();
         }
-
+        running = false;
         textArea.setText(gameBlacksmith.roomEntrance(humanPlayer));
         File file = new File("src/pictures/baseCharacter.png");
         Image image = new Image(file.toURI().toString());
@@ -62,18 +63,8 @@ public class BlacksmithController implements Initializable {
 
     @FXML
     private void handleBackBtn(MouseEvent event) {
-        TranslateTransition transistionFromBlacksmith = new TranslateTransition(Duration.seconds(1.5), player);
-            transistionFromBlacksmith.setByY(player.getLayoutY());
-            transistionFromBlacksmith.setOnFinished((ActionEvent) -> {
-                Command tester = new Command(CommandWord.GO, "back");
-                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-            });
-            transistionFromBlacksmith.play();
-    }
-
-    @FXML
-    private void handleExits(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+        if (!running) {
+            running = true;
             TranslateTransition transistionFromBlacksmith = new TranslateTransition(Duration.seconds(1.5), player);
             transistionFromBlacksmith.setByY(player.getLayoutY());
             transistionFromBlacksmith.setOnFinished((ActionEvent) -> {
@@ -81,8 +72,24 @@ public class BlacksmithController implements Initializable {
                 Game.getInstanceOfSelf().goRoom(tester, anchorPane);
             });
             transistionFromBlacksmith.play();
-        } else {
-            textArea.setText("There is no road!");
+        }
+    }
+
+    @FXML
+    private void handleExits(KeyEvent event) {
+        if (!running) {
+            running = true;
+            if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+                TranslateTransition transistionFromBlacksmith = new TranslateTransition(Duration.seconds(1.5), player);
+                transistionFromBlacksmith.setByY(player.getLayoutY());
+                transistionFromBlacksmith.setOnFinished((ActionEvent) -> {
+                    Command tester = new Command(CommandWord.GO, "back");
+                    Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+                });
+                transistionFromBlacksmith.play();
+            } else {
+                textArea.setText("There is no road!");
+            }
         }
     }
 

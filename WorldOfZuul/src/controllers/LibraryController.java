@@ -33,6 +33,7 @@ public class LibraryController implements Initializable {
     private ImageView player, map;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Library gameLibrary = (Library) Game.getInstanceOfSelf().getLibrary();
+    private boolean running;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -42,6 +43,7 @@ public class LibraryController implements Initializable {
             roomTransition.setByX(276);
             roomTransition.play();
         }
+        running = false;
         textArea.setText(gameLibrary.roomEntrance(humanPlayer));
         File file = new File("src/pictures/baseCharacter.png");
         Image image = new Image(file.toURI().toString());
@@ -57,21 +59,11 @@ public class LibraryController implements Initializable {
     private void handleOption2(MouseEvent event) {
         textArea.setText(gameLibrary.option2(humanPlayer));
     }
-    
-    @FXML
-    private void handleBackBtn(MouseEvent event){
-        TranslateTransition transistionFromLibrary = new TranslateTransition(Duration.seconds(1.5), player);
-            transistionFromLibrary.setByX(-276);
-            transistionFromLibrary.setOnFinished((ActionEvent) -> {
-                Command tester = new Command(CommandWord.GO, "back");
-                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-            });
-            transistionFromLibrary.play();
-    }
 
     @FXML
-    private void handleExits(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+    private void handleBackBtn(MouseEvent event) {
+        if (!running) {
+            running = true;
             TranslateTransition transistionFromLibrary = new TranslateTransition(Duration.seconds(1.5), player);
             transistionFromLibrary.setByX(-276);
             transistionFromLibrary.setOnFinished((ActionEvent) -> {
@@ -79,8 +71,24 @@ public class LibraryController implements Initializable {
                 Game.getInstanceOfSelf().goRoom(tester, anchorPane);
             });
             transistionFromLibrary.play();
-        } else {
-            textArea.setText("There is no road!");
+        }
+    }
+
+    @FXML
+    private void handleExits(KeyEvent event) {
+        if (!running) {
+            running = true;
+            if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+                TranslateTransition transistionFromLibrary = new TranslateTransition(Duration.seconds(1.5), player);
+                transistionFromLibrary.setByX(-276);
+                transistionFromLibrary.setOnFinished((ActionEvent) -> {
+                    Command tester = new Command(CommandWord.GO, "back");
+                    Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+                });
+                transistionFromLibrary.play();
+            } else {
+                textArea.setText("There is no road!");
+            }
         }
     }
 }
