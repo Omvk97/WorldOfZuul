@@ -9,6 +9,11 @@ import game_locations.Trailer;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author oliver
+ * @date 1/12/2018
+ */
 public class Player {
 
     private final static int MIN_CLIMATEPOINTS = -250;
@@ -166,6 +171,10 @@ public class Player {
 
     /**
      * Used to reduce durability on the players currently equipped Axe
+     *
+     * @return the axe state. If 1 is returned the axe is is between high and half or low and half
+     * durability. if 0.5 is returned the axe is at half durability. If 0 is returned the axe has
+     * been destroyed
      */
     public double useAxe() {
         equippedAxe.reduceDurability();
@@ -185,6 +194,10 @@ public class Player {
      */
     public Axe getAxe() {
         return equippedAxe;
+    }
+
+    public boolean playerHasAnAxe() {
+        return equippedAxe != null;
     }
 
     /**
@@ -263,5 +276,13 @@ public class Player {
 
     public void setHasSlept(boolean hasSlept) {
         this.hasSlept = hasSlept;
+    }
+
+    public double getDamage() {
+        if (equippedAxe != null) {
+            return equippedAxe.getDamage();
+        } else {
+            return 1;
+        }
     }
 }

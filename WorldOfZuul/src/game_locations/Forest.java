@@ -31,12 +31,23 @@ public abstract class Forest extends Room {
         return trees.get(trees.size() - 1);
     }
 
-    protected int chopWood(Player humanPlayer) {
-        if (humanPlayer.getAxe() != null) {
-            return chopWoodWithAxe(humanPlayer);
-        } else {
-            return chopWoodWithHands(humanPlayer);
+    /**
+     * Chops wood with different speeds depending on the players damage. Also adds all the things 
+     * that are associated with felling a tree
+     *
+     * @param humanPlayer chopping a tree
+     * @return how many hits it took to fell the tree
+     */
+    public int chopWood(Player humanPlayer) {
+        int hitsToTree = 0;
+        while (lastTreeInArray().getTreeHealth() > 0) {
+            lastTreeInArray().reduceTreeHealth(humanPlayer.getDamage());
+            hitsToTree++;
         }
+        humanPlayer.backPack().addTreeToBackpack(lastTreeInArray());
+        humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
+        trees.remove(lastTreeInArray());
+        return hitsToTree;
     }
 
     public String treeSize(Tree tree) {
@@ -52,44 +63,6 @@ public abstract class Forest extends Room {
         for (Tree tree : trees) {
             tree.treeGrowth((int) (Math.random() * 2) + 1);
         }
-    }
-
-    /**
-     * Chops wood if the player has an Axe equipped. And adds all the things that are associated
-     * with choppping down a tree
-     *
-     * @param humanPlayer chopping a tree
-     * @return how many chops it took to fell the tree
-     */
-    private int chopWoodWithAxe(Player humanPlayer) {
-        int numOfChops = 0;
-        while (lastTreeInArray().getTreeHealth() - humanPlayer.getAxe().getDamage() >= 0) {
-            lastTreeInArray().reduceTreeHealth(humanPlayer.getAxe().getDamage());
-            numOfChops++;
-        }
-        humanPlayer.backPack().addTreeToBackpack(lastTreeInArray());
-        humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
-        trees.remove(lastTreeInArray());
-        return numOfChops;
-    }
-
-    /**
-     * If player doesn't have an Axe equipped they can instead use their hands to chop down a tree
-     * with a damage of 2
-     *
-     * @param humanPlayer chopping the trees
-     * @return how many hits it took to fell the tree
-     */
-    private int chopWoodWithHands(Player humanPlayer) {
-        int numOfPunches = 0;
-        while (lastTreeInArray().getTreeHealth() - 2 >= 0) {
-            lastTreeInArray().reduceTreeHealth(2);
-            numOfPunches++;
-        }
-        humanPlayer.backPack().addTreeToBackpack(lastTreeInArray());
-        humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
-        trees.remove(lastTreeInArray());
-        return numOfPunches;
     }
 
     public void moveChoppableTreesUp() {

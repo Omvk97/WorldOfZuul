@@ -55,6 +55,7 @@ public class CertifiedForest extends Forest {
 
     @Override
     public String option1(Player humanPlayer) {
+        humanPlayer.addChoppedTreesInCertifiedForest();
         return Integer.toString(chopWood(humanPlayer));
     }
 

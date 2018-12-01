@@ -51,6 +51,8 @@ public class CertifiedForestController implements Initializable {
     private final File treeFallingFile = new File("src/pictures/treeFallingSound.wav");
     private final Media treeFallingSound = new Media(treeFallingFile.toURI().toString());
     private final ArrayList<Media> sounds = new ArrayList<>();
+    private final int punchDuration = 195;
+    private final int chopDuration = 335;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -73,7 +75,6 @@ public class CertifiedForestController implements Initializable {
             if (gameForest.playerCanCarryMoreTree(humanPlayer) && gameForest.thereIsMoreTreesToCut()) {
                 int number = Integer.parseInt(gameForest.option1(humanPlayer));
                 treeAnimationToLargeTree(number);
-                humanPlayer.addChoppedTreesInCertifiedForest();
             } else if (gameForest.playerCanCarryMoreTree(humanPlayer) && !gameForest.thereIsMoreTreesToCut()) {
                 textArea.setText("There is no more trees to fell right now!"
                     + "\nYou have to wait for the forest to regrow!");
@@ -88,14 +89,14 @@ public class CertifiedForestController implements Initializable {
         }
     }
 
-    private void treeAnimationToLargeTree(int numOfChops) {
+    private void treeAnimationToLargeTree(int numOfHits) {
         running = true;
         if (humanPlayer.getAxe() != null) {
-            for (int i = 0; i < numOfChops; i++) {
+            for (int i = 0; i < numOfHits; i++) {
                 sounds.add(chopSound);
             }
         } else {
-            for (int i = 0; i < numOfChops; i++) {
+            for (int i = 0; i < numOfHits; i++) {
                 sounds.add(punchSound);
             }
         }
@@ -108,17 +109,19 @@ public class CertifiedForestController implements Initializable {
         goToTree.setByY(-(player.getLayoutY() - largeTree.getLayoutY()) + 75);
         goToTree.setOnFinished((ActionEvent event1) -> {
             playMediaTracks(sounds);
-            if (humanPlayer.getAxe() != null) {
-                axeChopAnimation(numOfChops);
-            } else {
-                punchAnimation(numOfChops);
-            }
+            hitAnimation(numOfHits);
         });
 
         TranslateTransition goFromTree = new TranslateTransition(Duration.seconds(3), player);
         goFromTree.setByX((player.getLayoutX() - largeTree.getLayoutX()) + 20);
         goFromTree.setByY((player.getLayoutY() - largeTree.getLayoutY()) - 75);
-        goFromTree.setDelay(Duration.millis(2500));
+        if (humanPlayer.playerHasAnAxe()) {
+            double totalDurationChop = (chopDuration * numOfHits) * 2;
+            goFromTree.setDelay(Duration.millis(totalDurationChop));
+        } else {
+            double totalDurationPunch = (punchDuration * numOfHits) * 2;
+            goFromTree.setDelay(Duration.millis(totalDurationPunch));
+        }
         goFromTree.setOnFinished((ActionEvent event1) -> {
             treeFelledConfirmation();
             largeTreeLabel.setText(Integer.toString(gameForest.countLargeTrees()));
@@ -162,8 +165,16 @@ public class CertifiedForestController implements Initializable {
         running = false;
     }
 
-    private void axeChopAnimation(int numOfChops) {
-        TranslateTransition hitAnimation = new TranslateTransition(Duration.millis(335), player);
+    private void hitAnimation(int numOfChops) {
+        final int punchDuration = 195;
+        final int chopDuration = 335;
+        TranslateTransition hitAnimation = new TranslateTransition();
+        hitAnimation.setNode(player);
+        if (humanPlayer.playerHasAnAxe()) {
+            hitAnimation.setDuration(Duration.millis(chopDuration));
+        } else {
+            hitAnimation.setDuration(Duration.millis(punchDuration));
+        }
         hitAnimation.setByX(40);
         hitAnimation.setAutoReverse(true);
         hitAnimation.setCycleCount(numOfChops * 2);
@@ -173,19 +184,6 @@ public class CertifiedForestController implements Initializable {
             player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         });
         hitAnimation.play();
-    }
-
-    private void punchAnimation(int numOfChops) {
-        TranslateTransition tester = new TranslateTransition(Duration.millis(200), player);
-        tester.setByX(40);
-        tester.setAutoReverse(true);
-        tester.setCycleCount(numOfChops * 2);
-        tester.setInterpolator(Interpolator.LINEAR);
-        tester.setOnFinished((ActionEvent event1) -> {
-            humanPlayer.setCharacterModel(false);
-            player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
-        });
-        tester.play();
     }
 
     @FXML
