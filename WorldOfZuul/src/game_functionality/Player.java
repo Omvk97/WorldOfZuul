@@ -80,6 +80,17 @@ public class Player {
         return MIN_CLIMATEPOINTS;
     }
 
+    public int getTotalValue() {
+        int totalValueOfItems = money + equippedBackPack.getPrice();
+        for (Tree tree : equippedBackPack.getLogsInBackPack()) {
+            totalValueOfItems += tree.getTreePrice();
+        }
+        if (playerHasAnAxe()) {
+            totalValueOfItems += equippedAxe.getPrice();
+        }
+        return totalValueOfItems;
+    }
+
     public int getMoney() {
         return money;
     }
@@ -117,15 +128,6 @@ public class Player {
 
     public Room getPreviousRoom() {
         return previousRoom;
-    }
-
-    /**
-     * A simple method of calculating highScore, not finally implemented yet
-     *
-     * @return int value that is money added with climatepoints
-     */
-    public int getHighScore() {
-        return money + climatePoints;
     }
 
     /**

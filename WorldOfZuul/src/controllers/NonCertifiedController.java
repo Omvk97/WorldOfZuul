@@ -3,6 +3,7 @@ package controllers;
 import game_functionality.Command;
 import game_functionality.CommandWord;
 import game_functionality.Game;
+import DataLayer.HighScore;
 import game_functionality.Player;
 import game_locations.NonCertifiedForest;
 import java.io.File;
@@ -71,8 +72,7 @@ public class NonCertifiedController implements Initializable {
     private void handleOption1(MouseEvent event) {
         if (!running) {
             if (humanPlayer.getClimatePoints() == Player.getMIN_CLIMATEPOINTS()) {
-                System.out.println("YOU DESTROYED THE EARTH, YOU HAVE CUT WAY TOO MUCH \n"
-                    + "NON CERTIFIED WOOD.");
+                HighScore.closeGame();
                 System.exit(0);
             }
 
