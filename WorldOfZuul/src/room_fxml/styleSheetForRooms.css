@@ -38,3 +38,23 @@
     -fx-font-size: 10px;
     -fx-background-color: #f0f8ff;
 }
+
+.Book {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 18px;
+    
+}
+
+#Title{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 12px;
+}
+
+#by{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 12px;
+}
+

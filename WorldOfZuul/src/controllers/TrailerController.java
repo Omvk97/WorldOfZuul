@@ -25,7 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class TrailerController implements Initializable {
-   
+
     @FXML
     private Label textArea, daysLeftLabel;
     @FXML
@@ -100,6 +100,20 @@ public class TrailerController implements Initializable {
     @FXML
     private void handleOption2(MouseEvent event) {
         textArea.setText(gameTrailer.option2(humanPlayer));
+    }
+
+    @FXML
+    private void handleDoor(MouseEvent event) {
+        Command tester = new Command(CommandWord.GO, "village");
+                    running = true;
+                    Game.getInstanceOfSelf().setDirection("goRight");
+                    TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
+                    right.setByX(player.getLayoutX() - 70);
+                    right.setOnFinished((ActionEvent e) -> {
+                        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+                        running = false;
+                    });
+                    right.play();
     }
 
     @FXML
