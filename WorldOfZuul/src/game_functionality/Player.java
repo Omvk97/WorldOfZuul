@@ -211,18 +211,24 @@ public class Player {
         return equippedBackPack;
     }
 
-    public void boughtBackPack(BackPack newBackPack) {
-        equippedBackPack = newBackPack;
+    public boolean boughtBackPack(BackPack newBackPack) {
+        if (newBackPack.getPrice() <= money) {
+            money -= newBackPack.getPrice();
+            equippedBackPack = newBackPack;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int getAmountOfSaplingsCarrying() {
         return amountOfSaplingsCarrying;
     }
 
-    public boolean buySaplingBundle(int saplingBundleAmount, int saplingCost) {
+    public boolean buySaplingBundle(int saplingAmount, int saplingCost) {
         if (saplingCost <= money) {
             money -= saplingCost;
-            this.amountOfSaplingsCarrying += saplingBundleAmount;
+            this.amountOfSaplingsCarrying += saplingAmount;
             return true;
         } else {
             return false;

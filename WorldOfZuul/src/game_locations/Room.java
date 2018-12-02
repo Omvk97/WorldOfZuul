@@ -24,12 +24,6 @@ public abstract class Room {
 
     abstract public String roomEntrance(Player humanPlayer);
 
-    public String getExitString() {
-        Set<String> keys = exits.keySet();
-        return keys.toString();
-    }
-
-
     public Room getExit(String direction) {
         return exits.get(direction);
     }

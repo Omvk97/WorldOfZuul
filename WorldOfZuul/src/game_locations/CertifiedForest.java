@@ -27,15 +27,7 @@ public class CertifiedForest extends Forest {
         }
         moveChoppableTreesUp();
         return "You are standing in a certified forest!\n"
-            + "In this forest you can plant new trees, but you are only allowed to \n"
-            + "fell large trees! Also if you don't seed the forest after felling\n"
-            + "you will be fined the next day! \n"
-            + "There currently are " + trees.size() + " trees" + "\n"
-            + "-----------------------------------------------------------\n"
-            + "○ Chop Tree ➤ Cut down a tree and bring it with you \n"
-            + "○ Tree info ➤ Trees left in the forest big enough to chop \n"
-            + "○ Replant   ➤ Replant trees that you have cut down\n"
-            + "-----------------------------------------------------------";
+            + "Remember to replant trees!";
     }
 
     private int numberOfTreesBigEnoughToChop() {
@@ -81,7 +73,7 @@ public class CertifiedForest extends Forest {
     }
 
     /**
-     * This forest always needs to have exactly 10 trees in it, either the player needs to plant new
+     * This forest always needs to have exactly 100 trees in it, either the player needs to plant new
      * trees or the player will receive a fine and then the "government" will plant the trees
      * instead.
      *

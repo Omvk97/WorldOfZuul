@@ -29,8 +29,8 @@
                 <Image url="file:src/pictures/certifiedTree.png" />            
             </image>
         </ImageView>
-        <Button fx:id="option1" layoutX="15.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#handleOption1" text="Option 1" />
-        <Button fx:id="option2" layoutX="15.0" layoutY="355.0" mnemonicParsing="false" onMouseClicked="#handleOption2" text="Option 2" />
+        <Button fx:id="option1" layoutX="15.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#handleOption1" text="Chop Tree" prefWidth="90" />
+        <Button fx:id="option2" layoutX="15.0" layoutY="355.0" mnemonicParsing="false" onMouseClicked="#handleOption2" text="Tree Info" prefWidth="90"/>
         <Label fx:id="smallTreeLabel" alignment="CENTER" layoutX="30.0" layoutY="175.0" prefHeight="18.0" prefWidth="39.0" textAlignment="CENTER" />
         <Label fx:id="mediumTreeLabel" alignment="CENTER" layoutX="120.0" layoutY="175.0" prefHeight="18.0" prefWidth="39.0" textAlignment="CENTER" />
         <Label fx:id="largeTreeLabel" alignment="CENTER" layoutX="525.0" layoutY="175.0" prefHeight="18.0" prefWidth="39.0" textAlignment="CENTER" />

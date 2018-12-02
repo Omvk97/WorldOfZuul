@@ -26,12 +26,7 @@ public class NonCertifiedForest extends Forest {
         }
         moveChoppableTreesUp();
         return "You are standing in a non certified forest! \n"
-            + "This forest will not regrow, there are " + trees.size() + " trees" + "\n"
-            + "Your options are: \n"
-            + "-----------------------------------------------------------\n"
-            + "○ Chop Tree ➤ Cut down a tree and bring it with you \n"
-            + "○ Tree info ➤ Trees left in the forest big enough to chop \n"
-            + "-----------------------------------------------------------";
+            + "This forest will not regrow";
     }
 
     @Override
