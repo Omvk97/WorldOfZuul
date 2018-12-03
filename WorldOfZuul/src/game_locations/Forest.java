@@ -32,13 +32,16 @@ public abstract class Forest extends Room {
     }
 
     /**
-     * Chops wood with different speeds depending on the players damage. Also adds all the things 
+     * Chops wood with different speeds depending on the players damage. Also adds all the things
      * that are associated with felling a tree
      *
      * @param humanPlayer chopping a tree
      * @return how many hits it took to fell the tree
      */
     public int chopWood(Player humanPlayer) {
+        if (this instanceof CertifiedForest) {
+            humanPlayer.addChoppedTreesInCertifiedForest();
+        }
         int hitsToTree = 0;
         while (lastTreeInArray().getTreeHealth() > 0) {
             lastTreeInArray().reduceTreeHealth(humanPlayer.getDamage());

@@ -7,6 +7,10 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
+/**
+ *
+ * @author oliver
+ */
 public class CertifiedForest extends Forest {
 
     public CertifiedForest() {
@@ -30,7 +34,7 @@ public class CertifiedForest extends Forest {
             + "Remember to replant trees!";
     }
 
-    private int numberOfTreesBigEnoughToChop() {
+    public int countFellableTrees() {
         int counter = 0;
         for (Tree tree : trees) {
             if (tree.getTreeHealth() >= LARGE_TREE_SIZE) {
@@ -42,33 +46,20 @@ public class CertifiedForest extends Forest {
 
     @Override
     public boolean thereIsMoreTreesToCut() {
-        return numberOfTreesBigEnoughToChop() > 0 && trees.size() > 0;
+        return countFellableTrees() > 0 && trees.size() > 0;
     }
 
-    @Override
-    public String option1(Player humanPlayer) {
-        humanPlayer.addChoppedTreesInCertifiedForest();
-        return Integer.toString(chopWood(humanPlayer));
-    }
-
-    @Override
-    public String option2(Player humanPlayer) {
-        return "There are " + numberOfTreesBigEnoughToChop() + " trees ready to be felled!";
-    }
-
-    @Override
-    public String option3(Player humanPlayer) {
+    public int replantTrees(Player humanPlayer) {
         if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() > 0) {
             int amountOfSeedsPlanted = humanPlayer.plantSeeds();
             if (amountOfSeedsPlanted > 0) {
                 plantNewTrees(amountOfSeedsPlanted);
-                return "You just planted " + (amountOfSeedsPlanted > 1
-                    ? amountOfSeedsPlanted + " saplings!" : "1 sapling!");
+                return amountOfSeedsPlanted;
             } else {
-                return "You don't have any saplings, go buy some!";
+                return 0;
             }
         } else {
-            return "You haven't chopped any trees today!";
+            return -1;
         }
     }
 

@@ -7,6 +7,10 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
+/**
+ *
+ * @author oliver
+ */
 public class NonCertifiedForest extends Forest {
 
     public NonCertifiedForest() {
@@ -35,20 +39,14 @@ public class NonCertifiedForest extends Forest {
             && trees.size() > 0);
     }
 
-    @Override
-    public String option1(Player humanPlayer) {
-        return Integer.toString(chopWood(humanPlayer));
-    }
-
-    @Override
-    public String option2(Player humanPlayer) {
+    public int countFellableTrees() {
         int counter = 0;
         for (Tree tree : trees) {
             if (tree.getTreeHealth() >= MEDIUM_TREE_SIZE) {
                 counter++;
             }
         }
-        return "There are " + counter + " trees ready to be felled!";
+        return counter;
     }
     
     @Override
