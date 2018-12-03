@@ -22,11 +22,7 @@ public class Store extends Room {
     public String roomEntrance(Player humanPlayer) {
         return StoreOwner + "Hi " + "Welcome to my store!\n"
             + "Here you can sell your logs and purchase new equipment \n"
-            + "You have " + humanPlayer.getMoney() + " gold coins\n"
-            + "----------------------------------------------------\n"
-            + "○ Sell logs ➤ Sell logs you are carrying and stored\n"
-            + "○ Buy items ➤ Buy backpacks & saplings\n"
-            + "----------------------------------------------------";
+            + "You have " + humanPlayer.getMoney() + " gold coins\n";
     }
 
     @Override
