@@ -37,13 +37,9 @@ public class LibraryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        TranslateTransition roomTransition = new TranslateTransition(Duration.seconds(1.5), player);
-        if (Game.getInstanceOfSelf().getDirection().equals("goLibrary")) {
-            player.setLayoutX(0);
-            roomTransition.setByX(276);
-            roomTransition.play();
-        }
-        running = false;
+        running = true;
+        backBtn.setDisable(true);
+        transition();
         textArea.setText(gameLibrary.roomEntrance(humanPlayer));
         File file = new File("src/pictures/baseCharacter.png");
         Image image = new Image(file.toURI().toString());
@@ -85,7 +81,7 @@ public class LibraryController implements Initializable {
                 + " several species to become endangered.\n");
         BookTextArea2.setText("It is estimated that 15% of all greenhouse"
                 + " gas emissions are the result\n"
-                + "of deforestation. This is very bad.");
+                + "of deforestation.\n This is very bad.");
         Title.setText("The Falling of the trees");
         by.setText("- written by professors.");
     }
@@ -104,7 +100,7 @@ public class LibraryController implements Initializable {
         Title.setText("The Story of FSC");
         by.setText("- written by FSC.");
     }
-    
+
     @FXML
     private void handleBook3(MouseEvent event) {
         BookText.setVisible(true);
@@ -116,9 +112,10 @@ public class LibraryController implements Initializable {
         Title.setText("The Story of PEFC");
         by.setText(" - written by PEFC.");
     }
-    
+
     @FXML
     private void handleBackBtn(MouseEvent event) {
+        BookText.setVisible(true);
         if (!running) {
             running = true;
             TranslateTransition transistionFromLibrary = new TranslateTransition(Duration.seconds(1.5), player);
@@ -133,7 +130,7 @@ public class LibraryController implements Initializable {
 
     @FXML
     private void handleExits(KeyEvent event) {
-        if (!running) {
+        if (!running && !((Bookshelf.visibleProperty().getValue() == true) || (BookText.visibleProperty().getValue() == true))) {
             running = true;
             if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
                 TranslateTransition transistionFromLibrary = new TranslateTransition(Duration.seconds(1.5), player);
@@ -146,6 +143,19 @@ public class LibraryController implements Initializable {
             } else {
                 textArea.setText("There is no road!");
             }
+        }
+    }
+
+    private void transition() {
+        TranslateTransition roomTransition = new TranslateTransition(Duration.seconds(1.5), player);
+        if (Game.getInstanceOfSelf().getDirection().equals("goLibrary")) {
+            player.setLayoutX(0);
+            roomTransition.setByX(276);
+            roomTransition.setOnFinished((ActionEvent) -> {
+                running = false;
+                backBtn.setDisable(false);
+            });
+            roomTransition.play();
         }
     }
 }
