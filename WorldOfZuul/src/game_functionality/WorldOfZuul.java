@@ -1,6 +1,6 @@
 package game_functionality;
 
-import DataLayer.HighScore;
+import data_layer.HighScore;
 import controllers.HighScoreGraphics;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

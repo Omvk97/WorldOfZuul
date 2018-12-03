@@ -41,8 +41,7 @@ public class TrailerController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         textArea.setText(gameTrailer.roomEntrance(humanPlayer));
         option4.setRotate(45);
-        Image character = new Image(humanPlayer.getCharacterModel().toURI().toString());
-        player.setImage(character);
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         File starterAxeFilePlacement = new File("src/pictures/starterAxe.png");
         Image starterAxe = new Image(starterAxeFilePlacement.toURI().toString());
         option4.setImage(starterAxe);

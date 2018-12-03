@@ -4,7 +4,7 @@ import game_elements.Radio;
 import game_elements.Axe;
 import game_elements.AxeFactory;
 import game_elements.Tree;
-import DataLayer.HighScore;
+import data_layer.HighScore;
 import controllers.HighScoreGraphics;
 import game_functionality.Player;
 import java.io.IOException;

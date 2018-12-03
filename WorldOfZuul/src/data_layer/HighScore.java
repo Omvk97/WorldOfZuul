@@ -1,4 +1,4 @@
-package DataLayer;
+package data_layer;
 
 import game_functionality.Game;
 import game_functionality.Player;

@@ -1,6 +1,6 @@
 package controllers;
 
-import DataLayer.HighScore;
+import data_layer.HighScore;
 import java.util.Optional;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
