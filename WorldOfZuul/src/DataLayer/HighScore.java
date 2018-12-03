@@ -10,12 +10,10 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -29,7 +27,7 @@ import javafx.stage.StageStyle;
 
 public class HighScore {
 
-    private final static File file = new File("highScores.txt");
+    private final static File FILE = new File("highScores.txt");
     private final static Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final LinkedHashMap<String, Double> highScoreNames = new LinkedHashMap<>();
     private static final ArrayList<Double> allHighScores = new ArrayList<>();
@@ -42,25 +40,29 @@ public class HighScore {
     }
 
     private static void writeToHighScoreFile(String nameOfPlayer) {
-        try (Scanner scanner = new Scanner(file).useDelimiter(" ")) {
+        try (Scanner scanner = new Scanner(FILE).useDelimiter(" ")) {
             while (scanner.hasNext()) {
                 try {
                     Double number = Double.parseDouble(scanner.next());
                     allHighScores.add(number);
                 }
                 catch (NumberFormatException e) {
-                    
                 }
+                Collections.sort(allHighScores, (Double o1, Double o2) -> {
+                    int number = (int) (o1 - o2);
+                    return number;
+                });
 //                if (scanner.hasNextInt()) {
 //                    System.out.println(scanner.next());
 //                } else {
 //                    scanner.next();
 //                }
             }
+            System.out.println(allHighScores);
         } catch (FileNotFoundException ex) {
             System.out.println("The file you want to open doesn't exist");
         }
-        try (PrintWriter writer = new PrintWriter(new FileOutputStream(file, true))) {
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream(FILE, true))) {
             writer.println(nameOfPlayer + ": " + getHighScore() + " points");
         } catch (FileNotFoundException e) {
             System.out.println("The file you want to open is being used by another process");

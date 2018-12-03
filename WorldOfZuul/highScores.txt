@@ -9,3 +9,5 @@ ghkjk: 0.0 points
 fiyiy: 0.0 points
 awtr: 0.0 points
 asdr: 0.0 points
+afuhwt: 0.0 points
+YOLO: 0.0 points
