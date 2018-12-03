@@ -14,13 +14,13 @@
     <children>
         <ImageView fx:id="player" fitHeight="75.0" fitWidth="75.0" layoutX="276.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" />
         <javafx.scene.control.Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="326.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
-        <Button fx:id="option1" layoutX="14.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#handleOption1" text="Sell Logs" prefWidth="75" />
-        <Button fx:id="option2" layoutX="14.0" layoutY="356.0" mnemonicParsing="false" onMouseClicked="#handleOption2" text="Buy Items" prefWidth="75"/>
+        <Button fx:id="option1" layoutX="14.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#handleOption1" text="Sell Logs" prefWidth="85" />
+        <Button fx:id="option2" layoutX="14.0" layoutY="356.0" mnemonicParsing="false" onMouseClicked="#handleOption2" text="Buy Items" prefWidth="85"/>
       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="511.0" layoutY="301.0">
          <image>
             <Image url="@../pictures/playerMoney.png" />
          </image>
       </ImageView>
-      <Label id="playerMoney" fx:id="playerGoldCoins" alignment="CENTER" layoutX="540.0" layoutY="364.0" textAlignment="CENTER" prefHeight="10.0" prefWidth="35.0"/>
+      <Label id="playerMoney" fx:id="playerGoldCoins" alignment="CENTER" layoutX="535.0" layoutY="364.0" textAlignment="CENTER" prefHeight="10.0" prefWidth="35.0"/>
     </children>
 </AnchorPane>

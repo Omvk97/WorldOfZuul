@@ -1,6 +1,7 @@
 package game_functionality;
 
 import DataLayer.HighScore;
+import controllers.HighScoreGraphics;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +17,7 @@ import javafx.stage.WindowEvent;
 public class WorldOfZuul extends Application {
 
     private Scene scene;
+    private final HighScoreGraphics highScoreGraphics = new HighScoreGraphics();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -29,7 +31,7 @@ public class WorldOfZuul extends Application {
         stage.setScene(scene);
         stage.show();
         stage.setOnCloseRequest((WindowEvent event) -> {
-            HighScore.closeGame();
+            highScoreGraphics.closeGame();
         });
     }
 

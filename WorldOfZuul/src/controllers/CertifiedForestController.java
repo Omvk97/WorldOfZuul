@@ -1,5 +1,6 @@
 package controllers;
 
+import DataLayer.HighScore;
 import game_functionality.Command;
 import game_functionality.CommandWord;
 import game_functionality.Game;
@@ -53,6 +54,7 @@ public class CertifiedForestController implements Initializable {
     private final ArrayList<Media> sounds = new ArrayList<>();
     private final int punchDuration = 195;
     private final int chopDuration = 335;
+    private final HighScoreGraphics highScoreGraphics = new HighScoreGraphics();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -66,12 +68,6 @@ public class CertifiedForestController implements Initializable {
     @FXML
     private void handleOption1(MouseEvent event) {
         if (!running) {
-            if (humanPlayer.getClimatePoints() == Player.getMIN_CLIMATEPOINTS()) {
-                System.out.println("YOU DESTROYED THE EARTH, YOU HAVE CUT WAY TOO MUCH \n"
-                    + "NON CERTIFIED WOOD.");
-                System.exit(0);
-            }
-
             if (gameForest.playerCanCarryMoreTree(humanPlayer) && gameForest.thereIsMoreTreesToCut()) {
                 int number = Integer.parseInt(gameForest.option1(humanPlayer));
                 treeAnimationToLargeTree(number);
@@ -149,10 +145,10 @@ public class CertifiedForestController implements Initializable {
             textArea.setText("You have chopped down a tree! You are now carrying "
                 + humanPlayer.backPack().getAmountOfLogsInBackPack()
                 + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
-            double numOfHits = humanPlayer.useAxe();
-            if (numOfHits == 0.5) {
+            double axeDurability = humanPlayer.useAxe();
+            if (axeDurability == 0.5) {
                 textArea.setText("Your axe is at half durability!");
-            } else if (numOfHits == 0) {
+            } else if (axeDurability == 0) {
                 textArea.setText("Your axe broke!");
                 humanPlayer.setCharacterModel(true);
                 player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
@@ -166,8 +162,6 @@ public class CertifiedForestController implements Initializable {
     }
 
     private void hitAnimation(int numOfChops) {
-        final int punchDuration = 195;
-        final int chopDuration = 335;
         TranslateTransition hitAnimation = new TranslateTransition();
         hitAnimation.setNode(player);
         if (humanPlayer.playerHasAnAxe()) {

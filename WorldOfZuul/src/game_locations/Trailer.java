@@ -5,6 +5,7 @@ import game_elements.Axe;
 import game_elements.AxeFactory;
 import game_elements.Tree;
 import DataLayer.HighScore;
+import controllers.HighScoreGraphics;
 import game_functionality.Player;
 import java.io.IOException;
 
@@ -22,6 +23,7 @@ public class Trailer extends Room {
     private Axe starterAxe = AxeFactory.createStarterAxe();
     private final Radio radio = new Radio();
     private int numOfDaysGoneBy;
+    private final HighScoreGraphics highScoreGraphics = new HighScoreGraphics();
 
     public Trailer() {
         this.logsInStorage = new ArrayList<>();
@@ -118,7 +120,7 @@ public class Trailer extends Room {
         }
         humanPlayer.sleep(fineAmount);
         if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
-            HighScore.closeGame();
+            highScoreGraphics.closeGame();
             System.exit(0);
         }
         System.out.println("The sun goes down and you sleep tight \n"
