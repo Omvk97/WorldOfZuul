@@ -3,7 +3,6 @@ package game_locations;
 import game_functionality.Player;
 
 import java.util.HashMap;
-import java.util.Set;
 import javafx.scene.Parent;
 
 /**

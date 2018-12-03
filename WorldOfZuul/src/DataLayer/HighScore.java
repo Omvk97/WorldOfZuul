@@ -54,7 +54,7 @@ public class HighScore {
     public static void closeGame() {
         Dialog nameDialog = new Dialog();
         nameDialog.setTitle("Player Name");
-        nameDialog.setHeaderText("Your highscore is: " + humanPlayer.getTotalValue() + "!\n"
+        nameDialog.setHeaderText("Your highscore is: " + getHighScore() + "!\n"
             + "Please enter the name you want assosiacted with your highscore!");
         nameDialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         TextField playerInputField = new TextField();
