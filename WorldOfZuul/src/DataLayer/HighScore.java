@@ -9,7 +9,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.LinkedHashMap;
 import java.util.Optional;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,15 +31,35 @@ public class HighScore {
 
     private final static File file = new File("highScores.txt");
     private final static Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
+    private final LinkedHashMap<String, Double> highScoreNames = new LinkedHashMap<>();
+    private static final ArrayList<Double> allHighScores = new ArrayList<>();
 
     private HighScore() {
     }
 
-    public static double getHighScore() {
+    private static double getHighScore() {
         return humanPlayer.getTotalValue() + humanPlayer.getClimatePoints();
     }
 
     private static void writeToHighScoreFile(String nameOfPlayer) {
+        try (Scanner scanner = new Scanner(file).useDelimiter(" ")) {
+            while (scanner.hasNext()) {
+                try {
+                    Double number = Double.parseDouble(scanner.next());
+                    allHighScores.add(number);
+                }
+                catch (NumberFormatException e) {
+                    
+                }
+//                if (scanner.hasNextInt()) {
+//                    System.out.println(scanner.next());
+//                } else {
+//                    scanner.next();
+//                }
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("The file you want to open doesn't exist");
+        }
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(file, true))) {
             writer.println(nameOfPlayer + ": " + getHighScore() + " points");
         } catch (FileNotFoundException e) {
