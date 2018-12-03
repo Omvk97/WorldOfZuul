@@ -13,21 +13,36 @@ import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class TrailerController implements Initializable {
-   
+
     @FXML
-    private Label textArea, daysLeftLabel;
+    private Label textArea, daysLeftLabel, climateLabel, logsStorageLabel;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -42,6 +57,11 @@ public class TrailerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println(Game.getInstanceOfSelf().getDirection());
+        climateLabel.setText(humanPlayer.getClimatePoints() + " climate");
+        logsStorageLabel.setText(gameTrailer.getLogsInStorage().size() + " logs");
+        if (humanPlayer.getClimatePoints() <= -50) {
+            climateLabel.setTextFill(Color.RED);
+        }
 
 //        if (!running) {
         switch (Game.getInstanceOfSelf().getDirection()) {
@@ -62,6 +82,9 @@ public class TrailerController implements Initializable {
                 left.setByX(-206);
                 left.setOnFinished((ActionEvent e) -> {
                     running = false;
+                    System.out.println(player.getLayoutX());
+                    System.out.println(player.getLayoutY());
+                    player.relocate(482, 170);
                 });
                 left.play();
                 break;
@@ -95,6 +118,7 @@ public class TrailerController implements Initializable {
     @FXML
     private void handleOption1(MouseEvent event) {
         textArea.setText(gameTrailer.option1(humanPlayer));
+        logsStorageLabel.setText(gameTrailer.getLogsInStorage().size() + " logs");
     }
 
     @FXML
@@ -116,27 +140,59 @@ public class TrailerController implements Initializable {
             sleep.setOnFinished((ActionEvent e) -> {
                 daysLeftLabel.setText(gameTrailer.getNUM_PLAY_DAYS() - gameTrailer.getNumOfDaysGoneBy() + " days left");
                 running = false;
+
+//                if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
+                Stage dialogStage = new Stage();
+
+                dialogStage.initModality(Modality.APPLICATION_MODAL);
+                Scene questions;
+//                int fineAmount;
+//                fineAmount = gameTrailer.givePlayerFine(humanPlayer);
+                GridPane grid = new GridPane();
+                Label label1 = new Label("You didn't replant all the trees in the certified forest!\n"
+                        + "You have a chance to redeem yourself");
+                grid.add(label1, 1, 0);
+                Button button1 = new Button("Ok");
+                grid.add(button1, 1, 1);
+                grid.setPadding(new Insets(15));
+
+                Label label2 = new Label(gameTrailer.gi);
+                Button button2 = new Button("Go to scene 1");
+                VBox layout2 = new VBox(20);
+                layout2.getChildren().addAll(label2, button2);
+                questions = new Scene(layout2, 300, 250);
+                
+                button1.setOnAction(e1 -> dialogStage.setScene(questions));
+                dialogStage.setScene(new Scene(grid));
+                dialogStage.show();
+//                }
             });
         }
     }
 
     @FXML
     private void handleOption4(MouseEvent event) {
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), player);
-        transition.setByX(option4.getLayoutX() - player.getLayoutX());
+        if (!running) {
+            running = true;
+            TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), player);
+            transition.setByX(-231);
 
-        transition.setOnFinished((ActionEvent event1) -> {
-            File file = new File("src/pictures/characterModelWithStarterAxe.png");
-            Image characterWithStarterAxePlacement = new Image(file.toURI().toString());
-            player.setImage(characterWithStarterAxePlacement);
-            textArea.setText(gameTrailer.option4(humanPlayer));
-        });
+            transition.setOnFinished((ActionEvent event1) -> {
+                File file = new File("src/pictures/characterModelWithStarterAxe.png");
+                Image characterWithStarterAxePlacement = new Image(file.toURI().toString());
+                player.setImage(characterWithStarterAxePlacement);
+                textArea.setText(gameTrailer.option4(humanPlayer));
+            });
 
-        TranslateTransition transition2 = new TranslateTransition(Duration.seconds(1.5), player);
-        transition2.setByX(player.getLayoutX() - option4.getLayoutX());
+            TranslateTransition transition2 = new TranslateTransition(Duration.seconds(1.5), player);
+            transition2.setByX(231);
 
-        SequentialTransition axeTransition = new SequentialTransition(transition, transition2);
-        axeTransition.play();
+            SequentialTransition axeTransition = new SequentialTransition(transition, transition2);
+            axeTransition.play();
+            axeTransition.setOnFinished((ActionEvent e) -> {
+                running = false;
+            });
+        }
     }
 
     @FXML
@@ -150,7 +206,7 @@ public class TrailerController implements Initializable {
                     running = true;
                     Game.getInstanceOfSelf().setDirection("goUp");
                     TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-                    up.setByY(-player.getLayoutY());
+                    up.setByY(-170);
                     up.setOnFinished((ActionEvent e) -> {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                         running = false;
@@ -164,7 +220,7 @@ public class TrailerController implements Initializable {
                     running = true;
                     Game.getInstanceOfSelf().setDirection("goDown");
                     TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
-                    down.setByY(player.getLayoutY());
+                    down.setByY(170);
                     down.setOnFinished((ActionEvent e) -> {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                         running = false;
@@ -178,7 +234,7 @@ public class TrailerController implements Initializable {
                     running = true;
                     Game.getInstanceOfSelf().setDirection("goRight");
                     TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
-                    right.setByX(player.getLayoutX() - 70);
+                    right.setByX(206);
                     right.setOnFinished((ActionEvent e) -> {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                         running = false;
@@ -193,6 +249,5 @@ public class TrailerController implements Initializable {
         } else {
             System.out.println("ayo wait up");
         }
-
     }
 }

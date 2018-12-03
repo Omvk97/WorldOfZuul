@@ -30,13 +30,13 @@ public class Trailer extends Room {
 
     @Override
     public String roomEntrance(Player humanPlayer) {
-        return "You stand in your trailer, it is your home\n"
-            + "---------------------------------------------\n"
-            + "○ Store Logs   ➤ Store logs you are carrying\n"
-            + "○ Check Wallet ➤ See how much money you have\n"
-            + "○ Sleep\n"
-            + (starterAxe != null ? "○ Pick up Axe\n" : "")
-            + "---------------------------------------------";
+        return "You stand in your trailer, it is your home\n";
+//            + "---------------------------------------------\n"
+//            + "○ Store Logs   ➤ Store logs you are carrying\n"
+//            + "○ Check Wallet ➤ See how much money you have\n"
+//            + "○ Sleep\n"
+//            + (starterAxe != null ? "○ Pick up Axe\n" : "")
+//            + "---------------------------------------------";
     }
 
     /**
@@ -152,7 +152,7 @@ public class Trailer extends Room {
         }
     }
 
-    private int givePlayerFine(Player humanPlayer) {
+    public int givePlayerFine(Player humanPlayer) {
         Boolean correctAnswer = true;
         Scanner questionAnswer = new Scanner(System.in);
         String questionOne = "How many million hectare forest area disappear each year?";
