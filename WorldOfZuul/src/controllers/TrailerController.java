@@ -13,10 +13,12 @@ import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -131,6 +133,21 @@ public class TrailerController implements Initializable {
                 daysLeftLabel.setText(gameTrailer.getNUM_PLAY_DAYS() - gameTrailer.getNumOfDaysGoneBy() + " days left");
                 running = false;
             });
+        }
+        
+        if (true /* En metode fra trailer der validere om spilleren skal have en bøde*/) {
+            TextField tester = new TextField("Indtast din tekst her");
+            Button hello = new Button("CLICK ME NIGGA");
+            hello.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    System.out.println(tester.getText());
+                    tester.clear();
+                }
+            });
+            anchorPane.getChildren().add(new ImageView(new Image(new File("src/pictures/fine.png").toURI().toString())));
+            anchorPane.getChildren().add(new Label("Tekst her"/*Det spørgsmål der nu skal være her.*/));
+            anchorPane.getChildren().addAll(tester, hello);
         }
     }
 
