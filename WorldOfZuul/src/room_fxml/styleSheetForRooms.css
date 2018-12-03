@@ -4,7 +4,7 @@
 }
 
 #nonCertifiedForest {
-    -fx-background-image: url("/pictures/certigied32.png");
+    -fx-background-image: url("/pictures/noncertified.png");
     -fx-background-size: 600px 400px;
 }
 
