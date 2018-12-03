@@ -19,8 +19,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class LibraryController implements Initializable {
@@ -93,18 +91,6 @@ public class LibraryController implements Initializable {
     }
 
     @FXML
-    private void handleBook3(MouseEvent event) {
-        BookText.setVisible(true);
-        BookTextArea1.setText("PEFC, Programme for the Endorsement of Forest Certification, is the largest"
-                + " organization dedicated to combat deforestation.");
-        BookTextArea2.setText("Their main function involves certifying and regulating "
-                + "forest areas to reduce reckless deforestation."
-                + "They cover over 300 million hectare certified forest areas globally.");
-        Title.setText("The Story of PEFC");
-        by.setText(" - written by PEFC.");
-    }
-
-    @FXML
     private void handleBook2(MouseEvent event) {
         BookText.setVisible(true);
         BookTextArea1.setText("FSC, Forest Stewardship Council, is one"
@@ -118,7 +104,19 @@ public class LibraryController implements Initializable {
         Title.setText("The Story of FSC");
         by.setText("- written by FSC.");
     }
-
+    
+    @FXML
+    private void handleBook3(MouseEvent event) {
+        BookText.setVisible(true);
+        BookTextArea1.setText("PEFC, Programme for the Endorsement of Forest Certification, is the largest"
+                + " organization dedicated to combat deforestation.");
+        BookTextArea2.setText("Their main function involves certifying and regulating "
+                + "forest areas to reduce reckless deforestation."
+                + "They cover over 300 million hectare certified forest areas globally.");
+        Title.setText("The Story of PEFC");
+        by.setText(" - written by PEFC.");
+    }
+    
     @FXML
     private void handleBackBtn(MouseEvent event) {
         if (!running) {
