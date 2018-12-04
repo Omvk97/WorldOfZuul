@@ -4,6 +4,8 @@ import game_elements.Radio;
 import game_elements.Axe;
 import game_elements.AxeFactory;
 import game_elements.Tree;
+import data_layer.HighScore;
+import controllers.HighScoreGraphics;
 import game_functionality.Player;
 import java.io.IOException;
 
@@ -12,16 +14,16 @@ import java.util.Random;
 import java.util.Scanner;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 
 public class Trailer extends Room {
 
-    private final static int NUM_PLAY_DAYS = 20;
+    private final static int NUM_PLAY_DAYS = 2;
     private final static int MAX_TREESTORAGEAMOUNT = 30;
     private final ArrayList<Tree> logsInStorage;
     private Axe starterAxe = AxeFactory.createStarterAxe();
     private final Radio radio = new Radio();
     private int numOfDaysGoneBy;
+    private final HighScoreGraphics highScoreGraphics = new HighScoreGraphics();
 
     public Trailer() {
         this.logsInStorage = new ArrayList<>();
@@ -118,8 +120,7 @@ public class Trailer extends Room {
         }
         humanPlayer.sleep(fineAmount);
         if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
-            System.out.println("THERE IS NO MORE DAYS, YOUR HIGHSCORE IS: "
-                + humanPlayer.getHighScore());
+            highScoreGraphics.closeGame();
             System.exit(0);
         }
         System.out.println("The sun goes down and you sleep tight \n"
@@ -202,5 +203,10 @@ public class Trailer extends Room {
         }
         return null;
     }
+
+    public int getNumOfDaysGoneBy() {
+        return numOfDaysGoneBy;
+    }
+    
 
 }

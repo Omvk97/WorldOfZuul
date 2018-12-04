@@ -7,6 +7,10 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
+/**
+ *
+ * @author oliver
+ */
 public class NonCertifiedForest extends Forest {
 
     public NonCertifiedForest() {
@@ -26,39 +30,23 @@ public class NonCertifiedForest extends Forest {
         }
         moveChoppableTreesUp();
         return "You are standing in a non certified forest! \n"
-            + "This forest will not regrow, there are " + trees.size() + " trees" + "\n"
-            + "Your options are: \n"
-            + "-----------------------------------------------------------\n"
-            + "○ Chop Tree ➤ Cut down a tree and bring it with you \n"
-            + "○ Tree info ➤ Trees left in the forest big enough to chop \n"
-            + "-----------------------------------------------------------";
+            + "This forest will not regrow";
     }
 
     @Override
-    protected boolean thereIsMoreTreesToCut() {
+    public boolean thereIsMoreTreesToCut() {
         return (lastTreeInArray().getTreeHealth() >= MEDIUM_TREE_SIZE
             && trees.size() > 0);
     }
 
-    @Override
-    public String option1(Player humanPlayer) {
-        if (humanPlayer.getClimatePoints() == Player.getMIN_CLIMATEPOINTS()) {
-            System.out.println("YOU DESTROYED THE EARTH, YOU HAVE CUT WAY TOO MUCH \n"
-                + "NON CERTIFIED WOOD.");
-            System.exit(0);
-        }
-        return chopWood(humanPlayer);
-    }
-
-    @Override
-    public String option2(Player humanPlayer) {
+    public int countFellableTrees() {
         int counter = 0;
         for (Tree tree : trees) {
             if (tree.getTreeHealth() >= MEDIUM_TREE_SIZE) {
                 counter++;
             }
         }
-        return "There are " + counter + " trees ready to be felled!";
+        return counter;
     }
     
     @Override
