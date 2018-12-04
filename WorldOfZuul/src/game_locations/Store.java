@@ -28,8 +28,7 @@ public class Store extends Room {
     @Override
     public String roomEntrance(Player humanPlayer) {
         return StoreOwner + "Hi " + "Welcome to my store!\n"
-            + "Here you can sell your logs and purchase stuffs!\n";
-    }
+            + "Here you can sell your logs and purchase stuffs!\n";    }
 
     /**
      * To make sure that the player can't buy a backPack they already own.
