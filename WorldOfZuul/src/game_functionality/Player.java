@@ -9,6 +9,11 @@ import game_locations.Trailer;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author oliver
+ * @date 1/12/2018
+ */
 public class Player {
 
     private final static int MIN_CLIMATEPOINTS = -250;
@@ -75,6 +80,17 @@ public class Player {
         return MIN_CLIMATEPOINTS;
     }
 
+    public int getTotalValue() {
+        int totalValueOfItems = money + equippedBackPack.getPrice();
+        for (Tree tree : equippedBackPack.getLogsInBackPack()) {
+            totalValueOfItems += tree.getTreePrice();
+        }
+        if (playerHasAnAxe()) {
+            totalValueOfItems += equippedAxe.getPrice();
+        }
+        return totalValueOfItems;
+    }
+
     public int getMoney() {
         return money;
     }
@@ -112,15 +128,6 @@ public class Player {
 
     public Room getPreviousRoom() {
         return previousRoom;
-    }
-
-    /**
-     * A simple method of calculating highScore, not finally implemented yet
-     *
-     * @return int value that is money added with climatepoints
-     */
-    public int getHighScore() {
-        return money + climatePoints;
     }
 
     /**
@@ -166,6 +173,10 @@ public class Player {
 
     /**
      * Used to reduce durability on the players currently equipped Axe
+     *
+     * @return the axe state. If 1 is returned the axe is is between high and half or low and half
+     * durability. if 0.5 is returned the axe is at half durability. If 0 is returned the axe has
+     * been destroyed
      */
     public double useAxe() {
         equippedAxe.reduceDurability();
@@ -187,6 +198,10 @@ public class Player {
         return equippedAxe;
     }
 
+    public boolean playerHasAnAxe() {
+        return equippedAxe != null;
+    }
+
     /**
      * Used to get access to currently equipped BackPack.
      *
@@ -196,18 +211,24 @@ public class Player {
         return equippedBackPack;
     }
 
-    public void boughtBackPack(BackPack newBackPack) {
-        equippedBackPack = newBackPack;
+    public boolean boughtBackPack(BackPack newBackPack) {
+        if (newBackPack.getPrice() <= money) {
+            money -= newBackPack.getPrice();
+            equippedBackPack = newBackPack;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int getAmountOfSaplingsCarrying() {
         return amountOfSaplingsCarrying;
     }
 
-    public boolean buySaplingBundle(int saplingBundleAmount, int saplingCost) {
+    public boolean buySaplingBundle(int saplingAmount, int saplingCost) {
         if (saplingCost <= money) {
             money -= saplingCost;
-            this.amountOfSaplingsCarrying += saplingBundleAmount;
+            this.amountOfSaplingsCarrying += saplingAmount;
             return true;
         } else {
             return false;
@@ -263,5 +284,13 @@ public class Player {
 
     public void setHasSlept(boolean hasSlept) {
         this.hasSlept = hasSlept;
+    }
+
+    public double getDamage() {
+        if (equippedAxe != null) {
+            return equippedAxe.getDamage();
+        } else {
+            return 1;
+        }
     }
 }

@@ -5,7 +5,6 @@ import game_functionality.CommandWord;
 import game_functionality.Game;
 import game_functionality.Player;
 import game_locations.LocalVillage;
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -35,9 +34,8 @@ public class LocalVillageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         textArea.setText(gameVillage.roomEntrance(humanPlayer));
-        File file = new File("src/pictures/baseCharacter.png");
-        Image image = new Image(file.toURI().toString());
-        player.setImage(image);
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+
     }
 
     @FXML

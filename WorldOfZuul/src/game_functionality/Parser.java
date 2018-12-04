@@ -28,14 +28,7 @@ public class Parser {
                 word2 = tokenizer.next().toLowerCase();
             }
         }
-        /*
-         * If the user has typed something that corresponds to one of the options in the room they
-         * currently are in, that option command will be returned.
-         */
-        inputLine = inputLine.toLowerCase().replaceAll("\\s", "");
-        if (humanPlayer.getCurrentRoom().getOptions(inputLine) != null) {
-            return new Command(CommandWord.OPTION, humanPlayer.getCurrentRoom().getOptions(inputLine));
-        }
+        
         return new Command(commands.getCommandWord(word1), word2);
     }
 
