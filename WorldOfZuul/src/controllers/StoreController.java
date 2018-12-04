@@ -9,6 +9,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -20,6 +21,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import javafx.scene.layout.FlowPane;
 
 public class StoreController implements Initializable {
@@ -29,9 +31,12 @@ public class StoreController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
+    private Button backBtn;
+    @FXML
     private ImageView player;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Store gameStore = (Store) Game.getInstanceOfSelf().getStore();
+    private boolean running;
     private final ImageView storeShelf = new ImageView(new Image(
         new File("src/pictures/storeShelf.png").toURI().toString()));
     private final ImageView blueDot = new ImageView(new Image(
@@ -39,9 +44,10 @@ public class StoreController implements Initializable {
     private final Button closeShelfButton = new Button("Done");
     private final Button buySelectedItemButton = new Button("Buy");
     private final ArrayList<Node> allItemsAssociatedWithShelf = new ArrayList<>();
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        transition();
         updateGoldCoins();
         textArea.setText(gameStore.roomEntrance(humanPlayer));
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
@@ -72,12 +78,50 @@ public class StoreController implements Initializable {
     }
 
     @FXML
+    private void handleBackBtn(MouseEvent event) {
+        backBtn.setDisable(true);
+        if (!running) {
+            running = true;
+            TranslateTransition transistionFromStore = new TranslateTransition(Duration.seconds(1.5), player);
+            transistionFromStore.setByY(player.getLayoutY());
+            transistionFromStore.setOnFinished((ActionEvent) -> {
+                Command tester = new Command(CommandWord.GO, "back");
+                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            });
+            transistionFromStore.play();
+        }
+    }
+
+    @FXML
     private void handleExits(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
-            Command tester = new Command(CommandWord.GO, "back");
-            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-        } else {
-            textArea.setText("There is no road!");
+        if (!running) {
+            running = true;
+            if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+                TranslateTransition transistionFromStore = new TranslateTransition(Duration.seconds(1.5), player);
+                transistionFromStore.setByY(player.getLayoutY());
+                transistionFromStore.setOnFinished((ActionEvent) -> {
+                    Command tester = new Command(CommandWord.GO, "back");
+                    Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+                });
+                transistionFromStore.play();
+            } else {
+                textArea.setText("There is no road!");
+            }
+        }
+    }
+
+    private void transition() {
+        running = true;
+        backBtn.setDisable(true);
+        TranslateTransition roomTransition = new TranslateTransition(Duration.seconds(1.5), player);
+        if (Game.getInstanceOfSelf().getDirection().equals("goStore")) {
+            player.setLayoutY(player.getLayoutY() * 2);
+            roomTransition.setByY(-170);
+            roomTransition.setOnFinished((ActionEvent) -> {
+                running = false;
+                backBtn.setDisable(false);
+            });
+            roomTransition.play();
         }
     }
 

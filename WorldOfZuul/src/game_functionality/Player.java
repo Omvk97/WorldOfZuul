@@ -29,6 +29,7 @@ public class Player {
     private final Trailer trailer;
     private Room previousRoom;
     private boolean hasSlept;
+    private String direction;
     private final File baseModelFile = new File("src/pictures/baseCharacter.png");
     private final File baseModelRightFile = new File("src/pictures/baseCharacterRight.png");
     private final File modelStarterAxeFile = new File("src/pictures/characterWithStarterAxe.png");
@@ -284,6 +285,14 @@ public class Player {
 
     public void setHasSlept(boolean hasSlept) {
         this.hasSlept = hasSlept;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     public double getDamage() {

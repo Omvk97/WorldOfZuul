@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 /**
@@ -32,6 +33,12 @@ public class NonCertifiedController extends ForestController implements Initiali
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (Game.getInstanceOfSelf().getDirection().equals("goUp")) {
+            TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
+            player.setLayoutY(player.getLayoutY() * 2);
+            up.setByY(-170);
+            up.play();
+        }
         textArea.setText(gameForest.roomEntrance(humanPlayer));
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         smallTreeLabel.setText(Integer.toString(gameForest.countSmallTrees()));
@@ -123,8 +130,12 @@ public class NonCertifiedController extends ForestController implements Initiali
     @FXML
     private void handleExits(KeyEvent event) {
         if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+            Game.getInstanceOfSelf().setDirection("goDown");
             Command tester = new Command(CommandWord.GO, "trailer");
-            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
+            down.setByY(player.getLayoutY() / 2);
+            down.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
+            down.play();
         } else {
             textArea.setText("There is no road!");
         }
