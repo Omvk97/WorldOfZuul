@@ -42,8 +42,6 @@ public class TrailerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println(Game.getInstanceOfSelf().getDirection());
-
 //        if (!running) {
         switch (Game.getInstanceOfSelf().getDirection()) {
             case "goDown":
@@ -130,21 +128,6 @@ public class TrailerController implements Initializable {
                 daysLeftLabel.setText(gameTrailer.getNUM_PLAY_DAYS() - gameTrailer.getNumOfDaysGoneBy() + " days left");
                 running = false;
             });
-        }
-        
-        if (true /* En metode fra trailer der validere om spilleren skal have en bøde*/) {
-            TextField tester = new TextField("Indtast din tekst her");
-            Button hello = new Button("CLICK ME NIGGA");
-            hello.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(tester.getText());
-                    tester.clear();
-                }
-            });
-            anchorPane.getChildren().add(new ImageView(new Image(new File("src/pictures/fine.png").toURI().toString())));
-            anchorPane.getChildren().add(new Label("Tekst her"/*Det spørgsmål der nu skal være her.*/));
-            anchorPane.getChildren().addAll(tester, hello);
         }
     }
 

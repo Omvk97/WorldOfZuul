@@ -11,7 +11,6 @@ public class Game {
     private final Forest nonCertificedForest = new NonCertifiedForest();
     private final Room localVillage = new LocalVillage();
     private final Room store = new Store();
-    private final Room tutorialRoom = new TutorialRoom();
     private final Room blacksmith = new BlackSmith();
     private final Room library = new Library();
     private String direction = "noDirection";
@@ -101,10 +100,6 @@ public class Game {
 
     public Room getStore() {
         return store;
-    }
-
-    public Room getTutorialRoom() {
-        return tutorialRoom;
     }
 
     public Room getBlacksmith() {

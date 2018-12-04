@@ -61,7 +61,7 @@ public class NonCertifiedController extends ForestController implements Initiali
                     treeAnimationToLargeTree(number);
                     largeTreeLabel.setText(Integer.toString(gameForest.countLargeTrees()));
                 } else {
-                    int number = Integer.parseInt(gameForest.option1(humanPlayer));
+                    int number = gameForest.chopWood(humanPlayer);
                     treeAnimationToMediumTree(number);
                 }
             } else if (gameForest.playerCanCarryMoreTree(humanPlayer) && !gameForest.thereIsMoreTreesToCut()) {
