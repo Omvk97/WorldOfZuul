@@ -35,6 +35,31 @@
 
 .label {
     -fx-border-color: #000000;
-    -fx-font-size: 10px;
+    -fx-font-size: 12px;
     -fx-background-color: #f0f8ff;
+}
+
+.Book {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 18px;
+    
+}
+
+#Title{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 12px;
+}
+
+#by{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 12px;
+}
+
+#playerMoney {
+    -fx-border-color: rgba(0, 0, 0, 0.0);
+    -fx-text-fill: #ffff66;
+    -fx-background-color: rgba(0, 0, 0, 0.0);
 }

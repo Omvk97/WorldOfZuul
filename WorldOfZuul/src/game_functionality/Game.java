@@ -11,7 +11,6 @@ public class Game {
     private final Forest nonCertificedForest = new NonCertifiedForest();
     private final Room localVillage = new LocalVillage();
     private final Room store = new Store();
-    private final Room tutorialRoom = new TutorialRoom();
     private final Room blacksmith = new BlackSmith();
     private final Room library = new Library();
     private String direction = "noDirection";
@@ -19,7 +18,6 @@ public class Game {
     
     private Game() {
         setExitsForRooms();
-        setOptionsForRooms();
         humanPlayer.setCurrentRoom(trailer);
     }
 
@@ -44,50 +42,6 @@ public class Game {
         blacksmith.setExit("village", localVillage);
 
         library.setExit("village", localVillage);
-    }
-
-    private void setOptionsForRooms() {
-        // certifiedForest
-        certifiedForest.setOptions("choptree", "1");
-        certifiedForest.setOptions("chop", "1");
-        certifiedForest.setOptions("chopwood", "1");
-        certifiedForest.setOptions("treeinfo", "2");
-        certifiedForest.setOptions("info", "2");
-        certifiedForest.setOptions("tree", "2");
-        certifiedForest.setOptions("replanttrees", "3");
-        certifiedForest.setOptions("replant", "3");
-        //Trailer
-        trailer.setOptions("storelogs", "1");
-        trailer.setOptions("store", "1");
-        trailer.setOptions("checkwallet", "2");
-        trailer.setOptions("check", "2");
-        trailer.setOptions("sleep", "3");
-        trailer.setOptions("pickupaxe", "4");
-        trailer.setOptions("axe", "4");
-        //NonCertifiedForest
-        nonCertificedForest.setOptions("choptree", "1");
-        nonCertificedForest.setOptions("chop", "1");
-        nonCertificedForest.setOptions("chopwood", "1");
-        nonCertificedForest.setOptions("treeinfo", "2");
-        nonCertificedForest.setOptions("tree", "2");
-        nonCertificedForest.setOptions("info", "2");
-        //Store
-        store.setOptions("selllogs", "1");
-        store.setOptions("sell", "1");
-        store.setOptions("buyitems", "2");
-        store.setOptions("buy", "2");
-        //Blacksmith
-        blacksmith.setOptions("repair", "1");
-        blacksmith.setOptions("repairaxe", "1");
-        blacksmith.setOptions("buy", "2");
-        blacksmith.setOptions("buyaxe", "2");
-        // library
-        library.setOptions("readbook1", "1");
-        library.setOptions("book1", "1");
-        library.setOptions("readbook2", "2");
-        library.setOptions("book2", "2");
-        library.setOptions("readbook3", "3");
-        library.setOptions("book3", "3");
     }
 
     public void goRoom(Command command, AnchorPane anchorPane) {
@@ -137,10 +91,6 @@ public class Game {
 
     public Room getStore() {
         return store;
-    }
-
-    public Room getTutorialRoom() {
-        return tutorialRoom;
     }
 
     public Room getBlacksmith() {

@@ -7,6 +7,10 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
+/**
+ *
+ * @author oliver
+ */
 public class CertifiedForest extends Forest {
 
     public CertifiedForest() {
@@ -27,18 +31,10 @@ public class CertifiedForest extends Forest {
         }
         moveChoppableTreesUp();
         return "You are standing in a certified forest!\n"
-            + "In this forest you can plant new trees, but you are only allowed to \n"
-            + "fell large trees! Also if you don't seed the forest after felling\n"
-            + "you will be fined the next day! \n"
-            + "There currently are " + trees.size() + " trees" + "\n"
-            + "-----------------------------------------------------------\n"
-            + "○ Chop Tree ➤ Cut down a tree and bring it with you \n"
-            + "○ Tree info ➤ Trees left in the forest big enough to chop \n"
-            + "○ Replant   ➤ Replant trees that you have cut down\n"
-            + "-----------------------------------------------------------";
+            + "Remember to replant trees!";
     }
 
-    private int numberOfTreesBigEnoughToChop() {
+    public int countFellableTrees() {
         int counter = 0;
         for (Tree tree : trees) {
             if (tree.getTreeHealth() >= LARGE_TREE_SIZE) {
@@ -49,38 +45,26 @@ public class CertifiedForest extends Forest {
     }
 
     @Override
-    protected boolean thereIsMoreTreesToCut() {
-        return numberOfTreesBigEnoughToChop() > 0 && trees.size() > 0;
+    public boolean thereIsMoreTreesToCut() {
+        return countFellableTrees() > 0 && trees.size() > 0;
     }
 
-    @Override
-    public String option1(Player humanPlayer) {
-        return chopWood(humanPlayer);
-    }
-
-    @Override
-    public String option2(Player humanPlayer) {
-        return "There are " + numberOfTreesBigEnoughToChop() + " trees ready to be felled!";
-    }
-
-    @Override
-    public String option3(Player humanPlayer) {
+    public int replantTrees(Player humanPlayer) {
         if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() > 0) {
             int amountOfSeedsPlanted = humanPlayer.plantSeeds();
             if (amountOfSeedsPlanted > 0) {
                 plantNewTrees(amountOfSeedsPlanted);
-                return "You just planted " + (amountOfSeedsPlanted > 1
-                    ? amountOfSeedsPlanted + " saplings!" : "1 sapling!");
+                return amountOfSeedsPlanted;
             } else {
-                return "You don't have any saplings, go buy some!";
+                return 0;
             }
         } else {
-            return "You haven't chopped any trees today!";
+            return -1;
         }
     }
 
     /**
-     * This forest always needs to have exactly 10 trees in it, either the player needs to plant new
+     * This forest always needs to have exactly 100 trees in it, either the player needs to plant new
      * trees or the player will receive a fine and then the "government" will plant the trees
      * instead.
      *

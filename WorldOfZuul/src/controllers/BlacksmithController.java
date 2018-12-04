@@ -5,7 +5,6 @@ import game_functionality.CommandWord;
 import game_functionality.Game;
 import game_functionality.Player;
 import game_locations.BlackSmith;
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
@@ -38,17 +37,12 @@ public class BlacksmithController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        TranslateTransition roomTransition = new TranslateTransition(Duration.seconds(1.5), player);
-        if (Game.getInstanceOfSelf().getDirection().equals("goBlacksmith")) {
-            player.setLayoutY(player.getLayoutY() * 2);
-            roomTransition.setByY(-170);
-            roomTransition.play();
-        }
-        running = false;
+        running = true;
+        backBtn.setDisable(true);
+        transition();
         textArea.setText(gameBlacksmith.roomEntrance(humanPlayer));
-        File file = new File("src/pictures/baseCharacter.png");
-        Image image = new Image(file.toURI().toString());
-        player.setImage(image);
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+
     }
 
     @FXML
@@ -63,6 +57,7 @@ public class BlacksmithController implements Initializable {
 
     @FXML
     private void handleBackBtn(MouseEvent event) {
+        backBtn.setDisable(true);
         if (!running) {
             running = true;
             TranslateTransition transistionFromBlacksmith = new TranslateTransition(Duration.seconds(1.5), player);
@@ -90,6 +85,19 @@ public class BlacksmithController implements Initializable {
             } else {
                 textArea.setText("There is no road!");
             }
+        }
+    }
+    
+    private void transition() {
+        TranslateTransition roomTransition = new TranslateTransition(Duration.seconds(1.5), player);
+        if (Game.getInstanceOfSelf().getDirection().equals("goBlacksmith")) {
+            player.setLayoutY(player.getLayoutY() * 2);
+            roomTransition.setByY(-170);
+            roomTransition.setOnFinished((ActionEvent) -> {
+                running = false;
+                backBtn.setDisable(false);
+            });
+            roomTransition.play();
         }
     }
 

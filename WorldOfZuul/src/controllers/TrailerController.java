@@ -106,9 +106,7 @@ public class TrailerController implements Initializable {
         }
         textArea.setText(gameTrailer.roomEntrance(humanPlayer));
         option4.setRotate(45);
-        File characterFilePlacement = new File("src/pictures/baseCharacter.png");
-        Image character = new Image(characterFilePlacement.toURI().toString());
-        player.setImage(character);
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         File starterAxeFilePlacement = new File("src/pictures/starterAxe.png");
         Image starterAxe = new Image(starterAxeFilePlacement.toURI().toString());
         option4.setImage(starterAxe);
@@ -123,6 +121,20 @@ public class TrailerController implements Initializable {
     @FXML
     private void handleOption2(MouseEvent event) {
         textArea.setText(gameTrailer.option2(humanPlayer));
+    }
+
+    @FXML
+    private void handleDoor(MouseEvent event) {
+        Command tester = new Command(CommandWord.GO, "village");
+                    running = true;
+                    Game.getInstanceOfSelf().setDirection("goRight");
+                    TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
+                    right.setByX(player.getLayoutX() - 70);
+                    right.setOnFinished((ActionEvent e) -> {
+                        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+                        running = false;
+                    });
+                    right.play();
     }
 
     @FXML
@@ -253,12 +265,11 @@ public class TrailerController implements Initializable {
             TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), player);
             transition.setByX(-231);
 
-            transition.setOnFinished((ActionEvent event1) -> {
-                File file = new File("src/pictures/characterModelWithStarterAxe.png");
-                Image characterWithStarterAxePlacement = new Image(file.toURI().toString());
-                player.setImage(characterWithStarterAxePlacement);
-                textArea.setText(gameTrailer.option4(humanPlayer));
-            });
+        transition.setOnFinished((ActionEvent event1) -> {
+            textArea.setText(gameTrailer.option4(humanPlayer));
+            humanPlayer.setCharacterModel(false);
+            player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        });
 
             TranslateTransition transition2 = new TranslateTransition(Duration.seconds(1.5), player);
             transition2.setByX(231);
