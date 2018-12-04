@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="cabin" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleExits" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TrailerController">
+<AnchorPane id="cabin" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleExits" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TrailerController">
   <children>
     <ImageView fx:id="player" fitHeight="75.0" fitWidth="75.0" layoutX="276.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" />
       <Polygon id="TrailerDoor" fill="#1f93ff00" layoutX="436.0" layoutY="196.0" onMouseClicked="#handleDoor" points="32.0, -60.00001525878906, 32.0, 123.20001220703125, 109.5999755859375, 138.4000244140625, 103.20001220703125, -66.40000915527344" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="TrailerDoor" />

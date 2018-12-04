@@ -20,6 +20,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import jdk.nashorn.internal.ir.BreakNode;
 
 public class LibraryController implements Initializable {
 
@@ -28,7 +29,7 @@ public class LibraryController implements Initializable {
     @FXML
     private AnchorPane anchorPane, Bookshelf, BookText;
     @FXML
-    private Button option1, option2, backBtn;
+    private Button option1, backBtn;
     @FXML
     private ImageView player, map;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
@@ -37,8 +38,6 @@ public class LibraryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        running = true;
-        backBtn.setDisable(true);
         transition();
         textArea.setText(gameLibrary.roomEntrance(humanPlayer));
         File file = new File("src/pictures/baseCharacter.png");
@@ -142,11 +141,15 @@ public class LibraryController implements Initializable {
                 transistionFromLibrary.play();
             } else {
                 textArea.setText("There is no road!");
+                running = false;
             }
         }
     }
 
     private void transition() {
+        running = true;
+        backBtn.setDisable(true);
+        option1.setDisable(true);
         TranslateTransition roomTransition = new TranslateTransition(Duration.seconds(1.5), player);
         if (Game.getInstanceOfSelf().getDirection().equals("goLibrary")) {
             player.setLayoutX(0);
@@ -154,6 +157,7 @@ public class LibraryController implements Initializable {
             roomTransition.setOnFinished((ActionEvent) -> {
                 running = false;
                 backBtn.setDisable(false);
+                option1.setDisable(false);
             });
             roomTransition.play();
         }
