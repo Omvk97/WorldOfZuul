@@ -182,7 +182,7 @@ public class Trailer extends Room {
         return (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
     }
 
-    private boolean answerValidation(String userAnswer, String correctAnswer) {
+    public boolean answerValidation(String userAnswer, String correctAnswer) {
         if (userAnswer.contains(correctAnswer)) {
             System.out.println("Correct! Your fine has been cut in half! We also need you\n"
                 + "to cover the cost of planting the trees that you forgot!\n");

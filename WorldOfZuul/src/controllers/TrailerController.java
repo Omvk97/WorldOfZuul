@@ -25,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -141,31 +142,77 @@ public class TrailerController implements Initializable {
                 daysLeftLabel.setText(gameTrailer.getNUM_PLAY_DAYS() - gameTrailer.getNumOfDaysGoneBy() + " days left");
                 running = false;
 
-//                if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
-                Stage dialogStage = new Stage();
+//                 if (true /* En metode fra trailer der validere om spilleren skal have en bøde*/) {
+                String questionOne = "How many million hectare forest area disappear each year?";
+                String questionTwo = "How many million hectare forest area does FSC cover over?";
+                String questionThree = "How many million hectare forest area does PEFC cover over?";
+                int randomNum = (int) (Math.random() * 3) + 1;
 
-                dialogStage.initModality(Modality.APPLICATION_MODAL);
-                Scene questions;
-//                int fineAmount;
-//                fineAmount = gameTrailer.givePlayerFine(humanPlayer);
-                GridPane grid = new GridPane();
-                Label label1 = new Label("You didn't replant all the trees in the certified forest!\n"
-                        + "You have a chance to redeem yourself");
-                grid.add(label1, 1, 0);
-                Button button1 = new Button("Ok");
-                grid.add(button1, 1, 1);
-                grid.setPadding(new Insets(15));
+                TextField tester = new TextField();
+                tester.setAlignment(Pos.CENTER);
+                tester.setLayoutX(160);
+                tester.setLayoutY(240);
 
-                Label label2 = new Label(gameTrailer.gi);
-                Button button2 = new Button("Go to scene 1");
-                VBox layout2 = new VBox(20);
-                layout2.getChildren().addAll(label2, button2);
-                questions = new Scene(layout2, 300, 250);
-                
-                button1.setOnAction(e1 -> dialogStage.setScene(questions));
-                dialogStage.setScene(new Scene(grid));
-                dialogStage.show();
-//                }
+                Label fineLabel = new Label("You didn't replant all the trees in the certified forest!\n"
+                        + "Here's a chance to redeem yourself");
+                fineLabel.setAlignment(Pos.CENTER);
+                fineLabel.setLayoutX(160);
+                fineLabel.setLayoutY(170);
+
+                Button hello = new Button("Ok");
+                hello.setLayoutX(270);
+                hello.setLayoutY(240);
+//                hello.toFront();
+
+                ImageView fineScroll = new ImageView(new Image(new File("src/pictures/fine.png").toURI().toString()));
+                fineScroll.setLayoutX(anchorPane.getWidth() / 4);
+                fineScroll.setLayoutY(anchorPane.getHeight() / 4);
+
+                hello.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Boolean correctAnswer = true;
+                        switch (randomNum) {
+                            case 1:
+                                fineLabel.setText(questionOne);
+                                anchorPane.getChildren().remove(hello);
+                                anchorPane.getChildren().add(tester);
+                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "7");
+                                break;
+                            case 2:
+                                fineLabel.setText(questionTwo);
+                                anchorPane.getChildren().remove(hello);
+                                anchorPane.getChildren().add(tester);
+                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "200");
+                                break;
+                            case 3:
+                                fineLabel.setText(questionThree);
+                                anchorPane.getChildren().remove(hello);
+                                anchorPane.getChildren().add(tester);
+                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "300");
+                                break;
+                            default:
+                                System.out.println("error");
+                                break;
+                        }
+                        tester.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                System.out.println(tester.getText());
+                            }
+                        });
+                        if (!correctAnswer) {
+                            fineLabel.setText("WRONG, study in the library!");
+                        }
+                        System.out.println(tester.getText());
+                        tester.clear();
+                    }
+
+                });
+
+//                    anchorPane.getChildren().add(new ImageView(new Image(new File("src/pictures/fine.png").toURI().toString())));
+//                    anchorPane.getChildren().add(new Label("Tekst her"/*Det spørgsmål der nu skal være her.*/));
+                anchorPane.getChildren().addAll(fineScroll, fineLabel, hello);
             });
         }
     }
