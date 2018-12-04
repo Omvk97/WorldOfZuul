@@ -13,7 +13,6 @@ import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -86,9 +85,7 @@ public class TrailerController implements Initializable {
 //        }
         textArea.setText(gameTrailer.roomEntrance(humanPlayer));
         option4.setRotate(45);
-        File characterFilePlacement = new File("src/pictures/baseCharacter.png");
-        Image character = new Image(characterFilePlacement.toURI().toString());
-        player.setImage(character);
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         File starterAxeFilePlacement = new File("src/pictures/starterAxe.png");
         Image starterAxe = new Image(starterAxeFilePlacement.toURI().toString());
         option4.setImage(starterAxe);
@@ -157,10 +154,9 @@ public class TrailerController implements Initializable {
         transition.setByX(option4.getLayoutX() - player.getLayoutX());
 
         transition.setOnFinished((ActionEvent event1) -> {
-            File file = new File("src/pictures/characterModelWithStarterAxe.png");
-            Image characterWithStarterAxePlacement = new Image(file.toURI().toString());
-            player.setImage(characterWithStarterAxePlacement);
             textArea.setText(gameTrailer.option4(humanPlayer));
+            humanPlayer.setCharacterModel(false);
+            player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         });
 
         TranslateTransition transition2 = new TranslateTransition(Duration.seconds(1.5), player);

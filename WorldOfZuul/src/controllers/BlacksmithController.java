@@ -5,7 +5,6 @@ import game_functionality.CommandWord;
 import game_functionality.Game;
 import game_functionality.Player;
 import game_locations.BlackSmith;
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
@@ -42,9 +41,8 @@ public class BlacksmithController implements Initializable {
         backBtn.setDisable(true);
         transition();
         textArea.setText(gameBlacksmith.roomEntrance(humanPlayer));
-        File file = new File("src/pictures/baseCharacter.png");
-        Image image = new Image(file.toURI().toString());
-        player.setImage(image);
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+
     }
 
     @FXML
