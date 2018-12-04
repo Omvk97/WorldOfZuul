@@ -64,48 +64,46 @@ public class TrailerController implements Initializable {
             climateLabel.setTextFill(Color.RED);
         }
 
-//        if (!running) {
-        switch (Game.getInstanceOfSelf().getDirection()) {
-            case "goDown":
-                running = true;
-                TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
-                player.setLayoutY(0);
-                down.setByY(170);
-                down.setOnFinished((ActionEvent e) -> {
+        if (!running) {
+            switch (Game.getInstanceOfSelf().getDirection()) {
+                case "goDown":
+                    running = true;
+                    TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
+                    player.setLayoutY(0);
+                    down.setByY(170);
+                    down.setOnFinished((ActionEvent e) -> {
+                        running = false;
+                    });
+                    down.play();
+                    break;
+                case "goLeft":
+                    running = true;
+                    TranslateTransition left = new TranslateTransition(Duration.seconds(1.5), player);
+                    player.setLayoutX(2 * player.getLayoutX() - 70);
+                    left.setByX(-206);
+                    left.setOnFinished((ActionEvent e) -> {
+                        running = false;
+                        System.out.println(player.getLayoutX());
+                        System.out.println(player.getLayoutY());
+                        player.relocate(482, 170);
+                    });
+                    left.play();
+                    break;
+                case "goUp":
+                    running = true;
+                    TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
+                    player.setLayoutY(player.getLayoutY() * 2);
+                    up.setByY(-170);
+                    up.setOnFinished((ActionEvent e) -> {
+                        running = false;
+                    });
+                    up.play();
+                    break;
+                default:
                     running = false;
-                });
-                down.play();
-                break;
-            case "goLeft":
-                running = true;
-                TranslateTransition left = new TranslateTransition(Duration.seconds(1.5), player);
-                player.setLayoutX(2 * player.getLayoutX() - 70);
-                left.setByX(-206);
-                left.setOnFinished((ActionEvent e) -> {
-                    running = false;
-                    System.out.println(player.getLayoutX());
-                    System.out.println(player.getLayoutY());
-                    player.relocate(482, 170);
-                });
-                left.play();
-                break;
-            case "goUp":
-                running = true;
-                TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-                player.setLayoutY(player.getLayoutY() * 2);
-                up.setByY(-170);
-                up.setOnFinished((ActionEvent e) -> {
-                    running = false;
-                });
-                up.play();
-                break;
-            default:
-                running = false;
-                break;
+                    break;
+            }
         }
-//        } else {
-//            System.out.println("ayo wait up");
-//        }
         textArea.setText(gameTrailer.roomEntrance(humanPlayer));
         option4.setRotate(45);
         File characterFilePlacement = new File("src/pictures/baseCharacter.png");
@@ -142,7 +140,6 @@ public class TrailerController implements Initializable {
                 daysLeftLabel.setText(gameTrailer.getNUM_PLAY_DAYS() - gameTrailer.getNumOfDaysGoneBy() + " days left");
                 running = false;
 
-//                 if (true /* En metode fra trailer der validere om spilleren skal have en bøde*/) {
                 String questionOne = "How many million hectare forest area disappear each year?";
                 String questionTwo = "How many million hectare forest area does FSC cover over?";
                 String questionThree = "How many million hectare forest area does PEFC cover over?";
@@ -154,7 +151,7 @@ public class TrailerController implements Initializable {
                 tester.setLayoutY(240);
 
                 Label fineLabel = new Label("You didn't replant all the trees in the certified forest!\n"
-                        + "Here's a chance to redeem yourself");
+                    + "Here's a chance to redeem yourself");
                 fineLabel.setAlignment(Pos.CENTER);
                 fineLabel.setLayoutX(160);
                 fineLabel.setLayoutY(170);
@@ -164,45 +161,74 @@ public class TrailerController implements Initializable {
                 hello.setLayoutY(240);
 //                hello.toFront();
 
+                Button endButton = new Button("Ok");
+                endButton.setLayoutX(270);
+                endButton.setLayoutY(240);
+
                 ImageView fineScroll = new ImageView(new Image(new File("src/pictures/fine.png").toURI().toString()));
                 fineScroll.setLayoutX(anchorPane.getWidth() / 4);
                 fineScroll.setLayoutY(anchorPane.getHeight() / 4);
-
+                if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
+                    anchorPane.getChildren().addAll(fineScroll, fineLabel, hello);
+                }
                 hello.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        Boolean correctAnswer = true;
                         switch (randomNum) {
                             case 1:
                                 fineLabel.setText(questionOne);
                                 anchorPane.getChildren().remove(hello);
                                 anchorPane.getChildren().add(tester);
-                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "7");
                                 break;
                             case 2:
                                 fineLabel.setText(questionTwo);
                                 anchorPane.getChildren().remove(hello);
                                 anchorPane.getChildren().add(tester);
-                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "200");
                                 break;
                             case 3:
                                 fineLabel.setText(questionThree);
                                 anchorPane.getChildren().remove(hello);
                                 anchorPane.getChildren().add(tester);
-                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "300");
                                 break;
                             default:
                                 System.out.println("error");
                                 break;
                         }
-                        tester.setOnAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent event) {
-                                System.out.println(tester.getText());
-                            }
-                        });
+
+                    }
+
+                });
+                tester.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Boolean correctAnswer = true;
+                        System.out.println(tester.getText());
+                        switch (randomNum) {
+                            case 1:
+                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "7");
+                                break;
+                            case 2:
+                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "200");
+                                break;
+                            case 3:
+                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "300");
+                                break;
+                            default:
+                                break;
+                        }
                         if (!correctAnswer) {
-                            fineLabel.setText("WRONG, study in the library!");
+                            fineLabel.setText("WRONG, study in the library!\n"
+                                + "Your fine adds up to " + humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200 + " gold coins");
+                            anchorPane.getChildren().remove(tester);
+                            anchorPane.getChildren().add(endButton);
+                            humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
+                        } else {
+                            fineLabel.setText("Correct! Your fine has been cut in half! We also need you\n"
+                                + "to cover the cost of planting the trees that you forgot!\n"
+                                + "Total cost of " + humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100 + " gold coins");
+                            anchorPane.getChildren().remove(tester);
+                            anchorPane.getChildren().add(endButton);
+                            humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
                         }
                         System.out.println(tester.getText());
                         tester.clear();
@@ -210,9 +236,12 @@ public class TrailerController implements Initializable {
 
                 });
 
-//                    anchorPane.getChildren().add(new ImageView(new Image(new File("src/pictures/fine.png").toURI().toString())));
-//                    anchorPane.getChildren().add(new Label("Tekst her"/*Det spørgsmål der nu skal være her.*/));
-                anchorPane.getChildren().addAll(fineScroll, fineLabel, hello);
+                endButton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        anchorPane.getChildren().removeAll(endButton, fineScroll, fineLabel);
+                    }
+                });
             });
         }
     }

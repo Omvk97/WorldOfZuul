@@ -37,10 +37,10 @@ public class CertifiedForestController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println(Game.getInstanceOfSelf().getDirection());
-        TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-        player.setLayoutY(player.getLayoutY() * 2);
-        up.setByY(-170);
-        up.play();
+        TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
+        player.setLayoutY(0);
+        down.setByY(170);
+        down.play();
         textArea.setText(gameForest.roomEntrance(humanPlayer));
         File file = new File("src/pictures/baseCharacter.png");
         Image image = new Image(file.toURI().toString());
