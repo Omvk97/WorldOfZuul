@@ -58,10 +58,12 @@ public class StartSceneController implements Initializable{
 
     @FXML
     private void optionAction(ActionEvent event) {
+        
     }
 
     @FXML
     private void ExitAction(ActionEvent event) {
+        System.exit(0);
     }
     
 }
