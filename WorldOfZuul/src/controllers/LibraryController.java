@@ -19,7 +19,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import jdk.nashorn.internal.ir.BreakNode;
 
 public class LibraryController implements Initializable {
 

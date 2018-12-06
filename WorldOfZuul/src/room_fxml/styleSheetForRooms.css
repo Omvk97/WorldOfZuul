@@ -1,5 +1,5 @@
 #cabin {
-    -fx-background-image: url("/pictures/Trailer.png");
+    -fx-background-image: url("/pictures/Trailerparth.png");
     -fx-background-size: 600px 400px;
 }
 
@@ -24,7 +24,7 @@
 }
 
 #localVillage {
-    -fx-background-image: url("/pictures/villaget32px.png");
+    -fx-background-image: url("/pictures/village.png");
     -fx-background-size: 600px 400px;
 }
 
