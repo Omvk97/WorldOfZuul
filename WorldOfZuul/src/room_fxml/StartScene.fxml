@@ -14,8 +14,8 @@
               <Image url="@../pictures/Startpaget.png"/>
            </image>
         </ImageView>-->
-        <Button id="txtStartGameButton" fx:id="txtStartGameButton" layoutX="129.0" layoutY="148.0" mnemonicParsing="false" onAction="#HandleStartGameAction" prefHeight="25.0" prefWidth="134.0" stylesheets="@styleSheetForRooms.css" style="txtStartGameButton" text="Start Game" />
-      <Button fx:id="btnOptionhandler" layoutX="129.0" layoutY="200.0" mnemonicParsing="false" onAction="#optionAction" prefHeight="25.0" prefWidth="134.0" stylesheets="@styleSheetForRooms.css" text="Option" />
+        <Button id="txtStartGameButton" fx:id="txtStartGameButton" layoutX="129.0" layoutY="148.0" mnemonicParsing="false" onAction="#HandleStartGameAction" prefHeight="25.0" prefWidth="134.0" style="txtStartGameButton" stylesheets="@styleSheetForRooms.css" text="Start Game" />
+      <Button fx:id="btnOptionhandler" layoutX="129.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#handlerHighscore" prefHeight="25.0" prefWidth="134.0" stylesheets="@styleSheetForRooms.css" text=" highScore " />
       <Button fx:id="btnEXIT" layoutX="129.0" layoutY="266.0" mnemonicParsing="false" onAction="#ExitAction" prefHeight="25.0" prefWidth="134.0" stylesheets="@styleSheetForRooms.css" text="Exit" />
     </children>
 </AnchorPane>
