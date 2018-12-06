@@ -37,7 +37,7 @@ public abstract class Tree {
      *
      * @param reduceAmount how much damage the tree has taken
      */
-    public void reduceTreeHealth(int reduceAmount) {
+    public void reduceTreeHealth(double reduceAmount) {
         this.treeHealth -= reduceAmount;
     }
 
