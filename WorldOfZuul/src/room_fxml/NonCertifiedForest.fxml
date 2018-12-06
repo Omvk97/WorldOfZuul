@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="nonCertifiedForest" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleExits" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.NonCertifiedController">
+<AnchorPane id="nonCertifiedForest" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleExits" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.NonCertifiedController">
     <stylesheets>
         <URL value="@styleSheetForRooms.css" />
     </stylesheets>
@@ -29,8 +29,8 @@
                 <Image url="file:src/pictures/certifiedTree.png" />            
             </image>
         </ImageView>
-        <Button fx:id="option1" layoutX="15.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#handleOption1" text="Chop Tree" prefWidth="90" />
-        <Button fx:id="option2" layoutX="15.0" layoutY="355.0" mnemonicParsing="false" onMouseClicked="#handleOption2" text="Tree Info" prefWidth="90"/>
+        <Button fx:id="option1" layoutX="15.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#handleOption1" text="Option 1" />
+        <Button fx:id="option2" layoutX="15.0" layoutY="355.0" mnemonicParsing="false" onMouseClicked="#handleOption2" text="Option 2" />
         <Label fx:id="smallTreeLabel" alignment="CENTER" layoutX="30.0" layoutY="175.0" prefHeight="18.0" prefWidth="39.0" textAlignment="CENTER" />
         <Label fx:id="mediumTreeLabel" alignment="CENTER" layoutX="120.0" layoutY="175.0" prefHeight="18.0" prefWidth="39.0" textAlignment="CENTER" />
         <Label fx:id="largeTreeLabel" alignment="CENTER" layoutX="525.0" layoutY="175.0" prefHeight="18.0" prefWidth="39.0" textAlignment="CENTER" />

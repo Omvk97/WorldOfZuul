@@ -9,11 +9,6 @@ import game_locations.Trailer;
 import java.io.File;
 import java.util.ArrayList;
 
-/**
- *
- * @author oliver
- * @date 1/12/2018
- */
 public class Player {
 
     private final static int MIN_CLIMATEPOINTS = -250;
@@ -29,12 +24,24 @@ public class Player {
     private final Trailer trailer;
     private Room previousRoom;
     private boolean hasSlept;
-    private String direction;
     private final File baseModelFile = new File("src/pictures/baseCharacter.png");
     private final File baseModelRightFile = new File("src/pictures/baseCharacterRight.png");
+
     private final File modelStarterAxeFile = new File("src/pictures/characterWithStarterAxe.png");
     private final File modelStarterAxeRightFile = new File("src/pictures/characterWithStarterAxeRight.png");
     private File characterModel;
+
+    private final File modelIronAxeFile = new File("src/pictures/characterWithIronAxe.png");
+    private final File modelIronAxeRightFile = new File("src/pictures/characterWithIronAxeRight.png");
+
+    private final File modelSteelAxeFile = new File("src/pictures/characterWithSteelAxe.png");
+    private final File modelSteelAxeRightFile = new File("src/pictures/characterWithSteelAxeRight.png");
+
+    private final File modelDiamondAxeFile = new File("src/pictures/characterWithDiamondAxe.png");
+    private final File modelDiamondAxeRightFile = new File("src/pictures/characterWithDiamondAxeRight.png");
+
+    private final File modelFireAxeFile = new File("src/pictures/characterWithFireAxe.png");
+    private final File modelFireAxeRightFile = new File("src/pictures/characterWithFireAxeRight.png");
 
     public Player(Trailer trailer) {
         this.equippedBackPack = BackPackFactory.createStarterBackPack();
@@ -51,22 +58,30 @@ public class Player {
         if (!characterGoingRight) {
             if (equippedAxe == null) {
                 characterModel = baseModelFile;
-            } else if (equippedAxe.getDescription().equals("Starter axe")) {
+            } else if (equippedAxe.getDescription().equals("Starter Axe")) {
                 characterModel = modelStarterAxeFile;
-            } else if (equippedAxe.getDescription().equals("Iron axe")) {
-            } else if (equippedAxe.getDescription().equals("Steel axe")) {
-            } else if (equippedAxe.getDescription().equals("Diamond axe")) {
-            } else if (equippedAxe.getDescription().equals("Fire axe")) {
+            } else if (equippedAxe.getDescription().equals("Iron Axe")) {
+                characterModel = modelIronAxeFile;
+            } else if (equippedAxe.getDescription().equals("Steel Axe")) {
+                characterModel = modelSteelAxeFile;
+            } else if (equippedAxe.getDescription().equals("Diamond Axe")) {
+                characterModel = modelDiamondAxeFile;
+            } else if (equippedAxe.getDescription().equals("Fire Axe")) {
+                characterModel = modelFireAxeFile;
             }
         } else {
             if (equippedAxe == null) {
                 characterModel = baseModelRightFile;
-            } else if (equippedAxe.getDescription().equals("Starter axe")) {
+            } else if (equippedAxe.getDescription().equals("Starter Axe")) {
                 characterModel = modelStarterAxeRightFile;
-            } else if (equippedAxe.getDescription().equals("Iron axe")) {
-            } else if (equippedAxe.getDescription().equals("Steel axe")) {
-            } else if (equippedAxe.getDescription().equals("Diamond axe")) {
-            } else if (equippedAxe.getDescription().equals("Fire axe")) {
+            } else if (equippedAxe.getDescription().equals("Iron Axe")) {
+                characterModel = modelIronAxeRightFile;
+            } else if (equippedAxe.getDescription().equals("Steel Axe")) {
+                characterModel = modelSteelAxeRightFile;
+            } else if (equippedAxe.getDescription().equals("Diamond Axe")) {
+                characterModel = modelDiamondAxeRightFile;
+            } else if (equippedAxe.getDescription().equals("Fire Axe")) {
+                characterModel = modelFireAxeRightFile;
             }
         }
     }
@@ -79,17 +94,6 @@ public class Player {
      */
     public static int getMIN_CLIMATEPOINTS() {
         return MIN_CLIMATEPOINTS;
-    }
-
-    public int getTotalValue() {
-        int totalValueOfItems = money + equippedBackPack.getPrice();
-        for (Tree tree : equippedBackPack.getLogsInBackPack()) {
-            totalValueOfItems += tree.getTreePrice();
-        }
-        if (playerHasAnAxe()) {
-            totalValueOfItems += equippedAxe.getPrice();
-        }
-        return totalValueOfItems;
     }
 
     public int getMoney() {
@@ -129,6 +133,15 @@ public class Player {
 
     public Room getPreviousRoom() {
         return previousRoom;
+    }
+
+    /**
+     * A simple method of calculating highScore, not finally implemented yet
+     *
+     * @return int value that is money added with climatepoints
+     */
+    public int getHighScore() {
+        return money + climatePoints;
     }
 
     /**
@@ -174,10 +187,6 @@ public class Player {
 
     /**
      * Used to reduce durability on the players currently equipped Axe
-     *
-     * @return the axe state. If 1 is returned the axe is is between high and half or low and half
-     * durability. if 0.5 is returned the axe is at half durability. If 0 is returned the axe has
-     * been destroyed
      */
     public double useAxe() {
         equippedAxe.reduceDurability();
@@ -199,10 +208,6 @@ public class Player {
         return equippedAxe;
     }
 
-    public boolean playerHasAnAxe() {
-        return equippedAxe != null;
-    }
-
     /**
      * Used to get access to currently equipped BackPack.
      *
@@ -212,24 +217,18 @@ public class Player {
         return equippedBackPack;
     }
 
-    public boolean boughtBackPack(BackPack newBackPack) {
-        if (newBackPack.getPrice() <= money) {
-            money -= newBackPack.getPrice();
-            equippedBackPack = newBackPack;
-            return true;
-        } else {
-            return false;
-        }
+    public void boughtBackPack(BackPack newBackPack) {
+        equippedBackPack = newBackPack;
     }
 
     public int getAmountOfSaplingsCarrying() {
         return amountOfSaplingsCarrying;
     }
 
-    public boolean buySaplingBundle(int saplingAmount, int saplingCost) {
+    public boolean buySaplingBundle(int saplingBundleAmount, int saplingCost) {
         if (saplingCost <= money) {
             money -= saplingCost;
-            this.amountOfSaplingsCarrying += saplingAmount;
+            this.amountOfSaplingsCarrying += saplingBundleAmount;
             return true;
         } else {
             return false;
@@ -285,21 +284,5 @@ public class Player {
 
     public void setHasSlept(boolean hasSlept) {
         this.hasSlept = hasSlept;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
-
-    public double getDamage() {
-        if (equippedAxe != null) {
-            return equippedAxe.getDamage();
-        } else {
-            return 1;
-        }
     }
 }

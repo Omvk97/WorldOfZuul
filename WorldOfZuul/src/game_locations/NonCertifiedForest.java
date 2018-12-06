@@ -7,10 +7,6 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
-/**
- *
- * @author oliver
- */
 public class NonCertifiedForest extends Forest {
 
     public NonCertifiedForest() {
@@ -30,7 +26,12 @@ public class NonCertifiedForest extends Forest {
         }
         moveChoppableTreesUp();
         return "You are standing in a non certified forest! \n"
-            + "This forest will not regrow";
+            + "This forest will not regrow, there are " + trees.size() + " trees" + "\n"
+            + "Your options are: \n"
+            + "-----------------------------------------------------------\n"
+            + "○ Chop Tree ➤ Cut down a tree and bring it with you \n"
+            + "○ Tree info ➤ Trees left in the forest big enough to chop \n"
+            + "-----------------------------------------------------------";
     }
 
     @Override
@@ -39,14 +40,20 @@ public class NonCertifiedForest extends Forest {
             && trees.size() > 0);
     }
 
-    public int countFellableTrees() {
+    @Override
+    public String option1(Player humanPlayer) {
+        return Integer.toString(chopWood(humanPlayer));
+    }
+
+    @Override
+    public String option2(Player humanPlayer) {
         int counter = 0;
         for (Tree tree : trees) {
             if (tree.getTreeHealth() >= MEDIUM_TREE_SIZE) {
                 counter++;
             }
         }
-        return counter;
+        return "There are " + counter + " trees ready to be felled!";
     }
     
     @Override
