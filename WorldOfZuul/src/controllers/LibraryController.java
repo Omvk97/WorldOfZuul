@@ -29,20 +29,16 @@ public class LibraryController implements Initializable {
     @FXML
     private Button option1, backBtn;
     @FXML
-    private ImageView player, map;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Library gameLibrary = (Library) Game.getInstanceOfSelf().getLibrary();
-    private boolean running;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        transition();
         textArea.setText(gameLibrary.roomEntrance(humanPlayer));
         BookTextArea1.setWrapText(true);
         BookTextArea2.setWrapText(true);
         BookText.setVisible(false);
         Bookshelf.setVisible(false);
-        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
     }
 
     @FXML
@@ -111,51 +107,19 @@ public class LibraryController implements Initializable {
     @FXML
     private void handleBackBtn(MouseEvent event) {
         BookText.setVisible(true);
-        if (!running) {
-            running = true;
-            TranslateTransition transistionFromLibrary = new TranslateTransition(Duration.seconds(1.5), player);
-            transistionFromLibrary.setByX(-276);
-            transistionFromLibrary.setOnFinished((ActionEvent) -> {
-                Command tester = new Command(CommandWord.GO, "back");
-                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-            });
-            transistionFromLibrary.play();
-        }
+        Command tester = new Command(CommandWord.GO, "back");
+        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
     }
 
     @FXML
     private void handleExits(KeyEvent event) {
-        if (!running && !((Bookshelf.visibleProperty().getValue() == true) || (BookText.visibleProperty().getValue() == true))) {
-            running = true;
+        if (!((Bookshelf.visibleProperty().getValue() == true) || (BookText.visibleProperty().getValue() == true))) {
             if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
-                TranslateTransition transistionFromLibrary = new TranslateTransition(Duration.seconds(1.5), player);
-                transistionFromLibrary.setByX(-276);
-                transistionFromLibrary.setOnFinished((ActionEvent) -> {
-                    Command tester = new Command(CommandWord.GO, "back");
-                    Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-                });
-                transistionFromLibrary.play();
+                Command tester = new Command(CommandWord.GO, "back");
+                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
             } else {
                 textArea.setText("There is no road!");
-                running = false;
             }
-        }
-    }
-
-    private void transition() {
-        running = true;
-        backBtn.setDisable(true);
-        option1.setDisable(true);
-        TranslateTransition roomTransition = new TranslateTransition(Duration.seconds(1.5), player);
-        if (Game.getInstanceOfSelf().getDirection().equals("goLibrary")) {
-            player.setLayoutX(0);
-            roomTransition.setByX(276);
-            roomTransition.setOnFinished((ActionEvent) -> {
-                running = false;
-                backBtn.setDisable(false);
-                option1.setDisable(false);
-            });
-            roomTransition.play();
         }
     }
 }

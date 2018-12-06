@@ -9,6 +9,7 @@ import game_functionality.Player;
 import game_locations.BlackSmith;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,6 +20,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 public class BlacksmithController implements Initializable {
 
@@ -30,7 +32,7 @@ public class BlacksmithController implements Initializable {
     private final BlackSmith gameBlacksmith = (BlackSmith) Game.getInstanceOfSelf().getBlacksmith();
 
     @FXML
-    private Button repair, Buyaxes;
+    private Button repair, Buyaxes, backBtn;
     @FXML
     private ImageView txtIronAxe, txtSteelAxe, txtDiamondAxe, txtFireAxe;
     @FXML
@@ -44,8 +46,8 @@ public class BlacksmithController implements Initializable {
         if (humanPlayer.getMoney() >= axe.getPrice()) {
             humanPlayer.boughtAxe(axe);
             return "You just bought a " + axe.getDescription() + "!\n"
-                + "It costs you " + axe.getPrice() + " gold coins"
-                + "\nEnjoy it while it lasts!";
+                    + "It costs you " + axe.getPrice() + " gold coins"
+                    + "\nEnjoy it while it lasts!";
         } else {
             return "YOU NEED " + axe.getPrice() + " GOLD COINS TO BUY THIS AXE";
         }
@@ -59,7 +61,14 @@ public class BlacksmithController implements Initializable {
     }
 
     @FXML
-    private void handlerepair(MouseEvent event) {
+    private void handleBackBtn(MouseEvent event) {
+        Command tester = new Command(CommandWord.GO, "back");
+        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+    }
+
+
+@FXML
+        private void handlerepair(MouseEvent event) {
         gameBlacksmith.getBlackSmithNPC();
         switch (gameBlacksmith.grindAxe_menu(humanPlayer)) {
             case 1:
@@ -82,7 +91,7 @@ public class BlacksmithController implements Initializable {
     }
 
     @FXML
-    private void handleExits(KeyEvent event) {
+        private void handleExits(KeyEvent event) {
         if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
             Command tester = new Command(CommandWord.GO, "back");
             Game.getInstanceOfSelf().goRoom(tester, anchorPane);
@@ -92,42 +101,42 @@ public class BlacksmithController implements Initializable {
     }
 
     @FXML
-    private void BuyOnAction(ActionEvent event) {
+        private void BuyOnAction(ActionEvent event) {
         Buypane.setVisible(true);
         textArea.setText("Which axe would you like to buy?");
 
     }
 
     @FXML
-    private void HandlerIronAxe(MouseEvent event) {
+        private void HandlerIronAxe(MouseEvent event) {
         textArea.setText(getAxeInfo(humanPlayer, getIronAxe()));
         humanPlayer.setCharacterModel(false);
 
     }
 
     @FXML
-    private void handlerSteelAxe(MouseEvent event) {
+        private void handlerSteelAxe(MouseEvent event) {
         textArea.setText(getAxeInfo(humanPlayer, getSteelAxe()));
         humanPlayer.setCharacterModel(false);
 
     }
 
     @FXML
-    private void HandlerDiamondAxe(MouseEvent event) {
+        private void HandlerDiamondAxe(MouseEvent event) {
         textArea.setText(getAxeInfo(humanPlayer, getDiamondAxe()));
         humanPlayer.setCharacterModel(false);
 
     }
 
     @FXML
-    private void handlerFireAxe(MouseEvent event) {
+        private void handlerFireAxe(MouseEvent event) {
         textArea.setText(getAxeInfo(humanPlayer, getFireAxe()));
         humanPlayer.setCharacterModel(false);
 
     }
 
     @FXML
-    private void handlerBack(MouseEvent event) {
+        private void handlerBack(MouseEvent event) {
         Buypane.setVisible(false);
     }
 
