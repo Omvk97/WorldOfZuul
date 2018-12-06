@@ -21,7 +21,7 @@ public class WorldOfZuul extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/Trailer.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/StartScene.fxml"));
 
         scene = new Scene(root);
         stage.setResizable(false);
@@ -34,7 +34,6 @@ public class WorldOfZuul extends Application {
             highScoreGraphics.closeGame();
         });
     }
-
     public static void main(String[] args) {
         launch(args);
     }
