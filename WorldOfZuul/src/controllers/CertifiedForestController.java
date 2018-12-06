@@ -7,6 +7,7 @@ import game_locations.CertifiedForest;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -21,14 +22,14 @@ import javafx.util.Duration;
  * @author oliver
  */
 public class CertifiedForestController extends ForestController implements Initializable {
-    
+
     private final CertifiedForest gameForest = (CertifiedForest) Game.getInstanceOfSelf().getCertifiedForest();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println(Game.getInstanceOfSelf().getDirection());
         TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
-        player.setLayoutY(0);
+        down.setFromY(-170);
         down.setByY(170);
         down.play();
         textArea.setText(gameForest.roomEntrance(humanPlayer));
@@ -44,12 +45,13 @@ public class CertifiedForestController extends ForestController implements Initi
             if (gameForest.playerCanCarryMoreTree(humanPlayer) && gameForest.thereIsMoreTreesToCut()) {
                 int number = gameForest.chopWood(humanPlayer);
                 treeAnimationToLargeTree(number);
+                humanPlayer.addChoppedTreesInCertifiedForest();
             } else if (gameForest.playerCanCarryMoreTree(humanPlayer) && !gameForest.thereIsMoreTreesToCut()) {
                 textArea.setText("There is no more trees to fell right now!"
-                    + "\nYou have to wait for the forest to regrow!");
+                        + "\nYou have to wait for the forest to regrow!");
             } else if (gameForest.thereIsMoreTreesToCut() && !gameForest.playerCanCarryMoreTree(humanPlayer)) {
                 textArea.setText("You are carrying too much wood!\n"
-                    + "Sell or store your logs!");
+                        + "Sell or store your logs!");
             } else {
                 textArea.setText("There is no trees to fell and your backpack is full!");
             }
@@ -70,6 +72,7 @@ public class CertifiedForestController extends ForestController implements Initi
         if (amountOfSeedsPlanted > 0) {
             textArea.setText("You just planted " + (amountOfSeedsPlanted > 1
                     ? amountOfSeedsPlanted + " saplings!" : "1 sapling!"));
+            
         } else if (amountOfSeedsPlanted == 0) {
             textArea.setText("You don't have any saplings, go buy some!");
         } else {
@@ -82,8 +85,12 @@ public class CertifiedForestController extends ForestController implements Initi
         if (event.getCode().equals(KeyCode.UP) || event.getCode().equals(KeyCode.W)) {
             Game.getInstanceOfSelf().setDirection("goUp");
             Command tester = new Command(CommandWord.GO, "trailer");
-            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-            System.out.println(Game.getInstanceOfSelf().getDirection());
+            TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
+            up.setByY(-170);
+            up.setOnFinished((ActionEvent e) -> {
+              Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            });
+            up.play();
         } else {
             textArea.setText("There is no road!");
         }

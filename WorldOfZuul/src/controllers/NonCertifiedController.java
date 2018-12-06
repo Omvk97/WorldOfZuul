@@ -35,7 +35,7 @@ public class NonCertifiedController extends ForestController implements Initiali
     public void initialize(URL url, ResourceBundle rb) {
         if (Game.getInstanceOfSelf().getDirection().equals("goUp")) {
             TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-            player.setLayoutY(player.getLayoutY() * 2);
+            up.setFromY(170);
             up.setByY(-170);
             up.play();
         }

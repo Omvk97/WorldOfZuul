@@ -17,7 +17,7 @@ import javafx.scene.Parent;
 
 public class Trailer extends Room {
 
-    private final static int NUM_PLAY_DAYS = 2;
+    private final static int NUM_PLAY_DAYS = 20;
     private final static int MAX_TREESTORAGEAMOUNT = 30;
     private final ArrayList<Tree> logsInStorage;
     private Axe starterAxe = AxeFactory.createStarterAxe();
@@ -110,31 +110,26 @@ public class Trailer extends Room {
     /**
      * @param humanPlayer the user.
      */
-    @Override
-    public String option3(Player humanPlayer) {
-        int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
-        int fineAmount = 0;
-        if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
-            fineAmount = givePlayerFine(humanPlayer);
-            System.out.println("Your fine amounts to " + fineAmount + " gold coins!");
-        }
-        humanPlayer.sleep(fineAmount);
-        if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
-            highScoreGraphics.closeGame();
-            System.exit(0);
-        }
-        System.out.println("The sun goes down and you sleep tight \n"
-            + "ZzzzZzzzZzzzZzzz\n"
-            + "The sun rises and you are ready to tackle the day! \n"
-            + (daysleft > 1 ? "It's day " + numOfDaysGoneBy + " and there is " + daysleft + " days left"
-                : "This is your last day as a lumberjack!"));
-        Random globalOrLocal = new Random();
-        if (globalOrLocal.nextBoolean()) {
-            return radio.globalNews(humanPlayer);
-        } else {
-            return radio.localNews(humanPlayer);
-        }
-    }
+//    @Override
+//    public String option3(Player humanPlayer) {
+//        int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
+//        int fineAmount = 0;
+//        if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
+//            fineAmount = givePlayerFine(humanPlayer);
+//            System.out.println("Your fine amounts to " + fineAmount + " gold coins!");
+//        }
+//        humanPlayer.sleep(fineAmount);
+//        if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
+//            highScoreGraphics.closeGame();
+//            System.exit(0);
+//        }
+//        Random globalOrLocal = new Random();
+//        if (globalOrLocal.nextBoolean()) {
+//            return radio.globalNews(humanPlayer);
+//        } else {
+//            return radio.localNews(humanPlayer);
+//        }
+//    }
 
     /**
      * If the player hasn't picked up the starterAxe they will be prompted with the option to pick
@@ -185,8 +180,6 @@ public class Trailer extends Room {
 
     public boolean answerValidation(String userAnswer, String correctAnswer) {
         if (userAnswer.contains(correctAnswer)) {
-            System.out.println("Correct! Your fine has been cut in half! We also need you\n"
-                + "to cover the cost of planting the trees that you forgot!\n");
             return true;
         } else {
             return false;

@@ -25,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,6 +36,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -43,7 +45,7 @@ import javafx.util.Duration;
 public class TrailerController implements Initializable {
 
     @FXML
-    private Label textArea, daysLeftLabel, climateLabel, logsStorageLabel;
+    private Label textArea;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -57,12 +59,6 @@ public class TrailerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println(Game.getInstanceOfSelf().getDirection());
-        climateLabel.setText(humanPlayer.getClimatePoints() + " climate");
-        logsStorageLabel.setText(gameTrailer.getLogsInStorage().size() + " logs");
-        if (humanPlayer.getClimatePoints() <= -50) {
-            climateLabel.setTextFill(Color.RED);
-        }
 
         if (!running) {
             switch (Game.getInstanceOfSelf().getDirection()) {
@@ -105,6 +101,7 @@ public class TrailerController implements Initializable {
             }
         }
         textArea.setText(gameTrailer.roomEntrance(humanPlayer));
+
         option4.setRotate(45);
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         File starterAxeFilePlacement = new File("src/pictures/starterAxe.png");
@@ -115,7 +112,6 @@ public class TrailerController implements Initializable {
     @FXML
     private void handleOption1(MouseEvent event) {
         textArea.setText(gameTrailer.option1(humanPlayer));
-        logsStorageLabel.setText(gameTrailer.getLogsInStorage().size() + " logs");
     }
 
     @FXML
@@ -126,15 +122,15 @@ public class TrailerController implements Initializable {
     @FXML
     private void handleDoor(MouseEvent event) {
         Command tester = new Command(CommandWord.GO, "village");
-                    running = true;
-                    Game.getInstanceOfSelf().setDirection("goRight");
-                    TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
-                    right.setByX(player.getLayoutX() - 70);
-                    right.setOnFinished((ActionEvent e) -> {
-                        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-                        running = false;
-                    });
-                    right.play();
+        running = true;
+        Game.getInstanceOfSelf().setDirection("goRight");
+        TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
+        right.setByX(player.getLayoutX() - 70);
+        right.setOnFinished((ActionEvent e) -> {
+            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            running = false;
+        });
+        right.play();
     }
 
     @FXML
@@ -149,9 +145,8 @@ public class TrailerController implements Initializable {
             sleep.setAutoReverse(true);
             sleep.play();
             sleep.setOnFinished((ActionEvent e) -> {
-                daysLeftLabel.setText(gameTrailer.getNUM_PLAY_DAYS() - gameTrailer.getNumOfDaysGoneBy() + " days left");
                 running = false;
-
+                if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
                 String questionOne = "How many million hectare forest area disappear each year?";
                 String questionTwo = "How many million hectare forest area does FSC cover over?";
                 String questionThree = "How many million hectare forest area does PEFC cover over?";
@@ -163,7 +158,7 @@ public class TrailerController implements Initializable {
                 tester.setLayoutY(240);
 
                 Label fineLabel = new Label("You didn't replant all the trees in the certified forest!\n"
-                    + "Here's a chance to redeem yourself");
+                        + "Here's a chance to redeem yourself");
                 fineLabel.setAlignment(Pos.CENTER);
                 fineLabel.setLayoutX(160);
                 fineLabel.setLayoutY(170);
@@ -180,9 +175,7 @@ public class TrailerController implements Initializable {
                 ImageView fineScroll = new ImageView(new Image(new File("src/pictures/fine.png").toURI().toString()));
                 fineScroll.setLayoutX(anchorPane.getWidth() / 4);
                 fineScroll.setLayoutY(anchorPane.getHeight() / 4);
-                if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
                     anchorPane.getChildren().addAll(fineScroll, fineLabel, hello);
-                }
                 hello.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
@@ -214,7 +207,6 @@ public class TrailerController implements Initializable {
                     @Override
                     public void handle(ActionEvent event) {
                         Boolean correctAnswer = true;
-                        System.out.println(tester.getText());
                         switch (randomNum) {
                             case 1:
                                 correctAnswer = gameTrailer.answerValidation(tester.getText(), "7");
@@ -230,14 +222,15 @@ public class TrailerController implements Initializable {
                         }
                         if (!correctAnswer) {
                             fineLabel.setText("WRONG, study in the library!\n"
-                                + "Your fine adds up to " + humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200 + " gold coins");
+                                    + "We also need you to cover the cost of planting the trees that you forgot!\n"
+                                    + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
                             anchorPane.getChildren().remove(tester);
                             anchorPane.getChildren().add(endButton);
                             humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
                         } else {
                             fineLabel.setText("Correct! Your fine has been cut in half! We also need you\n"
-                                + "to cover the cost of planting the trees that you forgot!\n"
-                                + "Total cost of " + humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100 + " gold coins");
+                                    + "to cover the cost of planting the trees that you forgot!\n"
+                                    + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
                             anchorPane.getChildren().remove(tester);
                             anchorPane.getChildren().add(endButton);
                             humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
@@ -254,6 +247,7 @@ public class TrailerController implements Initializable {
                         anchorPane.getChildren().removeAll(endButton, fineScroll, fineLabel);
                     }
                 });
+                }
             });
         }
     }
@@ -265,11 +259,12 @@ public class TrailerController implements Initializable {
             TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), player);
             transition.setByX(-231);
 
-        transition.setOnFinished((ActionEvent event1) -> {
-            textArea.setText(gameTrailer.option4(humanPlayer));
-            humanPlayer.setCharacterModel(false);
-            player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
-        });
+            transition.setOnFinished((ActionEvent event1) -> {
+                textArea.setText(gameTrailer.option4(humanPlayer));
+                humanPlayer.setCharacterModel(false);
+                anchorPane.getChildren().remove(option4);
+                player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+            });
 
             TranslateTransition transition2 = new TranslateTransition(Duration.seconds(1.5), player);
             transition2.setByX(231);
@@ -333,8 +328,6 @@ public class TrailerController implements Initializable {
                     textArea.setText("There is no road that way!");
                     break;
             }
-        } else {
-            System.out.println("ayo wait up");
         }
     }
 }
