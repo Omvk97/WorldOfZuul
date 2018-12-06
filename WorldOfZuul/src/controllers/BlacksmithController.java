@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -33,7 +32,7 @@ public class BlacksmithController implements Initializable {
     @FXML
     private Button repair, Buyaxes;
     @FXML
-    private ImageView txtIronAxe,  txtSteelAxe, txtDiamondAxe, txtFireAxe;
+    private ImageView txtIronAxe, txtSteelAxe, txtDiamondAxe, txtFireAxe;
     @FXML
     private ImageView BackIcone;
     Axe ironAxe = AxeFactory.createIronAxe();
@@ -56,7 +55,7 @@ public class BlacksmithController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Buypane.setVisible(false);
         textArea.setText(gameBlacksmith.roomEntrance(humanPlayer));
-    
+
     }
 
     @FXML
@@ -104,7 +103,6 @@ public class BlacksmithController implements Initializable {
         textArea.setText(getAxeInfo(humanPlayer, getIronAxe()));
         humanPlayer.setCharacterModel(false);
 
-
     }
 
     @FXML
@@ -118,14 +116,13 @@ public class BlacksmithController implements Initializable {
     private void HandlerDiamondAxe(MouseEvent event) {
         textArea.setText(getAxeInfo(humanPlayer, getDiamondAxe()));
         humanPlayer.setCharacterModel(false);
-  
+
     }
 
     @FXML
     private void handlerFireAxe(MouseEvent event) {
         textArea.setText(getAxeInfo(humanPlayer, getFireAxe()));
         humanPlayer.setCharacterModel(false);
-        
 
     }
 

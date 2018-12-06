@@ -30,7 +30,7 @@ public class Player {
     private Room previousRoom;
     private boolean hasSlept;
     private String direction;
-   private final File baseModelFile = new File("src/pictures/baseCharacter.png");
+    private final File baseModelFile = new File("src/pictures/baseCharacter.png");
     private final File baseModelRightFile = new File("src/pictures/baseCharacterRight.png");
     private final File modelStarterAxeFile = new File("src/pictures/characterWithStarterAxe.png");
     private final File modelStarterAxeRightFile = new File("src/pictures/characterWithStarterAxeRight.png");
@@ -44,7 +44,6 @@ public class Player {
     private final File modelFireAxeFile = new File("src/pictures/characterWithFireAxe.png");
     private final File modelFireAxeRightFile = new File("src/pictures/characterWithFireAxeRight.png");
 
-
     public Player(Trailer trailer) {
         this.equippedBackPack = BackPackFactory.createStarterBackPack();
         this.trailer = trailer;
@@ -56,7 +55,7 @@ public class Player {
         return characterModel;
     }
 
-public void setCharacterModel(boolean characterGoingRight) {
+    public void setCharacterModel(boolean characterGoingRight) {
         if (!characterGoingRight) {
             if (equippedAxe == null) {
                 characterModel = baseModelFile;
@@ -87,7 +86,6 @@ public void setCharacterModel(boolean characterGoingRight) {
             }
         }
     }
-
 
     /**
      * Used to determine whether or not the game should end. If the climatepoints goes over this
