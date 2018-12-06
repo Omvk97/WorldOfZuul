@@ -6,11 +6,11 @@ public class AxeFactory {
     }
 
     public static Axe createStarterAxe() {
-        return new Axe("Starter Axe", 0, 5, 3);
+        return new Axe("Starter axe", 0, 5, 3);
     }
 
     public static Axe createIronAxe() {
-        return new Axe("Iron Axe", 49, 20, 3);
+        return new Axe("Iron axe", 49, 20, 3);
     }
 
     public static Axe createSteelAxe() {
@@ -18,7 +18,7 @@ public class AxeFactory {
     }
 
     public static Axe createDiamondAxe() {
-        return new Axe("Diamond Axe", 229, 60, 6);
+        return new Axe("Diamond Axe", 149, 60, 6);
     }
 
     public static Axe createFireAxe() {
