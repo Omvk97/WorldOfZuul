@@ -1,41 +1,41 @@
 #cabin {
-    -fx-background-image: url("/pictures/cabinBackground.jpg");
-    -fx-background-size: cover;
+    -fx-background-image: url("/pictures/Trailer.png");
+    -fx-background-size: 600px 400px;
 }
 
 #nonCertifiedForest {
-    -fx-background-image: url("/pictures/nonCertifiedForestBackground.jpg");
-    -fx-background-size: cover;
+    -fx-background-image: url("/pictures/noncertified.png");
+    -fx-background-size: 600px 400px;
 }
 
 #blackSmith {
-    -fx-background-image: url("/pictures/blacksmithBackground.jpg");
-    -fx-background-size: cover;
+    -fx-background-image: url("/pictures/Blacksmith.png");
+    -fx-background-size: 600px 400px;
 }
 
 #certifiedForest {
-    -fx-background-image: url("/pictures/certifiedForestBackground.jpg");
-    -fx-background-size: cover;
+    -fx-background-image: url("/pictures/certifiedforest.png");
+    -fx-background-size: 600px 400px;
 }
 
 #library {
-    -fx-background-image: url("/pictures/libraryBackground.jpg");
-    -fx-background-size: cover;
+    -fx-background-image: url("/pictures/libraryBackground.png");
+    -fx-background-size: 600px 400px;
 }
 
 #localVillage {
-    -fx-background-image: url("/pictures/localVillageBackground.jpg");
-    -fx-background-size: cover;
+    -fx-background-image: url("/pictures/villaget32px.png");
+    -fx-background-size: 600px 400px;
 }
 
 #store {
-    -fx-background-image: url("/pictures/storeBackground.jpg");
-    -fx-background-size: cover;
+    -fx-background-image: url("/pictures/Store.png");
+    -fx-background-size: 600px 400px;
 }
 
 .label {
     -fx-border-color: #000000;
-    -fx-font-size: 12px;
+    -fx-font-size: 10px;
     -fx-background-color: #f0f8ff;
 }
 #AnchorPane {
