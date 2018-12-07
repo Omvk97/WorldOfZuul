@@ -13,17 +13,56 @@
     </stylesheets>
     <children>
         <ImageView fx:id="player" fitHeight="75.0" fitWidth="75.0" layoutX="276.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fitHeight="113.0" fitWidth="100.0" layoutX="465.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true" rotate="45.0">
+            <image>
+                <Image url="@../pictures/steelAxe.png" />
+            </image>
+        </ImageView>
         <javafx.scene.control.Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="326.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
-        <Button fx:id="option1" layoutX="14.0" layoutY="294.0" mnemonicParsing="false" onMouseClicked="#handleOption1" text="Option 1" />
-        <Button fx:id="option2" layoutX="14.0" layoutY="326.0" mnemonicParsing="false" onMouseClicked="#handleOption2" text="Option 2" />
-      <Button fx:id="backBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#handleBackBtn">
-         <graphic>
-            <ImageView fitHeight="23.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../pictures/BackBtn2.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
+        <Button fx:id="repair" layoutX="152.0" layoutY="276.0" mnemonicParsing="false" onMouseClicked="#handlerepair" opacity="0.01" prefHeight="50.0" prefWidth="63.0" text="Option 1" />
+        <Button fx:id="Buyaxes" layoutX="484.0" layoutY="282.0" mnemonicParsing="false" onAction="#BuyOnAction" opacity="0.01" prefHeight="101.0" prefWidth="63.0" text="Option 2" />
+        <Button fx:id="backBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#handleBackBtn">
+            <graphic>
+                <ImageView fitHeight="23.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../pictures/BackBtn2.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <AnchorPane fx:id="Buypane" layoutX="76.0" layoutY="55.0" prefHeight="269.0" prefWidth="435.0">
+            <children>
+                <ImageView fitHeight="295.0" fitWidth="424.0" layoutX="7.0" layoutY="-27.0" pickOnBounds="true">
+                    <image>
+                        <Image url="@../pictures/axeholderfix.PNG" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="txtIronAxe" fitHeight="150.0" fitWidth="119.0" layoutX="-5.0" layoutY="88.0" onMouseClicked="#HandlerIronAxe" pickOnBounds="true" preserveRatio="true" rotate="45.0">
+                    <image>
+                        <Image url="@../pictures/ironAxe.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="txtSteelAxe" fitHeight="127.0" fitWidth="113.0" layoutX="98.0" layoutY="7.0" onMouseClicked="#handlerSteelAxe" pickOnBounds="true" preserveRatio="true" rotate="42.3">
+                    <image>
+                        <Image url="@../pictures/steelAxe.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="txtDiamondAxe" fitHeight="101.0" fitWidth="96.0" layoutX="209.0" layoutY="108.0" onMouseClicked="#HandlerDiamondAxe" pickOnBounds="true" preserveRatio="true" rotate="42.0">
+                    <image>
+                        <Image url="@../pictures/diamondAxe.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="txtFireAxe" fitHeight="114.0" fitWidth="109.0" layoutX="309.0" layoutY="24.0" onMouseClicked="#handlerFireAxe" pickOnBounds="true" preserveRatio="true" rotate="45.0">
+                    <image>
+                        <Image url="@../pictures/fireAxe.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="BackIcone" fitHeight="41.0" fitWidth="40.0" layoutX="14.0" layoutY="224.0" onMouseClicked="#handlerBack" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../pictures/backImg.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
     </children>
 </AnchorPane>
