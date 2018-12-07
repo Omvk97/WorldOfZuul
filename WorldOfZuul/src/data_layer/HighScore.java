@@ -30,7 +30,7 @@ public class HighScore {
     }
 
     public double getHighScore() {
-        return humanPlayer.getTotalValue() + humanPlayer.getClimatePoints();
+        return humanPlayer.getTotalValue() + humanPlayer.getClimatePointsValue();
     }
 
     public void saveHighScore(String playerName, double playerHighScore) {

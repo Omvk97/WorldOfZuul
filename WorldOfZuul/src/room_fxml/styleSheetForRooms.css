@@ -78,7 +78,12 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-font-size: 18px;
+}
 
+.topMenu {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 12px;
 }
 
 #Title{

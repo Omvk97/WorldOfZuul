@@ -14,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 /**
@@ -27,10 +26,10 @@ public class CertifiedForestController extends ForestController implements Initi
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
-        down.setFromY(-170);
-        down.setByY(170);
-        down.play();
+        TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
+        player.setLayoutY(player.getLayoutY() * 2);
+        up.setByY(-170);
+        up.play();
         textArea.setText(gameForest.roomEntrance(humanPlayer));
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         smallTreeLabel.setText(Integer.toString(gameForest.countSmallTrees()));
@@ -42,9 +41,11 @@ public class CertifiedForestController extends ForestController implements Initi
     private void handleOption1(MouseEvent event) {
         if (!running) {
             if (gameForest.playerCanCarryMoreTree(humanPlayer) && gameForest.thereIsMoreTreesToCut()) {
-                int number = gameForest.chopWood(humanPlayer);
-                treeAnimationToLargeTree(number);
-                humanPlayer.addChoppedTreesInCertifiedForest();
+//                int number = gameForest.chopWood(humanPlayer);
+//                treeAnimationToLargeTree(number);
+//                humanPlayer.addChoppedTreesInCertifiedForest();
+                int number = gameForest.countNumOfHits(humanPlayer);
+                treeAnimationToLargeTree(number, gameForest.countLargeTrees(), gameForest);
             } else if (gameForest.playerCanCarryMoreTree(humanPlayer) && !gameForest.thereIsMoreTreesToCut()) {
                 textArea.setText("There is no more trees to fell right now!"
                         + "\nYou have to wait for the forest to regrow!");
@@ -67,11 +68,13 @@ public class CertifiedForestController extends ForestController implements Initi
 
     @FXML
     private void handleOption3(MouseEvent event) {
+        if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() > 0) {
+
+        }
         int amountOfSeedsPlanted = gameForest.replantTrees(humanPlayer);
         if (amountOfSeedsPlanted > 0) {
             textArea.setText("You just planted " + (amountOfSeedsPlanted > 1
                     ? amountOfSeedsPlanted + " saplings!" : "1 sapling!"));
-            
         } else if (amountOfSeedsPlanted == 0) {
             textArea.setText("You don't have any saplings, go buy some!");
         } else {
@@ -87,7 +90,7 @@ public class CertifiedForestController extends ForestController implements Initi
             TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
             up.setByY(-170);
             up.setOnFinished((ActionEvent e) -> {
-              Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
             });
             up.play();
         } else {

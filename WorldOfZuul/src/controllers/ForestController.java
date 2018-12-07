@@ -2,6 +2,7 @@ package controllers;
 
 import game_functionality.Game;
 import game_functionality.Player;
+import game_locations.Forest;
 import java.io.File;
 import java.util.ArrayList;
 import javafx.animation.Interpolator;
@@ -43,7 +44,7 @@ abstract public class ForestController {
     protected final int chopDuration = 335;
     protected final HighScoreGraphics highScoreGraphics = new HighScoreGraphics();
 
-    protected void treeAnimationToLargeTree(int numOfHits) {
+    protected void treeAnimationToLargeTree(int numOfHits, int treeCount, Forest gameForest) {
         running = true;
         if (humanPlayer.playerHasAnAxe()) {
             for (int i = 0; i < numOfHits; i++) {
@@ -78,13 +79,15 @@ abstract public class ForestController {
             goFromTree.setDelay(Duration.millis(totalDurationPunch));
         }
         goFromTree.setOnFinished((ActionEvent event1) -> {
+            largeTreeLabel.setText(Integer.toString(treeCount));
+            gameForest.chopWood(humanPlayer);
             treeFelledConfirmation();
         });
 
         SequentialTransition transition = new SequentialTransition(goToTree, goFromTree);
         transition.play();
     }
-    
+
     protected void playMediaTracks(ArrayList<Media> sounds) {
         if (sounds.isEmpty()) {
             return;
@@ -100,9 +103,8 @@ abstract public class ForestController {
 
     protected void treeFelledConfirmation() {
         if (humanPlayer.playerHasAnAxe()) {
-            textArea.setText("You have chopped down a tree! You are now carrying "
-                + humanPlayer.backPack().getAmountOfLogsInBackPack()
-                + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
+            textArea.setText("You have chopped down a tree with your" + 
+                humanPlayer.getAxe().getDescription() + "!");
             double axeDurability = humanPlayer.useAxe();
             if (axeDurability == 0.5) {
                 textArea.setText("Your axe is at half durability!");
@@ -112,9 +114,7 @@ abstract public class ForestController {
                 player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
             }
         } else {
-            textArea.setText("You have punched down a tree! You are now carrying "
-                + humanPlayer.backPack().getAmountOfLogsInBackPack()
-                + (humanPlayer.backPack().getAmountOfLogsInBackPack() > 1 ? " logs" : " log"));
+            textArea.setText("You have punched down a tree! But your knuckles hurt :(");
         }
         running = false;
     }
@@ -140,5 +140,5 @@ abstract public class ForestController {
             player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         });
         hitAnimation.play();
-}
+    }
 }

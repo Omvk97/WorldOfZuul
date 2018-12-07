@@ -2,7 +2,6 @@ package controllers;
 
 import game_functionality.Command;
 import game_functionality.CommandWord;
-import game_functionality.CommandWords;
 import game_functionality.Game;
 import game_functionality.Player;
 import game_locations.Trailer;
@@ -37,6 +36,8 @@ public class TrailerController implements Initializable {
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Trailer gameTrailer = Game.getInstanceOfSelf().getTrailer();
     private boolean running;
+    @FXML
+    private Button option666;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -344,5 +345,10 @@ public class TrailerController implements Initializable {
                     break;
             }
         }
+    }
+    
+    @FXML
+    private void giveMoneyForTesting(MouseEvent event) {
+        humanPlayer.addMoney(9999);
     }
 }

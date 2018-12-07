@@ -31,7 +31,7 @@ public class BackPack extends Item {
      * @return Amount of trees in the backpack currently
      */
     public int getAmountOfLogsInBackPack() {
-        return this.logsInBackPack.size();
+        return logsInBackPack.size();
     }
 
     /**
@@ -52,7 +52,7 @@ public class BackPack extends Item {
      * Used to remove logs from backpack one by one
      */
     public void removeLogFromBackpack() {
-        this.logsInBackPack.remove(0);
+        logsInBackPack.remove(0);
     }
 
     @Override

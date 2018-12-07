@@ -20,6 +20,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 public class BlacksmithController implements Initializable {
 
@@ -57,6 +58,10 @@ public class BlacksmithController implements Initializable {
         Buypane.setVisible(false);
         textArea.setText(gameBlacksmith.roomEntrance(humanPlayer));
 
+    }
+
+    public AnchorPane getAnchorPane() {
+        return anchorPane;
     }
 
     @FXML

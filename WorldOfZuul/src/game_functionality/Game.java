@@ -15,7 +15,6 @@ public class Game {
     private final Room library = new Library();
     private String direction = "noDirection";
     private static final Game instance = new Game();
-    
     private Game() {
         setExitsForRooms();
         humanPlayer.setCurrentRoom(trailer);

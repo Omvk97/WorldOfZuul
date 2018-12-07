@@ -16,7 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 /**
@@ -33,12 +32,10 @@ public class NonCertifiedController extends ForestController implements Initiali
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (Game.getInstanceOfSelf().getDirection().equals("goUp")) {
-            TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-            up.setFromY(170);
-            up.setByY(-170);
-            up.play();
-        }
+        TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
+        player.setLayoutY(player.getLayoutY() * 2);
+        up.setByY(-170);
+        up.play();
         textArea.setText(gameForest.roomEntrance(humanPlayer));
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         smallTreeLabel.setText(Integer.toString(gameForest.countSmallTrees()));
@@ -49,7 +46,7 @@ public class NonCertifiedController extends ForestController implements Initiali
     @FXML
     private void handleOption1(MouseEvent event) {
         if (!running) {
-            if (humanPlayer.getClimatePoints() == Player.getMIN_CLIMATEPOINTS()) {
+            if (humanPlayer.getClimatePointsValue() == Player.getMIN_CLIMATEPOINTS()) {
                 textArea.setText("YOU HAVE DESTROYED TOO MUCH OF THE EARTH");
                 highScoreGraphics.closeGame();
                 System.exit(0);
@@ -57,12 +54,11 @@ public class NonCertifiedController extends ForestController implements Initiali
 
             if (gameForest.playerCanCarryMoreTree(humanPlayer) && gameForest.thereIsMoreTreesToCut()) {
                 if (gameForest.lastTreeInArray().getTreeHealth() >= gameForest.getLARGE_TREE_SIZE()) {
-                    int number = gameForest.chopWood(humanPlayer);
-                    treeAnimationToLargeTree(number);
-                    largeTreeLabel.setText(Integer.toString(gameForest.countLargeTrees()));
+                    int number = gameForest.countNumOfHits(humanPlayer);
+                    treeAnimationToLargeTree(number, gameForest.countLargeTrees(), gameForest);
                 } else {
-                    int number = gameForest.chopWood(humanPlayer);
-                    treeAnimationToMediumTree(number);
+                    int number = gameForest.countNumOfHits(humanPlayer);
+                    treeAnimationToMediumTree(number, gameForest.countMediumTrees());
                 }
             } else if (gameForest.playerCanCarryMoreTree(humanPlayer) && !gameForest.thereIsMoreTreesToCut()) {
                 textArea.setText("There is no more trees to fell right now!"
@@ -78,7 +74,7 @@ public class NonCertifiedController extends ForestController implements Initiali
         }
     }
 
-    private void treeAnimationToMediumTree(int numOfHits) {
+    private void treeAnimationToMediumTree(int numOfHits, int treeCount) {
         running = true;
         if (humanPlayer.playerHasAnAxe()) {
             for (int i = 0; i < numOfHits; i++) {
@@ -100,7 +96,6 @@ public class NonCertifiedController extends ForestController implements Initiali
         goToTree.setOnFinished((ActionEvent event1) -> {
             playMediaTracks(sounds);
             hitAnimation(numOfHits, true);
-
         });
 
         TranslateTransition goFromTree = new TranslateTransition(Duration.seconds(3), player);
@@ -114,8 +109,9 @@ public class NonCertifiedController extends ForestController implements Initiali
             goFromTree.setDelay(Duration.millis(totalDurationPunch));
         }
         goFromTree.setOnFinished((ActionEvent event1) -> {
+            mediumTreeLabel.setText(Integer.toString(treeCount));
+            gameForest.chopWood(humanPlayer);
             treeFelledConfirmation();
-            mediumTreeLabel.setText(Integer.toString(gameForest.countMediumTrees()));
         });
 
         SequentialTransition transition = new SequentialTransition(goToTree, goFromTree);

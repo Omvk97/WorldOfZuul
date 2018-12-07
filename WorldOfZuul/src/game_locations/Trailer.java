@@ -4,30 +4,29 @@ import game_elements.Radio;
 import game_elements.Axe;
 import game_elements.AxeFactory;
 import game_elements.Tree;
-import data_layer.HighScore;
 import controllers.HighScoreGraphics;
 import game_functionality.Player;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 public class Trailer extends Room {
 
-    private final static int NUM_PLAY_DAYS = 20;
+    private final static int NUM_PLAY_DAYS = 5;
     private final static int MAX_TREESTORAGEAMOUNT = 30;
     private final ArrayList<Tree> logsInStorage;
     private Axe starterAxe = AxeFactory.createStarterAxe();
     private final Radio radio = new Radio();
-    private int numOfDaysGoneBy;
+    private SimpleIntegerProperty numOfDaysGoneBy = new SimpleIntegerProperty();
     private final HighScoreGraphics highScoreGraphics = new HighScoreGraphics();
 
     public Trailer() {
         this.logsInStorage = new ArrayList<>();
-        numOfDaysGoneBy = 1;
+        numOfDaysGoneBy.setValue(1);
     }
 
     @Override
@@ -66,16 +65,24 @@ public class Trailer extends Room {
         return NUM_PLAY_DAYS;
     }
 
+    public SimpleIntegerProperty getNumOfDaysGoneBy() {
+        return numOfDaysGoneBy;
+    }
+
+    public int getNumOfDaysGoneByValue() {
+        return numOfDaysGoneBy.getValue();
+    }
+
     @Override
     public String option1(Player humanPlayer) {
-        if (humanPlayer.backPack().getAmountOfLogsInBackPack() == 0) {
+        if (humanPlayer.getBackPack().getAmountOfLogsInBackPack() == 0) {
             return "You are not carrying any logs!";
         }
         /**
          * Copies all the elements from the backpack
          */
         ArrayList<Tree> copyAmountOflogsCarrying = new ArrayList<>();
-        for (Tree tree : humanPlayer.backPack().getLogsInBackPack()) {
+        for (Tree tree : humanPlayer.getBackPack().getLogsInBackPack()) {
             copyAmountOflogsCarrying.add(tree);
         }
         /**
@@ -84,9 +91,10 @@ public class Trailer extends Room {
         for (Tree tree : copyAmountOflogsCarrying) {
             if (getLogsInStorage().size() < MAX_TREESTORAGEAMOUNT) {
                 getLogsInStorage().add(tree);
-                humanPlayer.backPack().removeLogFromBackpack();
+                humanPlayer.getBackPack().removeLogFromBackpack();
             }
         }
+        humanPlayer.updateLogsInBackPackAndStorage();
 
         if (isStorageFull()) {
             return "Your storage contains " + getLogsInStorage().size() + " logs "
@@ -100,10 +108,10 @@ public class Trailer extends Room {
 
     @Override
     public String option2(Player humanPlayer) {
-        if (humanPlayer.getMoney() == 0) {
+        if (humanPlayer.getMoneyValue() == 0) {
             return "Your wallet is empty! What a shame!";
         } else {
-            return "You wallet holds " + humanPlayer.getMoney() + " gold coins";
+            return "You wallet holds " + humanPlayer.getMoneyValue() + " gold coins";
         }
     }
 
@@ -132,8 +140,7 @@ public class Trailer extends Room {
     }
 
     /**
-     * If the player hasn't picked up the starterAxe they will be prompted with the option to pick
-     * it up
+     * If the player hasn't picked up the starterAxe they will be prompted with the option to pick it up
      *
      * @param humanPlayer user that picks up the starter axe
      */
@@ -196,10 +203,4 @@ public class Trailer extends Room {
         }
         return null;
     }
-
-    public int getNumOfDaysGoneBy() {
-        return numOfDaysGoneBy;
-    }
-    
-
 }

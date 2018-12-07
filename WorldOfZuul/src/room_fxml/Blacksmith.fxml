@@ -55,5 +55,6 @@
                 </ImageView>
             </children>
         </AnchorPane>
+        <fx:include source="Hud.fxml"/>
     </children>
 </AnchorPane>

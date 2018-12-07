@@ -37,7 +37,17 @@ public class BlackSmith extends Room {
         } else if (humanPlayer.getAxe().getDurability() < humanPlayer.getAxe().getStartDurability()) {
             int durabilityLostOnAxe = humanPlayer.getAxe().getStartDurability() - humanPlayer.getAxe().getDurability();
             int fixAxePrice = pricePerAxeDurability * durabilityLostOnAxe;
-            if (humanPlayer.getMoney() >= fixAxePrice) {
+            if (humanPlayer.getMoneyValue() >= fixAxePrice) {
+                System.out.println(blackSmith + "I will grind your axe for you. Please wait");
+                int timeToWait = 6;
+                try {
+                    for (int i = 0; i < timeToWait; i++) {
+                        Thread.sleep(1000);
+                        System.out.println("**Ding**");
+                    }
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                }
                 humanPlayer.grindedAxe(fixAxePrice);
                 return 3;
             } else {
