@@ -9,6 +9,11 @@ import game_locations.Trailer;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author oliver
+ * @date 1/12/2018
+ */
 public class Player {
 
     private final static int MIN_CLIMATEPOINTS = -250;
@@ -24,6 +29,8 @@ public class Player {
     private final Trailer trailer;
     private Room previousRoom;
     private boolean hasSlept;
+    private String direction;
+
     private final File baseModelFile = new File("src/pictures/baseCharacter.png");
     private final File baseModelRightFile = new File("src/pictures/baseCharacterRight.png");
 
@@ -87,13 +94,25 @@ public class Player {
     }
 
     /**
-     * Used to determine whether or not the game should end. If the climatepoints goes over this
-     * threshold, the game is over, the world has been destroyed.
+     * Used to determine whether or not the game should end. If the
+     * climatepoints goes over this threshold, the game is over, the world has
+     * been destroyed.
      *
      * @return int max_climatepoints
      */
     public static int getMIN_CLIMATEPOINTS() {
         return MIN_CLIMATEPOINTS;
+    }
+
+    public int getTotalValue() {
+        int totalValueOfItems = money + equippedBackPack.getPrice();
+        for (Tree tree : equippedBackPack.getLogsInBackPack()) {
+            totalValueOfItems += tree.getTreePrice();
+        }
+        if (playerHasAnAxe()) {
+            totalValueOfItems += equippedAxe.getPrice();
+        }
+        return totalValueOfItems;
     }
 
     public int getMoney() {
@@ -208,6 +227,10 @@ public class Player {
         return equippedAxe;
     }
 
+    public boolean playerHasAnAxe() {
+        return equippedAxe != null;
+    }
+
     /**
      * Used to get access to currently equipped BackPack.
      *
@@ -217,8 +240,14 @@ public class Player {
         return equippedBackPack;
     }
 
-    public void boughtBackPack(BackPack newBackPack) {
-        equippedBackPack = newBackPack;
+    public boolean boughtBackPack(BackPack newBackPack) {
+        if (newBackPack.getPrice() <= money) {
+            money -= newBackPack.getPrice();
+            equippedBackPack = newBackPack;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int getAmountOfSaplingsCarrying() {
@@ -257,9 +286,10 @@ public class Player {
     }
 
     /**
-     * Resets all the things that the player can interact with during a day. Also checks if the
-     * player has choppedTrees without replanting, if this is the case the player will recieve a
-     * fine and a quiz to reduce the fine amount.
+     * Resets all the things that the player can interact with during a day.
+     * Also checks if the player has choppedTrees without replanting, if this is
+     * the case the player will recieve a fine and a quiz to reduce the fine
+     * amount.
      *
      * @param fineAmount how much the fine will cost the player, if any
      */
@@ -285,4 +315,21 @@ public class Player {
     public void setHasSlept(boolean hasSlept) {
         this.hasSlept = hasSlept;
     }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public double getDamage() {
+        if (equippedAxe != null) {
+            return equippedAxe.getDamage();
+        } else {
+            return 1;
+        }
+    }
+
 }
