@@ -33,8 +33,10 @@ public class StoreController implements Initializable {
     @FXML
     private Button backBtn;
     @FXML
+    private ImageView player;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Store gameStore = (Store) Game.getInstanceOfSelf().getStore();
+    private boolean running;
     private final ImageView storeShelf = new ImageView(new Image(
         new File("src/pictures/storeShelf.png").toURI().toString()));
     private final ImageView blueDot = new ImageView(new Image(
@@ -45,8 +47,10 @@ public class StoreController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        transition();
         updateGoldCoins();
         textArea.setText(gameStore.roomEntrance(humanPlayer));
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         setLayoutOfShelf();
         setLayoutOfItemsOnShelf();
         handleUserPurchase();
@@ -76,17 +80,48 @@ public class StoreController implements Initializable {
     @FXML
     private void handleBackBtn(MouseEvent event) {
         backBtn.setDisable(true);
+        if (!running) {
+            running = true;
+            TranslateTransition transistionFromStore = new TranslateTransition(Duration.seconds(1.5), player);
+            transistionFromStore.setByY(player.getLayoutY());
+            transistionFromStore.setOnFinished((ActionEvent) -> {
                 Command tester = new Command(CommandWord.GO, "back");
                 Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            });
+            transistionFromStore.play();
+        }
     }
 
     @FXML
     private void handleExits(KeyEvent event) {
+        if (!running) {
+            running = true;
             if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+                TranslateTransition transistionFromStore = new TranslateTransition(Duration.seconds(1.5), player);
+                transistionFromStore.setByY(player.getLayoutY());
+                transistionFromStore.setOnFinished((ActionEvent) -> {
                     Command tester = new Command(CommandWord.GO, "back");
                     Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+                });
+                transistionFromStore.play();
             } else {
                 textArea.setText("There is no road!");
+            }
+        }
+    }
+
+    private void transition() {
+        running = true;
+        backBtn.setDisable(true);
+        TranslateTransition roomTransition = new TranslateTransition(Duration.seconds(1.5), player);
+        if (Game.getInstanceOfSelf().getDirection().equals("goStore")) {
+            player.setLayoutY(player.getLayoutY() * 2);
+            roomTransition.setByY(-170);
+            roomTransition.setOnFinished((ActionEvent) -> {
+                running = false;
+                backBtn.setDisable(false);
+            });
+            roomTransition.play();
         }
     }
 
