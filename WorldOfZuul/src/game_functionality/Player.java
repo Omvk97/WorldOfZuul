@@ -28,7 +28,7 @@ public class Player {
     private int numChoppedTreesWithoutPlantingSaplings;
     private final Trailer trailer;
     private Room previousRoom;
-    private boolean hasSlept;
+    private boolean hasSlept, axePickedUp;
     private String direction;
     private final File baseModelFile = new File("src/pictures/baseCharacter.png");
     private final File baseModelRightFile = new File("src/pictures/baseCharacterRight.png");
@@ -302,4 +302,13 @@ public class Player {
             return 1;
         }
     }
+
+    public boolean isAxePickedUp() {
+        return axePickedUp;
+    }
+
+    public void setAxePickedUp(boolean axePickedUp) {
+        this.axePickedUp = axePickedUp;
+    }
+    
 }

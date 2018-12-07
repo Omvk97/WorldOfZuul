@@ -110,8 +110,8 @@ public class Trailer extends Room {
     /**
      * @param humanPlayer the user.
      */
-//    @Override
-//    public String option3(Player humanPlayer) {
+    @Override
+    public String option3(Player humanPlayer) {
 //        int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
 //        int fineAmount = 0;
 //        if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
@@ -123,13 +123,13 @@ public class Trailer extends Room {
 //            highScoreGraphics.closeGame();
 //            System.exit(0);
 //        }
-//        Random globalOrLocal = new Random();
-//        if (globalOrLocal.nextBoolean()) {
-//            return radio.globalNews(humanPlayer);
-//        } else {
-//            return radio.localNews(humanPlayer);
-//        }
-//    }
+        Random globalOrLocal = new Random();
+        if (globalOrLocal.nextBoolean()) {
+            return radio.globalNews(humanPlayer);
+        } else {
+            return radio.localNews(humanPlayer);
+        }
+    }
 
     /**
      * If the player hasn't picked up the starterAxe they will be prompted with the option to pick

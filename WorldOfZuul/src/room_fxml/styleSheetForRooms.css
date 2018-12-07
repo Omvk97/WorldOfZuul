@@ -33,6 +33,10 @@
     -fx-background-size: cover;
 }
 
+#cabin {
+    -fx-trailerpath-size: cover;
+}
+
 .label {
     -fx-border-color: #000000;
     -fx-font-size: 10px;

@@ -27,7 +27,6 @@ public class CertifiedForestController extends ForestController implements Initi
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println(Game.getInstanceOfSelf().getDirection());
         TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
         down.setFromY(-170);
         down.setByY(170);
