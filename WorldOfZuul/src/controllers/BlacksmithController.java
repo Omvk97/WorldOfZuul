@@ -28,17 +28,10 @@ public class BlacksmithController implements Initializable {
     private AnchorPane anchorPane, Buypane;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final BlackSmith gameBlacksmith = (BlackSmith) Game.getInstanceOfSelf().getBlacksmith();
-
-    @FXML
-    private Button repair, Buyaxes;
-    @FXML
-    private ImageView txtIronAxe, txtSteelAxe, txtDiamondAxe, txtFireAxe;
-    @FXML
-    private ImageView BackIcone;
-    Axe ironAxe = AxeFactory.createIronAxe();
-    Axe steelAxe = AxeFactory.createSteelAxe();
-    Axe diamondAxe = AxeFactory.createDiamondAxe();
-    Axe fireAxe = AxeFactory.createFireAxe();
+    private Axe ironAxe = AxeFactory.createIronAxe();
+    private Axe steelAxe = AxeFactory.createSteelAxe();
+    private Axe diamondAxe = AxeFactory.createDiamondAxe();
+    private Axe fireAxe = AxeFactory.createFireAxe();
 
     public String getAxeInfo(Player humanPlayer, Axe axe) {
         if (humanPlayer.getMoney() >= axe.getPrice()) {
@@ -164,6 +157,27 @@ public class BlacksmithController implements Initializable {
      */
     public void setFireAxe(Axe fireAxe) {
         this.fireAxe = fireAxe;
+    }
+
+    /**
+     * @param ironAxe the ironAxe to set
+     */
+    public void setIronAxe(Axe ironAxe) {
+        this.ironAxe = ironAxe;
+    }
+
+    /**
+     * @param steelAxe the steelAxe to set
+     */
+    public void setSteelAxe(Axe steelAxe) {
+        this.steelAxe = steelAxe;
+    }
+
+    /**
+     * @param diamondAxe the diamondAxe to set
+     */
+    public void setDiamondAxe(Axe diamondAxe) {
+        this.diamondAxe = diamondAxe;
     }
 
 }
