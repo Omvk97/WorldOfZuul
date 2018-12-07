@@ -289,7 +289,7 @@ public class TrailerController implements Initializable {
     private void handleOption4(MouseEvent event) {
         if (!running) {
             running = true;
-            TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), player);
+            TranslateTransition transition = new TranslateTransition(Duration.seconds(0.2), player);
             transition.setByX(-231);
 
             transition.setOnFinished((ActionEvent event1) -> {
@@ -366,7 +366,7 @@ public class TrailerController implements Initializable {
                     running = true;
                     Game.getInstanceOfSelf().setDirection("goRight");
                     TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
-                    right.setByX(206);
+                    right.setByX(276);
                     
                     FadeTransition rightFadeTransition = new FadeTransition(Duration.seconds(1.5), trailerPath);
                     trailerPath.setVisible(true);

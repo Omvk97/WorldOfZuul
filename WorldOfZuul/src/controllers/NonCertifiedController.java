@@ -133,7 +133,7 @@ public class NonCertifiedController extends ForestController implements Initiali
             Game.getInstanceOfSelf().setDirection("goDown");
             Command tester = new Command(CommandWord.GO, "trailer");
             TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
-            down.setByY(player.getLayoutY() / 2);
+            down.setByY(170);
             down.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
             down.play();
         } else {
