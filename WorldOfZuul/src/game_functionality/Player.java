@@ -20,7 +20,7 @@ public class Player {
 
     private int money;
     private int climatePoints;
-    private boolean giftHasBeenGivenToday;
+    private boolean giftHasBeenGivenToday, axePickedUp;
     private Room currentRoom = null;
     private Axe equippedAxe;
     private BackPack equippedBackPack;
@@ -330,6 +330,14 @@ public class Player {
         } else {
             return 1;
         }
+    }
+
+    public boolean isAxePickedUp() {
+        return axePickedUp;
+    }
+
+    public void setAxePickedUp(boolean axePickedUp) {
+        this.axePickedUp = axePickedUp;
     }
 
 }
