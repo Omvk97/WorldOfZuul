@@ -35,7 +35,7 @@ public class NonCertifiedController extends ForestController implements Initiali
     public void initialize(URL url, ResourceBundle rb) {
         if (Game.getInstanceOfSelf().getDirection().equals("goUp")) {
             TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-            player.setLayoutY(player.getLayoutY() * 2);
+            up.setFromY(170);
             up.setByY(-170);
             up.play();
         }
@@ -133,7 +133,7 @@ public class NonCertifiedController extends ForestController implements Initiali
             Game.getInstanceOfSelf().setDirection("goDown");
             Command tester = new Command(CommandWord.GO, "trailer");
             TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
-            down.setByY(player.getLayoutY() / 2);
+            down.setByY(170);
             down.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
             down.play();
         } else {

@@ -16,15 +16,6 @@ public class Game {
     private String direction = "noDirection";
     private static final Game instance = new Game();
     
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
- 
-
     private Game() {
         setExitsForRooms();
         humanPlayer.setCurrentRoom(trailer);
@@ -109,5 +100,11 @@ public class Game {
     public Room getLibrary() {
         return library;
     }
+    public String getDirection() {
+        return direction;
+    }
 
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
 }
