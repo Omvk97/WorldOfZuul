@@ -38,7 +38,7 @@
     -fx-font-size: 12px;
     -fx-background-color: #f0f8ff;
 }
-#StartScene {
+#AnchorPane {
     -fx-background-image: url("/pictures/StartScene.png");
     -fx-background-size: cover;
 }
