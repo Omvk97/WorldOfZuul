@@ -35,14 +35,6 @@ public class Player {
     private final File modelStarterAxeFile = new File("src/pictures/characterWithStarterAxe.png");
     private final File modelStarterAxeRightFile = new File("src/pictures/characterWithStarterAxeRight.png");
     private File characterModel;
-    private final File modelIronAxeFile = new File("src/pictures/characterWithIronAxe.png");
-    private final File modelIronAxeRightFile = new File("src/pictures/characterWithIronAxeRight.png");
-    private final File modelSteelAxeFile = new File("src/pictures/characterWithSteelAxe.png");
-    private final File modelSteelAxeRightFile = new File("src/pictures/characterWithSteelAxeRight.png");
-    private final File modelDiamondAxeFile = new File("src/pictures/characterWithDiamondAxe.png");
-    private final File modelDiamondAxeRightFile = new File("src/pictures/characterWithDiamondAxeRight.png");
-    private final File modelFireAxeFile = new File("src/pictures/characterWithFireAxe.png");
-    private final File modelFireAxeRightFile = new File("src/pictures/characterWithFireAxeRight.png");
 
     public Player(Trailer trailer) {
         this.equippedBackPack = BackPackFactory.createStarterBackPack();
@@ -59,30 +51,22 @@ public class Player {
         if (!characterGoingRight) {
             if (equippedAxe == null) {
                 characterModel = baseModelFile;
-            } else if (equippedAxe.getDescription().equals("Starter Axe")) {
+            } else if (equippedAxe.getDescription().equals("Starter axe")) {
                 characterModel = modelStarterAxeFile;
-            } else if (equippedAxe.getDescription().equals("Iron Axe")) {
-                characterModel = modelIronAxeFile;
-            } else if (equippedAxe.getDescription().equals("Steel Axe")) {
-                characterModel = modelSteelAxeFile;
-            } else if (equippedAxe.getDescription().equals("Diamond Axe")) {
-                characterModel = modelDiamondAxeFile;
-            } else if (equippedAxe.getDescription().equals("Fire Axe")) {
-                characterModel = modelFireAxeFile;
+            } else if (equippedAxe.getDescription().equals("Iron axe")) {
+            } else if (equippedAxe.getDescription().equals("Steel axe")) {
+            } else if (equippedAxe.getDescription().equals("Diamond axe")) {
+            } else if (equippedAxe.getDescription().equals("Fire axe")) {
             }
         } else {
             if (equippedAxe == null) {
                 characterModel = baseModelRightFile;
-            } else if (equippedAxe.getDescription().equals("Starter Axe")) {
+            } else if (equippedAxe.getDescription().equals("Starter axe")) {
                 characterModel = modelStarterAxeRightFile;
-            } else if (equippedAxe.getDescription().equals("Iron Axe")) {
-                characterModel = modelIronAxeRightFile;
-            } else if (equippedAxe.getDescription().equals("Steel Axe")) {
-                characterModel = modelSteelAxeRightFile;
-            } else if (equippedAxe.getDescription().equals("Diamond Axe")) {
-                characterModel = modelDiamondAxeRightFile;
-            } else if (equippedAxe.getDescription().equals("Fire Axe")) {
-                characterModel = modelFireAxeRightFile;
+            } else if (equippedAxe.getDescription().equals("Iron axe")) {
+            } else if (equippedAxe.getDescription().equals("Steel axe")) {
+            } else if (equippedAxe.getDescription().equals("Diamond axe")) {
+            } else if (equippedAxe.getDescription().equals("Fire axe")) {
             }
         }
     }
