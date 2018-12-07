@@ -18,17 +18,13 @@ public class Player {
 
     private final static int MIN_CLIMATEPOINTS = -250;
 
-    private int money;
-    private int climatePoints;
-    private boolean giftHasBeenGivenToday;
+    private int money, climatePoints, amountOfSaplingsCarrying, numChoppedTreesWithoutPlantingSaplings;
+    private boolean giftHasBeenGivenToday, hasSlept, axePickedUp;
     private Room currentRoom = null;
     private Axe equippedAxe;
     private BackPack equippedBackPack;
-    private int amountOfSaplingsCarrying;
-    private int numChoppedTreesWithoutPlantingSaplings;
     private final Trailer trailer;
     private Room previousRoom;
-    private boolean hasSlept, axePickedUp;
     private String direction;
     private final File baseModelFile = new File("src/pictures/baseCharacter.png");
     private final File baseModelRightFile = new File("src/pictures/baseCharacterRight.png");

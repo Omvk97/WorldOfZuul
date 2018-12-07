@@ -17,21 +17,28 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="cabin" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleExits" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.TrailerController">
-  <children>
-    <ImageView fx:id="trailerPath" fitHeight="0.0" fitWidth="0.0" layoutX="2.0" layoutY="0.0" pickOnBounds="true" preserveRatio="false" />
-    <Polygon id="TrailerDoor" fill="#1f93ff00" layoutX="436.0" layoutY="196.0" onMouseClicked="#handleDoor" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="TrailerDoor" />
-    <Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="326.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
-    <Button fx:id="option1" layoutX="14.0" layoutY="294.0" mnemonicParsing="false" onMouseClicked="#handleOption1" prefHeight="21.0" prefWidth="67.0" text="Store logs">
-      <font>
-        <Font size="10.0" />
-      </font>
-    </Button>
-    <Button fx:id="option2" layoutX="14.0" layoutY="326.0" mnemonicParsing="false" onMouseClicked="#handleOption2" prefHeight="21.0" prefWidth="67.0" text="Wallet" />
-    <Button fx:id="option3" layoutX="14.0" layoutY="356.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" mnemonicParsing="false" onMouseClicked="#handleOption3" prefHeight="21.0" prefWidth="67.0" text="Sleep" textAlignment="LEFT" wrapText="false" />
-    <ImageView fx:id="option4" fitHeight="40.0" fitWidth="40.0" layoutX="45.0" layoutY="170.0" onMouseClicked="#handleOption4" pickOnBounds="true" preserveRatio="true" />
-    <ImageView fx:id="player" fitHeight="75.0" fitWidth="75.0" layoutX="276.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" />
-  </children>
-  <stylesheets>
-    <URL value="@styleSheetForRooms.css" />
-  </stylesheets>
+    <children>
+        <ImageView fx:id="trailerPath" fitHeight="0.0" fitWidth="0.0" layoutX="2.0" layoutY="0.0" pickOnBounds="true" preserveRatio="false">
+            <image>
+                <Image url="file:src/pictures/TrailerPath.png" />            
+            </image>
+        </ImageView>
+        <Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="326.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
+        <Button fx:id="option1" layoutX="14.0" layoutY="294.0" mnemonicParsing="false" onMouseClicked="#handleOption1" prefHeight="21.0" prefWidth="67.0" text="Store logs">
+            <font>
+                <Font size="10.0" />
+            </font>
+        </Button>
+        <Button fx:id="option2" layoutX="14.0" layoutY="326.0" mnemonicParsing="false" onMouseClicked="#handleOption2" prefHeight="21.0" prefWidth="67.0" text="Wallet" />
+        <Button fx:id="option3" layoutX="14.0" layoutY="356.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" mnemonicParsing="false" onMouseClicked="#handleOption3" prefHeight="21.0" prefWidth="67.0" text="Sleep" textAlignment="LEFT" wrapText="false" />
+        <ImageView fx:id="option4" fitHeight="40.0" fitWidth="40.0" layoutX="45.0" layoutY="170.0" onMouseClicked="#handleOption4" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="player" fitHeight="75.0" fitWidth="75.0" layoutX="276.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="file:src/pictures/starterAxe.png" />            
+            </image>
+        </ImageView>
+    </children>
+    <stylesheets>
+        <URL value="@styleSheetForRooms.css" />
+    </stylesheets>
 </AnchorPane>
