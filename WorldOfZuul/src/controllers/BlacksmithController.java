@@ -31,6 +31,14 @@ public class BlacksmithController implements Initializable {
     private Axe diamondAxe = AxeFactory.createDiamondAxe();
     private Axe fireAxe = AxeFactory.createFireAxe();
 
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        Buypane.setVisible(false);
+        textArea.setText(gameBlacksmith.roomEntrance(humanPlayer));
+
+    }
+
     public String getAxeInfo(Player humanPlayer, Axe axe) {
         if (humanPlayer.getMoneyValue() >= axe.getPrice()) {
             humanPlayer.boughtAxe(axe);
@@ -41,14 +49,6 @@ public class BlacksmithController implements Initializable {
             return "YOU NEED " + axe.getPrice() + " GOLD COINS TO BUY THIS AXE";
         }
     }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        Buypane.setVisible(false);
-        textArea.setText(gameBlacksmith.roomEntrance(humanPlayer));
-
-    }
-
     public AnchorPane getAnchorPane() {
         return anchorPane;
     }
