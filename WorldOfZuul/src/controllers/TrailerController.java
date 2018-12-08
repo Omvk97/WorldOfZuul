@@ -36,6 +36,7 @@ public class TrailerController implements Initializable {
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Trailer gameTrailer = Game.getInstanceOfSelf().getTrailer();
     private boolean running;
+    private int devilCounter = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -377,6 +378,12 @@ public class TrailerController implements Initializable {
 
     @FXML
     private void giveMoneyForTesting(MouseEvent event) {
-        humanPlayer.addMoney(9999);
+        if (devilCounter > 1) {
+            humanPlayer.addMoney(9999);
+            devilCounter = 0;
+        }
+        else{
+            devilCounter += 1;
+        }
     }
 }

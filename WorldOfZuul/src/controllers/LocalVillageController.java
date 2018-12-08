@@ -29,7 +29,7 @@ public class LocalVillageController implements Initializable {
     @FXML
     private Button option1, option2, backBtn;
     @FXML
-    private ImageView player, map, store, blacksmith, library;
+    private ImageView player, store, blacksmith, library;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final LocalVillage gameVillage = (LocalVillage) Game.getInstanceOfSelf().getLocalVillage();
     private boolean running;
