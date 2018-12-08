@@ -7,9 +7,9 @@ tyum : 0.0
 wads : 0.0
 WJAT : 0.0
 Hello : 0.0
+sadw : 0.0
 adw : 0.0
 oliver : 0.0
 What then : 0.0
 yutiir : 0.0
 Mikkel : 0.0
-

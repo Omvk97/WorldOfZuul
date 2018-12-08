@@ -38,7 +38,6 @@ public class HighScore {
     }
 
     public void writeToHighScoreFile() {
-//        The scanner has to both switch when met with " : " and new line.
         try (Scanner scanner = new Scanner(FILE).useDelimiter(" : |\n")) {
             while (scanner.hasNext()) {
                 highScores.put(scanner.next(), Double.parseDouble(scanner.next()));
