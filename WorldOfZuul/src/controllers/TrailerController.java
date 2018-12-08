@@ -71,6 +71,8 @@ public class TrailerController implements Initializable {
         TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
         player.setLayoutY(0);
         down.setByY(170);
+            player.setVisible(false);
+        });
 
         FadeTransition downFade = new FadeTransition(Duration.seconds(1.5), trailerPath);
         downFade.setFromValue(1);
@@ -91,6 +93,9 @@ public class TrailerController implements Initializable {
         TranslateTransition left = new TranslateTransition(Duration.seconds(1.5), player);
         player.setLayoutX(2 * player.getLayoutX() - 70);
         left.setByX(-206);
+        left.setOnFinished((ActionEvent) -> {
+            player.setVisible(false);
+        });
 
         FadeTransition leftFade = new FadeTransition(Duration.seconds(1.5), trailerPath);
         leftFade.setFromValue(1);
@@ -112,6 +117,9 @@ public class TrailerController implements Initializable {
         TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
         player.setLayoutY(player.getLayoutY() * 2);
         up.setByY(-170);
+        up.setOnFinished((ActionEvent) -> {
+            player.setVisible(false);
+        });
 
         FadeTransition upFade = new FadeTransition(Duration.seconds(1.5), trailerPath);
         upFade.setFromValue(1);
@@ -160,7 +168,7 @@ public class TrailerController implements Initializable {
                     tester.setLayoutY(240);
 
                     Label fineLabel = new Label("You didn't replant all the trees in the certified forest!\n"
-                        + "Here's a chance to redeem yourself");
+                            + "Here's a chance to redeem yourself");
                     fineLabel.setAlignment(Pos.CENTER);
                     fineLabel.setLayoutX(160);
                     fineLabel.setLayoutY(170);
@@ -216,15 +224,15 @@ public class TrailerController implements Initializable {
                         }
                         if (!correctAnswer) {
                             fineLabel.setText("WRONG, study in the library!\n"
-                                + "We also need you to cover the cost of planting the trees that you forgot!\n"
-                                + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
+                                    + "We also need you to cover the cost of planting the trees that you forgot!\n"
+                                    + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
                             anchorPane.getChildren().remove(tester);
                             anchorPane.getChildren().add(endButton);
                             humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
                         } else {
                             fineLabel.setText("Correct! Your fine has been cut in half! We also need you\n"
-                                + "to cover the cost of planting the trees that you forgot!\n"
-                                + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
+                                    + "to cover the cost of planting the trees that you forgot!\n"
+                                    + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
                             anchorPane.getChildren().remove(tester);
                             anchorPane.getChildren().add(endButton);
                             humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
@@ -274,17 +282,19 @@ public class TrailerController implements Initializable {
             switch (event.getCode()) {
                 case UP:
                 case W: {
-                    Command tester = new Command(CommandWord.GO, "north");
                     running = true;
+                    Command tester = new Command(CommandWord.GO, "north");
                     Game.getInstanceOfSelf().setDirection("goUp");
                     TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
                     up.setByY(-170);
 
                     FadeTransition upFadeTransition = new FadeTransition(Duration.seconds(1.5), trailerPath);
                     trailerPath.setVisible(true);
-                    player.setVisible(true);
                     upFadeTransition.setFromValue(0);
                     upFadeTransition.setToValue(1);
+                    upFadeTransition.setOnFinished((ActionEvent e) -> {
+                        player.setVisible(true);
+                    });
 
                     SequentialTransition upSequentialTransition = new SequentialTransition(upFadeTransition, up);
                     upSequentialTransition.setOnFinished((ActionEvent e) -> {
@@ -296,17 +306,19 @@ public class TrailerController implements Initializable {
                 }
                 case DOWN:
                 case S: {
-                    Command tester = new Command(CommandWord.GO, "south");
                     running = true;
+                    Command tester = new Command(CommandWord.GO, "south");
                     Game.getInstanceOfSelf().setDirection("goDown");
                     TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
                     down.setByY(170);
 
                     FadeTransition downFadeTransition = new FadeTransition(Duration.seconds(1.5), trailerPath);
                     trailerPath.setVisible(true);
-                    player.setVisible(true);
                     downFadeTransition.setFromValue(0);
                     downFadeTransition.setToValue(1);
+                    downFadeTransition.setOnFinished((ActionEvent e) -> {
+                        player.setVisible(true);
+                    });
 
                     SequentialTransition downSequentialTransition = new SequentialTransition(downFadeTransition, down);
                     downSequentialTransition.setOnFinished((ActionEvent e) -> {
@@ -318,17 +330,19 @@ public class TrailerController implements Initializable {
                 }
                 case RIGHT:
                 case D: {
-                    Command tester = new Command(CommandWord.GO, "village");
                     running = true;
+                    Command tester = new Command(CommandWord.GO, "village");
                     Game.getInstanceOfSelf().setDirection("goRight");
                     TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
                     right.setByX(276);
 
                     FadeTransition rightFadeTransition = new FadeTransition(Duration.seconds(1.5), trailerPath);
                     trailerPath.setVisible(true);
-                    player.setVisible(true);
                     rightFadeTransition.setFromValue(0);
                     rightFadeTransition.setToValue(1);
+                    rightFadeTransition.setOnFinished((ActionEvent e) -> {
+                        player.setVisible(true);
+                    });
 
                     SequentialTransition rightSequentialTransition = new SequentialTransition(rightFadeTransition, right);
                     rightSequentialTransition.setOnFinished((ActionEvent e) -> {
@@ -344,7 +358,7 @@ public class TrailerController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void giveMoneyForTesting(MouseEvent event) {
         humanPlayer.addMoney(9999);
