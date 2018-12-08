@@ -71,6 +71,7 @@ public class TrailerController implements Initializable {
         TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
         player.setLayoutY(0);
         down.setByY(170);
+        down.setOnFinished((ActionEvent) -> {
             player.setVisible(false);
         });
 
