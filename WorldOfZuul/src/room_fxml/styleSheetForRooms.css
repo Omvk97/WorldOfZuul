@@ -1,12 +1,10 @@
 #cabin {
     -fx-background-image: url("/pictures/cabinBackground.png");
-    /*-fx-background-size: cover;*/
     -fx-background-size: 650px 450px;
 }
 
 #nonCertifiedForest {
     -fx-background-image: url("/pictures/nonCertifiedForestBackground.png");
-    /*-fx-background-size: cover;*/
     -fx-background-size: 650px 450px;
 }
 

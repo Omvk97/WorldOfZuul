@@ -36,13 +36,11 @@ public class TrailerController implements Initializable {
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Trailer gameTrailer = Game.getInstanceOfSelf().getTrailer();
     private boolean running;
-    @FXML
-    private Button option666;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         trailerPath.setVisible(false);
-//        player.setVisible(false);
+        player.setVisible(false);
         if (!running) {
             switch (Game.getInstanceOfSelf().getDirection()) {
                 case "goDown":
