@@ -68,17 +68,20 @@ public class TrailerController implements Initializable {
         running = true;
         player.setVisible(true);
         trailerPath.setVisible(true);
+        textArea.setVisible(false);
         TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
         player.setLayoutY(0);
         down.setByY(170);
         down.setOnFinished((ActionEvent) -> {
-            textArea.setVisible(true);
             player.setVisible(false);
         });
 
         FadeTransition downFade = new FadeTransition(Duration.seconds(1.5), trailerPath);
         downFade.setFromValue(1);
         downFade.setToValue(0);
+        downFade.setOnFinished((ActionEvent) -> {
+            textArea.setVisible(true);
+        });
 
         SequentialTransition downSequentialTransition = new SequentialTransition(down, downFade);
         downSequentialTransition.setOnFinished((ActionEvent e) -> {
@@ -92,17 +95,20 @@ public class TrailerController implements Initializable {
         running = true;
         player.setVisible(true);
         trailerPath.setVisible(true);
+        textArea.setVisible(false);
         TranslateTransition left = new TranslateTransition(Duration.seconds(1.5), player);
         player.setLayoutX(2 * player.getLayoutX() - 70);
         left.setByX(-206);
         left.setOnFinished((ActionEvent) -> {
-            textArea.setVisible(true);
             player.setVisible(false);
         });
 
         FadeTransition leftFade = new FadeTransition(Duration.seconds(1.5), trailerPath);
         leftFade.setFromValue(1);
         leftFade.setToValue(0);
+        leftFade.setOnFinished((ActionEvent) -> {
+            textArea.setVisible(true);
+        });
 
         SequentialTransition leftSequentialTransition = new SequentialTransition(left, leftFade);
 
@@ -117,17 +123,20 @@ public class TrailerController implements Initializable {
         running = true;
         player.setVisible(true);
         trailerPath.setVisible(true);
+        textArea.setVisible(false);
         TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
         player.setLayoutY(player.getLayoutY() * 2);
         up.setByY(-170);
         up.setOnFinished((ActionEvent) -> {
-            textArea.setVisible(true);
             player.setVisible(false);
         });
 
         FadeTransition upFade = new FadeTransition(Duration.seconds(1.5), trailerPath);
         upFade.setFromValue(1);
         upFade.setToValue(0);
+        upFade.setOnFinished((ActionEvent) -> {
+            textArea.setVisible(true);
+        });
 
         SequentialTransition upSequentialTransition = new SequentialTransition(up, upFade);
         upSequentialTransition.setOnFinished((ActionEvent e) -> {

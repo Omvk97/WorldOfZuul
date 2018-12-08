@@ -7,9 +7,7 @@ import game_functionality.Player;
 import game_locations.LocalVillage;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -72,7 +70,7 @@ public class LocalVillageController implements Initializable {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                     });
                     backTransition.play();
-                    Game.getInstanceOfSelf().setDirection("goTrailer");
+                    Game.getInstanceOfSelf().setDirection("goLeft");
                     break;
                 case "goStore":
                     running = true;
@@ -173,6 +171,7 @@ public class LocalVillageController implements Initializable {
         if (!running) {
             if (event.getCode().equals(KeyCode.LEFT) || event.getCode().equals(KeyCode.A)) {
                 running = true;
+                textArea.setVisible(false);
                 TranslateTransition transistionToTrailer = new TranslateTransition(Duration.seconds(1.5), player);
                 transistionToTrailer.setByX(-276);
                 transistionToTrailer.setOnFinished((ActionEvent) -> {
