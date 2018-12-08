@@ -42,7 +42,7 @@ public class TrailerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         trailerPath.setVisible(false);
-        player.setVisible(false);
+//        player.setVisible(false);
         if (!running) {
             switch (Game.getInstanceOfSelf().getDirection()) {
                 case "goDown":

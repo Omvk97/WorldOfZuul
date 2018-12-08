@@ -12,15 +12,11 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 
 public class BlacksmithController implements Initializable {
 
@@ -30,20 +26,13 @@ public class BlacksmithController implements Initializable {
     private AnchorPane anchorPane, Buypane;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final BlackSmith gameBlacksmith = (BlackSmith) Game.getInstanceOfSelf().getBlacksmith();
-
-    @FXML
-    private Button repair, Buyaxes;
-    @FXML
-    private ImageView txtIronAxe,  txtSteelAxe, txtDiamondAxe, txtFireAxe;
-    @FXML
-    private ImageView BackIcone;
     private Axe ironAxe = AxeFactory.createIronAxe();
     private Axe steelAxe = AxeFactory.createSteelAxe();
     private Axe diamondAxe = AxeFactory.createDiamondAxe();
     private Axe fireAxe = AxeFactory.createFireAxe();
 
     public String getAxeInfo(Player humanPlayer, Axe axe) {
-        if (humanPlayer.getMoney() >= axe.getPrice()) {
+        if (humanPlayer.getMoneyValue() >= axe.getPrice()) {
             humanPlayer.boughtAxe(axe);
             return "You just bought a " + axe.getDescription() + "!\n"
                 + "It costs you " + axe.getPrice() + " gold coins"

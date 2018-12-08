@@ -1,10 +1,7 @@
 package game_locations;
 
-import game_elements.Axe;
-import game_elements.AxeFactory;
 import game_functionality.Player;
 import java.io.IOException;
-import java.util.Scanner;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
@@ -38,7 +35,7 @@ public class BlackSmith extends Room {
             int durabilityLostOnAxe = humanPlayer.getAxe().getStartDurability() - humanPlayer.getAxe().getDurability();
             int fixAxePrice = pricePerAxeDurability * durabilityLostOnAxe;
             if (humanPlayer.getMoneyValue() >= fixAxePrice) {
-                System.out.println(blackSmith + "I will grind your axe for you. Please wait");
+                System.out.println(blackSmithNPC + "I will grind your axe for you. Please wait");
                 int timeToWait = 6;
                 try {
                     for (int i = 0; i < timeToWait; i++) {

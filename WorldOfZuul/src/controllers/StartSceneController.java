@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -17,16 +16,7 @@ public class StartSceneController implements Initializable {
 
     @FXML
     private AnchorPane anchorPane;
-    @FXML
-    private Button txtStartGameButton;
-    @FXML
-    private Button btnOptionhandler;
-    @FXML
-    private Button btnEXIT;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -34,6 +24,7 @@ public class StartSceneController implements Initializable {
 
     @FXML
     private void HandleStartGameAction(ActionEvent event) {
+        System.out.println(humanPlayer.getCurrentRoom());
         anchorPane.getScene().setRoot(humanPlayer.getCurrentRoom().getRoomFXML());
     }
 

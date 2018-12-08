@@ -19,8 +19,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class Player {
 
     private final static int MIN_CLIMATEPOINTS = -250;
-//    private int money;
-//    private int climatePoints;
     private boolean giftHasBeenGivenToday, axePickedUp;
     private final SimpleIntegerProperty money = new SimpleIntegerProperty();
     private final SimpleIntegerProperty climatePoints = new SimpleIntegerProperty();
@@ -164,15 +162,6 @@ public class Player {
 
     public Room getPreviousRoom() {
         return previousRoom;
-    }
-
-    /**
-     * A simple method of calculating highScore, not finally implemented yet
-     *
-     * @return int value that is money added with climatepoints
-     */
-    public int getHighScore() {
-        return money + climatePoints;
     }
 
     /**
