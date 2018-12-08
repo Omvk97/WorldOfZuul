@@ -166,8 +166,8 @@ public class LocalVillageController implements Initializable {
     @FXML
     private void handleExits(KeyEvent event) {
         if (!running) {
-            running = true;
             if (event.getCode().equals(KeyCode.LEFT) || event.getCode().equals(KeyCode.A)) {
+                running = true;
                 TranslateTransition transistionToTrailer = new TranslateTransition(Duration.seconds(1.5), player);
                 transistionToTrailer.setByX(-276);
                 transistionToTrailer.setOnFinished((ActionEvent) -> {

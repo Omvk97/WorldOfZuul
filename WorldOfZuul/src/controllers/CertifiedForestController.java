@@ -27,7 +27,7 @@ public class CertifiedForestController extends ForestController implements Initi
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-        player.setLayoutY(player.getLayoutY() * 2);
+        player.setLayoutY(-(player.getLayoutY() * 2));
         up.setByY(-170);
         up.play();
         textArea.setText(gameForest.roomEntrance(humanPlayer));
