@@ -72,6 +72,7 @@ public class TrailerController implements Initializable {
         player.setLayoutY(0);
         down.setByY(170);
         down.setOnFinished((ActionEvent) -> {
+            textArea.setVisible(true);
             player.setVisible(false);
         });
 
@@ -95,6 +96,7 @@ public class TrailerController implements Initializable {
         player.setLayoutX(2 * player.getLayoutX() - 70);
         left.setByX(-206);
         left.setOnFinished((ActionEvent) -> {
+            textArea.setVisible(true);
             player.setVisible(false);
         });
 
@@ -119,6 +121,7 @@ public class TrailerController implements Initializable {
         player.setLayoutY(player.getLayoutY() * 2);
         up.setByY(-170);
         up.setOnFinished((ActionEvent) -> {
+            textArea.setVisible(true);
             player.setVisible(false);
         });
 
@@ -284,6 +287,7 @@ public class TrailerController implements Initializable {
                 case UP:
                 case W: {
                     running = true;
+                    textArea.setVisible(false);
                     Command tester = new Command(CommandWord.GO, "north");
                     Game.getInstanceOfSelf().setDirection("goUp");
                     TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
@@ -308,6 +312,7 @@ public class TrailerController implements Initializable {
                 case DOWN:
                 case S: {
                     running = true;
+                    textArea.setVisible(false);
                     Command tester = new Command(CommandWord.GO, "south");
                     Game.getInstanceOfSelf().setDirection("goDown");
                     TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
@@ -332,6 +337,7 @@ public class TrailerController implements Initializable {
                 case RIGHT:
                 case D: {
                     running = true;
+                    textArea.setVisible(false);
                     Command tester = new Command(CommandWord.GO, "village");
                     Game.getInstanceOfSelf().setDirection("goRight");
                     TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);

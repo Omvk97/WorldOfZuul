@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,13 +25,14 @@ public class BlacksmithController implements Initializable {
     private Label textArea;
     @FXML
     private AnchorPane anchorPane, Buypane;
+    @FXML
+    private Button backBtn;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final BlackSmith gameBlacksmith = (BlackSmith) Game.getInstanceOfSelf().getBlacksmith();
     private Axe ironAxe = AxeFactory.createIronAxe();
     private Axe steelAxe = AxeFactory.createSteelAxe();
     private Axe diamondAxe = AxeFactory.createDiamondAxe();
     private Axe fireAxe = AxeFactory.createFireAxe();
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -43,12 +45,13 @@ public class BlacksmithController implements Initializable {
         if (humanPlayer.getMoneyValue() >= axe.getPrice()) {
             humanPlayer.boughtAxe(axe);
             return "You just bought a " + axe.getDescription() + "!\n"
-                + "It costs you " + axe.getPrice() + " gold coins"
-                + "\nEnjoy it while it lasts!";
+                    + "It costs you " + axe.getPrice() + " gold coins"
+                    + "\nEnjoy it while it lasts!";
         } else {
             return "YOU NEED " + axe.getPrice() + " GOLD COINS TO BUY THIS AXE";
         }
     }
+
     public AnchorPane getAnchorPane() {
         return anchorPane;
     }
@@ -84,6 +87,13 @@ public class BlacksmithController implements Initializable {
         } else {
             textArea.setText("There is no road!");
         }
+    }
+
+    @FXML
+    private void handleBackBtn(MouseEvent event) {
+        backBtn.setDisable(true);
+        Command tester = new Command(CommandWord.GO, "back");
+        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
     }
 
     @FXML

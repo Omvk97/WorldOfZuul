@@ -36,13 +36,13 @@ public class StoreController implements Initializable {
     private final Store gameStore = (Store) Game.getInstanceOfSelf().getStore();
     private boolean running;
     private final ImageView storeShelf = new ImageView(new Image(
-        new File("src/pictures/storeShelf.png").toURI().toString()));
+            new File("src/pictures/storeShelf.png").toURI().toString()));
     private final ImageView blueDot = new ImageView(new Image(
-        new File("src/pictures/blueDot.png").toURI().toString()));
+            new File("src/pictures/blueDot.png").toURI().toString()));
     private final Button closeShelfButton = new Button("Done");
     private final Button buySelectedItemButton = new Button("Buy");
     private final ArrayList<Node> allItemsAssociatedWithShelf = new ArrayList<>();
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         textArea.setText(gameStore.roomEntrance(humanPlayer));
@@ -73,19 +73,19 @@ public class StoreController implements Initializable {
 
     @FXML
     private void handleExits(KeyEvent event) {
-            if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
-                    Command tester = new Command(CommandWord.GO, "back");
-                    Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-            } else {
-                textArea.setText("There is no road!");
-            }
+        if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+            Command tester = new Command(CommandWord.GO, "back");
+            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+        } else {
+            textArea.setText("There is no road!");
+        }
     }
-    
-        @FXML
+
+    @FXML
     private void handleBackBtn(MouseEvent event) {
         backBtn.setDisable(true);
-                Command tester = new Command(CommandWord.GO, "back");
-                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+        Command tester = new Command(CommandWord.GO, "back");
+        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
     }
 
     private void setLayoutOfShelf() {
@@ -141,7 +141,7 @@ public class StoreController implements Initializable {
         saplingX10.setId("tenSapling");
         userClick(saplingX10);
         FlowPane flow = new FlowPane(smallBackPack, mediumBackPack, largeBackPack,
-            sapling, saplingX5, saplingX10);
+                sapling, saplingX5, saplingX10);
         flow.setPrefWrapLength(storeShelf.getFitWidth() - 60);
         flow.setVgap(35);
         flow.setHgap(40);

@@ -40,6 +40,7 @@ public class LocalVillageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         running = true;
         backBtn.setDisable(true);
+        textArea.setVisible(false);
         transition();
         textArea.setText(gameVillage.roomEntrance(humanPlayer));
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
@@ -58,18 +59,19 @@ public class LocalVillageController implements Initializable {
     @FXML
     private void handleBackBtn(MouseEvent event) {
         backBtn.setDisable(true);
+        textArea.setVisible(false);
         if (!running) {
             running = true;
-            TranslateTransition transistionToTrailer = new TranslateTransition(Duration.seconds(1.5), player);
+            TranslateTransition backTransition = new TranslateTransition(Duration.seconds(1.5), player);
 
             switch (Game.getInstanceOfSelf().getDirection()) {
                 case "goRight":
-                    transistionToTrailer.setByX(-276);
-                    transistionToTrailer.setOnFinished((ActionEvent) -> {
+                    backTransition.setByX(-276);
+                    backTransition.setOnFinished((ActionEvent) -> {
                         Command tester = new Command(CommandWord.GO, "trailer");
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                     });
-                    transistionToTrailer.play();
+                    backTransition.play();
                     Game.getInstanceOfSelf().setDirection("goTrailer");
                     break;
                 case "goStore":
@@ -114,6 +116,7 @@ public class LocalVillageController implements Initializable {
 
     @FXML
     private void handleGoToStore(MouseEvent event) {
+        textArea.setVisible(false);
         backBtn.setDisable(true);
         if (!running) {
             running = true;
@@ -131,6 +134,7 @@ public class LocalVillageController implements Initializable {
 
     @FXML
     private void handleGoToBlacksmith(MouseEvent event) {
+        textArea.setVisible(false);
         backBtn.setDisable(true);
         if (!running) {
             running = true;
@@ -148,6 +152,7 @@ public class LocalVillageController implements Initializable {
 
     @FXML
     private void handleGoToLibrary(MouseEvent event) {
+        textArea.setVisible(false);
         backBtn.setDisable(true);
         if (!running) {
             running = true;
@@ -189,6 +194,7 @@ public class LocalVillageController implements Initializable {
                 player.setLayoutX(0);
                 roomTransition.setByX(276);
                 roomTransition.setOnFinished((ActionEvent) -> {
+                    textArea.setVisible(true);
                     running = false;
                     backBtn.setDisable(false);
 
@@ -201,6 +207,7 @@ public class LocalVillageController implements Initializable {
                 roomTransition.setByX(276 - store.getLayoutX());
                 roomTransition.setByY(170 - store.getLayoutY());
                 roomTransition.setOnFinished((ActionEvent) -> {
+                    textArea.setVisible(true);
                     running = false;
                     backBtn.setDisable(false);
 
@@ -213,6 +220,7 @@ public class LocalVillageController implements Initializable {
                 roomTransition.setByX(276 - blacksmith.getLayoutX());
                 roomTransition.setByY(170 - blacksmith.getLayoutY());
                 roomTransition.setOnFinished((ActionEvent) -> {
+                    textArea.setVisible(true);
                     running = false;
                     backBtn.setDisable(false);
 
@@ -225,6 +233,7 @@ public class LocalVillageController implements Initializable {
                 roomTransition.setByX(276 - library.getLayoutX());
                 roomTransition.setByY(170 - library.getLayoutY());
                 roomTransition.setOnFinished((ActionEvent) -> {
+                    textArea.setVisible(true);
                     running = false;
                     backBtn.setDisable(false);
 
