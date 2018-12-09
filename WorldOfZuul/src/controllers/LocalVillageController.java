@@ -5,9 +5,18 @@ import game_functionality.CommandWord;
 import game_functionality.Game;
 import game_functionality.Player;
 import game_locations.LocalVillage;
+import java.io.File;
+import static java.lang.Math.random;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.animation.TranslateTransitionBuilder;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -27,7 +36,7 @@ public class LocalVillageController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private Button option1, option2, backBtn;
+    private Button backBtn;
     @FXML
     private ImageView player, store, blacksmith, library;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
@@ -42,6 +51,26 @@ public class LocalVillageController implements Initializable {
         transition();
         textArea.setText(gameVillage.roomEntrance(humanPlayer));
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        ImageView[] rainDrops = new ImageView[1000];
+
+        for (int i = 0; i < 1000; i++) {
+            rainDrops[i] = new ImageView(new Image(new File("src/pictures/ice1_9.png").toURI().toString()));
+            anchorPane.getChildren().add(rainDrops[i]);
+            makeItRainBaby(rainDrops[i]);
+        }
+    }
+
+    public void makeItRainBaby(ImageView rain) {
+        rain.setTranslateX((Math.random() * 600) + 1);
+        rain.setTranslateY((Math.random() * 400) + 1);
+        int timeToGoToBottom = (int) (400 - rain.getTranslateY()) * 18;
+        final Timeline timeline = new Timeline();
+        timeline.setCycleCount(1);
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(timeToGoToBottom), new KeyValue(rain.translateYProperty(), 400)));
+        timeline.setOnFinished((ActionEvent event) -> {
+            makeItRainBaby(rain);
+        });
+        timeline.play();
     }
 
     @FXML

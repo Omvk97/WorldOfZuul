@@ -24,7 +24,6 @@ public class StartSceneController implements Initializable {
 
     @FXML
     private void HandleStartGameAction(ActionEvent event) {
-        System.out.println(humanPlayer.getCurrentRoom());
         anchorPane.getScene().setRoot(humanPlayer.getCurrentRoom().getRoomFXML());
     }
 
