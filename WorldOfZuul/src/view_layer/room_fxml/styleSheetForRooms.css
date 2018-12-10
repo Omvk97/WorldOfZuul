@@ -38,10 +38,12 @@
     -fx-font-size: 12px;
     -fx-background-color: #f0f8ff;
 }
+
 #StartScene {
     -fx-background-image: url("/pictures/StartScene.png");
     -fx-background-size: 615px 415px;
 }
+
 .button {
     -fx-background-radius:99px;
     -fx-background-color: #23f415;
@@ -63,9 +65,11 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
     -fx-border-color: black;
 }
+
 .button:hover {
     -fx-padding: 10px;
 }
+
 .Book {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -78,13 +82,13 @@
     -fx-font-size: 12px;
 }
 
-#Title{
+#Title {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-font-size: 12px;
 }
 
-#by{
+#by {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-font-size: 12px;

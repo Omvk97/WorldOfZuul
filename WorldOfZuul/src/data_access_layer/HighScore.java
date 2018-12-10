@@ -23,41 +23,51 @@ public class HighScore {
 
     private final static File FILE = new File("highScores.txt");
     private final static Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
-    private final static HashMap<String, Double> highScores = new HashMap<>();
 
     public HighScore() {
-    }
-
-    public double getHighScore() {
-        return humanPlayer.getTotalValue() + humanPlayer.getClimatePointsValue();
-    }
-
-    public void saveHighScore(String playerName, double playerHighScore) {
-        highScores.put(playerName, playerHighScore);
-    }
-
-    public void writeToHighScoreFile() {
         try (Scanner scanner = new Scanner(FILE).useDelimiter(" : |\n")) {
-            while (scanner.hasNext()) {
-                highScores.put(scanner.next(), Double.parseDouble(scanner.next()));
+            try (PrintWriter writer = new PrintWriter(FILE)) {
+                while (scanner.hasNext()) {
+                    writer.print(scanner.next() + " : " + Double.parseDouble(scanner.next()) + "\n");
+                }
             }
         } catch (FileNotFoundException ex) {
             System.out.println("The file you want to open doesn't exist");
         }
-        List<String> sortedHighScoreNames = new ArrayList<>(highScores.keySet());
-        Collections.sort(sortedHighScoreNames, (String o1, String o2) -> (int) (highScores.get(o2) - highScores.get(o1)));
-        LinkedHashMap<String, Double> sortedHighScores = new LinkedHashMap<>();
-        for (String playerName : sortedHighScoreNames) {
-            sortedHighScores.put(playerName, highScores.get(playerName));
-        }
+    }
+
+    public void saveHighScoreToFile(String playerName, double playerHighScore) {
         try (PrintWriter writer = new PrintWriter(FILE)) {
-            for (String playerName : sortedHighScores.keySet()) {
-                writer.println(playerName + " : " + highScores.get(playerName));
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("The file you want to open is being used by another process");
+            writer.print(playerName + " : " + playerHighScore + "\n");
+        } catch (FileNotFoundException ex) {
+            System.out.println("The file you want to open doesn't exist");
         }
     }
+
+//    public void writeToHighScoreFile(double highScore) {
+////        try (Scanner scanner = new Scanner(FILE).useDelimiter(" : |\n")) {
+////            while (scanner.hasNext()) {
+////                highScores.put(scanner.next(), Double.parseDouble(scanner.next()));
+////            }
+////        } catch (FileNotFoundException ex) {
+////            System.out.println("The file you want to open doesn't exist");
+////        }
+//
+//        List<String> sortedHighScoreNames = new ArrayList<>(highScores.keySet());
+//        Collections.sort(sortedHighScoreNames, (String o1, String o2) -> (int) (highScores.get(o2)
+//            - highScores.get(o1)));
+//        LinkedHashMap<String, Double> sortedHighScores = new LinkedHashMap<>();
+//        for (String playerName : sortedHighScoreNames) {
+//            sortedHighScores.put(playerName, highScores.get(playerName));
+//        }
+//        try (PrintWriter writer = new PrintWriter(FILE)) {
+//            for (String playerName : sortedHighScores.keySet()) {
+//                writer.println(playerName + " : " + highScores.get(playerName));
+//            }
+//        } catch (FileNotFoundException e) {
+//            System.out.println("The file you want to open is being used by another process");
+//        }
+//    }
 
     public String readHighScoresFromFile() {
         String content;
@@ -68,8 +78,8 @@ public class HighScore {
         }
         return "";
     }
-    
+
     public boolean isPlayerNameTaken(String playerName) {
-        return highScores.containsKey(playerName);
-    } 
+        return readHighScoresFromFile().contains(playerName);
+    }
 }

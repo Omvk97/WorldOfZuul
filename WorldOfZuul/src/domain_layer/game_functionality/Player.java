@@ -106,7 +106,7 @@ public class Player {
         return MIN_CLIMATEPOINTS;
     }
 
-    public int getTotalValue() {
+    public int getHighScore() {
         int totalValueOfItems = money.getValue() + equippedBackPack.getPrice();
         for (Tree tree : equippedBackPack.getLogsInBackPack()) {
             totalValueOfItems += tree.getTreePrice();
@@ -114,7 +114,8 @@ public class Player {
         if (playerHasAnAxe()) {
             totalValueOfItems += equippedAxe.getPrice();
         }
-        return totalValueOfItems;
+        
+        return totalValueOfItems + climatePoints.getValue();
     }
 
     public SimpleIntegerProperty getMoney() {

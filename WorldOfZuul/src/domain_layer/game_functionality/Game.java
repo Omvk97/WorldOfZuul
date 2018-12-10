@@ -18,7 +18,8 @@ import javafx.scene.layout.AnchorPane;
  * co-author: michael, steffen & daniel
  */
 public class Game {
-
+    
+    private static final Game instance = new Game();
     private final Trailer trailer = new Trailer();
     private final Player humanPlayer = new Player(trailer);
     private final Forest certifiedForest = new CertifiedForest();
@@ -28,8 +29,7 @@ public class Game {
     private final Room blacksmith = new BlackSmith();
     private final Room library = new Library();
     private String transitionDirection = "noDirection";
-    private final HighScore highScoreData = new HighScore();
-    private static final Game instance = new Game();
+//    private final HighScore highScoreData = new HighScore();
     
 
     private Game() {
@@ -125,7 +125,7 @@ public class Game {
         this.transitionDirection = direction;
     }
 
-    public HighScore getHighScoreData() {
-        return highScoreData;
-    }
+//    public HighScore getHighScoreData() {
+//        return highScoreData;
+//    }
 }
