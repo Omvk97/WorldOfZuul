@@ -126,15 +126,6 @@ public class TrailerController implements Initializable {
     }
 
     @FXML
-    private void handleOption2(MouseEvent event) {
-        if (!trailerPath.isVisible()) {
-            textArea.setText(gameTrailer.option2(humanPlayer));
-        } else {
-            textArea.setText("What?");
-        }
-    }
-
-    @FXML
     private void handleOption3(MouseEvent event) {
         if (!trailerPath.isVisible()) {
             if (!running) {

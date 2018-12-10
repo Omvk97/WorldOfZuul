@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -15,21 +17,27 @@ import javafx.scene.control.Label;
 public class HudController implements Initializable {
 
     @FXML
-    private Label playerGold, playerClimate, daysLeft, logsCarrying, logsInStorage, saplingsCarrying;
+    private Label playerGold, playerClimate, logsCarrying, logsInStorage, saplingsCarrying;
+    @FXML
+    private ProgressBar durabilityBar;
+    @FXML
+    private ImageView playerWeapon;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         playerGold.setText(humanPlayer.getMoneyValue() + " Gold");
         playerClimate.setText(humanPlayer.getClimatePointsValue() + " CP");
-        int daysLeftNum = humanPlayer.getNumOfDaysLeft();
-        daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
         int logsCarryingNum = humanPlayer.getLogsInBackPack().getValue();
         logsCarrying.setText(logsCarryingNum + (logsCarryingNum == 1 ? " Log" : " Logs"));
         int logsInStorageNum = humanPlayer.getLogsInStorageProperty().getValue();
         logsInStorage.setText(logsInStorageNum + (logsInStorageNum == 1 ? " Log" : " Logs"));
         int saplingsCarryingNum = humanPlayer.getSaplingsCarryingValue();
         saplingsCarrying.setText(saplingsCarryingNum + (saplingsCarryingNum == 1 ? " Sapling" : " Saplings"));
+        if (humanPlayer.playerHasAnAxe()) {
+            double durabilityProgress = humanPlayer.getAxeDurabilityPercentage();
+            durabilityBar.setProgress(durabilityProgress);
+        }
         addListenersToLabels();
     }
 
@@ -40,11 +48,6 @@ public class HudController implements Initializable {
 
         humanPlayer.getClimatePoints().addListener((observable, oldValue, newValue) -> {
             playerClimate.setText(humanPlayer.getClimatePointsValue() + " CP");
-        });
-
-        humanPlayer.getNumOfDaysgoneBy().addListener((observable, oldValue, newValue) -> {
-            int daysLeftNum = humanPlayer.getNumOfDaysLeft();
-            daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
         });
 
         humanPlayer.getLogsInBackPack().addListener((observable, oldValue, newValue) -> {
@@ -61,5 +64,12 @@ public class HudController implements Initializable {
             int saplingsCarryingNum = humanPlayer.getSaplingsCarryingValue();
             saplingsCarrying.setText(saplingsCarryingNum + (saplingsCarryingNum == 1 ? " Sapling" : " Saplings"));
         });
+
+        if (humanPlayer.playerHasAnAxe()) {
+            humanPlayer.getAxe().getDurabilityIntegerProperty().addListener((observable, oldValue, newValue) -> {
+                double durabilityProgress = humanPlayer.getAxeDurabilityPercentage();
+                durabilityBar.setProgress(durabilityProgress);
+            });
+        }
     }
 }

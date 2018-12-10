@@ -2,14 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="topMenu" layoutY="0.0" prefHeight="36.0" prefWidth="615.0" style="-fx-background-color: #eeeeee;" xmlns="http://javafx.com/javafx/8.0.171" 
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="view_layer.controllers.HudController">
+<GridPane fx:id="topMenu" layoutY="0.0" prefHeight="36.0" prefWidth="615.0" style="-fx-background-color: #eeeeee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view_layer.controllers.HudController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.8" minWidth="10.0" prefWidth="143.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="362.4" minWidth="1.6" prefWidth="120.0" />
@@ -48,28 +48,20 @@
                 <Insets left="5.0" />
             </GridPane.margin>
         </ImageView>
-        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" rotate="45.0">
             <image>
-                <Image url="file:src/pictures/calendar.png" />
+                <Image url="file:src/pictures/starterAxe.png" />
             </image>
             <GridPane.margin>
                 <Insets left="5.0" />
             </GridPane.margin>
         </ImageView>
-        <Label fx:id="daysLeft" contentDisplay="CENTER" prefHeight="17.0" prefWidth="66.0" styleClass="topMenu" text="30 Days Left" textAlignment="CENTER" GridPane.halignment="RIGHT">
-            <GridPane.margin>
-                <Insets right="10.0" />
-            </GridPane.margin>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-        </Label>
         <Label fx:id="logsCarrying" prefHeight="17.0" prefWidth="42.0" styleClass="topMenu" text="0 Logs" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
             <GridPane.margin>
                 <Insets right="10.0" />
             </GridPane.margin>
         </Label>
-        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+        <ImageView fx:id="playerWeapon" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
             <image>
                 <Image url="file:src/pictures/logs.png" />
             </image>
@@ -103,5 +95,10 @@
             <Insets right="5.0" />
          </GridPane.margin>
       </Label>
+      <ProgressBar fx:id="durabilityBar" prefHeight="18.0" prefWidth="69.0" progress="0.0" GridPane.halignment="RIGHT">
+         <GridPane.margin>
+            <Insets left="5.0" right="10.0" />
+         </GridPane.margin>
+      </ProgressBar>
     </children>
 </GridPane>

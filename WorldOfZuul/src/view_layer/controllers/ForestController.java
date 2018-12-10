@@ -104,16 +104,14 @@ abstract public class ForestController {
         if (humanPlayer.playerHasAnAxe()) {
             textArea.setText("You have chopped down a tree with your "
                 + humanPlayer.getAxe().getDescription() + "!");
-            double axeDurability = humanPlayer.useAxe();
-            if (axeDurability == 0.5) {
-                textArea.setText("Your axe is at half durability!");
-            } else if (axeDurability == 0) {
+            boolean axeDestroyed = humanPlayer.useAxe();
+            if (axeDestroyed) {
                 textArea.setText("Your axe broke!");
                 humanPlayer.setCharacterModel(true);
                 player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
             }
         } else {
-            textArea.setText("You have punched down a tree! But your knuckles hurt :(");
+            textArea.setText("You have punched down a tree! But your knuckles hurt");
         }
         running = false;
     }

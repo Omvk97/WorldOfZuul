@@ -42,7 +42,6 @@ public class BlacksmithController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Buypane.setVisible(false);
         textArea.setText(gameBlacksmith.roomEntrance(humanPlayer));
-
     }
 
     public String getAxeInfo(Player humanPlayer, Axe axe) {

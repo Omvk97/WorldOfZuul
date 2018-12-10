@@ -1,5 +1,7 @@
 package domain_layer.game_elements;
 
+import javafx.beans.property.SimpleIntegerProperty;
+
 /**
  *
  * @author oliver
@@ -8,13 +10,13 @@ public class Axe extends Item {
 
     private final int damage;
     private final int startDurability;
-    private int durability;
+    private final SimpleIntegerProperty durability = new SimpleIntegerProperty();
 
     public Axe(String name, int price, int startDurability, int damage) {
         super(name, price);
         this.damage = damage;
         this.startDurability = startDurability;
-        this.durability = startDurability;
+        this.durability.setValue(startDurability);
     }
 
     public int getDamage() {
@@ -24,17 +26,21 @@ public class Axe extends Item {
     public int getStartDurability() {
         return startDurability;
     }
-
-    public int getDurability() {
+    
+    public SimpleIntegerProperty getDurabilityIntegerProperty() {
         return durability;
     }
 
-    public int reduceDurability() {
-        return --durability;
+    public int getDurability() {
+        return durability.getValue();
+    }
+
+    public void reduceDurability() {
+        durability.setValue(durability.getValue() - 1);
     }
 
     public void grindAxe() {
-        durability = startDurability;
+        durability.setValue(startDurability);
     }
 
     @Override

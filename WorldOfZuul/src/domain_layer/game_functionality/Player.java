@@ -13,8 +13,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  *
- * @author oliver
- * co-author: michael, steffen & daniel
+ * @author oliver co-author: michael, steffen & daniel
  */
 public class Player {
 
@@ -97,8 +96,8 @@ public class Player {
     }
 
     /**
-     * Used to determine whether or not the game should end. If the climatepoints goes over this threshold, the game is
-     * over, the world has been destroyed.
+     * Used to determine whether or not the game should end. If the climatepoints goes over this
+     * threshold, the game is over, the world has been destroyed.
      *
      * @return int max_climatepoints
      */
@@ -114,8 +113,13 @@ public class Player {
         if (playerHasAnAxe()) {
             totalValueOfItems += equippedAxe.getPrice();
         }
-        
+
         return totalValueOfItems + climatePoints.getValue();
+    }
+
+    public double getAxeDurabilityPercentage() {
+        return 1 - (((double) equippedAxe.getStartDurability() - equippedAxe.getDurability())
+            / equippedAxe.getStartDurability());
     }
 
     public SimpleIntegerProperty getMoney() {
@@ -216,19 +220,18 @@ public class Player {
     }
 
     /**
-     * Used to reduce durability on the players currently equipped Axe
-     * @return the axe state. If 1 is returned the axe is is between high and half or low and half durability. if 0.5 is
-     * returned the axe is at half durability. If 0 is returned the axe has been destroyed
+     * Used to reduce durability on the players currently equipped Axe and to destroy the axe
+     * if it's durability ever reaches 0.
+     *
+     * @return if the axe was destroyed
      */
-    public double useAxe() {
+    public boolean useAxe() {
         equippedAxe.reduceDurability();
-        if (equippedAxe.getDurability() == (equippedAxe.getStartDurability() / 2)) {
-            return 0.5;
-        } else if (equippedAxe.getDurability() == 0) {
+        if (equippedAxe.getDurability() == 0) {
             equippedAxe = null;
-            return 0;
+            return true;
         }
-        return 1;
+        return false;
     }
 
     /**
@@ -317,8 +320,9 @@ public class Player {
     }
 
     /**
-     * Resets all the things that the player can interact with during a day. Also checks if the player has choppedTrees
-     * without replanting, if this is the case the player will recieve a fine and a quiz to reduce the fine amount.
+     * Resets all the things that the player can interact with during a day. Also checks if the
+     * player has choppedTrees without replanting, if this is the case the player will recieve a
+     * fine and a quiz to reduce the fine amount.
      *
      * @param fineAmount how much the fine will cost the player, if any
      */
