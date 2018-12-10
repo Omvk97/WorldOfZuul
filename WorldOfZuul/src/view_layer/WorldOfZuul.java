@@ -1,4 +1,4 @@
-package game_functionality;
+package view_layer;
 
 import data_layer.HighScore;
 import controllers.HighScoreGraphics;
