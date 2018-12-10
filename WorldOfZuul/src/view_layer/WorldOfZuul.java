@@ -1,7 +1,6 @@
 package view_layer;
 
-import data_layer.HighScore;
-import controllers.HighScoreGraphics;
+import view_layer.controllers.HighScoreGraphics;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +20,7 @@ public class WorldOfZuul extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/room_fxml/StartScene.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("room_fxml/StartScene.fxml"));
 
         scene = new Scene(root);
         stage.setResizable(false);
