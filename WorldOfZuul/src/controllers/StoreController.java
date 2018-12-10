@@ -9,7 +9,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -21,7 +20,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 import javafx.scene.layout.FlowPane;
 
 public class StoreController implements Initializable {
@@ -34,7 +32,6 @@ public class StoreController implements Initializable {
     private Button backBtn;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Store gameStore = (Store) Game.getInstanceOfSelf().getStore();
-    private boolean running;
     private final ImageView storeShelf = new ImageView(new Image(
             new File("src/pictures/storeShelf.png").toURI().toString()));
     private final ImageView blueDot = new ImageView(new Image(

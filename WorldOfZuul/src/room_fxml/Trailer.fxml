@@ -23,7 +23,7 @@
                 <Image url="file:src/pictures/starterAxe.png" />            
             </image>
         </ImageView>
-        <Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="326.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
+        <Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="346.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
         <Button fx:id="option1" layoutX="14.0" layoutY="294.0" mnemonicParsing="false" onMouseClicked="#handleOption1" prefHeight="21.0" prefWidth="67.0" text="Store logs">
             <font>
                 <Font size="10.0" />
