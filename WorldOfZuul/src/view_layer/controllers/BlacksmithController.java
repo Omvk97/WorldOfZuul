@@ -33,10 +33,6 @@ public class BlacksmithController implements Initializable {
     private Button backBtn;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final BlackSmith gameBlacksmith = (BlackSmith) Game.getInstanceOfSelf().getBlacksmith();
-    private Axe ironAxe = AxeFactory.createIronAxe();
-    private Axe steelAxe = AxeFactory.createSteelAxe();
-    private Axe diamondAxe = AxeFactory.createDiamondAxe();
-    private Axe fireAxe = AxeFactory.createFireAxe();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -109,26 +105,26 @@ public class BlacksmithController implements Initializable {
 
     @FXML
     private void HandlerIronAxe(MouseEvent event) {
-        textArea.setText(getAxeInfo(humanPlayer, getIronAxe()));
+        textArea.setText(getAxeInfo(humanPlayer, AxeFactory.createIronAxe()));
         humanPlayer.setCharacterModel(false);
 
     }
 
     @FXML
     private void handlerSteelAxe(MouseEvent event) {
-        textArea.setText(getAxeInfo(humanPlayer, getSteelAxe()));
+        textArea.setText(getAxeInfo(humanPlayer,  AxeFactory.createSteelAxe()));
         humanPlayer.setCharacterModel(false);
     }
 
     @FXML
     private void HandlerDiamondAxe(MouseEvent event) {
-        textArea.setText(getAxeInfo(humanPlayer, getDiamondAxe()));
+        textArea.setText(getAxeInfo(humanPlayer, AxeFactory.createDiamondAxe()));
         humanPlayer.setCharacterModel(false);
     }
 
     @FXML
     private void handlerFireAxe(MouseEvent event) {
-        textArea.setText(getAxeInfo(humanPlayer, getFireAxe()));
+        textArea.setText(getAxeInfo(humanPlayer, AxeFactory.createFireAxe()));
         humanPlayer.setCharacterModel(false);
 
     }
@@ -138,60 +134,5 @@ public class BlacksmithController implements Initializable {
         Buypane.setVisible(false);
     }
 
-    /**
-     * @return the ironAxe
-     */
-    public Axe getIronAxe() {
-        return ironAxe;
-    }
-
-    /**
-     * @return the steelAxe
-     */
-    public Axe getSteelAxe() {
-        return steelAxe;
-    }
-
-    /**
-     * @return the diamondAxe
-     */
-    public Axe getDiamondAxe() {
-        return diamondAxe;
-    }
-
-    /**
-     * @return the fireAxe
-     */
-    public Axe getFireAxe() {
-        return fireAxe;
-    }
-
-    /**
-     * @param fireAxe the fireAxe to set
-     */
-    public void setFireAxe(Axe fireAxe) {
-        this.fireAxe = fireAxe;
-    }
-
-    /**
-     * @param ironAxe the ironAxe to set
-     */
-    public void setIronAxe(Axe ironAxe) {
-        this.ironAxe = ironAxe;
-    }
-
-    /**
-     * @param steelAxe the steelAxe to set
-     */
-    public void setSteelAxe(Axe steelAxe) {
-        this.steelAxe = steelAxe;
-    }
-
-    /**
-     * @param diamondAxe the diamondAxe to set
-     */
-    public void setDiamondAxe(Axe diamondAxe) {
-        this.diamondAxe = diamondAxe;
-    }
 
 }
