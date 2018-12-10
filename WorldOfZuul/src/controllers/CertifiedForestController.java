@@ -26,10 +26,10 @@ public class CertifiedForestController extends ForestController implements Initi
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-        player.setLayoutY(-(player.getLayoutY() * 2));
-        up.setByY(-170);
-        up.play();
+        TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
+        down.setFromY(-170);
+        down.setByY(170);
+        down.play();
         textArea.setText(gameForest.roomEntrance(humanPlayer));
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         smallTreeLabel.setText(Integer.toString(gameForest.countSmallTrees()));
@@ -41,9 +41,6 @@ public class CertifiedForestController extends ForestController implements Initi
     private void handleOption1(MouseEvent event) {
         if (!running) {
             if (gameForest.playerCanCarryMoreTree(humanPlayer) && gameForest.thereIsMoreTreesToCut()) {
-//                int number = gameForest.chopWood(humanPlayer);
-//                treeAnimationToLargeTree(number);
-//                humanPlayer.addChoppedTreesInCertifiedForest();
                 int number = gameForest.countNumOfHits(humanPlayer);
                 treeAnimationToLargeTree(number, gameForest.countLargeTrees(), gameForest);
             } else if (gameForest.playerCanCarryMoreTree(humanPlayer) && !gameForest.thereIsMoreTreesToCut()) {

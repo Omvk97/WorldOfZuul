@@ -33,7 +33,7 @@ public class NonCertifiedController extends ForestController implements Initiali
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-        player.setLayoutY(player.getLayoutY() * 2);
+        up.setFromY(170);
         up.setByY(-170);
         up.play();
         textArea.setText(gameForest.roomEntrance(humanPlayer));
@@ -51,7 +51,6 @@ public class NonCertifiedController extends ForestController implements Initiali
                 highScoreGraphics.closeGame();
                 System.exit(0);
             }
-
             if (gameForest.playerCanCarryMoreTree(humanPlayer) && gameForest.thereIsMoreTreesToCut()) {
                 if (gameForest.lastTreeInArray().getTreeHealth() >= gameForest.getLARGE_TREE_SIZE()) {
                     int number = gameForest.countNumOfHits(humanPlayer);
