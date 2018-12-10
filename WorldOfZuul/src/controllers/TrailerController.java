@@ -2,7 +2,6 @@ package controllers;
 
 import game_functionality.Command;
 import game_functionality.CommandWord;
-import game_functionality.CommandWords;
 import game_functionality.Game;
 import game_functionality.Player;
 import game_locations.Trailer;
@@ -10,11 +9,12 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
-import javafx.animation.SequentialTransition;
+import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -28,65 +28,83 @@ import javafx.util.Duration;
 public class TrailerController implements Initializable {
 
     @FXML
-    private Label textArea, daysLeftLabel;
+    private Label textArea;
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private Button option1, option2, option3;
-    @FXML
-    private ImageView player, map, option4;
-    private CommandWords commands;
+    private ImageView player, option4, trailerPath;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Trailer gameTrailer = Game.getInstanceOfSelf().getTrailer();
     private boolean running;
+    private int devilCounter = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        if (!running) {
-        switch (Game.getInstanceOfSelf().getDirection()) {
-            case "goDown":
-                running = true;
-                TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
-                player.setLayoutY(0);
-                down.setByY(170);
-                down.setOnFinished((ActionEvent e) -> {
+        player.setVisible(false);
+        if (!running) {
+            switch (Game.getInstanceOfSelf().getDirection()) {
+                case "goDown":
+                    goDownTransition();
+                    break;
+                case "goLeft":
+                    goLeftTransition();
+                    break;
+                case "goUp":
+                    goUpTransition();
+                    break;
+                default:
                     running = false;
-                });
-                down.play();
-                break;
-            case "goLeft":
-                running = true;
-                TranslateTransition left = new TranslateTransition(Duration.seconds(1.5), player);
-                player.setLayoutX(2 * player.getLayoutX() - 70);
-                left.setByX(-206);
-                left.setOnFinished((ActionEvent e) -> {
-                    running = false;
-                });
-                left.play();
-                break;
-            case "goUp":
-                running = true;
-                TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-                player.setLayoutY(player.getLayoutY() * 2);
-                up.setByY(-170);
-                up.setOnFinished((ActionEvent e) -> {
-                    running = false;
-                });
-                up.play();
-                break;
-            default:
-                running = false;
-                break;
+                    break;
+            }
         }
-//        } else {
-//            System.out.println("ayo wait up");
-//        }
         textArea.setText(gameTrailer.roomEntrance(humanPlayer));
-        option4.setRotate(45);
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
-        File starterAxeFilePlacement = new File("src/pictures/starterAxe.png");
-        Image starterAxe = new Image(starterAxeFilePlacement.toURI().toString());
-        option4.setImage(starterAxe);
+        option4.setImage(new Image(new File("src/pictures/starterAxe.png").toURI().toString()));
+        if (humanPlayer.isAxePickedUp()) {
+            anchorPane.getChildren().remove(option4);
+        }
+    }
+
+    private void goDownTransition() {
+        option4.setVisible(false);
+        running = true;
+        player.setVisible(true);
+        trailerPath.setVisible(true);
+        TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
+        player.setLayoutY(0);
+        down.setByY(170);
+        down.setOnFinished((ActionEvent) -> {
+            running = false;
+        });
+        down.play();
+    }
+
+    private void goLeftTransition() {
+        running = true;
+        player.setVisible(true);
+        trailerPath.setVisible(true);
+        option4.setVisible(false);
+        TranslateTransition left = new TranslateTransition(Duration.seconds(1.5), player);
+        player.setLayoutX(2 * player.getLayoutX() - 70);
+        left.setByX(-206);
+        left.setOnFinished((ActionEvent) -> {
+            running = false;
+        });
+        left.play();
+    }
+
+    private void goUpTransition() {
+        running = true;
+        player.setVisible(true);
+        trailerPath.setVisible(true);
+        option4.setVisible(false);
+        TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
+        player.setLayoutY(player.getLayoutY() * 2);
+        up.setByY(-170);
+        up.setOnFinished((ActionEvent) -> {
+            running = false;
+        });
+        up.play();
     }
 
     @FXML
@@ -98,8 +116,6 @@ public class TrailerController implements Initializable {
     private void handleOption2(MouseEvent event) {
         textArea.setText(gameTrailer.option2(humanPlayer));
     }
-
-    
 
     @FXML
     private void handleOption3(MouseEvent event) {
@@ -113,84 +129,204 @@ public class TrailerController implements Initializable {
             sleep.setAutoReverse(true);
             sleep.play();
             sleep.setOnFinished((ActionEvent e) -> {
-                daysLeftLabel.setText(gameTrailer.getNUM_PLAY_DAYS() - gameTrailer.getNumOfDaysGoneBy() + " days left");
                 running = false;
+                if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
+                    String questionOne = "How many million hectare forest area disappear each year?";
+                    String questionTwo = "How many million hectare forest area does FSC cover over?";
+                    String questionThree = "How many million hectare forest area does PEFC cover over?";
+                    int randomNum = (int) (Math.random() * 3) + 1;
+
+                    TextField tester = new TextField();
+                    tester.setAlignment(Pos.CENTER);
+                    tester.setLayoutX(160);
+                    tester.setLayoutY(240);
+
+                    Label fineLabel = new Label("You didn't replant all the trees in the certified forest!\n"
+                        + "Here's a chance to redeem yourself");
+                    fineLabel.setAlignment(Pos.CENTER);
+                    fineLabel.setLayoutX(160);
+                    fineLabel.setLayoutY(170);
+
+                    Button hello = new Button("Ok");
+                    hello.setLayoutX(270);
+                    hello.setLayoutY(240);
+
+                    Button endButton = new Button("Ok");
+                    endButton.setLayoutX(270);
+                    endButton.setLayoutY(240);
+
+                    ImageView fineScroll = new ImageView(new Image(new File("src/pictures/fine.png").toURI().toString()));
+                    fineScroll.setLayoutX(anchorPane.getWidth() / 4);
+                    fineScroll.setLayoutY(anchorPane.getHeight() / 4);
+                    anchorPane.getChildren().addAll(fineScroll, fineLabel, hello);
+                    hello.setOnAction((ActionEvent event1) -> {
+                        switch (randomNum) {
+                            case 1:
+                                fineLabel.setText(questionOne);
+                                anchorPane.getChildren().remove(hello);
+                                anchorPane.getChildren().add(tester);
+                                break;
+                            case 2:
+                                fineLabel.setText(questionTwo);
+                                anchorPane.getChildren().remove(hello);
+                                anchorPane.getChildren().add(tester);
+                                break;
+                            case 3:
+                                fineLabel.setText(questionThree);
+                                anchorPane.getChildren().remove(hello);
+                                anchorPane.getChildren().add(tester);
+                                break;
+                            default:
+                                System.out.println("error");
+                                break;
+                        }
+                    });
+                    tester.setOnAction((ActionEvent event1) -> {
+                        Boolean correctAnswer = true;
+                        switch (randomNum) {
+                            case 1:
+                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "7");
+                                break;
+                            case 2:
+                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "200");
+                                break;
+                            case 3:
+                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "300");
+                                break;
+                            default:
+                                break;
+                        }
+                        if (!correctAnswer) {
+                            fineLabel.setText("WRONG, study in the library!\n"
+                                + "We also need you to cover the cost of planting the trees that you forgot!\n"
+                                + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
+                            anchorPane.getChildren().remove(tester);
+                            anchorPane.getChildren().add(endButton);
+                            humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
+                        } else {
+                            fineLabel.setText("Correct! Your fine has been cut in half! We also need you\n"
+                                + "to cover the cost of planting the trees that you forgot!\n"
+                                + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
+                            anchorPane.getChildren().remove(tester);
+                            anchorPane.getChildren().add(endButton);
+                            humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
+                        }
+                        System.out.println(tester.getText());
+                        tester.clear();
+                    });
+
+                    endButton.setOnAction((ActionEvent event1) -> {
+                        anchorPane.getChildren().removeAll(endButton, fineScroll, fineLabel);
+                    });
+                }
             });
         }
     }
 
     @FXML
     private void handleOption4(MouseEvent event) {
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), player);
-        transition.setByX(option4.getLayoutX() - player.getLayoutX());
-
-        transition.setOnFinished((ActionEvent event1) -> {
-            textArea.setText(gameTrailer.option4(humanPlayer));
-            humanPlayer.setCharacterModel(false);
-            player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
-        });
-
-        TranslateTransition transition2 = new TranslateTransition(Duration.seconds(1.5), player);
-        transition2.setByX(player.getLayoutX() - option4.getLayoutX());
-
-        SequentialTransition axeTransition = new SequentialTransition(transition, transition2);
-        axeTransition.play();
+        textArea.setText(gameTrailer.option4(humanPlayer));
+        humanPlayer.setCharacterModel(false);
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        anchorPane.getChildren().remove(option4);
+        humanPlayer.setAxePickedUp(true);
     }
 
     @FXML
     private void handleExits(KeyEvent event) {
-
         if (!running) {
             switch (event.getCode()) {
                 case UP:
                 case W: {
-                    Command tester = new Command(CommandWord.GO, "north");
                     running = true;
+                    Command tester = new Command(CommandWord.GO, "north");
                     Game.getInstanceOfSelf().setDirection("goUp");
                     TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-                    up.setByY(-player.getLayoutY());
-                    up.setOnFinished((ActionEvent e) -> {
+                    up.setByY(-170);
+                    up.setOnFinished((ActionEvent event1) -> {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                         running = false;
                     });
-                    up.play();
+                    walkTransition(up);
                     break;
                 }
+
                 case DOWN:
                 case S: {
-                    Command tester = new Command(CommandWord.GO, "south");
                     running = true;
+                    Command tester = new Command(CommandWord.GO, "south");
                     Game.getInstanceOfSelf().setDirection("goDown");
                     TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
-                    down.setByY(player.getLayoutY());
-                    down.setOnFinished((ActionEvent e) -> {
+                    down.setByY(170);
+                    down.setOnFinished((ActionEvent event1) -> {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                         running = false;
                     });
-                    down.play();
+                    walkTransition(down);
+                    break;
+                }
+                case LEFT:
+                case A: {
+                    running = true;
+                    player.setVisible(false);
+                    option4.setVisible(true);
+                    FadeTransition upFade = new FadeTransition(Duration.seconds(1.5), trailerPath);
+                    upFade.setFromValue(1);
+                    upFade.setToValue(0);
+                    upFade.setOnFinished((ActionEvent) -> {
+                        running = false;
+                        trailerPath.setVisible(false);
+                    });
+                    upFade.play();
                     break;
                 }
                 case RIGHT:
                 case D: {
-                    Command tester = new Command(CommandWord.GO, "village");
                     running = true;
+                    Command tester = new Command(CommandWord.GO, "village");
                     Game.getInstanceOfSelf().setDirection("goRight");
                     TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
-                    right.setByX(player.getLayoutX() - 70);
-                    right.setOnFinished((ActionEvent e) -> {
+                    right.setByX(276);
+                    right.setOnFinished((ActionEvent event1) -> {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                         running = false;
                     });
-                    right.play();
+                    walkTransition(right);
                     break;
                 }
                 default:
                     textArea.setText("There is no road that way!");
                     break;
             }
-        } else {
-            System.out.println("ayo wait up");
         }
+    }
 
+    private void walkTransition(Transition direction) {
+        option4.setVisible(false);
+        if (!trailerPath.isVisible()) {
+            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1.5), trailerPath);
+            trailerPath.setVisible(true);
+            fadeTransition.setFromValue(0);
+            fadeTransition.setToValue(1);
+            fadeTransition.setOnFinished((ActionEvent e) -> {
+                player.setVisible(true);
+                direction.play();
+            });
+            fadeTransition.play();
+        } else {
+            player.setVisible(true);
+            direction.play();
+        }
+    }
+
+    @FXML
+    private void giveMoneyForTesting(MouseEvent event
+    ) {
+        if (devilCounter > 1) {
+            humanPlayer.addMoney(9999);
+            devilCounter = 0;
+        } else {
+            devilCounter += 1;
+        }
     }
 }

@@ -14,9 +14,10 @@
     </stylesheets>
     <children>
         <ImageView fx:id="player" fitHeight="75.0" fitWidth="75.0" layoutX="276.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" />
-        <javafx.scene.control.Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="326.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
+        <fx:include source="Hud.fxml"/>
+        <javafx.scene.control.Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="346.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
         <Button fx:id="option1" layoutX="14.0" layoutY="294.0" mnemonicParsing="false" onMouseClicked="#handleOption1" text="Open bookshelf" />
-        <Button fx:id="backBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#handleBackBtn">
+        <Button fx:id="backBtn" layoutX="540.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#handleBackBtn">
             <graphic>
                 <ImageView fitHeight="23.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -63,7 +64,7 @@
                                 <Image url="@../pictures/Bookpages.png" />
                             </image>
                         </ImageView>
-                  <Line endX="234.4000244140625" endY="63.400001525878906" layoutX="5.0" layoutY="-9.0" startX="48.0" startY="63.400001525878906" />
+                        <Line endX="234.4000244140625" endY="63.400001525878906" layoutX="5.0" layoutY="-9.0" startX="48.0" startY="63.400001525878906" />
                         <Label fx:id="BookTextArea1" alignment="TOP_LEFT" layoutX="52.0" layoutY="65.0" prefHeight="289.0" prefWidth="178.0" styleClass="Book" />
                         <Label fx:id="BookTextArea2" alignment="TOP_LEFT" layoutX="268.0" layoutY="65.0" prefHeight="290.0" prefWidth="178.0" styleClass="Book" />
                         <Button fx:id="CloseBtn1" layoutX="416.0" layoutY="352.0" mnemonicParsing="false" onMouseClicked="#handleClose">
@@ -75,9 +76,9 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                  <Label id="Title" fx:id="Title" layoutX="52.0" layoutY="36.0" prefHeight="19.0" prefWidth="178.0" styleClass="Book" />
-                  <Label id="by" fx:id="by" layoutX="268.0" layoutY="36.0" prefHeight="19.0" prefWidth="178.0" styleClass="Book" />
-                  <Line endX="230.4000244140625" endY="71.4000015258789" layoutX="218.0" layoutY="-17.0" startX="48.0" startY="71.4000015258789" />
+                        <Label id="Title" fx:id="Title" layoutX="52.0" layoutY="36.0" prefHeight="19.0" prefWidth="178.0" styleClass="Book" />
+                        <Label id="by" fx:id="by" layoutX="268.0" layoutY="36.0" prefHeight="19.0" prefWidth="178.0" styleClass="Book" />
+                        <Line endX="230.4000244140625" endY="71.4000015258789" layoutX="218.0" layoutY="-17.0" startX="48.0" startY="71.4000015258789" />
                     </children>
                 </AnchorPane>
             </children>

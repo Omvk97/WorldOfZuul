@@ -16,7 +16,8 @@
     </stylesheets>
     <children>
         <ImageView fx:id="player" fitHeight="75.0" fitWidth="75.0" layoutX="276.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true"/>
-        <javafx.scene.control.Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="326.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
+        <fx:include source="Hud.fxml"/>
+        <javafx.scene.control.Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="346.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
         <Button fx:id="option1" layoutX="14.0" layoutY="294.0" mnemonicParsing="false" text="Option 1" onMouseClicked="#handleOption1" />
         <Button fx:id="option2" layoutX="14.0" layoutY="326.0" mnemonicParsing="false" text="Option 2" onMouseClicked="#handleOption2"/>
         <ImageView fx:id="store" fitHeight="110.0" fitWidth="75.0" layoutX="100.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#handleGoToStore" >
@@ -34,14 +35,14 @@
                 <Image url="@http://icons.iconarchive.com/icons/dakirby309/simply-styled/128/Libraries-icon.png" />
             </image>
         </ImageView>
-        <Button fx:id="backBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#handleBackBtn">
-         <graphic>
-            <ImageView fitHeight="23.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../pictures/BackBtn2.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
+        <Button fx:id="backBtn" layoutX="540.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#handleBackBtn">
+            <graphic>
+                <ImageView fitHeight="23.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../pictures/BackBtn2.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
     </children>
 </AnchorPane>

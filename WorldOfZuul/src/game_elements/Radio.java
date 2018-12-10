@@ -44,7 +44,7 @@ public class Radio {
             + "Global Temperature: 31 degrees Celsius\n"
             + "Water Level: Risen 20 meters\n");
 
-        int climatePoints = humanPlayer.getClimatePoints();
+        int climatePoints = humanPlayer.getClimatePointsValue();
         List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {
             if (climatePoints > keySet.get(0)) {
@@ -88,7 +88,7 @@ public class Radio {
             + "Local Temperature: Error\n"
             + "Wind Speeds: Error\n");
 
-        int climatePoints = humanPlayer.getClimatePoints();
+        int climatePoints = humanPlayer.getClimatePointsValue();
         List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {
             if (climatePoints > keySet.get(0)) {

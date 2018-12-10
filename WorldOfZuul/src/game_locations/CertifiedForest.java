@@ -50,27 +50,23 @@ public class CertifiedForest extends Forest {
     }
 
     public int replantTrees(Player humanPlayer) {
-        if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() > 0) {
-            int amountOfSeedsPlanted = humanPlayer.plantSeeds();
-            if (amountOfSeedsPlanted > 0) {
-                plantNewTrees(amountOfSeedsPlanted);
-                return amountOfSeedsPlanted;
-            } else {
-                return 0;
-            }
+        int amountOfSeedsPlanted = humanPlayer.plantSeeds();
+        if (amountOfSeedsPlanted > 0) {
+            plantNewTrees(amountOfSeedsPlanted);
+            return amountOfSeedsPlanted;
         } else {
-            return -1;
+            return 0;
         }
     }
 
     /**
-     * This forest always needs to have exactly 100 trees in it, either the player needs to plant new
-     * trees or the player will receive a fine and then the "government" will plant the trees
+     * This forest always needs to have exactly 100 trees in it, either the player needs to plant
+     * new trees or the player will receive a fine and then the "government" will plant the trees
      * instead.
      *
      * @param numOfTreesToBeAdded how many new trees that has to be added
      */
-    public void plantNewTrees(int numOfTreesToBeAdded) {
+    private void plantNewTrees(int numOfTreesToBeAdded) {
         for (int i = 0; i < numOfTreesToBeAdded && trees.size() < numOfTreesToBeAdded; i++) {
             trees.add(new CertifiedTree((int) (Math.random() * 2) + 1));
         }

@@ -32,7 +32,7 @@ public class Store extends Room {
     }
 
     /**
-     * To make sure that the player can't buy a backPack they already own.
+     * To make sure that the player can't buy a getBackPack they already own.
      */
     public void createNewBackPacks() {
         smallBackPack = BackPackFactory.createSmallBackPack();
@@ -60,14 +60,14 @@ public class Store extends Room {
 
     public boolean sellLogs(Player humanPlayer) {
         if (humanPlayer.getLogsInStorage().isEmpty()
-            && humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
+            && humanPlayer.getBackPack().getLogsInBackPack().isEmpty()) {
             return false;
         }
-        if (!humanPlayer.backPack().getLogsInBackPack().isEmpty()) {
-            for (Tree tree : humanPlayer.backPack().getLogsInBackPack()) {
+        if (!humanPlayer.getBackPack().getLogsInBackPack().isEmpty()) {
+            for (Tree tree : humanPlayer.getBackPack().getLogsInBackPack()) {
                 humanPlayer.addMoney(tree.getTreePrice());
             }
-            humanPlayer.backPack().emptyBackpack();
+            humanPlayer.getBackPack().emptyBackpack();
         }
         if (!humanPlayer.getLogsInStorage().isEmpty()) {
             humanPlayer.getLogsInStorage().forEach((tree)
@@ -86,11 +86,11 @@ public class Store extends Room {
             case "largeBackPack":
                 return humanPlayer.boughtBackPack(largeBackPack);
             case "oneSapling":
-                return humanPlayer.buySaplingBundle(1, SAPLING_PRICE);
+                return humanPlayer.buySapling(1, SAPLING_PRICE);
             case "fiveSapling":
-                return humanPlayer.buySaplingBundle(5, SAPLING_PRICE);
+                return humanPlayer.buySapling(5, SAPLING_PRICE);
             case "tenSapling":
-                return humanPlayer.buySaplingBundle(10, SAPLING_PRICE);
+                return humanPlayer.buySapling(10, SAPLING_PRICE);
         }
         return false;
     }

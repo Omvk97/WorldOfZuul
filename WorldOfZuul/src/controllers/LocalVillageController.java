@@ -5,9 +5,12 @@ import game_functionality.CommandWord;
 import game_functionality.Game;
 import game_functionality.Player;
 import game_locations.LocalVillage;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.Transition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,9 +32,9 @@ public class LocalVillageController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private Button option1, option2, backBtn;
+    private Button backBtn;
     @FXML
-    private ImageView player, map, store, blacksmith, library;
+    private ImageView player, store, blacksmith, library;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final LocalVillage gameVillage = (LocalVillage) Game.getInstanceOfSelf().getLocalVillage();
     private boolean running;
@@ -43,7 +46,27 @@ public class LocalVillageController implements Initializable {
         transition();
         textArea.setText(gameVillage.roomEntrance(humanPlayer));
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        
+//        ImageView[] rainDrops = new ImageView[1000];
+//        for (int i = 0; i < 1000; i++) {
+//            rainDrops[i] = new ImageView(new Image(new File("src/pictures/ice1_9.png").toURI().toString()));
+//            anchorPane.getChildren().add(rainDrops[i]);
+//            makeItRainBaby(rainDrops[i]);
+//        }
     }
+
+//    private void makeItRainBaby(ImageView rain) {
+//        rain.setTranslateX((Math.random() * 600) + 1);
+//        rain.setTranslateY((Math.random() * 400) + 1);
+//        int timeToGoToBottom = (int) (400 - rain.getTranslateY()) * 18;
+//        final Timeline timeline = new Timeline();
+//        timeline.setCycleCount(1);
+//        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(timeToGoToBottom), new KeyValue(rain.translateYProperty(), 400)));
+//        timeline.setOnFinished((ActionEvent event) -> {
+//            makeItRainBaby(rain);
+//        });
+//        timeline.play();
+//    }
 
     @FXML
     private void handleOption1(MouseEvent event) {
@@ -58,19 +81,20 @@ public class LocalVillageController implements Initializable {
     @FXML
     private void handleBackBtn(MouseEvent event) {
         backBtn.setDisable(true);
+        textArea.setVisible(false);
         if (!running) {
             running = true;
-            TranslateTransition transistionToTrailer = new TranslateTransition(Duration.seconds(1.5), player);
+            TranslateTransition backTransition = new TranslateTransition(Duration.seconds(1.5), player);
 
             switch (Game.getInstanceOfSelf().getDirection()) {
                 case "goRight":
-                    transistionToTrailer.setByX(-276);
-                    transistionToTrailer.setOnFinished((ActionEvent) -> {
+                    backTransition.setByX(-276);
+                    backTransition.setOnFinished((ActionEvent) -> {
                         Command tester = new Command(CommandWord.GO, "trailer");
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                     });
-                    transistionToTrailer.play();
-                    Game.getInstanceOfSelf().setDirection("goTrailer");
+                    backTransition.play();
+                    Game.getInstanceOfSelf().setDirection("goLeft");
                     break;
                 case "goStore":
                     running = true;
@@ -114,6 +138,7 @@ public class LocalVillageController implements Initializable {
 
     @FXML
     private void handleGoToStore(MouseEvent event) {
+        textArea.setVisible(false);
         backBtn.setDisable(true);
         if (!running) {
             running = true;
@@ -131,6 +156,7 @@ public class LocalVillageController implements Initializable {
 
     @FXML
     private void handleGoToBlacksmith(MouseEvent event) {
+        textArea.setVisible(false);
         backBtn.setDisable(true);
         if (!running) {
             running = true;
@@ -148,6 +174,7 @@ public class LocalVillageController implements Initializable {
 
     @FXML
     private void handleGoToLibrary(MouseEvent event) {
+        textArea.setVisible(false);
         backBtn.setDisable(true);
         if (!running) {
             running = true;
@@ -166,8 +193,9 @@ public class LocalVillageController implements Initializable {
     @FXML
     private void handleExits(KeyEvent event) {
         if (!running) {
-            running = true;
             if (event.getCode().equals(KeyCode.LEFT) || event.getCode().equals(KeyCode.A)) {
+                running = true;
+                textArea.setVisible(false);
                 TranslateTransition transistionToTrailer = new TranslateTransition(Duration.seconds(1.5), player);
                 transistionToTrailer.setByX(-276);
                 transistionToTrailer.setOnFinished((ActionEvent) -> {
@@ -189,6 +217,7 @@ public class LocalVillageController implements Initializable {
                 player.setLayoutX(0);
                 roomTransition.setByX(276);
                 roomTransition.setOnFinished((ActionEvent) -> {
+                    textArea.setVisible(true);
                     running = false;
                     backBtn.setDisable(false);
 
@@ -201,6 +230,7 @@ public class LocalVillageController implements Initializable {
                 roomTransition.setByX(276 - store.getLayoutX());
                 roomTransition.setByY(170 - store.getLayoutY());
                 roomTransition.setOnFinished((ActionEvent) -> {
+                    textArea.setVisible(true);
                     running = false;
                     backBtn.setDisable(false);
 
@@ -213,6 +243,7 @@ public class LocalVillageController implements Initializable {
                 roomTransition.setByX(276 - blacksmith.getLayoutX());
                 roomTransition.setByY(170 - blacksmith.getLayoutY());
                 roomTransition.setOnFinished((ActionEvent) -> {
+                    textArea.setVisible(true);
                     running = false;
                     backBtn.setDisable(false);
 
@@ -225,6 +256,7 @@ public class LocalVillageController implements Initializable {
                 roomTransition.setByX(276 - library.getLayoutX());
                 roomTransition.setByY(170 - library.getLayoutY());
                 roomTransition.setOnFinished((ActionEvent) -> {
+                    textArea.setVisible(true);
                     running = false;
                     backBtn.setDisable(false);
 

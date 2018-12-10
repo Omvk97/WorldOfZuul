@@ -21,8 +21,8 @@ public abstract class Forest extends Room {
     }
 
     public boolean playerCanCarryMoreTree(Player humanPlayer) {
-        return humanPlayer.backPack().getAmountOfLogsInBackPack()
-            < humanPlayer.backPack().getBackpackCapacity();
+        return humanPlayer.getBackPack().getAmountOfLogsInBackPack()
+            < humanPlayer.getBackPack().getBackpackCapacity();
     }
 
     abstract protected boolean thereIsMoreTreesToCut();
@@ -36,20 +36,28 @@ public abstract class Forest extends Room {
      * that are associated with felling a tree
      *
      * @param humanPlayer chopping a tree
-     * @return how many hits it took to fell the tree
      */
-    public int chopWood(Player humanPlayer) {
+    public void chopWood(Player humanPlayer) {
         if (this instanceof CertifiedForest) {
             humanPlayer.addChoppedTreesInCertifiedForest();
         }
+        humanPlayer.getBackPack().addTreeToBackpack(lastTreeInArray());
+        humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
+        humanPlayer.updateLogsInBackPackAndStorage();
+        trees.remove(lastTreeInArray());
+    }
+
+    /**
+     * Used to know how many sounds has to be played when the player wants to chop a tree
+     * @param humanPlayer that is going to chop down the tree.
+     * @return how many hits it took to fell the tree
+     */
+    public int countNumOfHits(Player humanPlayer) {
         int hitsToTree = 0;
         while (lastTreeInArray().getTreeHealth() > 0) {
             lastTreeInArray().reduceTreeHealth(humanPlayer.getDamage());
             hitsToTree++;
         }
-        humanPlayer.backPack().addTreeToBackpack(lastTreeInArray());
-        humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
-        trees.remove(lastTreeInArray());
         return hitsToTree;
     }
 

@@ -41,7 +41,7 @@ public class LocalVillage extends Room {
         scenarios.put(-249, "The village has been forsaken and wildlife is nowhere to be seen...\n"
             + "You see a sign \"Death to all lumberjacks\"...");
 
-        int climatePoints = humanPlayer.getClimatePoints();
+        int climatePoints = humanPlayer.getClimatePointsValue();
         List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {
             if (climatePoints > keySet.get(0)) {

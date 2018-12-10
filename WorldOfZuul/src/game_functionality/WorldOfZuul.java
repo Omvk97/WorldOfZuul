@@ -34,6 +34,7 @@ public class WorldOfZuul extends Application {
             highScoreGraphics.closeGame();
         });
     }
+
     public static void main(String[] args) {
         launch(args);
     }

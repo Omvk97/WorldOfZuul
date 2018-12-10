@@ -8,6 +8,8 @@ import game_locations.Room;
 import game_locations.Trailer;
 import java.io.File;
 import java.util.ArrayList;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  *
@@ -17,24 +19,39 @@ import java.util.ArrayList;
 public class Player {
 
     private final static int MIN_CLIMATEPOINTS = -250;
-
-    private int money;
-    private int climatePoints;
-    private boolean giftHasBeenGivenToday;
+    private boolean giftHasBeenGivenToday, axePickedUp;
+    private final SimpleIntegerProperty money = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty climatePoints = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty logsInBackPack = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty logsInStorageProperty = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty saplingsCarrying = new SimpleIntegerProperty();
     private Room currentRoom = null;
     private Axe equippedAxe;
     private BackPack equippedBackPack;
-    private int amountOfSaplingsCarrying;
     private int numChoppedTreesWithoutPlantingSaplings;
     private final Trailer trailer;
     private Room previousRoom;
     private boolean hasSlept;
     private String direction;
+
     private final File baseModelFile = new File("src/pictures/baseCharacter.png");
     private final File baseModelRightFile = new File("src/pictures/baseCharacterRight.png");
+
     private final File modelStarterAxeFile = new File("src/pictures/characterWithStarterAxe.png");
     private final File modelStarterAxeRightFile = new File("src/pictures/characterWithStarterAxeRight.png");
     private File characterModel;
+
+    private final File modelIronAxeFile = new File("src/pictures/characterWithIronAxe.png");
+    private final File modelIronAxeRightFile = new File("src/pictures/characterWithIronAxeRight.png");
+
+    private final File modelSteelAxeFile = new File("src/pictures/characterWithSteelAxe.png");
+    private final File modelSteelAxeRightFile = new File("src/pictures/characterWithSteelAxeRight.png");
+
+    private final File modelDiamondAxeFile = new File("src/pictures/characterWithDiamondAxe.png");
+    private final File modelDiamondAxeRightFile = new File("src/pictures/characterWithDiamondAxeRight.png");
+
+    private final File modelFireAxeFile = new File("src/pictures/characterWithFireAxe.png");
+    private final File modelFireAxeRightFile = new File("src/pictures/characterWithFireAxeRight.png");
 
     public Player(Trailer trailer) {
         this.equippedBackPack = BackPackFactory.createStarterBackPack();
@@ -51,29 +68,37 @@ public class Player {
         if (!characterGoingRight) {
             if (equippedAxe == null) {
                 characterModel = baseModelFile;
-            } else if (equippedAxe.getDescription().equals("Starter axe")) {
+            } else if (equippedAxe.getDescription().equals("Starter Axe")) {
                 characterModel = modelStarterAxeFile;
-            } else if (equippedAxe.getDescription().equals("Iron axe")) {
-            } else if (equippedAxe.getDescription().equals("Steel axe")) {
-            } else if (equippedAxe.getDescription().equals("Diamond axe")) {
-            } else if (equippedAxe.getDescription().equals("Fire axe")) {
+            } else if (equippedAxe.getDescription().equals("Iron Axe")) {
+                characterModel = modelIronAxeFile;
+            } else if (equippedAxe.getDescription().equals("Steel Axe")) {
+                characterModel = modelSteelAxeFile;
+            } else if (equippedAxe.getDescription().equals("Diamond Axe")) {
+                characterModel = modelDiamondAxeFile;
+            } else if (equippedAxe.getDescription().equals("Fire Axe")) {
+                characterModel = modelFireAxeFile;
             }
         } else {
             if (equippedAxe == null) {
                 characterModel = baseModelRightFile;
-            } else if (equippedAxe.getDescription().equals("Starter axe")) {
+            } else if (equippedAxe.getDescription().equals("Starter Axe")) {
                 characterModel = modelStarterAxeRightFile;
-            } else if (equippedAxe.getDescription().equals("Iron axe")) {
-            } else if (equippedAxe.getDescription().equals("Steel axe")) {
-            } else if (equippedAxe.getDescription().equals("Diamond axe")) {
-            } else if (equippedAxe.getDescription().equals("Fire axe")) {
+            } else if (equippedAxe.getDescription().equals("Iron Axe")) {
+                characterModel = modelIronAxeRightFile;
+            } else if (equippedAxe.getDescription().equals("Steel Axe")) {
+                characterModel = modelSteelAxeRightFile;
+            } else if (equippedAxe.getDescription().equals("Diamond Axe")) {
+                characterModel = modelDiamondAxeRightFile;
+            } else if (equippedAxe.getDescription().equals("Fire Axe")) {
+                characterModel = modelFireAxeRightFile;
             }
         }
     }
 
     /**
-     * Used to determine whether or not the game should end. If the climatepoints goes over this
-     * threshold, the game is over, the world has been destroyed.
+     * Used to determine whether or not the game should end. If the climatepoints goes over this threshold, the game is
+     * over, the world has been destroyed.
      *
      * @return int max_climatepoints
      */
@@ -82,7 +107,7 @@ public class Player {
     }
 
     public int getTotalValue() {
-        int totalValueOfItems = money + equippedBackPack.getPrice();
+        int totalValueOfItems = money.getValue() + equippedBackPack.getPrice();
         for (Tree tree : equippedBackPack.getLogsInBackPack()) {
             totalValueOfItems += tree.getTreePrice();
         }
@@ -92,20 +117,28 @@ public class Player {
         return totalValueOfItems;
     }
 
-    public int getMoney() {
+    public SimpleIntegerProperty getMoney() {
         return money;
     }
 
-    public void addMoney(int moneyAmount) {
-        this.money += moneyAmount;
+    public int getMoneyValue() {
+        return money.getValue();
     }
 
-    public int getClimatePoints() {
+    public void addMoney(int moneyAmount) {
+        money.setValue(money.getValue() + moneyAmount);
+    }
+
+    public SimpleIntegerProperty getClimatePoints() {
         return climatePoints;
     }
 
+    public int getClimatePointsValue() {
+        return climatePoints.getValue();
+    }
+
     public void addClimatePoints(int treeClimatePoints) {
-        climatePoints += treeClimatePoints;
+        climatePoints.setValue(climatePoints.getValue() + treeClimatePoints);
     }
 
     /**
@@ -138,15 +171,23 @@ public class Player {
      */
     public void boughtAxe(Axe newAxe) {
         equippedAxe = newAxe;
-        money -= newAxe.getPrice();
+        money.setValue(money.getValue() - newAxe.getPrice());
     }
 
     public void grindedAxe(int cost) {
-        money -= cost;
+        money.setValue(money.getValue() - cost);
     }
 
     public ArrayList<Tree> getLogsInStorage() {
         return trailer.getLogsInStorage();
+    }
+
+    public SimpleIntegerProperty getNumOfDaysgoneBy() {
+        return trailer.getNumOfDaysGoneBy();
+    }
+
+    public int getNumOfDaysLeft() {
+        return trailer.getNUM_PLAY_DAYS() - trailer.getNumOfDaysGoneByValue();
     }
 
     /**
@@ -154,6 +195,7 @@ public class Player {
      */
     public void loadOffLogsInStorage() {
         trailer.getLogsInStorage().clear();
+        updateLogsInBackPackAndStorage();
     }
 
     public boolean isStorageFull() {
@@ -174,10 +216,8 @@ public class Player {
 
     /**
      * Used to reduce durability on the players currently equipped Axe
-     *
-     * @return the axe state. If 1 is returned the axe is is between high and half or low and half
-     * durability. if 0.5 is returned the axe is at half durability. If 0 is returned the axe has
-     * been destroyed
+     * @return the axe state. If 1 is returned the axe is is between high and half or low and half durability. if 0.5 is
+     * returned the axe is at half durability. If 0 is returned the axe has been destroyed
      */
     public double useAxe() {
         equippedAxe.reduceDurability();
@@ -208,13 +248,26 @@ public class Player {
      *
      * @return BackPack that is currently equipped
      */
-    public BackPack backPack() {
+    public BackPack getBackPack() {
         return equippedBackPack;
     }
 
+    public void updateLogsInBackPackAndStorage() {
+        logsInBackPack.setValue(equippedBackPack.getLogsInBackPack().size());
+        logsInStorageProperty.setValue(trailer.getLogsInStorage().size());
+    }
+
+    public SimpleIntegerProperty getLogsInStorageProperty() {
+        return logsInStorageProperty;
+    }
+
+    public SimpleIntegerProperty getLogsInBackPack() {
+        return logsInBackPack;
+    }
+
     public boolean boughtBackPack(BackPack newBackPack) {
-        if (newBackPack.getPrice() <= money) {
-            money -= newBackPack.getPrice();
+        if (newBackPack.getPrice() <= money.getValue()) {
+            money.setValue(money.getValue() - newBackPack.getPrice());
             equippedBackPack = newBackPack;
             return true;
         } else {
@@ -222,14 +275,19 @@ public class Player {
         }
     }
 
-    public int getAmountOfSaplingsCarrying() {
-        return amountOfSaplingsCarrying;
+    public IntegerProperty getSaplingsCarrying() {
+        return saplingsCarrying;
     }
 
-    public boolean buySaplingBundle(int saplingAmount, int saplingCost) {
-        if (saplingCost <= money) {
-            money -= saplingCost;
-            this.amountOfSaplingsCarrying += saplingAmount;
+    public int getSaplingsCarryingValue() {
+        return saplingsCarrying.getValue();
+    }
+
+    public boolean buySapling(int saplingAmount, int saplingCost) {
+        int totalSaplingCost = saplingAmount * saplingCost;
+        if (totalSaplingCost <= money.getValue()) {
+            money.setValue(money.getValue() - totalSaplingCost);
+            saplingsCarrying.setValue(saplingsCarrying.getValue() + saplingAmount);
             return true;
         } else {
             return false;
@@ -240,8 +298,8 @@ public class Player {
         int startAmountOfChoppedTrees = numChoppedTreesWithoutPlantingSaplings;
         int saplingsPlanted = 0;
         for (int i = 0; i < startAmountOfChoppedTrees; i++) {
-            if (amountOfSaplingsCarrying > 0) {
-                amountOfSaplingsCarrying--;
+            if (saplingsCarrying.getValue() > 0) {
+                saplingsCarrying.setValue(saplingsCarrying.getValue() - 1);
                 numChoppedTreesWithoutPlantingSaplings--;
                 saplingsPlanted++;
             }
@@ -258,14 +316,13 @@ public class Player {
     }
 
     /**
-     * Resets all the things that the player can interact with during a day. Also checks if the
-     * player has choppedTrees without replanting, if this is the case the player will recieve a
-     * fine and a quiz to reduce the fine amount.
+     * Resets all the things that the player can interact with during a day. Also checks if the player has choppedTrees
+     * without replanting, if this is the case the player will recieve a fine and a quiz to reduce the fine amount.
      *
      * @param fineAmount how much the fine will cost the player, if any
      */
     public void sleep(int fineAmount) {
-        money -= fineAmount;
+        money.setValue(money.getValue() - fineAmount);
         numChoppedTreesWithoutPlantingSaplings = 0;
         giftHasBeenGivenToday = false;
         hasSlept = true;
@@ -302,4 +359,13 @@ public class Player {
             return 1;
         }
     }
+
+    public boolean isAxePickedUp() {
+        return axePickedUp;
+    }
+
+    public void setAxePickedUp(boolean axePickedUp) {
+        this.axePickedUp = axePickedUp;
+    }
+
 }

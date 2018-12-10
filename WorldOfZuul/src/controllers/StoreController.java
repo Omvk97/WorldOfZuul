@@ -9,7 +9,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -21,36 +20,29 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 import javafx.scene.layout.FlowPane;
 
 public class StoreController implements Initializable {
 
     @FXML
-    private Label textArea, playerGoldCoins;
+    private Label textArea;
     @FXML
     private AnchorPane anchorPane;
     @FXML
     private Button backBtn;
-    @FXML
-    private ImageView player;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Store gameStore = (Store) Game.getInstanceOfSelf().getStore();
-    private boolean running;
     private final ImageView storeShelf = new ImageView(new Image(
-        new File("src/pictures/storeShelf.png").toURI().toString()));
+            new File("src/pictures/storeShelf.png").toURI().toString()));
     private final ImageView blueDot = new ImageView(new Image(
-        new File("src/pictures/blueDot.png").toURI().toString()));
+            new File("src/pictures/blueDot.png").toURI().toString()));
     private final Button closeShelfButton = new Button("Done");
     private final Button buySelectedItemButton = new Button("Buy");
     private final ArrayList<Node> allItemsAssociatedWithShelf = new ArrayList<>();
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        transition();
-        updateGoldCoins();
         textArea.setText(gameStore.roomEntrance(humanPlayer));
-        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         setLayoutOfShelf();
         setLayoutOfItemsOnShelf();
         handleUserPurchase();
@@ -63,7 +55,6 @@ public class StoreController implements Initializable {
         } else {
             textArea.setText("You have no logs to sell!");
         }
-        updateGoldCoins();
     }
 
     @FXML
@@ -78,51 +69,20 @@ public class StoreController implements Initializable {
     }
 
     @FXML
-    private void handleBackBtn(MouseEvent event) {
-        backBtn.setDisable(true);
-        if (!running) {
-            running = true;
-            TranslateTransition transistionFromStore = new TranslateTransition(Duration.seconds(1.5), player);
-            transistionFromStore.setByY(player.getLayoutY());
-            transistionFromStore.setOnFinished((ActionEvent) -> {
-                Command tester = new Command(CommandWord.GO, "back");
-                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-            });
-            transistionFromStore.play();
+    private void handleExits(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+            Command tester = new Command(CommandWord.GO, "back");
+            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+        } else {
+            textArea.setText("There is no road!");
         }
     }
 
     @FXML
-    private void handleExits(KeyEvent event) {
-        if (!running) {
-            running = true;
-            if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
-                TranslateTransition transistionFromStore = new TranslateTransition(Duration.seconds(1.5), player);
-                transistionFromStore.setByY(player.getLayoutY());
-                transistionFromStore.setOnFinished((ActionEvent) -> {
-                    Command tester = new Command(CommandWord.GO, "back");
-                    Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-                });
-                transistionFromStore.play();
-            } else {
-                textArea.setText("There is no road!");
-            }
-        }
-    }
-
-    private void transition() {
-        running = true;
+    private void handleBackBtn(MouseEvent event) {
         backBtn.setDisable(true);
-        TranslateTransition roomTransition = new TranslateTransition(Duration.seconds(1.5), player);
-        if (Game.getInstanceOfSelf().getDirection().equals("goStore")) {
-            player.setLayoutY(player.getLayoutY() * 2);
-            roomTransition.setByY(-170);
-            roomTransition.setOnFinished((ActionEvent) -> {
-                running = false;
-                backBtn.setDisable(false);
-            });
-            roomTransition.play();
-        }
+        Command tester = new Command(CommandWord.GO, "back");
+        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
     }
 
     private void setLayoutOfShelf() {
@@ -178,7 +138,7 @@ public class StoreController implements Initializable {
         saplingX10.setId("tenSapling");
         userClick(saplingX10);
         FlowPane flow = new FlowPane(smallBackPack, mediumBackPack, largeBackPack,
-            sapling, saplingX5, saplingX10);
+                sapling, saplingX5, saplingX10);
         flow.setPrefWrapLength(storeShelf.getFitWidth() - 60);
         flow.setVgap(35);
         flow.setHgap(40);
@@ -201,7 +161,7 @@ public class StoreController implements Initializable {
             if (blueDot.getId() != null) {
                 if (gameStore.buyItem(blueDot.getId(), humanPlayer)) {
                     textArea.setText("Here you go!");
-                    updateGoldCoins();
+//                    updateGoldCoins();
                 } else {
                     textArea.setText("You can't afford that!");
                 }
@@ -209,9 +169,5 @@ public class StoreController implements Initializable {
                 textArea.setText("You don't have anything selected!");
             }
         });
-    }
-    
-    private void updateGoldCoins() {
-        playerGoldCoins.setText(Integer.toString(humanPlayer.getMoney()));
     }
 }

@@ -7,13 +7,13 @@ import game_locations.CertifiedForest;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 /**
@@ -21,16 +21,15 @@ import javafx.util.Duration;
  * @author oliver
  */
 public class CertifiedForestController extends ForestController implements Initializable {
-    
+
     private final CertifiedForest gameForest = (CertifiedForest) Game.getInstanceOfSelf().getCertifiedForest();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println(Game.getInstanceOfSelf().getDirection());
-        TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-        player.setLayoutY(player.getLayoutY() * 2);
-        up.setByY(-170);
-        up.play();
+        TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
+        down.setFromY(-170);
+        down.setByY(170);
+        down.play();
         textArea.setText(gameForest.roomEntrance(humanPlayer));
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         smallTreeLabel.setText(Integer.toString(gameForest.countSmallTrees()));
@@ -42,14 +41,14 @@ public class CertifiedForestController extends ForestController implements Initi
     private void handleOption1(MouseEvent event) {
         if (!running) {
             if (gameForest.playerCanCarryMoreTree(humanPlayer) && gameForest.thereIsMoreTreesToCut()) {
-                int number = gameForest.chopWood(humanPlayer);
-                treeAnimationToLargeTree(number);
+                int number = gameForest.countNumOfHits(humanPlayer);
+                treeAnimationToLargeTree(number, gameForest.countLargeTrees(), gameForest);
             } else if (gameForest.playerCanCarryMoreTree(humanPlayer) && !gameForest.thereIsMoreTreesToCut()) {
                 textArea.setText("There is no more trees to fell right now!"
-                    + "\nYou have to wait for the forest to regrow!");
+                        + "\nYou have to wait for the forest to regrow!");
             } else if (gameForest.thereIsMoreTreesToCut() && !gameForest.playerCanCarryMoreTree(humanPlayer)) {
                 textArea.setText("You are carrying too much wood!\n"
-                    + "Sell or store your logs!");
+                        + "Sell or store your logs!");
             } else {
                 textArea.setText("There is no trees to fell and your backpack is full!");
             }
@@ -66,6 +65,9 @@ public class CertifiedForestController extends ForestController implements Initi
 
     @FXML
     private void handleOption3(MouseEvent event) {
+        if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() > 0) {
+
+        }
         int amountOfSeedsPlanted = gameForest.replantTrees(humanPlayer);
         if (amountOfSeedsPlanted > 0) {
             textArea.setText("You just planted " + (amountOfSeedsPlanted > 1
@@ -82,8 +84,12 @@ public class CertifiedForestController extends ForestController implements Initi
         if (event.getCode().equals(KeyCode.UP) || event.getCode().equals(KeyCode.W)) {
             Game.getInstanceOfSelf().setDirection("goUp");
             Command tester = new Command(CommandWord.GO, "trailer");
-            Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-            System.out.println(Game.getInstanceOfSelf().getDirection());
+            TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
+            up.setByY(-170);
+            up.setOnFinished((ActionEvent e) -> {
+                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
+            });
+            up.play();
         } else {
             textArea.setText("There is no road!");
         }
