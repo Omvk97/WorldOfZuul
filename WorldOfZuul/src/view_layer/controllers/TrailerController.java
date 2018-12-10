@@ -140,7 +140,7 @@ public class TrailerController implements Initializable {
             if (!running) {
                 running = true;
                 textArea.setText(gameTrailer.option3(humanPlayer));
-                FadeTransition sleep = new FadeTransition(Duration.seconds(3), anchorPane);
+                FadeTransition sleep = new FadeTransition(Duration.seconds(2), anchorPane);
                 sleep.setFromValue(1);
                 sleep.setToValue(0.1);
                 sleep.setCycleCount(2);
