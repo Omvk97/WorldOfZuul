@@ -12,7 +12,7 @@ import javafx.stage.WindowEvent;
 
 /**
  *
- * @author Daniel, Oliver
+ * @author Oliver
  */
 public class WorldOfZuul extends Application {
 

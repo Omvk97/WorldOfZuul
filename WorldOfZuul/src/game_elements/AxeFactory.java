@@ -1,5 +1,9 @@
 package game_elements;
 
+/**
+ *
+ * @author oliver
+ */
 public class AxeFactory {
 
     private AxeFactory() {

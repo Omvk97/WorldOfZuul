@@ -12,7 +12,6 @@ import javafx.scene.image.ImageView;
 /**
  *
  * @author oliver
- * @date 2/12/2018
  */
 public class Store extends Room {
 

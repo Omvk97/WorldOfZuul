@@ -18,7 +18,6 @@ import java.util.Scanner;
 /**
  *
  * @author oliver
- * @date 3/12/2018
  */
 public class HighScore {
 

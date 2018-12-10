@@ -2,6 +2,10 @@ package game_elements;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author oliver
+ */
 public class BackPack extends Item {
 
     private final ArrayList<Tree> logsInBackPack;

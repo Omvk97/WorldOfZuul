@@ -10,6 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ *
+ * @author steffen
+ */
 public class StartSceneController implements Initializable {
 
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();

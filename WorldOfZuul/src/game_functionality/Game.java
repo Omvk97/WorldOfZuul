@@ -3,6 +3,11 @@ package game_functionality;
 import game_locations.*;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ *
+ * @author oliver
+ * co-author: michael, steffen & daniel
+ */
 public class Game {
 
     private final Trailer trailer = new Trailer();
@@ -15,6 +20,7 @@ public class Game {
     private final Room library = new Library();
     private String direction = "noDirection";
     private static final Game instance = new Game();
+
     private Game() {
         setExitsForRooms();
         humanPlayer.setCurrentRoom(trailer);
@@ -99,6 +105,7 @@ public class Game {
     public Room getLibrary() {
         return library;
     }
+
     public String getDirection() {
         return direction;
     }

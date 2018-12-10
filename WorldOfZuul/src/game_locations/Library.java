@@ -5,6 +5,10 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
+/**
+ *
+ * @author michael
+ */
 public class Library extends Room {
 
     String libraryOwner = "Anna: \n";

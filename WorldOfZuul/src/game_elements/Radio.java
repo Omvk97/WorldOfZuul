@@ -6,6 +6,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import javafx.scene.control.Label;
 
+/**
+ *
+ * @author steffen
+ * co-author: oliver
+ */
 public class Radio {
 
     private final String weatherReporter = "Jensen: ";

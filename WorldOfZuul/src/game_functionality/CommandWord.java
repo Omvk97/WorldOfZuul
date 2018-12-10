@@ -1,5 +1,9 @@
 package game_functionality;
 
+/**
+ *
+ * @author Michael Kolling and David J. Barnes
+ */
 public enum CommandWord {
 
     GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), OPTION("option"), EXITS("exits");

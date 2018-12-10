@@ -21,7 +21,6 @@ import javafx.util.Duration;
 /**
  *
  * @author oliver
- * @date 1/12/2018
  */
 public class NonCertifiedController extends ForestController implements Initializable {
 

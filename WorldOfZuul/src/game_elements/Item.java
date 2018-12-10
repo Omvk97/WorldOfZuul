@@ -1,5 +1,9 @@
 package game_elements;
 
+/**
+ *
+ * @author oliver
+ */
 public abstract class Item {
 
     private final String description;

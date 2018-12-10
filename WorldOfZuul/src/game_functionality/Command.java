@@ -1,5 +1,9 @@
 package game_functionality;
 
+/**
+ *
+ * @author Michael Kolling and David J. Barnes
+ */
 public class Command {
 
     private final CommandWord commandWord;

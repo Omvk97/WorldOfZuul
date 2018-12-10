@@ -13,6 +13,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.StageStyle;
 
+/**
+ *
+ * @author oliver
+ */
 public class HighScoreGraphics {
     private final HighScore highScore = new HighScore();
     

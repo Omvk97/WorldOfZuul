@@ -9,6 +9,11 @@ import java.util.List;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
+/**
+ *
+ * @author oliver
+ * co-author: daniel
+ */
 public class LocalVillage extends Room {
 
     public LocalVillage() {

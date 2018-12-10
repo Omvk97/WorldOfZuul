@@ -14,7 +14,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 /**
  *
  * @author oliver
- * @date 1/12/2018
+ * co-author: michael, steffen & daniel
  */
 public class Player {
 

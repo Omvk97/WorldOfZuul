@@ -5,6 +5,11 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
+/**
+ *
+ * @author steffen
+ * co-author: oliver
+ */
 public class BlackSmith extends Room {
 
     private final String blackSmithNPC = "Smith:\n";

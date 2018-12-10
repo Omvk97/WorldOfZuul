@@ -14,6 +14,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
+/**
+ *
+ * @author olive
+ * co-author: daniel
+ */
 public class Trailer extends Room {
 
     private final static int NUM_PLAY_DAYS = 5;
@@ -32,12 +37,6 @@ public class Trailer extends Room {
     @Override
     public String roomEntrance(Player humanPlayer) {
         return "You stand in your trailer, it is your home\n";
-//            + "---------------------------------------------\n"
-//            + "○ Store Logs   ➤ Store logs you are carrying\n"
-//            + "○ Check Wallet ➤ See how much money you have\n"
-//            + "○ Sleep\n"
-//            + (starterAxe != null ? "○ Pick up Axe\n" : "")
-//            + "---------------------------------------------";
     }
 
     /**
@@ -120,17 +119,6 @@ public class Trailer extends Room {
      */
     @Override
     public String option3(Player humanPlayer) {
-//        int daysleft = NUM_PLAY_DAYS - numOfDaysGoneBy;
-//        int fineAmount = 0;
-//        if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
-//            fineAmount = givePlayerFine(humanPlayer);
-//            System.out.println("Your fine amounts to " + fineAmount + " gold coins!");
-//        }
-//        humanPlayer.sleep(fineAmount);
-//        if (numOfDaysGoneBy++ >= NUM_PLAY_DAYS) {
-//            highScoreGraphics.closeGame();
-//            System.exit(0);
-//        }
         Random globalOrLocal = new Random();
         if (globalOrLocal.nextBoolean()) {
             return radio.globalNews(humanPlayer);

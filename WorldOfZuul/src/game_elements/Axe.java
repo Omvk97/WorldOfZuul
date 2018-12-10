@@ -1,5 +1,9 @@
 package game_elements;
 
+/**
+ *
+ * @author oliver
+ */
 public class Axe extends Item {
 
     private final int damage;

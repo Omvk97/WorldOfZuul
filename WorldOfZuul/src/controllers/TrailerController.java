@@ -25,6 +25,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+/**
+ *
+ * @author daniel
+ * co-author oliver
+ */
 public class TrailerController implements Initializable {
 
     @FXML

@@ -1,5 +1,10 @@
 package game_elements;
 
+/**
+ *
+ * @author oliver
+ * co-author: michael
+ */
 public abstract class Tree {
 
     private final int MAX_TREEHEALTH = 12;

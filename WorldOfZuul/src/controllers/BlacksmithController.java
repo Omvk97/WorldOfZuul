@@ -19,6 +19,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ *
+ * @author steffen
+ */
 public class BlacksmithController implements Initializable {
 
     @FXML

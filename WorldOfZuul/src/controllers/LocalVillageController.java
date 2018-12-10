@@ -5,14 +5,9 @@ import game_functionality.CommandWord;
 import game_functionality.Game;
 import game_functionality.Player;
 import game_locations.LocalVillage;
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,6 +20,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+/**
+ *
+ * @author michael
+ */
 public class LocalVillageController implements Initializable {
 
     @FXML
