@@ -16,7 +16,7 @@ import javafx.stage.WindowEvent;
 public class WorldOfZuul extends Application {
 
     private Scene scene;
-//    private final HighScoreGraphics highScoreGraphics = new HighScoreGraphics();
+    private final HighScoreGraphics highScoreGraphics = new HighScoreGraphics();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -30,7 +30,7 @@ public class WorldOfZuul extends Application {
         stage.setScene(scene);
         stage.show();
         stage.setOnCloseRequest((WindowEvent event) -> {
-//            highScoreGraphics.closeGame();
+            highScoreGraphics.closeGame();
         });
     }
 

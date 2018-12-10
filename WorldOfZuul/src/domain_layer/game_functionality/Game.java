@@ -29,7 +29,7 @@ public class Game {
     private final Room blacksmith = new BlackSmith();
     private final Room library = new Library();
     private String transitionDirection = "noDirection";
-//    private final HighScore highScoreData = new HighScore();
+    private final HighScore highScoreData = new HighScore();
     
 
     private Game() {
@@ -125,7 +125,7 @@ public class Game {
         this.transitionDirection = direction;
     }
 
-//    public HighScore getHighScoreData() {
-//        return highScoreData;
-//    }
+    public HighScore getHighScoreData() {
+        return highScoreData;
+    }
 }

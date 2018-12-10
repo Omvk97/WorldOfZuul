@@ -4,7 +4,6 @@ import domain_layer.game_elements.Radio;
 import domain_layer.game_elements.Axe;
 import domain_layer.game_elements.AxeFactory;
 import domain_layer.game_elements.Tree;
-import view_layer.controllers.HighScoreGraphics;
 import domain_layer.game_functionality.Player;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +26,6 @@ public class Trailer extends Room {
     private Axe starterAxe = AxeFactory.createStarterAxe();
     private final Radio radio = new Radio();
     private SimpleIntegerProperty numOfDaysGoneBy = new SimpleIntegerProperty();
-    private final HighScoreGraphics highScoreGraphics = new HighScoreGraphics();
 
     public Trailer() {
         this.logsInStorage = new ArrayList<>();
@@ -72,7 +70,6 @@ public class Trailer extends Room {
         return numOfDaysGoneBy.getValue();
     }
 
-    @Override
     public String option1(Player humanPlayer) {
         if (humanPlayer.getBackPack().getAmountOfLogsInBackPack() == 0) {
             return "You are not carrying any logs!";
@@ -105,7 +102,6 @@ public class Trailer extends Room {
         }
     }
 
-    @Override
     public String option2(Player humanPlayer) {
         if (humanPlayer.getMoneyValue() == 0) {
             return "Your wallet is empty! What a shame!";
@@ -117,8 +113,8 @@ public class Trailer extends Room {
     /**
      * @param humanPlayer the user.
      */
-    @Override
     public String option3(Player humanPlayer) {
+        numOfDaysGoneBy.setValue(numOfDaysGoneBy.getValue() + 1);
         Random globalOrLocal = new Random();
         if (globalOrLocal.nextBoolean()) {
             return radio.globalNews(humanPlayer);
@@ -132,7 +128,6 @@ public class Trailer extends Room {
      *
      * @param humanPlayer user that picks up the starter axe
      */
-    @Override
     public String option4(Player humanPlayer) {
         if (starterAxe != null) {
             humanPlayer.boughtAxe(starterAxe);
@@ -143,35 +138,35 @@ public class Trailer extends Room {
         }
     }
 
-    public int givePlayerFine(Player humanPlayer) {
-        Boolean correctAnswer = true;
-        Scanner questionAnswer = new Scanner(System.in);
-        String questionOne = "How many million hectare forest area disappear each year?";
-        String questionTwo = "How many million hectare forest area does FSC cover over?";
-        String questionThree = "How many million hectare forest area does PEFC cover over?";
-        System.out.println("You didn't replant all the trees in the ceritifed forest!\n"
-            + "Here is a chance to redeem yourself");
-        int randomNum = (int) (Math.random() * 3) + 1;
-        switch (randomNum) {
-            case 1:
-                System.out.println(questionOne);
-                correctAnswer = answerValidation(questionAnswer.nextLine(), "7");
-                break;
-            case 2:
-                System.out.println(questionTwo);
-                correctAnswer = answerValidation(questionAnswer.nextLine(), "200");
-                break;
-            case 3:
-                System.out.println(questionThree);
-                correctAnswer = answerValidation(questionAnswer.nextLine(), "300");
-                break;
-        }
-        if (!correctAnswer) {
-            System.out.println("WRONG, study in the library!");
-            return (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
-        }
-        return (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
-    }
+//    public int givePlayerFine(Player humanPlayer) {
+//        Boolean correctAnswer = true;
+//        Scanner questionAnswer = new Scanner(System.in);
+//        String questionOne = "How many million hectare forest area disappear each year?";
+//        String questionTwo = "How many million hectare forest area does FSC cover over?";
+//        String questionThree = "How many million hectare forest area does PEFC cover over?";
+//        System.out.println("You didn't replant all the trees in the ceritifed forest!\n"
+//            + "Here is a chance to redeem yourself");
+//        int randomNum = (int) (Math.random() * 3) + 1;
+//        switch (randomNum) {
+//            case 1:
+//                System.out.println(questionOne);
+//                correctAnswer = answerValidation(questionAnswer.nextLine(), "7");
+//                break;
+//            case 2:
+//                System.out.println(questionTwo);
+//                correctAnswer = answerValidation(questionAnswer.nextLine(), "200");
+//                break;
+//            case 3:
+//                System.out.println(questionThree);
+//                correctAnswer = answerValidation(questionAnswer.nextLine(), "300");
+//                break;
+//        }
+//        if (!correctAnswer) {
+//            System.out.println("WRONG, study in the library!");
+//            return (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
+//        }
+//        return (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
+//    }
 
     public boolean answerValidation(String userAnswer, String correctAnswer) {
         if (userAnswer.contains(correctAnswer)) {

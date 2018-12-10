@@ -68,29 +68,29 @@ public class Player {
         if (!characterGoingRight) {
             if (equippedAxe == null) {
                 characterModel = baseModelFile;
-            } else if (equippedAxe.getDescription().equals("Starter Axe")) {
+            } else if (equippedAxe.getDescription().equals("starter axe")) {
                 characterModel = modelStarterAxeFile;
-            } else if (equippedAxe.getDescription().equals("Iron Axe")) {
+            } else if (equippedAxe.getDescription().equals("iron axe")) {
                 characterModel = modelIronAxeFile;
-            } else if (equippedAxe.getDescription().equals("Steel Axe")) {
+            } else if (equippedAxe.getDescription().equals("steel axe")) {
                 characterModel = modelSteelAxeFile;
-            } else if (equippedAxe.getDescription().equals("Diamond Axe")) {
+            } else if (equippedAxe.getDescription().equals("diamond axe")) {
                 characterModel = modelDiamondAxeFile;
-            } else if (equippedAxe.getDescription().equals("Fire Axe")) {
+            } else if (equippedAxe.getDescription().equals("fire axe")) {
                 characterModel = modelFireAxeFile;
             }
         } else {
             if (equippedAxe == null) {
                 characterModel = baseModelRightFile;
-            } else if (equippedAxe.getDescription().equals("Starter Axe")) {
+            } else if (equippedAxe.getDescription().equals("starter axe")) {
                 characterModel = modelStarterAxeRightFile;
-            } else if (equippedAxe.getDescription().equals("Iron Axe")) {
+            } else if (equippedAxe.getDescription().equals("iron axe")) {
                 characterModel = modelIronAxeRightFile;
-            } else if (equippedAxe.getDescription().equals("Steel Axe")) {
+            } else if (equippedAxe.getDescription().equals("steel axe")) {
                 characterModel = modelSteelAxeRightFile;
-            } else if (equippedAxe.getDescription().equals("Diamond Axe")) {
+            } else if (equippedAxe.getDescription().equals("diamond axe")) {
                 characterModel = modelDiamondAxeRightFile;
-            } else if (equippedAxe.getDescription().equals("Fire Axe")) {
+            } else if (equippedAxe.getDescription().equals("fire axe")) {
                 characterModel = modelFireAxeRightFile;
             }
         }

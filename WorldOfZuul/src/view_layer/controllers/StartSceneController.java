@@ -23,7 +23,6 @@ public class StartSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("WHAT");
     }
 
     @FXML

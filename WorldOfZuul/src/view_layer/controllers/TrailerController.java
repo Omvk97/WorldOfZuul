@@ -27,8 +27,7 @@ import javafx.util.Duration;
 
 /**
  *
- * @author daniel
- * co-author oliver
+ * @author daniel co-author oliver
  */
 public class TrailerController implements Initializable {
 
@@ -62,12 +61,17 @@ public class TrailerController implements Initializable {
                     break;
             }
         }
-        textArea.setText(gameTrailer.roomEntrance(humanPlayer));
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         option4.setImage(new Image(new File("src/pictures/starterAxe.png").toURI().toString()));
         if (humanPlayer.isAxePickedUp()) {
             anchorPane.getChildren().remove(option4);
         }
+        if (trailerPath.isVisible()) {
+            textArea.setText("You stand at a crossroad, you can go north, west, south or east.");
+        } else {
+            textArea.setText(gameTrailer.roomEntrance(humanPlayer));
+        }
+
     }
 
     private void goDownTransition() {
@@ -114,117 +118,128 @@ public class TrailerController implements Initializable {
 
     @FXML
     private void handleOption1(MouseEvent event) {
-        textArea.setText(gameTrailer.option1(humanPlayer));
+        if (!trailerPath.isVisible()) {
+            textArea.setText(gameTrailer.option1(humanPlayer));
+        } else {
+            textArea.setText("What?");
+        }
     }
 
     @FXML
     private void handleOption2(MouseEvent event) {
-        textArea.setText(gameTrailer.option2(humanPlayer));
+        if (!trailerPath.isVisible()) {
+            textArea.setText(gameTrailer.option2(humanPlayer));
+        } else {
+            textArea.setText("What?");
+        }
     }
 
     @FXML
     private void handleOption3(MouseEvent event) {
-        if (!running) {
-            running = true;
-            textArea.setText(gameTrailer.option3(humanPlayer));
-            FadeTransition sleep = new FadeTransition(Duration.seconds(3), anchorPane);
-            sleep.setFromValue(1);
-            sleep.setToValue(0.1);
-            sleep.setCycleCount(2);
-            sleep.setAutoReverse(true);
-            sleep.play();
-            sleep.setOnFinished((ActionEvent e) -> {
-                running = false;
-                if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
-                    String questionOne = "How many million hectare forest area disappear each year?";
-                    String questionTwo = "How many million hectare forest area does FSC cover over?";
-                    String questionThree = "How many million hectare forest area does PEFC cover over?";
-                    int randomNum = (int) (Math.random() * 3) + 1;
+        if (!trailerPath.isVisible()) {
+            if (!running) {
+                running = true;
+                textArea.setText(gameTrailer.option3(humanPlayer));
+                FadeTransition sleep = new FadeTransition(Duration.seconds(3), anchorPane);
+                sleep.setFromValue(1);
+                sleep.setToValue(0.1);
+                sleep.setCycleCount(2);
+                sleep.setAutoReverse(true);
+                sleep.play();
+                sleep.setOnFinished((ActionEvent e) -> {
+                    running = false;
+                    if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
+                        String questionOne = "How many million hectare forest area disappear each year?";
+                        String questionTwo = "How many million hectare forest area does FSC cover over?";
+                        String questionThree = "How many million hectare forest area does PEFC cover over?";
+                        int randomNum = (int) (Math.random() * 3) + 1;
 
-                    TextField tester = new TextField();
-                    tester.setAlignment(Pos.CENTER);
-                    tester.setLayoutX(160);
-                    tester.setLayoutY(240);
+                        TextField tester = new TextField();
+                        tester.setAlignment(Pos.CENTER);
+                        tester.setLayoutX(160);
+                        tester.setLayoutY(240);
 
-                    Label fineLabel = new Label("You didn't replant all the trees in the certified forest!\n"
-                        + "Here's a chance to redeem yourself");
-                    fineLabel.setAlignment(Pos.CENTER);
-                    fineLabel.setLayoutX(160);
-                    fineLabel.setLayoutY(170);
+                        Label fineLabel = new Label("You didn't replant all the trees in the certified forest!\n"
+                            + "Here's a chance to redeem yourself");
+                        fineLabel.setAlignment(Pos.CENTER);
+                        fineLabel.setLayoutX(160);
+                        fineLabel.setLayoutY(170);
 
-                    Button hello = new Button("Ok");
-                    hello.setLayoutX(270);
-                    hello.setLayoutY(240);
+                        Button hello = new Button("Ok");
+                        hello.setLayoutX(270);
+                        hello.setLayoutY(240);
 
-                    Button endButton = new Button("Ok");
-                    endButton.setLayoutX(270);
-                    endButton.setLayoutY(240);
+                        Button endButton = new Button("Ok");
+                        endButton.setLayoutX(270);
+                        endButton.setLayoutY(240);
 
-                    ImageView fineScroll = new ImageView(new Image(new File("src/pictures/fine.png").toURI().toString()));
-                    fineScroll.setLayoutX(anchorPane.getWidth() / 4);
-                    fineScroll.setLayoutY(anchorPane.getHeight() / 4);
-                    anchorPane.getChildren().addAll(fineScroll, fineLabel, hello);
-                    hello.setOnAction((ActionEvent event1) -> {
-                        switch (randomNum) {
-                            case 1:
-                                fineLabel.setText(questionOne);
-                                anchorPane.getChildren().remove(hello);
-                                anchorPane.getChildren().add(tester);
-                                break;
-                            case 2:
-                                fineLabel.setText(questionTwo);
-                                anchorPane.getChildren().remove(hello);
-                                anchorPane.getChildren().add(tester);
-                                break;
-                            case 3:
-                                fineLabel.setText(questionThree);
-                                anchorPane.getChildren().remove(hello);
-                                anchorPane.getChildren().add(tester);
-                                break;
-                            default:
-                                System.out.println("error");
-                                break;
-                        }
-                    });
-                    tester.setOnAction((ActionEvent event1) -> {
-                        Boolean correctAnswer = true;
-                        switch (randomNum) {
-                            case 1:
-                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "7");
-                                break;
-                            case 2:
-                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "200");
-                                break;
-                            case 3:
-                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "300");
-                                break;
-                            default:
-                                break;
-                        }
-                        if (!correctAnswer) {
-                            fineLabel.setText("WRONG, study in the library!\n"
-                                + "We also need you to cover the cost of planting the trees that you forgot!\n"
-                                + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
-                            anchorPane.getChildren().remove(tester);
-                            anchorPane.getChildren().add(endButton);
-                            humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
-                        } else {
-                            fineLabel.setText("Correct! Your fine has been cut in half! We also need you\n"
-                                + "to cover the cost of planting the trees that you forgot!\n"
-                                + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
-                            anchorPane.getChildren().remove(tester);
-                            anchorPane.getChildren().add(endButton);
-                            humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
-                        }
-                        System.out.println(tester.getText());
-                        tester.clear();
-                    });
+                        ImageView fineScroll = new ImageView(new Image(new File("src/pictures/fine.png").toURI().toString()));
+                        fineScroll.setLayoutX(anchorPane.getWidth() / 4);
+                        fineScroll.setLayoutY(anchorPane.getHeight() / 4);
+                        anchorPane.getChildren().addAll(fineScroll, fineLabel, hello);
+                        hello.setOnAction((ActionEvent event1) -> {
+                            switch (randomNum) {
+                                case 1:
+                                    fineLabel.setText(questionOne);
+                                    anchorPane.getChildren().remove(hello);
+                                    anchorPane.getChildren().add(tester);
+                                    break;
+                                case 2:
+                                    fineLabel.setText(questionTwo);
+                                    anchorPane.getChildren().remove(hello);
+                                    anchorPane.getChildren().add(tester);
+                                    break;
+                                case 3:
+                                    fineLabel.setText(questionThree);
+                                    anchorPane.getChildren().remove(hello);
+                                    anchorPane.getChildren().add(tester);
+                                    break;
+                                default:
+                                    System.out.println("error");
+                                    break;
+                            }
+                        });
+                        tester.setOnAction((ActionEvent event1) -> {
+                            Boolean correctAnswer = true;
+                            switch (randomNum) {
+                                case 1:
+                                    correctAnswer = gameTrailer.answerValidation(tester.getText(), "7");
+                                    break;
+                                case 2:
+                                    correctAnswer = gameTrailer.answerValidation(tester.getText(), "200");
+                                    break;
+                                case 3:
+                                    correctAnswer = gameTrailer.answerValidation(tester.getText(), "300");
+                                    break;
+                                default:
+                                    break;
+                            }
+                            if (!correctAnswer) {
+                                fineLabel.setText("WRONG, study in the library!\n"
+                                    + "We also need you to cover the cost of planting the trees that you forgot!\n"
+                                    + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
+                                anchorPane.getChildren().remove(tester);
+                                anchorPane.getChildren().add(endButton);
+                                humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
+                            } else {
+                                fineLabel.setText("Correct! Your fine has been cut in half! We also need you\n"
+                                    + "to cover the cost of planting the trees that you forgot!\n"
+                                    + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
+                                anchorPane.getChildren().remove(tester);
+                                anchorPane.getChildren().add(endButton);
+                                humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
+                            }
+                            tester.clear();
+                        });
 
-                    endButton.setOnAction((ActionEvent event1) -> {
-                        anchorPane.getChildren().removeAll(endButton, fineScroll, fineLabel);
-                    });
-                }
-            });
+                        endButton.setOnAction((ActionEvent event1) -> {
+                            anchorPane.getChildren().removeAll(endButton, fineScroll, fineLabel);
+                        });
+                    }
+                });
+            }
+        } else {
+            textArea.setText("What?");
         }
     }
 
@@ -281,6 +296,7 @@ public class TrailerController implements Initializable {
                     upFade.setOnFinished((ActionEvent) -> {
                         running = false;
                         trailerPath.setVisible(false);
+                        textArea.setText(gameTrailer.roomEntrance(humanPlayer));
                     });
                     upFade.play();
                     break;

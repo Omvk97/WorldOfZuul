@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -31,9 +32,17 @@ public class NonCertifiedController extends ForestController implements Initiali
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        running = true;
         TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
         up.setFromY(170);
         up.setByY(-170);
+        up.setOnFinished(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                running = false;
+            }
+        });
         up.play();
         textArea.setText(gameForest.roomEntrance(humanPlayer));
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
@@ -51,6 +60,7 @@ public class NonCertifiedController extends ForestController implements Initiali
                 System.exit(0);
             }
             if (gameForest.playerCanCarryMoreTree(humanPlayer) && gameForest.thereIsMoreTreesToCut()) {
+                running = true;
                 if (gameForest.lastTreeInArray().getTreeHealth() >= gameForest.getLARGE_TREE_SIZE()) {
                     int number = gameForest.countNumOfHits(humanPlayer);
                     treeAnimationToLargeTree(number, gameForest.countLargeTrees(), gameForest);
@@ -73,7 +83,6 @@ public class NonCertifiedController extends ForestController implements Initiali
     }
 
     private void treeAnimationToMediumTree(int numOfHits, int treeCount) {
-        running = true;
         if (humanPlayer.playerHasAnAxe()) {
             for (int i = 0; i < numOfHits; i++) {
                 sounds.add(chopSound);
@@ -123,15 +132,17 @@ public class NonCertifiedController extends ForestController implements Initiali
 
     @FXML
     private void handleExits(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
-            Game.getInstanceOfSelf().setDirection("goDown");
-            Command tester = new Command(CommandWord.GO, "trailer");
-            TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
-            down.setByY(170);
-            down.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
-            down.play();
-        } else {
-            textArea.setText("There is no road!");
+        if (!running) {
+            if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+                Game.getInstanceOfSelf().setDirection("goDown");
+                Command tester = new Command(CommandWord.GO, "trailer");
+                TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
+                down.setByY(170);
+                down.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
+                down.play();
+            } else {
+                textArea.setText("There is no road!");
+            }
         }
     }
 

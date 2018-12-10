@@ -68,16 +68,6 @@ public class LocalVillageController implements Initializable {
 //    }
 
     @FXML
-    private void handleOption1(MouseEvent event) {
-        textArea.setText(gameVillage.option1(humanPlayer));
-    }
-
-    @FXML
-    private void handleOption2(MouseEvent event) {
-        textArea.setText(gameVillage.option2(humanPlayer));
-    }
-
-    @FXML
     private void handleBackBtn(MouseEvent event) {
         backBtn.setDisable(true);
         textArea.setVisible(false);

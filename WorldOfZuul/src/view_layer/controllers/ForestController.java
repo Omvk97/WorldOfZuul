@@ -9,6 +9,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -44,7 +45,6 @@ abstract public class ForestController {
     protected final HighScoreGraphics highScoreGraphics = new HighScoreGraphics();
 
     protected void treeAnimationToLargeTree(int numOfHits, int treeCount, Forest gameForest) {
-        running = true;
         if (humanPlayer.playerHasAnAxe()) {
             for (int i = 0; i < numOfHits; i++) {
                 sounds.add(chopSound);
@@ -102,8 +102,8 @@ abstract public class ForestController {
 
     protected void treeFelledConfirmation() {
         if (humanPlayer.playerHasAnAxe()) {
-            textArea.setText("You have chopped down a tree with your" + 
-                humanPlayer.getAxe().getDescription() + "!");
+            textArea.setText("You have chopped down a tree with your "
+                + humanPlayer.getAxe().getDescription() + "!");
             double axeDurability = humanPlayer.useAxe();
             if (axeDurability == 0.5) {
                 textArea.setText("Your axe is at half durability!");
