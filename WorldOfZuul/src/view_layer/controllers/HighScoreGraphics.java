@@ -1,6 +1,7 @@
 package view_layer.controllers;
 
 import data_access_layer.HighScore;
+import domain_layer.game_functionality.Game;
 import java.util.Optional;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -18,7 +19,7 @@ import javafx.stage.StageStyle;
  * @author oliver
  */
 public class HighScoreGraphics {
-    private final HighScore highScore = new HighScore();
+    private final HighScore highScore = Game.getInstanceOfSelf().getHighScoreData();
     
     public void closeGame() {
         Dialog nameDialog = new Dialog();

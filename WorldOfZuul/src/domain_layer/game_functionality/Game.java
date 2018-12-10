@@ -1,5 +1,6 @@
 package domain_layer.game_functionality;
 
+import data_access_layer.HighScore;
 import domain_layer.game_locations.BlackSmith;
 import domain_layer.game_locations.Forest;
 import domain_layer.game_locations.Trailer;
@@ -26,8 +27,10 @@ public class Game {
     private final Room store = new Store();
     private final Room blacksmith = new BlackSmith();
     private final Room library = new Library();
-    private String direction = "noDirection";
+    private String transitionDirection = "noDirection";
+    private final HighScore highScoreData = new HighScore();
     private static final Game instance = new Game();
+    
 
     private Game() {
         setExitsForRooms();
@@ -115,10 +118,14 @@ public class Game {
     }
 
     public String getDirection() {
-        return direction;
+        return transitionDirection;
     }
 
     public void setDirection(String direction) {
-        this.direction = direction;
+        this.transitionDirection = direction;
+    }
+
+    public HighScore getHighScoreData() {
+        return highScoreData;
     }
 }
