@@ -10,8 +10,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -40,7 +42,6 @@ public class TrailerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        trailerPath.setVisible(false);
         player.setVisible(false);
         if (!running) {
             switch (Game.getInstanceOfSelf().getDirection()) {
@@ -60,91 +61,51 @@ public class TrailerController implements Initializable {
         }
         textArea.setText(gameTrailer.roomEntrance(humanPlayer));
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        option4.setImage(new Image(new File("src/pictures/starterAxe.png").toURI().toString()));
         if (humanPlayer.isAxePickedUp()) {
             anchorPane.getChildren().remove(option4);
         }
     }
 
     private void goDownTransition() {
+        option4.setVisible(false);
         running = true;
         player.setVisible(true);
         trailerPath.setVisible(true);
-        textArea.setVisible(false);
         TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
         player.setLayoutY(0);
         down.setByY(170);
         down.setOnFinished((ActionEvent) -> {
-            player.setVisible(false);
-        });
-
-        FadeTransition downFade = new FadeTransition(Duration.seconds(1.5), trailerPath);
-        downFade.setFromValue(1);
-        downFade.setToValue(0);
-        downFade.setOnFinished((ActionEvent) -> {
-            textArea.setVisible(true);
-        });
-
-        SequentialTransition downSequentialTransition = new SequentialTransition(down, downFade);
-        downSequentialTransition.setOnFinished((ActionEvent e) -> {
             running = false;
-            player.setVisible(false);
         });
-        downSequentialTransition.play();
+        down.play();
     }
 
     private void goLeftTransition() {
         running = true;
         player.setVisible(true);
         trailerPath.setVisible(true);
-        textArea.setVisible(false);
         TranslateTransition left = new TranslateTransition(Duration.seconds(1.5), player);
         player.setLayoutX(2 * player.getLayoutX() - 70);
         left.setByX(-206);
         left.setOnFinished((ActionEvent) -> {
-            player.setVisible(false);
-        });
-
-        FadeTransition leftFade = new FadeTransition(Duration.seconds(1.5), trailerPath);
-        leftFade.setFromValue(1);
-        leftFade.setToValue(0);
-        leftFade.setOnFinished((ActionEvent) -> {
-            textArea.setVisible(true);
-        });
-
-        SequentialTransition leftSequentialTransition = new SequentialTransition(left, leftFade);
-
-        leftSequentialTransition.setOnFinished((ActionEvent e) -> {
             running = false;
-            player.setVisible(false);
         });
-        leftSequentialTransition.play();
+        left.play();
     }
 
     private void goUpTransition() {
         running = true;
         player.setVisible(true);
         trailerPath.setVisible(true);
-        textArea.setVisible(false);
         TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
         player.setLayoutY(player.getLayoutY() * 2);
         up.setByY(-170);
         up.setOnFinished((ActionEvent) -> {
-            player.setVisible(false);
-        });
-
-        FadeTransition upFade = new FadeTransition(Duration.seconds(1.5), trailerPath);
-        upFade.setFromValue(1);
-        upFade.setToValue(0);
-        upFade.setOnFinished((ActionEvent) -> {
-            textArea.setVisible(true);
-        });
-
-        SequentialTransition upSequentialTransition = new SequentialTransition(up, upFade);
-        upSequentialTransition.setOnFinished((ActionEvent e) -> {
             running = false;
-            player.setVisible(false);
         });
-        upSequentialTransition.play();
+
+        up.play();
     }
 
     @FXML
@@ -182,7 +143,7 @@ public class TrailerController implements Initializable {
                     tester.setLayoutY(240);
 
                     Label fineLabel = new Label("You didn't replant all the trees in the certified forest!\n"
-                            + "Here's a chance to redeem yourself");
+                        + "Here's a chance to redeem yourself");
                     fineLabel.setAlignment(Pos.CENTER);
                     fineLabel.setLayoutX(160);
                     fineLabel.setLayoutY(170);
@@ -238,15 +199,15 @@ public class TrailerController implements Initializable {
                         }
                         if (!correctAnswer) {
                             fineLabel.setText("WRONG, study in the library!\n"
-                                    + "We also need you to cover the cost of planting the trees that you forgot!\n"
-                                    + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
+                                + "We also need you to cover the cost of planting the trees that you forgot!\n"
+                                + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
                             anchorPane.getChildren().remove(tester);
                             anchorPane.getChildren().add(endButton);
                             humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
                         } else {
                             fineLabel.setText("Correct! Your fine has been cut in half! We also need you\n"
-                                    + "to cover the cost of planting the trees that you forgot!\n"
-                                    + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
+                                + "to cover the cost of planting the trees that you forgot!\n"
+                                + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
                             anchorPane.getChildren().remove(tester);
                             anchorPane.getChildren().add(endButton);
                             humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
@@ -264,30 +225,12 @@ public class TrailerController implements Initializable {
     }
 
     @FXML
-    private void handleOption4(MouseEvent event
-    ) {
-        if (!running) {
-            running = true;
-            TranslateTransition transition = new TranslateTransition(Duration.seconds(0.2), player);
-            transition.setByX(-231);
-
-            transition.setOnFinished((ActionEvent event1) -> {
-                textArea.setText(gameTrailer.option4(humanPlayer));
-                humanPlayer.setCharacterModel(false);
-                anchorPane.getChildren().remove(option4);
-                player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
-            });
-
-            TranslateTransition transition2 = new TranslateTransition(Duration.seconds(1.5), player);
-            transition2.setByX(231);
-
-            SequentialTransition axeTransition = new SequentialTransition(transition, transition2);
-            axeTransition.play();
-            axeTransition.setOnFinished((ActionEvent e) -> {
-                running = false;
-                humanPlayer.setAxePickedUp(true);
-            });
-        }
+    private void handleOption4(MouseEvent event) {
+        textArea.setText(gameTrailer.option4(humanPlayer));
+        humanPlayer.setCharacterModel(false);
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        anchorPane.getChildren().remove(option4);
+        humanPlayer.setAxePickedUp(true);
     }
 
     @FXML
@@ -297,76 +240,59 @@ public class TrailerController implements Initializable {
                 case UP:
                 case W: {
                     running = true;
-                    textArea.setVisible(false);
                     Command tester = new Command(CommandWord.GO, "north");
                     Game.getInstanceOfSelf().setDirection("goUp");
                     TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
                     up.setByY(-170);
-
-                    FadeTransition upFadeTransition = new FadeTransition(Duration.seconds(1.5), trailerPath);
-                    trailerPath.setVisible(true);
-                    upFadeTransition.setFromValue(0);
-                    upFadeTransition.setToValue(1);
-                    upFadeTransition.setOnFinished((ActionEvent e) -> {
-                        player.setVisible(true);
-                    });
-
-                    SequentialTransition upSequentialTransition = new SequentialTransition(upFadeTransition, up);
-                    upSequentialTransition.setOnFinished((ActionEvent e) -> {
+                    up.setOnFinished((ActionEvent event1) -> {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                         running = false;
                     });
-                    upSequentialTransition.play();
+                    walkTransition(up);
                     break;
                 }
+
                 case DOWN:
                 case S: {
                     running = true;
-                    textArea.setVisible(false);
                     Command tester = new Command(CommandWord.GO, "south");
                     Game.getInstanceOfSelf().setDirection("goDown");
                     TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
                     down.setByY(170);
-
-                    FadeTransition downFadeTransition = new FadeTransition(Duration.seconds(1.5), trailerPath);
-                    trailerPath.setVisible(true);
-                    downFadeTransition.setFromValue(0);
-                    downFadeTransition.setToValue(1);
-                    downFadeTransition.setOnFinished((ActionEvent e) -> {
-                        player.setVisible(true);
-                    });
-
-                    SequentialTransition downSequentialTransition = new SequentialTransition(downFadeTransition, down);
-                    downSequentialTransition.setOnFinished((ActionEvent e) -> {
+                    down.setOnFinished((ActionEvent event1) -> {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                         running = false;
                     });
-                    downSequentialTransition.play();
+                    walkTransition(down);
+                    break;
+                }
+                case LEFT:
+                case A: {
+                    running = true;
+                    player.setVisible(false);
+                    option4.setVisible(true);
+                    FadeTransition upFade = new FadeTransition(Duration.seconds(1.5), trailerPath);
+                    upFade.setFromValue(1);
+                    upFade.setToValue(0);
+                    upFade.setOnFinished((ActionEvent) -> {
+                        running = false;
+                        trailerPath.setVisible(false);
+                    });
+                    upFade.play();
                     break;
                 }
                 case RIGHT:
                 case D: {
                     running = true;
-                    textArea.setVisible(false);
                     Command tester = new Command(CommandWord.GO, "village");
                     Game.getInstanceOfSelf().setDirection("goRight");
                     TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
                     right.setByX(276);
-
-                    FadeTransition rightFadeTransition = new FadeTransition(Duration.seconds(1.5), trailerPath);
-                    trailerPath.setVisible(true);
-                    rightFadeTransition.setFromValue(0);
-                    rightFadeTransition.setToValue(1);
-                    rightFadeTransition.setOnFinished((ActionEvent e) -> {
-                        player.setVisible(true);
-                    });
-
-                    SequentialTransition rightSequentialTransition = new SequentialTransition(rightFadeTransition, right);
-                    rightSequentialTransition.setOnFinished((ActionEvent e) -> {
+                    right.setOnFinished((ActionEvent event1) -> {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                         running = false;
                     });
-                    rightSequentialTransition.play();
+                    walkTransition(right);
                     break;
                 }
                 default:
@@ -376,13 +302,31 @@ public class TrailerController implements Initializable {
         }
     }
 
+    private void walkTransition(Transition direction) {
+        option4.setVisible(false);
+        if (!trailerPath.isVisible()) {
+            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1.5), trailerPath);
+            trailerPath.setVisible(true);
+            fadeTransition.setFromValue(0);
+            fadeTransition.setToValue(1);
+            fadeTransition.setOnFinished((ActionEvent e) -> {
+                player.setVisible(true);
+                direction.play();
+            });
+            fadeTransition.play();
+        } else {
+            player.setVisible(true);
+            direction.play();
+        }
+    }
+
     @FXML
-    private void giveMoneyForTesting(MouseEvent event) {
+    private void giveMoneyForTesting(MouseEvent event
+    ) {
         if (devilCounter > 1) {
             humanPlayer.addMoney(9999);
             devilCounter = 0;
-        }
-        else{
+        } else {
             devilCounter += 1;
         }
     }
