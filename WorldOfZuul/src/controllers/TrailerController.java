@@ -9,11 +9,9 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
-import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -85,6 +83,7 @@ public class TrailerController implements Initializable {
         running = true;
         player.setVisible(true);
         trailerPath.setVisible(true);
+        option4.setVisible(false);
         TranslateTransition left = new TranslateTransition(Duration.seconds(1.5), player);
         player.setLayoutX(2 * player.getLayoutX() - 70);
         left.setByX(-206);
@@ -98,13 +97,13 @@ public class TrailerController implements Initializable {
         running = true;
         player.setVisible(true);
         trailerPath.setVisible(true);
+        option4.setVisible(false);
         TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
         player.setLayoutY(player.getLayoutY() * 2);
         up.setByY(-170);
         up.setOnFinished((ActionEvent) -> {
             running = false;
         });
-
         up.play();
     }
 
