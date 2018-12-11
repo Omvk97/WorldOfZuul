@@ -160,6 +160,7 @@ public class TrailerController implements Initializable {
                     confirmButton.setVisible(true);
                     fineScroll.setVisible(true);
                 }
+                humanPlayer.sleep(0);
             });
         }
     }
