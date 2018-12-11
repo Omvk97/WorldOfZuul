@@ -297,7 +297,6 @@ public class TrailerController implements Initializable {
         switch (randomNum) {
             case 1:
                 correctAnswer = gameTrailer.answerValidation(fineInput.getText(), "7");
-                
                 break;
             case 2:
                 correctAnswer = gameTrailer.answerValidation(fineInput.getText(), "200");
