@@ -30,6 +30,10 @@ import javafx.util.Duration;
  * @author michael
  */
 public class LocalVillageController implements Initializable {
+    
+    private static final int SLOW = 6;
+    private static final int MEDIUM = 4;
+    private static final int FAST = 2;
 
     @FXML
     private Label textArea;
@@ -56,31 +60,31 @@ public class LocalVillageController implements Initializable {
     private void choosingRainScenario() {
         switch (getClimateScenario()) {
             case -1:
-                rainDrops(50);
+                rainDrops(70, SLOW);
                 break;
             case -2:
-                rainDrops(100);
+                rainDrops(150, SLOW);
                 break;
             case -3:
-                rainDrops(150);
+                rainDrops(250, MEDIUM);
                 break;
             case -4:
-                rainDrops(200);
+                rainDrops(350, MEDIUM);
                 break;
             case -5:
-                rainDrops(250);
+                rainDrops(450, FAST);
                 break;
             default:
                 sun.setVisible(true);
         }
     }
 
-    private void rainDrops(int numOfRainDropsOnScreen) {
+    private void rainDrops(int numOfRainDropsOnScreen, int rainDropSpeed) {
         ImageView[] rainDrops = new ImageView[numOfRainDropsOnScreen];
         for (int i = 0; i < rainDrops.length; i++) {
             rainDrops[i] = new ImageView(new Image(new File("src/pictures/rain.png").toURI().toString()));
             anchorPane.getChildren().add(rainDrops[i]);
-            makeItRainBaby(rainDrops[i]);
+            makeItRain(rainDrops[i], rainDropSpeed);
         }
     }
 
@@ -94,21 +98,21 @@ public class LocalVillageController implements Initializable {
             return -3;
         } else if (climatePoints < -39 && climatePoints > -49) {
             return -4;
-        } else if (climatePoints < -49 && climatePoints > -59) {
+        } else if (climatePoints < -49) {
             return -5;
         }
         return 0;
     }
 
-    private void makeItRainBaby(ImageView rain) {
-        rain.setTranslateX((Math.random() * 600) + 1);
-        rain.setTranslateY((Math.random() * 400) + 1);
-        int timeToGoToBottom = (int) (400 - rain.getTranslateY()) * 18;
+    private void makeItRain(ImageView rain, int rainDropSpeed) {
+        rain.setTranslateX((Math.random() * 620) + 1);
+        rain.setTranslateY((Math.random() * 320) + 1);
+        int timeToGoToBottom = (int) (420 - rain.getTranslateY()) * rainDropSpeed;
         final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(timeToGoToBottom), new KeyValue(rain.translateYProperty(), 400)));
         timeline.setOnFinished((ActionEvent event) -> {
-            makeItRainBaby(rain);
+            makeItRain(rain, rainDropSpeed);
         });
         timeline.play();
     }

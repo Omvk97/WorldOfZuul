@@ -236,6 +236,7 @@ public class Player {
         equippedAxe.reduceDurability();
         if (equippedAxe.getDurability() == 0) {
             equippedAxe = null;
+            equippedAxeChange.setValue(equippedAxeChange.getValue() + 1);
             return true;
         }
         return false;

@@ -133,6 +133,7 @@ public class NonCertifiedController extends ForestController implements Initiali
     @FXML
     private void handleExits(KeyEvent event) {
         if (!running) {
+            running = true;
             if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
                 Game.getInstanceOfSelf().setDirection("goDown");
                 Command tester = new Command(CommandWord.GO, "trailer");

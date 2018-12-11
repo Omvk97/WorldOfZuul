@@ -36,9 +36,7 @@ public class HudController implements Initializable {
         logsInStorage.setText(logsInStorageNum + (logsInStorageNum == 1 ? " Log" : " Logs"));
         int saplingsCarryingNum = humanPlayer.getSaplingsCarryingValue();
         saplingsCarrying.setText(saplingsCarryingNum + (saplingsCarryingNum == 1 ? " Sapling" : " Saplings"));
-        if (humanPlayer.playerHasAnAxe()) {
-            updateAxeHudImage();
-        }
+        updateAxeHudImage();
         addListenersToLabels();
     }
 
@@ -65,7 +63,7 @@ public class HudController implements Initializable {
             int saplingsCarryingNum = humanPlayer.getSaplingsCarryingValue();
             saplingsCarrying.setText(saplingsCarryingNum + (saplingsCarryingNum == 1 ? " Sapling" : " Saplings"));
         });
-        
+
         humanPlayer.getEquippedAxeChange().addListener(((observable, oldValue, newValue) -> {
             updateAxeHudImage();
         }));
@@ -79,24 +77,29 @@ public class HudController implements Initializable {
     }
 
     public void updateAxeHudImage() {
-        switch (humanPlayer.getEquippedAxe().getDescription()) {
-            case "iron axe":
-                playerWeapon.setImage(new Image(new File("src/pictures/ironAxe.png").toURI().toString()));
-                break;
-            case "steel axe":
-                playerWeapon.setImage(new Image(new File("src/pictures/steelAxe.png").toURI().toString()));
-                break;
-            case "diamond axe":
-                playerWeapon.setImage(new Image(new File("src/pictures/diamondAxe.png").toURI().toString()));
-                break;
-            case "fire axe":
-                playerWeapon.setImage(new Image(new File("src/pictures/fireAxe.png").toURI().toString()));
-                break;
-            default:
-                playerWeapon.setImage(new Image(new File("src/pictures/starterAxe.png").toURI().toString()));
-                break;
+        if (humanPlayer.playerHasAnAxe()) {
+            switch (humanPlayer.getEquippedAxe().getDescription()) {
+                case "iron axe":
+                    playerWeapon.setImage(new Image(new File("src/pictures/ironAxe.png").toURI().toString()));
+                    break;
+                case "steel axe":
+                    playerWeapon.setImage(new Image(new File("src/pictures/steelAxe.png").toURI().toString()));
+                    break;
+                case "diamond axe":
+                    playerWeapon.setImage(new Image(new File("src/pictures/diamondAxe.png").toURI().toString()));
+                    break;
+                case "fire axe":
+                    playerWeapon.setImage(new Image(new File("src/pictures/fireAxe.png").toURI().toString()));
+                    break;
+                default:
+                    playerWeapon.setImage(new Image(new File("src/pictures/starterAxe.png").toURI().toString()));
+                    break;
+            }
+            double durabilityProgress = humanPlayer.getAxeDurabilityPercentage();
+            durabilityBar.setProgress(durabilityProgress);
+        } else {
+            playerWeapon.setImage(new Image(new File("src/pictures/punchWeapon.png").toURI().toString()));
+            durabilityBar.setProgress(1);
         }
-        double durabilityProgress = humanPlayer.getAxeDurabilityPercentage();
-        durabilityBar.setProgress(durabilityProgress);
     }
 }

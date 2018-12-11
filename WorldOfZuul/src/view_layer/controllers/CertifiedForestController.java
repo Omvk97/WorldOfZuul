@@ -86,6 +86,7 @@ public class CertifiedForestController extends ForestController implements Initi
     @FXML
     private void handleExits(KeyEvent event) {
         if (!running) {
+            running = true;
             if (event.getCode().equals(KeyCode.UP) || event.getCode().equals(KeyCode.W)) {
                 running = true;
                 Game.getInstanceOfSelf().setDirection("goUp");
