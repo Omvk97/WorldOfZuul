@@ -24,9 +24,9 @@ public class NonCertifiedForest extends Forest {
 
     @Override
     public String roomEntrance(Player humanPlayer) {
-        if (humanPlayer.isHasSlept()) {
+        if (humanPlayer.isSlept()) {
             treeGrowth();
-            humanPlayer.setHasSlept(false);
+            humanPlayer.setSlept(false);
         }
         moveChoppableTreesUp();
         return "You are standing in a non certified forest! \n"

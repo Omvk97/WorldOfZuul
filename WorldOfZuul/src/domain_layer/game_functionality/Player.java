@@ -30,7 +30,7 @@ public class Player {
     private int numChoppedTreesWithoutPlantingSaplings;
     private final Trailer trailer;
     private Room previousRoom;
-    private boolean hasSlept;
+    private boolean slept;
     private String direction;
 
     private final File baseModelFile = new File("src/pictures/baseCharacter.png");
@@ -57,6 +57,7 @@ public class Player {
         this.trailer = trailer;
         this.previousRoom = trailer;
         characterModel = baseModelFile;
+        climatePoints.setValue(-10);
     }
 
     public File getCharacterModel() {
@@ -330,7 +331,7 @@ public class Player {
         money.setValue(money.getValue() - fineAmount);
         numChoppedTreesWithoutPlantingSaplings = 0;
         giftHasBeenGivenToday = false;
-        hasSlept = true;
+        slept = true;
     }
 
     public boolean isGiftHasBeenGivenToday() {
@@ -341,12 +342,12 @@ public class Player {
         giftHasBeenGivenToday = true;
     }
 
-    public boolean isHasSlept() {
-        return hasSlept;
+    public boolean isSlept() {
+        return slept;
     }
 
-    public void setHasSlept(boolean hasSlept) {
-        this.hasSlept = hasSlept;
+    public void setSlept(boolean slept) {
+        this.slept = slept;
     }
 
     public String getDirection() {

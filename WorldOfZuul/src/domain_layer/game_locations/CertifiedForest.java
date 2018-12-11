@@ -24,9 +24,9 @@ public class CertifiedForest extends Forest {
 
     @Override
     public String roomEntrance(Player humanPlayer) {
-        if (humanPlayer.isHasSlept()) {
+        if (humanPlayer.isSlept()) {
             treeGrowth();
-            humanPlayer.setHasSlept(false);
+            humanPlayer.setSlept(false);
             plantNewTrees(MAX_AMOUNTOFTREESINFOREST);
         }
         moveChoppableTreesUp();

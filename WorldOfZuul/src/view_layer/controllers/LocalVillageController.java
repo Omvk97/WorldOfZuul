@@ -9,6 +9,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import java.io.File;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,7 +38,7 @@ public class LocalVillageController implements Initializable {
     @FXML
     private Button backBtn;
     @FXML
-    private ImageView player, store, blacksmith, library;
+    private ImageView player, store, blacksmith, library, sun;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final LocalVillage gameVillage = (LocalVillage) Game.getInstanceOfSelf().getLocalVillage();
     private boolean running;
@@ -45,27 +50,70 @@ public class LocalVillageController implements Initializable {
         transition();
         textArea.setText(gameVillage.roomEntrance(humanPlayer));
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
-        
-//        ImageView[] rainDrops = new ImageView[1000];
-//        for (int i = 0; i < 1000; i++) {
-//            rainDrops[i] = new ImageView(new Image(new File("src/pictures/ice1_9.png").toURI().toString()));
-//            anchorPane.getChildren().add(rainDrops[i]);
-//            makeItRainBaby(rainDrops[i]);
-//        }
+        choosingRainScenario();
     }
 
-//    private void makeItRainBaby(ImageView rain) {
-//        rain.setTranslateX((Math.random() * 600) + 1);
-//        rain.setTranslateY((Math.random() * 400) + 1);
-//        int timeToGoToBottom = (int) (400 - rain.getTranslateY()) * 18;
-//        final Timeline timeline = new Timeline();
-//        timeline.setCycleCount(1);
-//        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(timeToGoToBottom), new KeyValue(rain.translateYProperty(), 400)));
-//        timeline.setOnFinished((ActionEvent event) -> {
-//            makeItRainBaby(rain);
-//        });
-//        timeline.play();
-//    }
+    private void choosingRainScenario() {
+        System.out.println(getClimateScenario());
+        switch (getClimateScenario()) {
+            case -1:
+                rainDrops(50);
+                break;
+            case -2:
+                rainDrops(100);
+                break;
+            case -3:
+                rainDrops(150);
+                break;
+            case -4:
+                rainDrops(200);
+                break;
+            case -5:
+                rainDrops(250);
+                break;
+            default:
+                sun.setVisible(true);
+        }
+    }
+
+    private void rainDrops(int numOfRainDropsOnScreen) {
+        ImageView[] rainDrops = new ImageView[numOfRainDropsOnScreen];
+        for (int i = 0; i < rainDrops.length; i++) {
+            rainDrops[i] = new ImageView(new Image(new File("src/pictures/rain.png").toURI().toString()));
+            anchorPane.getChildren().add(rainDrops[i]);
+            makeItRainBaby(rainDrops[i]);
+        }
+    }
+
+    private int getClimateScenario() {
+        System.out.println(humanPlayer.getClimatePointsValue());
+        int climatePoints = humanPlayer.getClimatePointsValue();
+        if (climatePoints < 0 && climatePoints > -19) {
+            return -1;
+        } else if (climatePoints < -19 && climatePoints > -29) {
+            return -2;
+        } else if (climatePoints < -29 && climatePoints > -39) {
+            return -3;
+        } else if (climatePoints < -39 && climatePoints > -49) {
+            return -4;
+        } else if (climatePoints < -49 && climatePoints > -59) {
+            return -5;
+        }
+        return 0;
+    }
+
+    private void makeItRainBaby(ImageView rain) {
+        rain.setTranslateX((Math.random() * 600) + 1);
+        rain.setTranslateY((Math.random() * 400) + 1);
+        int timeToGoToBottom = (int) (400 - rain.getTranslateY()) * 18;
+        final Timeline timeline = new Timeline();
+        timeline.setCycleCount(1);
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(timeToGoToBottom), new KeyValue(rain.translateYProperty(), 400)));
+        timeline.setOnFinished((ActionEvent event) -> {
+            makeItRainBaby(rain);
+        });
+        timeline.play();
+    }
 
     @FXML
     private void handleBackBtn(MouseEvent event) {
