@@ -28,15 +28,20 @@ import javafx.util.Duration;
 public class TrailerController implements Initializable {
 
     @FXML
-    private Label textArea;
+    private Label textArea, fineLabel;
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private ImageView player, option4, trailerPath;
+    private ImageView player, option4, trailerPath, fineScroll;
+    @FXML
+    private Button confirmButton, endButton;
+    @FXML
+    private TextField fineInput;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Trailer gameTrailer = Game.getInstanceOfSelf().getTrailer();
     private boolean running;
-    private int devilCounter = 0, days = 1;
+    private int devilCounter = 0, days = 1, randomNum;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -128,102 +133,21 @@ public class TrailerController implements Initializable {
             sleep.setCycleCount(2);
             sleep.setAutoReverse(true);
             sleep.play();
-            
+
             sleep.setOnFinished((ActionEvent e) -> {
                 running = false;
                 days++;
                 humanPlayer.getNumOfDaysgoneBy().set(days);
                 if (humanPlayer.getNumOfDaysLeft() < 0) {
                     gameTrailer.getHighScoreGraphics().closeGame();
-                    System.exit(0);
                 }
                 if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
-                    String questionOne = "How many million hectare forest area disappear each year?";
-                    String questionTwo = "How many million hectare forest area does FSC cover over?";
-                    String questionThree = "How many million hectare forest area does PEFC cover over?";
-                    int randomNum = (int) (Math.random() * 3) + 1;
 
-                    TextField fineInput = new TextField();
-                    fineInput.setAlignment(Pos.CENTER);
-                    fineInput.setLayoutX(160);
-                    fineInput.setLayoutY(240);
-
-                    Label fineLabel = new Label("You didn't replant all the trees in the certified forest!\n"
-                            + "Here's a chance to redeem yourself");
-                    fineLabel.setAlignment(Pos.CENTER);
-                    fineLabel.setLayoutX(160);
-                    fineLabel.setLayoutY(170);
-
-                    Button confirmButton = new Button("Ok");
-                    confirmButton.setLayoutX(270);
-                    confirmButton.setLayoutY(240);
-
-                    Button endButton = new Button("Ok");
-                    endButton.setLayoutX(270);
-                    endButton.setLayoutY(240);
-
-                    ImageView fineScroll = new ImageView(new Image(new File("src/pictures/fine.png").toURI().toString()));
-                    fineScroll.setLayoutX(anchorPane.getWidth() / 4);
-                    fineScroll.setLayoutY(anchorPane.getHeight() / 4);
-                    anchorPane.getChildren().addAll(fineScroll, fineLabel, confirmButton);
-                    confirmButton.setOnAction((ActionEvent event1) -> {
-                        switch (randomNum) {
-                            case 1:
-                                fineLabel.setText(questionOne);
-                                anchorPane.getChildren().remove(confirmButton);
-                                anchorPane.getChildren().add(fineInput);
-                                break;
-                            case 2:
-                                fineLabel.setText(questionTwo);
-                                anchorPane.getChildren().remove(confirmButton);
-                                anchorPane.getChildren().add(fineInput);
-                                break;
-                            case 3:
-                                fineLabel.setText(questionThree);
-                                anchorPane.getChildren().remove(confirmButton);
-                                anchorPane.getChildren().add(fineInput);
-                                break;
-                            default:
-                                System.out.println("error");
-                                break;
-                        }
-                    });
-                    fineInput.setOnAction((ActionEvent event1) -> {
-                        Boolean correctAnswer = true;
-                        switch (randomNum) {
-                            case 1:
-                                correctAnswer = gameTrailer.answerValidation(fineInput.getText(), "7");
-                                break;
-                            case 2:
-                                correctAnswer = gameTrailer.answerValidation(fineInput.getText(), "200");
-                                break;
-                            case 3:
-                                correctAnswer = gameTrailer.answerValidation(fineInput.getText(), "300");
-                                break;
-                            default:
-                                break;
-                        }
-                        if (!correctAnswer) {
-                            fineLabel.setText("WRONG, study in the library!\n"
-                                    + "We also need you to cover the cost of planting the trees that you forgot!\n"
-                                    + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
-                            anchorPane.getChildren().remove(fineInput);
-                            anchorPane.getChildren().add(endButton);
-                            humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
-                        } else {
-                            fineLabel.setText("Correct! Your fine has been cut in half! We also need you\n"
-                                    + "to cover the cost of planting the trees that you forgot!\n"
-                                    + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
-                            anchorPane.getChildren().remove(fineInput);
-                            anchorPane.getChildren().add(endButton);
-                            humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
-                        }
-                        fineInput.clear();
-                    });
-
-                    endButton.setOnAction((ActionEvent event1) -> {
-                        anchorPane.getChildren().removeAll(endButton, fineScroll, fineLabel);
-                    });
+                    fineLabel.setVisible(true);
+                    fineLabel.setText("You didn't replant all the trees in the certified forest!\n"
+                        + "Here's a chance to redeem yourself");
+                    confirmButton.setVisible(true);
+                    fineScroll.setVisible(true);
                 }
             });
         }
@@ -326,13 +250,84 @@ public class TrailerController implements Initializable {
     }
 
     @FXML
-    private void giveMoneyForTesting(MouseEvent event
-    ) {
+    private void giveMoneyForTesting(MouseEvent event) {
         if (devilCounter > 1) {
             humanPlayer.addMoney(9999);
             devilCounter = 0;
         } else {
             devilCounter += 1;
         }
+    }
+
+    @FXML
+    private void handleConfirmButton(ActionEvent event) {
+        
+    String questionOne = "How many million hectare forest area disappear each year?";
+    String questionTwo = "How many million hectare forest area does FSC cover over?";
+    String questionThree = "How many million hectare forest area does PEFC cover over?";
+
+        int randomNum = (int) (Math.random() * 3) + 1;
+        switch (randomNum) {
+            case 1:
+                fineLabel.setText(questionOne);
+                confirmButton.setVisible(false);
+                fineInput.setVisible(true);
+                this.randomNum = 1;
+                break;
+            case 2:
+                fineLabel.setText(questionTwo);
+                anchorPane.getChildren().remove(confirmButton);
+                fineInput.setVisible(true);
+                this.randomNum = 2;
+                break;
+            case 3:
+                fineLabel.setText(questionThree);
+                anchorPane.getChildren().remove(confirmButton);
+                fineInput.setVisible(true);
+                this.randomNum = 3;
+                break;
+            default:
+                break;
+        }
+    }
+
+    @FXML
+    private void handleFineInput(ActionEvent event) {
+        Boolean correctAnswer = true;
+        switch (randomNum) {
+            case 1:
+                correctAnswer = gameTrailer.answerValidation(fineInput.getText(), "7");
+                
+                break;
+            case 2:
+                correctAnswer = gameTrailer.answerValidation(fineInput.getText(), "200");
+                break;
+            case 3:
+                correctAnswer = gameTrailer.answerValidation(fineInput.getText(), "300");
+                break;
+            default:
+                break;
+        }
+        if (!correctAnswer) {
+            fineLabel.setText("WRONG, study in the library!\n"
+                + "We also need you to cover the cost of planting the trees that you forgot!\n"
+                + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
+            fineInput.setVisible(false);
+            endButton.setVisible(true);
+            humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
+        } else {
+            fineLabel.setText("Correct! Your fine has been cut in half! We also need you\n"
+                + "to cover the cost of planting the trees that you forgot!\n"
+                + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
+            fineInput.setVisible(false);
+            endButton.setVisible(true);
+            humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
+        }
+    }
+    @FXML
+    private void handleEndButton (ActionEvent event) {
+        fineScroll.setVisible(false);
+        endButton.setVisible(false);
+        fineLabel.setVisible(false);
     }
 }
