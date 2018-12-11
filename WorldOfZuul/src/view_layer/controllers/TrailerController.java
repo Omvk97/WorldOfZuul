@@ -149,7 +149,8 @@ public class TrailerController implements Initializable {
                 days++;
                 humanPlayer.getNumOfDaysgoneBy().set(days);
                 if (humanPlayer.getNumOfDaysLeft() < 0) {
-                    gameTrailer.getHighScoreGraphics().closeGame();
+                    HighScoreGraphics highScoreDisplay = new HighScoreGraphics();
+                    highScoreDisplay.closeGame();
                 }
                 if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
 

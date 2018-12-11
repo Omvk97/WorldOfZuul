@@ -26,7 +26,6 @@ public class Trailer extends Room {
     private Axe starterAxe = AxeFactory.createStarterAxe();
     private final Radio radio = new Radio();
     private SimpleIntegerProperty numOfDaysGoneBy = new SimpleIntegerProperty();
-    private final HighScoreGraphics highScoreGraphics = new HighScoreGraphics();
 
     public Trailer() {
         this.logsInStorage = new ArrayList<>();
@@ -149,10 +148,4 @@ public class Trailer extends Room {
         }
         return null;
     }
-
-    public HighScoreGraphics getHighScoreGraphics() {
-        return highScoreGraphics;
-    }
-    
-
 }
