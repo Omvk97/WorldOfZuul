@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="topMenu" layoutY="0.0" prefHeight="36.0" prefWidth="615.0" style="-fx-background-color: #eeeeee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view_layer.controllers.HudController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.8" minWidth="10.0" prefWidth="143.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="362.4" minWidth="1.6" prefWidth="120.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="469.2" minWidth="10.0" prefWidth="120.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="469.2" minWidth="10.0" prefWidth="120.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="469.2" minWidth="10.0" prefWidth="120.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="428.6" minWidth="10.0" prefWidth="120.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <Label fx:id="playerGold" prefHeight="17.0" prefWidth="52.0" styleClass="topMenu" text="0 Gold" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+            <GridPane.margin>
+                <Insets right="5.0" />
+            </GridPane.margin>
+        </Label>
+        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+            <image>
+                <Image url="file:src/pictures/playerMoney.png" />
+            </image>
+            <GridPane.margin>
+                <Insets left="5.0" />
+            </GridPane.margin>
+        </ImageView>
+        <Label fx:id="playerClimate" prefHeight="18.0" prefWidth="45.0" styleClass="topMenu" text="0 CP" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+            <GridPane.margin>
+                <Insets right="5.0" />
+            </GridPane.margin>
+        </Label>
+        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+            <image>
+                <Image url="file:src/pictures/climatePoints.png" />
+            </image>
+            <GridPane.margin>
+                <Insets left="5.0" />
+            </GridPane.margin>
+        </ImageView>
+        <ImageView fx:id="playerWeapon" fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" rotate="45.0">
+            <image>
+                <Image url="file:src/pictures/punchWeapon.png" />
+            </image>
+            <GridPane.margin>
+                <Insets left="5.0" />
+            </GridPane.margin>
+        </ImageView>
+        <Label fx:id="logsCarrying" prefHeight="17.0" prefWidth="42.0" styleClass="topMenu" text="0 Logs" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+            <GridPane.margin>
+                <Insets right="10.0" />
+            </GridPane.margin>
+        </Label>
+        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+            <image>
+                <Image url="file:src/pictures/logs.png" />
+            </image>
+            <GridPane.margin>
+                <Insets left="5.0" />
+            </GridPane.margin>
+        </ImageView>
+      <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+         <image>
+            <Image url="file:src/pictures/logsStored.png" />
+         </image>
+         <GridPane.margin>
+            <Insets left="5.0" />
+         </GridPane.margin>
+      </ImageView>
+      <Label fx:id="logsInStorage" prefHeight="17.0" prefWidth="42.0" styleClass="topMenu" text="0 Logs" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+      </Label>
+      <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+         <image>
+            <Image url="file:src/pictures/sapling.png" />
+         </image>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </ImageView>
+      <Label fx:id="saplingsCarrying" prefWidth="62.0" styleClass="topMenu" text="0 Saplings" GridPane.columnIndex="4" GridPane.halignment="RIGHT">
+         <GridPane.margin>
+            <Insets right="5.0" />
+         </GridPane.margin>
+      </Label>
+      <ProgressBar fx:id="durabilityBar" prefHeight="18.0" prefWidth="69.0" progress="0.0" GridPane.halignment="RIGHT">
+         <GridPane.margin>
+            <Insets left="5.0" right="10.0" />
+         </GridPane.margin>
+      </ProgressBar>
+    </children>
+</GridPane>

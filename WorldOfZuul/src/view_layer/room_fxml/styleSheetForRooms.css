@@ -1,0 +1,101 @@
+#cabin {
+    -fx-background-image: url("/pictures/cabinBackground.png");
+    -fx-background-size: 615px 415px;
+}
+
+#nonCertifiedForest {
+    -fx-background-image: url("/pictures/nonCertifiedForestBackground.png");
+    -fx-background-size: 615px 415px;
+}
+
+#blackSmith {
+    -fx-background-image: url("/pictures/blacksmithBackground.png");
+    -fx-background-size: 615px 415px;
+}
+
+#certifiedForest {
+    -fx-background-image: url("/pictures/certifiedForestBackground.png");
+    -fx-background-size: 615px 415px;
+}
+
+#library {
+    -fx-background-image: url("/pictures/libraryBackground.png");
+    -fx-background-size: 615px 415px;
+}
+
+#localVillage {
+    -fx-background-image: url("/pictures/localVillageBackground.png");
+    -fx-background-size: 615px 415px;
+}
+
+#store {
+    -fx-background-image: url("/pictures/storeBackground.png");
+    -fx-background-size: 615px 415px;
+}
+
+.label {
+    -fx-border-color: #000000;
+    -fx-font-size: 12px;
+    -fx-background-color: #f0f8ff;
+}
+
+#StartScene {
+    -fx-background-image: url("/pictures/StartScene.png");
+    -fx-background-size: 615px 415px;
+}
+
+.button {
+    -fx-background-radius:99px;
+    -fx-background-color: #23f415;
+    -fx-border-radius: 99px;
+    -fx-border: 1px;
+    -fx-border:solid;
+    -fx-border:#3f413a;
+    -fx-box-shadow: #6E7849 0px 0px 10px;
+    -fx-color: #ffffff;
+    -fx-display: inline-block;
+    -fx-font-family:Arial;
+    ;
+    -fx-font-size: 1em;
+    -fx-margin: auto;
+    -fx-padding: 9px;
+    -fx-text-decoration: none;
+    -fx-text-shadow: #000000 5px 5px 47px;
+    -fx-transition:  all 0.2s ease;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+    -fx-border-color: black;
+}
+
+.button:hover {
+    -fx-padding: 10px;
+}
+
+.Book {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 18px;
+}
+
+.topMenu {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 12px;
+}
+
+#Title {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 12px;
+}
+
+#by {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 12px;
+}
+
+#playerMoney {
+    -fx-border-color: rgba(0, 0, 0, 0.0);
+    -fx-text-fill: #ffff66;
+    -fx-background-color: rgba(0, 0, 0, 0.0);
+}
