@@ -28,7 +28,7 @@ import javafx.util.Duration;
 public class TrailerController implements Initializable {
 
     @FXML
-    private Label textArea, fineLabel;
+    private Label textArea, fineLabel, daysLeft;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -42,10 +42,12 @@ public class TrailerController implements Initializable {
     private boolean running;
     private int devilCounter = 0, days = 1, randomNum;
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         player.setVisible(false);
+        int daysLeftNum = humanPlayer.getNumOfDaysLeft();
+        daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
+        daysLeftListener();
         if (!running) {
             switch (Game.getInstanceOfSelf().getDirection()) {
                 case "goDown":
@@ -117,10 +119,6 @@ public class TrailerController implements Initializable {
         textArea.setText(gameTrailer.option1(humanPlayer));
     }
 
-    @FXML
-    private void handleOption2(MouseEvent event) {
-        textArea.setText(gameTrailer.option2(humanPlayer));
-    }
 
     @FXML
     private void handleOption3(MouseEvent event) {
@@ -180,7 +178,6 @@ public class TrailerController implements Initializable {
                     walkTransition(up);
                     break;
                 }
-
                 case DOWN:
                 case S: {
                     running = true;
@@ -261,10 +258,10 @@ public class TrailerController implements Initializable {
 
     @FXML
     private void handleConfirmButton(ActionEvent event) {
-        
-    String questionOne = "How many million hectare forest area disappear each year?";
-    String questionTwo = "How many million hectare forest area does FSC cover over?";
-    String questionThree = "How many million hectare forest area does PEFC cover over?";
+
+        String questionOne = "How many million hectare forest area disappear each year?";
+        String questionTwo = "How many million hectare forest area does FSC cover over?";
+        String questionThree = "How many million hectare forest area does PEFC cover over?";
 
         int randomNum = (int) (Math.random() * 3) + 1;
         switch (randomNum) {
@@ -276,13 +273,13 @@ public class TrailerController implements Initializable {
                 break;
             case 2:
                 fineLabel.setText(questionTwo);
-                anchorPane.getChildren().remove(confirmButton);
+                confirmButton.setVisible(false);
                 fineInput.setVisible(true);
                 this.randomNum = 2;
                 break;
             case 3:
                 fineLabel.setText(questionThree);
-                anchorPane.getChildren().remove(confirmButton);
+                confirmButton.setVisible(false);
                 fineInput.setVisible(true);
                 this.randomNum = 3;
                 break;
@@ -323,10 +320,19 @@ public class TrailerController implements Initializable {
             humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
         }
     }
+
     @FXML
-    private void handleEndButton (ActionEvent event) {
+    private void handleEndButton(ActionEvent event) {
         fineScroll.setVisible(false);
         endButton.setVisible(false);
         fineLabel.setVisible(false);
     }
+
+    private void daysLeftListener() {
+        humanPlayer.getNumOfDaysgoneBy().addListener((observable, oldValue, newValue) -> {
+            int daysLeftNum = humanPlayer.getNumOfDaysLeft();
+            daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
+        });
+    }
+
 }

@@ -14,6 +14,7 @@
         <URL value="@styleSheetForRooms.css" />
     </stylesheets>
     <children>
+      <Label fx:id="daysLeft" layoutX="81.0" layoutY="361.0" prefHeight="26.0" prefWidth="67.0" />
         <ImageView id="TrailerParth" fx:id="trailerPath" fitHeight="450.0" fitWidth="650.0" layoutX="-4.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" visible="false">
             <image>
                 <Image url="@../pictures/TrailerPath.png" />
@@ -30,7 +31,7 @@
          </image></ImageView>
       <TextField fx:id="fineInput" alignment="CENTER" layoutX="234.0" layoutY="252.0" onAction="#handleFineInput" prefHeight="26.0" prefWidth="131.0" promptText="Input answer" visible="false" />
       <Label fx:id="fineLabel" alignment="CENTER" layoutX="199.0" layoutY="121.0" prefHeight="98.0" prefWidth="198.0" textAlignment="CENTER" visible="false" wrapText="true" />
-        <Label fx:id="textArea" alignment="CENTER" layoutX="150.0" layoutY="322.0" prefHeight="75.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
+        <Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="346.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
       <Button fx:id="confirmButton" layoutX="281.0" layoutY="234.0" mnemonicParsing="false" onAction="#handleConfirmButton" text="Ok" visible="false" />
       <Button fx:id="endButton" layoutX="282.0" layoutY="234.0" mnemonicParsing="false" onAction="#handleEndButton" text="Ok" textAlignment="CENTER" visible="false" />
         <Button fx:id="option1" layoutX="14.0" layoutY="294.0" mnemonicParsing="false" onMouseClicked="#handleOption1" prefHeight="21.0" prefWidth="67.0" text="Store logs">
@@ -38,7 +39,6 @@
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="option2" layoutX="14.0" layoutY="326.0" mnemonicParsing="false" onMouseClicked="#handleOption2" prefHeight="21.0" prefWidth="67.0" text="Wallet" />
         <Button fx:id="option3" layoutX="14.0" layoutY="356.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" mnemonicParsing="false" onMouseClicked="#handleOption3" prefHeight="21.0" prefWidth="67.0" text="Sleep" textAlignment="LEFT" wrapText="false" />
         <ImageView fx:id="option4" fitHeight="80.0" fitWidth="80.0" layoutX="476.0" layoutY="282.0" onMouseClicked="#handleOption4" pickOnBounds="true" preserveRatio="true" rotate="45.0" visible="true" />
         <ImageView fx:id="option666" fitHeight="40.0" fitWidth="32.0" layoutX="541.0" layoutY="136.0" onMouseClicked="#giveMoneyForTesting" opacity="0.19" pickOnBounds="true" preserveRatio="true">
