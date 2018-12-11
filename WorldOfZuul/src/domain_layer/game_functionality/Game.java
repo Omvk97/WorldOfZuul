@@ -28,7 +28,7 @@ public class Game {
     private final Room store = new Store();
     private final Room blacksmith = new BlackSmith();
     private final Room library = new Library();
-    private String transitionDirection = "noDirection";
+    private String playerDirectionInWorld = "noDirection";
     private final HighScore highScoreData = new HighScore();
     
 
@@ -117,12 +117,12 @@ public class Game {
         return library;
     }
 
-    public String getDirection() {
-        return transitionDirection;
+    public String getPlayerDirectionInWorld() {
+        return playerDirectionInWorld;
     }
 
-    public void setDirection(String direction) {
-        this.transitionDirection = direction;
+    public void setPlayerDirectionInWorld(String direction) {
+        this.playerDirectionInWorld = direction;
     }
 
     public HighScore getHighScoreData() {

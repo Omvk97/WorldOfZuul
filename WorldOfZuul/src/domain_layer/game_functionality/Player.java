@@ -32,24 +32,18 @@ public class Player {
     private final Trailer trailer;
     private Room previousRoom;
     private boolean slept;
-    private String direction;
+    private File characterModel;
 
     private final File baseModelFile = new File("src/pictures/baseCharacter.png");
     private final File baseModelRightFile = new File("src/pictures/baseCharacterRight.png");
-
     private final File modelStarterAxeFile = new File("src/pictures/characterWithStarterAxe.png");
     private final File modelStarterAxeRightFile = new File("src/pictures/characterWithStarterAxeRight.png");
-    private File characterModel;
-
     private final File modelIronAxeFile = new File("src/pictures/characterWithIronAxe.png");
     private final File modelIronAxeRightFile = new File("src/pictures/characterWithIronAxeRight.png");
-
     private final File modelSteelAxeFile = new File("src/pictures/characterWithSteelAxe.png");
     private final File modelSteelAxeRightFile = new File("src/pictures/characterWithSteelAxeRight.png");
-
     private final File modelDiamondAxeFile = new File("src/pictures/characterWithDiamondAxe.png");
     private final File modelDiamondAxeRightFile = new File("src/pictures/characterWithDiamondAxeRight.png");
-
     private final File modelFireAxeFile = new File("src/pictures/characterWithFireAxe.png");
     private final File modelFireAxeRightFile = new File("src/pictures/characterWithFireAxeRight.png");
 
@@ -58,7 +52,6 @@ public class Player {
         this.trailer = trailer;
         this.previousRoom = trailer;
         characterModel = baseModelFile;
-        climatePoints.setValue(-10);
     }
 
     public File getCharacterModel() {
@@ -214,21 +207,9 @@ public class Player {
         return trailer.isStorageFull();
     }
 
-    public String putPlayerInTrailer() {
-        setCurrentRoom(trailer);
-        return currentRoom.roomEntrance(this);
-    }
-
     /**
-     * @return boolean whether or not the player has an axe equipped
-     */
-    public boolean canUseAxe() {
-        return equippedAxe != null;
-    }
-
-    /**
-     * Used to reduce durability on the players currently equipped Axe and to destroy the axe
-     * if it's durability ever reaches 0.
+     * Used to reduce durability on the players currently equipped Axe and to destroy the axe if
+     * it's durability ever reaches 0.
      *
      * @return if the axe was destroyed
      */
@@ -355,14 +336,6 @@ public class Player {
 
     public void setSlept(boolean slept) {
         this.slept = slept;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
     }
 
     public double getDamage() {

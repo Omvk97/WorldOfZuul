@@ -59,7 +59,7 @@ abstract public class ForestController {
         humanPlayer.setCharacterModel(true);
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
 
-        TranslateTransition goToTree = new TranslateTransition(Duration.seconds(3), player);
+        TranslateTransition goToTree = new TranslateTransition(Duration.seconds(1.5), player);
         goToTree.setByX((largeTree.getLayoutX() - player.getLayoutX()) - 20);
         goToTree.setByY(-(player.getLayoutY() - largeTree.getLayoutY()) + 75);
         goToTree.setOnFinished((ActionEvent event1) -> {

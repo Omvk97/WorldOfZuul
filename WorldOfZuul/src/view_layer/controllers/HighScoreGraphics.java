@@ -65,7 +65,10 @@ public class HighScoreGraphics {
             }
             highScore.saveHighScoreToFile((String) result.get(), humanPlayer.getHighScore());
         }
-
+        highScoreOverViewDialog();
+    }
+    
+    public void highScoreOverViewDialog() {
         Alert overViewOfAllHighScores = new Alert(Alert.AlertType.INFORMATION);
         overViewOfAllHighScores.initStyle(StageStyle.UTILITY);
         overViewOfAllHighScores.setTitle("All HighScores");

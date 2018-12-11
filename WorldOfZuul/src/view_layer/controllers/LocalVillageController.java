@@ -125,7 +125,7 @@ public class LocalVillageController implements Initializable {
             running = true;
             TranslateTransition backTransition = new TranslateTransition(Duration.seconds(1.5), player);
 
-            switch (Game.getInstanceOfSelf().getDirection()) {
+            switch (Game.getInstanceOfSelf().getPlayerDirectionInWorld()) {
                 case "goRight":
                     backTransition.setByX(-276);
                     backTransition.setOnFinished((ActionEvent) -> {
@@ -133,7 +133,7 @@ public class LocalVillageController implements Initializable {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                     });
                     backTransition.play();
-                    Game.getInstanceOfSelf().setDirection("goLeft");
+                    Game.getInstanceOfSelf().setPlayerDirectionInWorld("goLeft");
                     break;
                 case "goStore":
                     running = true;
@@ -145,7 +145,7 @@ public class LocalVillageController implements Initializable {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                     });
                     transistionToStore.play();
-                    Game.getInstanceOfSelf().setDirection("goStore");
+                    Game.getInstanceOfSelf().setPlayerDirectionInWorld("goStore");
                     break;
                 case "goBlacksmith":
                     running = true;
@@ -157,7 +157,7 @@ public class LocalVillageController implements Initializable {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                     });
                     transistionToBlacksmith.play();
-                    Game.getInstanceOfSelf().setDirection("goBlacksmith");
+                    Game.getInstanceOfSelf().setPlayerDirectionInWorld("goBlacksmith");
                     break;
                 case "goLibrary":
                     running = true;
@@ -169,7 +169,7 @@ public class LocalVillageController implements Initializable {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                     });
                     transistionToLibrary.play();
-                    Game.getInstanceOfSelf().setDirection("goLibrary");
+                    Game.getInstanceOfSelf().setPlayerDirectionInWorld("goLibrary");
                     break;
             }
         }
@@ -189,7 +189,7 @@ public class LocalVillageController implements Initializable {
                 Game.getInstanceOfSelf().goRoom(tester, anchorPane);
             });
             transistionToStore.play();
-            Game.getInstanceOfSelf().setDirection("goStore");
+            Game.getInstanceOfSelf().setPlayerDirectionInWorld("goStore");
         }
     }
 
@@ -207,7 +207,7 @@ public class LocalVillageController implements Initializable {
                 Game.getInstanceOfSelf().goRoom(tester, anchorPane);
             });
             transistionToBlacksmith.play();
-            Game.getInstanceOfSelf().setDirection("goBlacksmith");
+            Game.getInstanceOfSelf().setPlayerDirectionInWorld("goBlacksmith");
         }
     }
 
@@ -225,7 +225,7 @@ public class LocalVillageController implements Initializable {
                 Game.getInstanceOfSelf().goRoom(tester, anchorPane);
             });
             transistionToLibrary.play();
-            Game.getInstanceOfSelf().setDirection("goLibrary");
+            Game.getInstanceOfSelf().setPlayerDirectionInWorld("goLibrary");
         }
     }
 
@@ -242,7 +242,7 @@ public class LocalVillageController implements Initializable {
                     Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                 });
                 transistionToTrailer.play();
-                Game.getInstanceOfSelf().setDirection("goLeft");
+                Game.getInstanceOfSelf().setPlayerDirectionInWorld("goLeft");
             } else {
                 textArea.setText("There is no road!");
             }
@@ -251,7 +251,7 @@ public class LocalVillageController implements Initializable {
 
     private void transition() {
         TranslateTransition roomTransition = new TranslateTransition(Duration.seconds(1.5), player);
-        switch (Game.getInstanceOfSelf().getDirection()) {
+        switch (Game.getInstanceOfSelf().getPlayerDirectionInWorld()) {
             case "goRight":
                 player.setLayoutX(0);
                 roomTransition.setByX(276);

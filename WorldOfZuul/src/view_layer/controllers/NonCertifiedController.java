@@ -96,7 +96,7 @@ public class NonCertifiedController extends ForestController implements Initiali
 
         humanPlayer.setCharacterModel(false);
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
-        TranslateTransition goToTree = new TranslateTransition(Duration.seconds(3), player);
+        TranslateTransition goToTree = new TranslateTransition(Duration.seconds(1.5), player);
         goToTree.setByX((mediumTree.getLayoutX() - player.getLayoutX()) + 70);
         goToTree.setByY(-(player.getLayoutY() - mediumTree.getLayoutY()) + 60);
 
@@ -135,7 +135,7 @@ public class NonCertifiedController extends ForestController implements Initiali
         if (!running) {
             running = true;
             if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
-                Game.getInstanceOfSelf().setDirection("goDown");
+                Game.getInstanceOfSelf().setPlayerDirectionInWorld("goDown");
                 Command tester = new Command(CommandWord.GO, "trailer");
                 TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
                 down.setByY(170);

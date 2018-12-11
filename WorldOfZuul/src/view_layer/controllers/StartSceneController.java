@@ -17,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 public class StartSceneController implements Initializable {
 
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
+    private final HighScoreGraphics highScoreOverView = new HighScoreGraphics();
 
     @FXML
     private AnchorPane anchorPane;
@@ -37,6 +38,7 @@ public class StartSceneController implements Initializable {
 
     @FXML
     private void handlerHighscore(MouseEvent event) {
+        highScoreOverView.highScoreOverViewDialog();
     }
 
 }

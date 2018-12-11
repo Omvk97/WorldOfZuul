@@ -46,7 +46,7 @@ public class TrailerController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         player.setVisible(false);
         if (!running) {
-            switch (Game.getInstanceOfSelf().getDirection()) {
+            switch (Game.getInstanceOfSelf().getPlayerDirectionInWorld()) {
                 case "goDown":
                     goDownTransition();
                     break;
@@ -251,7 +251,7 @@ public class TrailerController implements Initializable {
                 case W: {
                     running = true;
                     Command tester = new Command(CommandWord.GO, "north");
-                    Game.getInstanceOfSelf().setDirection("goUp");
+                    Game.getInstanceOfSelf().setPlayerDirectionInWorld("goUp");
                     TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
                     up.setByY(-170);
                     up.setOnFinished((ActionEvent event1) -> {
@@ -266,7 +266,7 @@ public class TrailerController implements Initializable {
                 case S: {
                     running = true;
                     Command tester = new Command(CommandWord.GO, "south");
-                    Game.getInstanceOfSelf().setDirection("goDown");
+                    Game.getInstanceOfSelf().setPlayerDirectionInWorld("goDown");
                     TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
                     down.setByY(170);
                     down.setOnFinished((ActionEvent event1) -> {
@@ -296,7 +296,7 @@ public class TrailerController implements Initializable {
                 case D: {
                     running = true;
                     Command tester = new Command(CommandWord.GO, "village");
-                    Game.getInstanceOfSelf().setDirection("goRight");
+                    Game.getInstanceOfSelf().setPlayerDirectionInWorld("goRight");
                     TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
                     right.setByX(276);
                     right.setOnFinished((ActionEvent event1) -> {
