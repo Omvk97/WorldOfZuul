@@ -48,9 +48,9 @@
                 <Insets left="5.0" />
             </GridPane.margin>
         </ImageView>
-        <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" rotate="45.0">
+        <ImageView fx:id="playerWeapon" fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" rotate="45.0">
             <image>
-                <Image url="file:src/pictures/starterAxe.png" />
+                <Image url="file:src/pictures/punchWeapon.png" />
             </image>
             <GridPane.margin>
                 <Insets left="5.0" />
@@ -61,7 +61,7 @@
                 <Insets right="10.0" />
             </GridPane.margin>
         </Label>
-        <ImageView fx:id="playerWeapon" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
             <image>
                 <Image url="file:src/pictures/logs.png" />
             </image>

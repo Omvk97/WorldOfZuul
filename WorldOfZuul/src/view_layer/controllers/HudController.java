@@ -2,12 +2,14 @@ package view_layer.controllers;
 
 import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -35,8 +37,7 @@ public class HudController implements Initializable {
         int saplingsCarryingNum = humanPlayer.getSaplingsCarryingValue();
         saplingsCarrying.setText(saplingsCarryingNum + (saplingsCarryingNum == 1 ? " Sapling" : " Saplings"));
         if (humanPlayer.playerHasAnAxe()) {
-            double durabilityProgress = humanPlayer.getAxeDurabilityPercentage();
-            durabilityBar.setProgress(durabilityProgress);
+            updateAxeHudImage();
         }
         addListenersToLabels();
     }
@@ -64,12 +65,38 @@ public class HudController implements Initializable {
             int saplingsCarryingNum = humanPlayer.getSaplingsCarryingValue();
             saplingsCarrying.setText(saplingsCarryingNum + (saplingsCarryingNum == 1 ? " Sapling" : " Saplings"));
         });
+        
+        humanPlayer.getEquippedAxeChange().addListener(((observable, oldValue, newValue) -> {
+            updateAxeHudImage();
+        }));
 
         if (humanPlayer.playerHasAnAxe()) {
-            humanPlayer.getAxe().getDurabilityIntegerProperty().addListener((observable, oldValue, newValue) -> {
+            humanPlayer.getEquippedAxe().getDurabilityIntegerProperty().addListener((observable, oldValue, newValue) -> {
                 double durabilityProgress = humanPlayer.getAxeDurabilityPercentage();
                 durabilityBar.setProgress(durabilityProgress);
             });
         }
+    }
+
+    public void updateAxeHudImage() {
+        switch (humanPlayer.getEquippedAxe().getDescription()) {
+            case "iron axe":
+                playerWeapon.setImage(new Image(new File("src/pictures/ironAxe.png").toURI().toString()));
+                break;
+            case "steel axe":
+                playerWeapon.setImage(new Image(new File("src/pictures/steelAxe.png").toURI().toString()));
+                break;
+            case "diamond axe":
+                playerWeapon.setImage(new Image(new File("src/pictures/diamondAxe.png").toURI().toString()));
+                break;
+            case "fire axe":
+                playerWeapon.setImage(new Image(new File("src/pictures/fireAxe.png").toURI().toString()));
+                break;
+            default:
+                playerWeapon.setImage(new Image(new File("src/pictures/starterAxe.png").toURI().toString()));
+                break;
+        }
+        double durabilityProgress = humanPlayer.getAxeDurabilityPercentage();
+        durabilityBar.setProgress(durabilityProgress);
     }
 }

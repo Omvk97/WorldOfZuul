@@ -30,14 +30,14 @@ public class BlackSmith extends Room {
     public int grindAxe_menu(Player humanPlayer) {
         final int pricePerAxeDurability = 2;
 
-        if (humanPlayer.getAxe() == null) {
+        if (humanPlayer.getEquippedAxe() == null) {
             return 1;
 
-        } else if (humanPlayer.getAxe().getDurability() == humanPlayer.getAxe().getStartDurability()) {
+        } else if (humanPlayer.getEquippedAxe().getDurability() == humanPlayer.getEquippedAxe().getStartDurability()) {
             return 2;
 
-        } else if (humanPlayer.getAxe().getDurability() < humanPlayer.getAxe().getStartDurability()) {
-            int durabilityLostOnAxe = humanPlayer.getAxe().getStartDurability() - humanPlayer.getAxe().getDurability();
+        } else if (humanPlayer.getEquippedAxe().getDurability() < humanPlayer.getEquippedAxe().getStartDurability()) {
+            int durabilityLostOnAxe = humanPlayer.getEquippedAxe().getStartDurability() - humanPlayer.getEquippedAxe().getDurability();
             int fixAxePrice = pricePerAxeDurability * durabilityLostOnAxe;
             if (humanPlayer.getMoneyValue() >= fixAxePrice) {
                 System.out.println(blackSmithNPC + "I will grind your axe for you. Please wait");

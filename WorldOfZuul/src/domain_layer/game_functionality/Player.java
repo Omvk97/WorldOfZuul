@@ -24,6 +24,7 @@ public class Player {
     private final SimpleIntegerProperty logsInBackPack = new SimpleIntegerProperty();
     private final SimpleIntegerProperty logsInStorageProperty = new SimpleIntegerProperty();
     private final SimpleIntegerProperty saplingsCarrying = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty equippedAxeChange = new SimpleIntegerProperty();
     private Room currentRoom = null;
     private Axe equippedAxe;
     private BackPack equippedBackPack;
@@ -178,6 +179,11 @@ public class Player {
     public void boughtAxe(Axe newAxe) {
         equippedAxe = newAxe;
         money.setValue(money.getValue() - newAxe.getPrice());
+        equippedAxeChange.setValue(equippedAxeChange.getValue() + 1);
+    }
+
+    public SimpleIntegerProperty getEquippedAxeChange() {
+        return equippedAxeChange;
     }
 
     public void grindedAxe(int cost) {
@@ -240,7 +246,7 @@ public class Player {
      *
      * @return Axe that is equipped
      */
-    public Axe getAxe() {
+    public Axe getEquippedAxe() {
         return equippedAxe;
     }
 

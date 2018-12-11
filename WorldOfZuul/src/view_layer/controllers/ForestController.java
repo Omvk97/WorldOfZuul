@@ -103,7 +103,7 @@ abstract public class ForestController {
     protected void treeFelledConfirmation() {
         if (humanPlayer.playerHasAnAxe()) {
             textArea.setText("You have chopped down a tree with your "
-                + humanPlayer.getAxe().getDescription() + "!");
+                + humanPlayer.getEquippedAxe().getDescription() + "!");
             boolean axeDestroyed = humanPlayer.useAxe();
             if (axeDestroyed) {
                 textArea.setText("Your axe broke!");

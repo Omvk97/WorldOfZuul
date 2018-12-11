@@ -54,7 +54,6 @@ public class LocalVillageController implements Initializable {
     }
 
     private void choosingRainScenario() {
-        System.out.println(getClimateScenario());
         switch (getClimateScenario()) {
             case -1:
                 rainDrops(50);
@@ -86,7 +85,6 @@ public class LocalVillageController implements Initializable {
     }
 
     private int getClimateScenario() {
-        System.out.println(humanPlayer.getClimatePointsValue());
         int climatePoints = humanPlayer.getClimatePointsValue();
         if (climatePoints < 0 && climatePoints > -19) {
             return -1;
