@@ -36,7 +36,7 @@ public class TrailerController implements Initializable {
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Trailer gameTrailer = Game.getInstanceOfSelf().getTrailer();
     private boolean running;
-    private int devilCounter = 0;
+    private int devilCounter = 0, days = 1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -128,28 +128,35 @@ public class TrailerController implements Initializable {
             sleep.setCycleCount(2);
             sleep.setAutoReverse(true);
             sleep.play();
+            
             sleep.setOnFinished((ActionEvent e) -> {
                 running = false;
+                days++;
+                humanPlayer.getNumOfDaysgoneBy().set(days);
+                if (humanPlayer.getNumOfDaysLeft() < 0) {
+                    gameTrailer.getHighScoreGraphics().closeGame();
+                    System.exit(0);
+                }
                 if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
                     String questionOne = "How many million hectare forest area disappear each year?";
                     String questionTwo = "How many million hectare forest area does FSC cover over?";
                     String questionThree = "How many million hectare forest area does PEFC cover over?";
                     int randomNum = (int) (Math.random() * 3) + 1;
 
-                    TextField tester = new TextField();
-                    tester.setAlignment(Pos.CENTER);
-                    tester.setLayoutX(160);
-                    tester.setLayoutY(240);
+                    TextField fineInput = new TextField();
+                    fineInput.setAlignment(Pos.CENTER);
+                    fineInput.setLayoutX(160);
+                    fineInput.setLayoutY(240);
 
                     Label fineLabel = new Label("You didn't replant all the trees in the certified forest!\n"
-                        + "Here's a chance to redeem yourself");
+                            + "Here's a chance to redeem yourself");
                     fineLabel.setAlignment(Pos.CENTER);
                     fineLabel.setLayoutX(160);
                     fineLabel.setLayoutY(170);
 
-                    Button hello = new Button("Ok");
-                    hello.setLayoutX(270);
-                    hello.setLayoutY(240);
+                    Button confirmButton = new Button("Ok");
+                    confirmButton.setLayoutX(270);
+                    confirmButton.setLayoutY(240);
 
                     Button endButton = new Button("Ok");
                     endButton.setLayoutX(270);
@@ -158,61 +165,60 @@ public class TrailerController implements Initializable {
                     ImageView fineScroll = new ImageView(new Image(new File("src/pictures/fine.png").toURI().toString()));
                     fineScroll.setLayoutX(anchorPane.getWidth() / 4);
                     fineScroll.setLayoutY(anchorPane.getHeight() / 4);
-                    anchorPane.getChildren().addAll(fineScroll, fineLabel, hello);
-                    hello.setOnAction((ActionEvent event1) -> {
+                    anchorPane.getChildren().addAll(fineScroll, fineLabel, confirmButton);
+                    confirmButton.setOnAction((ActionEvent event1) -> {
                         switch (randomNum) {
                             case 1:
                                 fineLabel.setText(questionOne);
-                                anchorPane.getChildren().remove(hello);
-                                anchorPane.getChildren().add(tester);
+                                anchorPane.getChildren().remove(confirmButton);
+                                anchorPane.getChildren().add(fineInput);
                                 break;
                             case 2:
                                 fineLabel.setText(questionTwo);
-                                anchorPane.getChildren().remove(hello);
-                                anchorPane.getChildren().add(tester);
+                                anchorPane.getChildren().remove(confirmButton);
+                                anchorPane.getChildren().add(fineInput);
                                 break;
                             case 3:
                                 fineLabel.setText(questionThree);
-                                anchorPane.getChildren().remove(hello);
-                                anchorPane.getChildren().add(tester);
+                                anchorPane.getChildren().remove(confirmButton);
+                                anchorPane.getChildren().add(fineInput);
                                 break;
                             default:
                                 System.out.println("error");
                                 break;
                         }
                     });
-                    tester.setOnAction((ActionEvent event1) -> {
+                    fineInput.setOnAction((ActionEvent event1) -> {
                         Boolean correctAnswer = true;
                         switch (randomNum) {
                             case 1:
-                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "7");
+                                correctAnswer = gameTrailer.answerValidation(fineInput.getText(), "7");
                                 break;
                             case 2:
-                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "200");
+                                correctAnswer = gameTrailer.answerValidation(fineInput.getText(), "200");
                                 break;
                             case 3:
-                                correctAnswer = gameTrailer.answerValidation(tester.getText(), "300");
+                                correctAnswer = gameTrailer.answerValidation(fineInput.getText(), "300");
                                 break;
                             default:
                                 break;
                         }
                         if (!correctAnswer) {
                             fineLabel.setText("WRONG, study in the library!\n"
-                                + "We also need you to cover the cost of planting the trees that you forgot!\n"
-                                + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
-                            anchorPane.getChildren().remove(tester);
+                                    + "We also need you to cover the cost of planting the trees that you forgot!\n"
+                                    + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
+                            anchorPane.getChildren().remove(fineInput);
                             anchorPane.getChildren().add(endButton);
                             humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
                         } else {
                             fineLabel.setText("Correct! Your fine has been cut in half! We also need you\n"
-                                + "to cover the cost of planting the trees that you forgot!\n"
-                                + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
-                            anchorPane.getChildren().remove(tester);
+                                    + "to cover the cost of planting the trees that you forgot!\n"
+                                    + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
+                            anchorPane.getChildren().remove(fineInput);
                             anchorPane.getChildren().add(endButton);
                             humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
                         }
-                        System.out.println(tester.getText());
-                        tester.clear();
+                        fineInput.clear();
                     });
 
                     endButton.setOnAction((ActionEvent event1) -> {
