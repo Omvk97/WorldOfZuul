@@ -1,7 +1,5 @@
 package view_layer.controllers;
 
-import domain_layer.game_functionality.Command;
-import domain_layer.game_functionality.CommandWord;
 import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
 import domain_layer.game_locations.LocalVillage;
@@ -27,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import view_layer.LocalVillageAnimation;
 
 /**
  *
@@ -51,6 +50,16 @@ public class LocalVillageController implements Initializable {
     private final LocalVillage gameVillage = (LocalVillage) Game.getInstanceOfSelf().getLocalVillage();
     private boolean running;
     private int playerEntranceCoordinatX, playerEntranceCoordinatY, currentDialouge;
+    private final LocalVillageAnimation animation;
+    
+    public LocalVillageController() {
+        this.animation = new LocalVillageAnimation.Builder(player)
+            .withAnchorPoint1(anchorpoint1)
+            .withAnchorPoint2(anchorpoint2)
+            .withGame(Game.getInstanceOfSelf())
+            .withMainAnchorPane(mainAnchorPane)
+            .build();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -136,19 +145,19 @@ public class LocalVillageController implements Initializable {
 
             switch (Game.getInstanceOfSelf().getPlayerDirectionInWorld()) {
                 case "goRight":
-                    goToTransitionHandle(playerEntranceCoordinatX / 2, 0, "goLeft", "trailer", true);
+                    animation.goToTransitionHandle(playerEntranceCoordinatX / 2, 0, "goLeft", "trailer", true);
                     break;
                 case "goStore":
                     running = true;
-                    goToTransitionHandle(playerEntranceCoordinatX / 2, storeEntrance.getLayoutX(), "goStore", "store", false);
+                    animation.goToTransitionHandle(playerEntranceCoordinatX / 2, storeEntrance.getLayoutX(), "goStore", "store", false);
                     break;
                 case "goBlacksmith":
                     running = true;
-                    goToTransitionHandle(playerEntranceCoordinatX / 2, blacksmith.getLayoutX(), "goBlacksmith", "blacksmith", true);
+                    animation.goToTransitionHandle(playerEntranceCoordinatX / 2, blacksmith.getLayoutX(), "goBlacksmith", "blacksmith", true);
                     break;
                 case "goLibrary":
                     running = true;
-                    goToTransitionHandle(playerEntranceCoordinatX / 2, libraryEntrance.getLayoutX(), "goLibrary", "library", false);
+                    animation.goToTransitionHandle(playerEntranceCoordinatX / 2, libraryEntrance.getLayoutX(), "goLibrary", "library", false);
                     break;
             }
         }
@@ -161,7 +170,7 @@ public class LocalVillageController implements Initializable {
         villageGiftAndScenario.setVisible(false);
         if (!running) {
             running = true;
-            goToTransitionHandle(playerEntranceCoordinatX / 2, storeEntrance.getLayoutX(),
+            animation.goToTransitionHandle(playerEntranceCoordinatX / 2, storeEntrance.getLayoutX(),
                 "goStore", "store", false);
         }
     }
@@ -173,7 +182,7 @@ public class LocalVillageController implements Initializable {
         villageGiftAndScenario.setVisible(false);
         if (!running) {
             running = true;
-            goToTransitionHandle(playerEntranceCoordinatX / 2, blacksmithEntrance.getLayoutX(),
+            animation.goToTransitionHandle(playerEntranceCoordinatX / 2, blacksmithEntrance.getLayoutX(),
                 "goBlacksmith", "blacksmith", true);
         }
     }
@@ -185,7 +194,7 @@ public class LocalVillageController implements Initializable {
         villageGiftAndScenario.setVisible(false);
         if (!running) {
             running = true;
-            goToTransitionHandle(playerEntranceCoordinatX / 2, libraryEntrance.getLayoutX(),
+            animation.goToTransitionHandle(playerEntranceCoordinatX / 2, libraryEntrance.getLayoutX(),
                 "goLibrary", "library", false);
         }
     }
@@ -197,7 +206,7 @@ public class LocalVillageController implements Initializable {
         if (!running) {
             if (event.getCode().equals(KeyCode.LEFT) || event.getCode().equals(KeyCode.A)) {
                 running = true;
-                goToTransitionHandle(playerEntranceCoordinatX / 2, 0, "goLeft", "trailer", true);
+                animation.goToTransitionHandle(playerEntranceCoordinatX / 2, 0, "goLeft", "trailer", true);
             } else {
             }
         }
@@ -292,41 +301,41 @@ public class LocalVillageController implements Initializable {
         }
     }
 
-    private void goToTransitionHandle(int StartCoordinatX,
-        double endCoordinatX,
-        String setDirection,
-        String setCommandword,
-        boolean dontHaveToGoDown) {
-        TranslateTransition transitionToX = new TranslateTransition(Duration.seconds(1.5), player);
-        TranslateTransition transitionToAnchorX = new TranslateTransition(Duration.seconds(1.5), player);
-        TranslateTransition transitionToAnchorY = new TranslateTransition(Duration.seconds(1.5), player);
-        if (dontHaveToGoDown) {
-            transitionToX.setByX(endCoordinatX - StartCoordinatX);
-            transitionToX.setOnFinished((ActionEvent e) -> {
-                Command tester = new Command(CommandWord.GO, setCommandword);
-                Game.getInstanceOfSelf().goRoom(tester, mainAnchorPane);
-            });
-            transitionToX.play();
-        } else {
-            transitionToAnchorX.setByX(anchorpoint1.getLayoutX() - StartCoordinatX);
-            transitionToAnchorX.setOnFinished((ActionEvent f) -> {
-                transitionToAnchorY.setByY(anchorpoint2.getLayoutY() - anchorpoint1.getLayoutY());
-                transitionToAnchorY.setOnFinished((ActionEvent h) -> {
-                    transitionToX.setByX(endCoordinatX - anchorpoint2.getLayoutX());
-                    transitionToX.setOnFinished((ActionEvent a) -> {
-                        Command tester = new Command(CommandWord.GO, setCommandword);
-                        Game.getInstanceOfSelf().goRoom(tester, mainAnchorPane);
-                    });
-                    transitionToX.play();
-                });
-                transitionToAnchorY.play();
-            });
-            transitionToAnchorX.play();
-        }
-
-        Game.getInstanceOfSelf().setPlayerDirectionInWorld(setDirection);
-    }
-
+//    private void goToTransitionHandle(int StartCoordinatX,
+//        double endCoordinatX,
+//        String setDirection,
+//        String setCommandword,
+//        boolean dontHaveToGoDown) {
+//        TranslateTransition transitionToX = new TranslateTransition(Duration.seconds(1.5), player);
+//        TranslateTransition transitionToAnchorX = new TranslateTransition(Duration.seconds(1.5), player);
+//        TranslateTransition transitionToAnchorY = new TranslateTransition(Duration.seconds(1.5), player);
+//        if (dontHaveToGoDown) {
+//            transitionToX.setByX(endCoordinatX - StartCoordinatX);
+//            transitionToX.setOnFinished((ActionEvent e) -> {
+//                Command tester = new Command(CommandWord.GO, setCommandword);
+//                Game.getInstanceOfSelf().goRoom(tester, mainAnchorPane);
+//            });
+//            transitionToX.play();
+//        } else {
+//            transitionToAnchorX.setByX(anchorpoint1.getLayoutX() - StartCoordinatX);
+//            transitionToAnchorX.setOnFinished((ActionEvent f) -> {
+//                transitionToAnchorY.setByY(anchorpoint2.getLayoutY() - anchorpoint1.getLayoutY());
+//                transitionToAnchorY.setOnFinished((ActionEvent h) -> {
+//                    transitionToX.setByX(endCoordinatX - anchorpoint2.getLayoutX());
+//                    transitionToX.setOnFinished((ActionEvent a) -> {
+//                        Command tester = new Command(CommandWord.GO, setCommandword);
+//                        Game.getInstanceOfSelf().goRoom(tester, mainAnchorPane);
+//                    });
+//                    transitionToX.play();
+//                });
+//                transitionToAnchorY.play();
+//            });
+//            transitionToAnchorX.play();
+//        }
+//
+//        Game.getInstanceOfSelf().setPlayerDirectionInWorld(setDirection);
+//    }
+//
     private void backTransitionHandle(double fromX,
         double fromY,
         int toX,

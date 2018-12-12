@@ -32,7 +32,7 @@ public class Player {
     private int numChoppedTreesWithoutPlantingSaplings;
     private final Trailer trailer;
     private Room previousRoom;
-    private boolean slept, firstVillageVisit;
+    private boolean slept, firstVillageVisit = true;
     private File characterModel;
     private final File baseModelFile = new File("src/pictures/baseCharacter.png");
     private final File baseModelRightFile = new File("src/pictures/baseCharacterRight.png");

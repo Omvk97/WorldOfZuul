@@ -64,7 +64,7 @@ public class CertifiedForestController extends ForestController implements Initi
 
     @FXML
     private void handleOption2(MouseEvent event) {
-        textArea.setText("There are " + gameForest.countFellableTrees() + " trees ready to be felled!");
+        textArea.setText("There are " + gameForest.countLargeTrees() + " trees ready to be felled!");
     }
 
     @FXML

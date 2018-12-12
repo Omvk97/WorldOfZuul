@@ -20,7 +20,7 @@
             <graphic>
                 <ImageView fitHeight="23.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../pictures/BackBtn2.png" />
+                        <Image url="file:src/pictures/BackBtn2.png" />
                     </image>
                 </ImageView>
             </graphic>
@@ -30,51 +30,51 @@
                 <Image url="file:src/pictures/sun.png" />
             </image>
         </ImageView>
-      <AnchorPane fx:id="firstVisitGreatings" layoutX="108.0" layoutY="52.0" prefHeight="242.0" prefWidth="384.0" visible="false">
-         <children>
-            <Label fx:id="firstVisitText" alignment="CENTER" layoutX="44.0" layoutY="154.0" prefHeight="80.0" prefWidth="320.0" styleClass="textArea" wrapText="true" />
-            <ImageView fitHeight="96.0" fitWidth="92.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../pictures/Oldman.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="firstVisitContinueButton" layoutX="323.0" layoutY="227.0" minWidth="46.0" mnemonicParsing="false" onMouseClicked="#handleNextDialougeFirstVisitButton" prefHeight="29.0" prefWidth="46.0">
-               <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../pictures/nextArrow.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="villageGiftAndScenario" layoutX="108.0" layoutY="52.0" prefHeight="242.0" prefWidth="384.0">
-         <children>
-            <Label fx:id="villagerText" alignment="CENTER" layoutX="44.0" layoutY="154.0" prefHeight="80.0" prefWidth="320.0" styleClass="textArea" wrapText="true" />
-            <ImageView fx:id="villager" fitHeight="154.0" fitWidth="118.0" layoutX="-26.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../pictures/Villager.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="scenarioContinueButton" layoutX="323.0" layoutY="227.0" minWidth="46.0" mnemonicParsing="false" onMouseClicked="#handleNextScenarioTextButton" prefHeight="29.0" prefWidth="46.0">
-               <graphic>
-                  <ImageView fx:id="nextScenarioBtn" fitHeight="24.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../pictures/nextArrow.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-      </AnchorPane>
-      <Rectangle fx:id="store" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="82.0" layoutX="291.0" layoutY="280.0" onMouseClicked="#handleGoToStore" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="goBuilding" width="118.0" />
-      <Rectangle fx:id="blacksmith" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="82.0" layoutX="406.0" layoutY="98.0" onMouseClicked="#handleGoToBlacksmith" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="goBuilding" width="118.0" />
-      <Rectangle fx:id="library" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="82.0" layoutX="473.0" layoutY="280.0" onMouseClicked="#handleGoToLibrary" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="goBuilding" width="118.0" />
-      <Rectangle fx:id="blacksmithEntrance" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="21.0" layoutX="448.0" layoutY="156.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="buildingEntrence" width="17.0" />
-      <Rectangle fx:id="storeEntrance" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="21.0" layoutX="327.0" layoutY="344.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="buildingEntrence" width="17.0" />
-      <Rectangle fx:id="libraryEntrance" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="21.0" layoutX="517.0" layoutY="344.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="buildingEntrence" width="17.0" />
-      <Rectangle fx:id="anchorpoint1" arcHeight="5.0" arcWidth="5.0" fill="#007deb00" height="21.0" layoutX="247.0" layoutY="190.0"  stroke="TRANSPARENT" strokeType="INSIDE"  width="31.0" />
-      <Rectangle fx:id="anchorpoint2" arcHeight="5.0" arcWidth="5.0" fill="#007deb00" height="21.0" layoutX="247.0" layoutY="372.0"  stroke="TRANSPARENT" strokeType="INSIDE"  width="31.0" />
+        <AnchorPane fx:id="firstVisitGreatings" layoutX="108.0" layoutY="52.0" prefHeight="242.0" prefWidth="384.0" visible="false">
+            <children>
+                <Label fx:id="firstVisitText" alignment="CENTER" layoutX="44.0" layoutY="154.0" prefHeight="80.0" prefWidth="320.0" styleClass="textArea" wrapText="true" />
+                <ImageView fitHeight="96.0" fitWidth="92.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="file:src/pictures/Oldman.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="firstVisitContinueButton" layoutX="323.0" layoutY="227.0" minWidth="46.0" mnemonicParsing="false" onMouseClicked="#handleNextDialougeFirstVisitButton" prefHeight="29.0" prefWidth="46.0">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="file:src/pictures/nextArrow.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="villageGiftAndScenario" layoutX="108.0" layoutY="52.0" prefHeight="242.0" prefWidth="384.0">
+            <children>
+                <Label fx:id="villagerText" alignment="CENTER" layoutX="44.0" layoutY="154.0" prefHeight="80.0" prefWidth="320.0" styleClass="textArea" wrapText="true" />
+                <ImageView fx:id="villager" fitHeight="154.0" fitWidth="118.0" layoutX="-26.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="file:src/pictures/Villager.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="scenarioContinueButton" layoutX="323.0" layoutY="227.0" minWidth="46.0" mnemonicParsing="false" onMouseClicked="#handleNextScenarioTextButton" prefHeight="29.0" prefWidth="46.0">
+                    <graphic>
+                        <ImageView fx:id="nextScenarioBtn" fitHeight="24.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="file:src/pictures/nextArrow.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </AnchorPane>
+        <Rectangle fx:id="store" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="82.0" layoutX="291.0" layoutY="280.0" onMouseClicked="#handleGoToStore" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="goBuilding" width="118.0" />
+        <Rectangle fx:id="blacksmith" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="82.0" layoutX="406.0" layoutY="98.0" onMouseClicked="#handleGoToBlacksmith" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="goBuilding" width="118.0" />
+        <Rectangle fx:id="library" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="82.0" layoutX="473.0" layoutY="280.0" onMouseClicked="#handleGoToLibrary" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="goBuilding" width="118.0" />
+        <Rectangle fx:id="blacksmithEntrance" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="21.0" layoutX="448.0" layoutY="156.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="buildingEntrence" width="17.0" />
+        <Rectangle fx:id="storeEntrance" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="21.0" layoutX="327.0" layoutY="344.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="buildingEntrence" width="17.0" />
+        <Rectangle fx:id="libraryEntrance" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="21.0" layoutX="517.0" layoutY="344.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="buildingEntrence" width="17.0" />
+        <Rectangle fx:id="anchorpoint1" arcHeight="5.0" arcWidth="5.0" fill="#007deb00" height="21.0" layoutX="247.0" layoutY="190.0"  stroke="TRANSPARENT" strokeType="INSIDE"  width="31.0" />
+        <Rectangle fx:id="anchorpoint2" arcHeight="5.0" arcWidth="5.0" fill="#007deb00" height="21.0" layoutX="247.0" layoutY="372.0"  stroke="TRANSPARENT" strokeType="INSIDE"  width="31.0" />
     </children>
 </AnchorPane>

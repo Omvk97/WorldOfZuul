@@ -34,19 +34,9 @@ public class CertifiedForest extends Forest {
             + "Remember to replant trees!";
     }
 
-    public int countFellableTrees() {
-        int counter = 0;
-        for (Tree tree : trees) {
-            if (tree.getTreeHealth() >= LARGE_TREE_SIZE) {
-                counter++;
-            }
-        }
-        return counter;
-    }
-
     @Override
     public boolean thereIsMoreTreesToCut() {
-        return countFellableTrees() > 0 && trees.size() > 0;
+        return countLargeTrees()> 0 && trees.size() > 0;
     }
 
     public int replantTrees(Player humanPlayer) {
