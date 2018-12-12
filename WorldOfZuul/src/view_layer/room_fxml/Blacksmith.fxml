@@ -19,7 +19,7 @@
                 <Image url="file:src/pictures/steelAxe.png" />
             </image>
         </ImageView>
-        <Label fx:id="firstVisitText" alignment="CENTER" layoutX="44.0" layoutY="154.0" prefHeight="80.0" prefWidth="320.0" styleClass="textArea" wrapText="true" />
+        <Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="330.0" prefHeight="80.0" prefWidth="320.0" styleClass="textArea" textAlignment="CENTER" wrapText="true" />
         <Button fx:id="repair" layoutX="152.0" layoutY="276.0" mnemonicParsing="false" onMouseClicked="#handlerepair" opacity="0.01" prefHeight="50.0" prefWidth="63.0" text="Option 1" />
         <Button fx:id="Buyaxes" layoutX="484.0" layoutY="282.0" mnemonicParsing="false" onAction="#BuyOnAction" opacity="0.01" prefHeight="101.0" prefWidth="63.0" text="Option 2" />
         <Button fx:id="backBtn" layoutX="540.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#handleBackBtn">
