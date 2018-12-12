@@ -70,7 +70,7 @@ public class BlacksmithController implements Initializable {
             if (humanPlayer.getMoneyValue() >= gameBlacksmith.fixAxePrice(humanPlayer)) {
                 System.out.println(gameBlacksmith.blackSmithNPC + "I will grind your axe for you. Please wait");
                 textArea.setText(gameBlacksmith.getBlackSmithNPC() + "I will grind your axe for you. Please wait");
-                gameBlacksmith.grindTime();
+                gameBlacksmith.grindSound();
                 gameBlacksmith.grindAxe(humanPlayer.getAxe());
                 System.out.println("humanPlayer.grindedAxe(fixAxePrice)");
                 humanPlayer.grindedAxe(gameBlacksmith.fixAxePrice(humanPlayer));

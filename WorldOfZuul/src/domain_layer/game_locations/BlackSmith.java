@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
-import javax.swing.UIManager;
 
 /**
  *
@@ -17,7 +16,7 @@ import javax.swing.UIManager;
 public class BlackSmith extends Room {
 
     public final String blackSmithNPC = "Smith:\n";
-  String hammer = "src/pictures/hammering.wav";
+    String hammer = "src/pictures/hammering_1.wav";
                 Media hammerSound = new Media(new File(hammer).toURI().toString());
                 MediaPlayer mediaPlayer = new MediaPlayer(hammerSound);
     public BlackSmith() {
@@ -33,13 +32,11 @@ public class BlackSmith extends Room {
             + "If you pay I will make your axe stronger \n";
     }
 
-    public void grindTime() {
-        int timeToWait = 0;
+    public void grindSound() {
                Media hammerSound = new Media(new File(hammer).toURI().toString());
-               MediaPlayer mediaPlayer = new MediaPlayer(hammerSound); 
+               MediaPlayer mediaPlayer = new MediaPlayer(hammerSound);
                mediaPlayer.play();
-               mediaPlayer.stop();
-               mediaPlayer.play();
+              
               
    
                
