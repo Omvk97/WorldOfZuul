@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 /**
  *
  * @author steffen
- * co-author: oliver
  */
 public class BlackSmith extends Room {
 
