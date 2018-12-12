@@ -8,15 +8,12 @@ import domain_layer.game_functionality.Player;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 /**
  *
- * @author olive
- * co-author: daniel
+ * @author olive co-author: daniel
  */
 public class Trailer extends Room {
 
@@ -25,11 +22,10 @@ public class Trailer extends Room {
     private final ArrayList<Tree> logsInStorage;
     private Axe starterAxe = AxeFactory.createStarterAxe();
     private final Radio radio = new Radio();
-    private SimpleIntegerProperty numOfDaysGoneBy = new SimpleIntegerProperty();
+    private int numOfDaysGoneBy = 0;
 
     public Trailer() {
         this.logsInStorage = new ArrayList<>();
-        numOfDaysGoneBy.setValue(1);
     }
 
     @Override
@@ -60,14 +56,6 @@ public class Trailer extends Room {
 
     public int getNUM_PLAY_DAYS() {
         return NUM_PLAY_DAYS;
-    }
-
-    public SimpleIntegerProperty getNumOfDaysGoneBy() {
-        return numOfDaysGoneBy;
-    }
-
-    public int getNumOfDaysGoneByValue() {
-        return numOfDaysGoneBy.getValue();
     }
 
     public String option1(Player humanPlayer) {
@@ -102,19 +90,11 @@ public class Trailer extends Room {
         }
     }
 
-    public String option2(Player humanPlayer) {
-        if (humanPlayer.getMoneyValue() == 0) {
-            return "Your wallet is empty! What a shame!";
-        } else {
-            return "You wallet holds " + humanPlayer.getMoneyValue() + " gold coins";
-        }
-    }
-
     /**
      * @param humanPlayer the user.
      */
     public String option3(Player humanPlayer) {
-        numOfDaysGoneBy.setValue(numOfDaysGoneBy.getValue() + 1);
+        numOfDaysGoneBy++;
         Random globalOrLocal = new Random();
         if (globalOrLocal.nextBoolean()) {
             return radio.globalNews(humanPlayer);
@@ -124,7 +104,8 @@ public class Trailer extends Room {
     }
 
     /**
-     * If the player hasn't picked up the starterAxe they will be prompted with the option to pick it up
+     * If the player hasn't picked up the starterAxe they will be prompted with the option to pick
+     * it up
      *
      * @param humanPlayer user that picks up the starter axe
      */
@@ -137,36 +118,6 @@ public class Trailer extends Room {
             return "I don't know what you mean";
         }
     }
-
-//    public int givePlayerFine(Player humanPlayer) {
-//        Boolean correctAnswer = true;
-//        Scanner questionAnswer = new Scanner(System.in);
-//        String questionOne = "How many million hectare forest area disappear each year?";
-//        String questionTwo = "How many million hectare forest area does FSC cover over?";
-//        String questionThree = "How many million hectare forest area does PEFC cover over?";
-//        System.out.println("You didn't replant all the trees in the ceritifed forest!\n"
-//            + "Here is a chance to redeem yourself");
-//        int randomNum = (int) (Math.random() * 3) + 1;
-//        switch (randomNum) {
-//            case 1:
-//                System.out.println(questionOne);
-//                correctAnswer = answerValidation(questionAnswer.nextLine(), "7");
-//                break;
-//            case 2:
-//                System.out.println(questionTwo);
-//                correctAnswer = answerValidation(questionAnswer.nextLine(), "200");
-//                break;
-//            case 3:
-//                System.out.println(questionThree);
-//                correctAnswer = answerValidation(questionAnswer.nextLine(), "300");
-//                break;
-//        }
-//        if (!correctAnswer) {
-//            System.out.println("WRONG, study in the library!");
-//            return (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
-//        }
-//        return (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
-//    }
 
     public boolean answerValidation(String userAnswer, String correctAnswer) {
         if (userAnswer.contains(correctAnswer)) {
@@ -185,5 +136,13 @@ public class Trailer extends Room {
             System.out.println("The fxml does not exist");
         }
         return null;
+    }
+
+    public int getNumOfDaysgoneBy() {
+        return numOfDaysGoneBy;
+    }
+
+    public int getNumOfDaysLeft() {
+        return NUM_PLAY_DAYS - numOfDaysGoneBy;
     }
 }
