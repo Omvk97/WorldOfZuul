@@ -32,7 +32,7 @@ public class Player {
     private int numChoppedTreesWithoutPlantingSaplings;
     private final Trailer trailer;
     private Room previousRoom;
-    private boolean slept;
+    private boolean slept, firstVillageVisit;
     private File characterModel;
     private final File baseModelFile = new File("src/pictures/baseCharacter.png");
     private final File baseModelRightFile = new File("src/pictures/baseCharacterRight.png");
@@ -56,6 +56,14 @@ public class Player {
 
     public File getCharacterModel() {
         return characterModel;
+    }
+
+    public boolean isFirstVillageVisit() {
+        return firstVillageVisit;
+    }
+
+    public void setFirstVillageVisit(boolean firstVillageVisit) {
+        this.firstVillageVisit = firstVillageVisit;
     }
 
     public void setCharacterModel(boolean characterGoingRight) {
