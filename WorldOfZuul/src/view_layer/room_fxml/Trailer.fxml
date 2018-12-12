@@ -32,7 +32,7 @@
          </image></ImageView>
       <TextField fx:id="fineInput" alignment="CENTER" layoutX="234.0" layoutY="252.0" onAction="#handleFineInput" prefHeight="26.0" prefWidth="131.0" promptText="Input answer" visible="false" />
       <Label fx:id="fineLabel" alignment="CENTER" layoutX="199.0" layoutY="121.0" prefHeight="98.0" prefWidth="198.0" textAlignment="CENTER" visible="false" wrapText="true" />
-        <Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="346.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
+        <Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="330.0" prefHeight="80.0" prefWidth="320.0" styleClass="textArea" textAlignment="CENTER" wrapText="true" />
       <Button fx:id="confirmButton" layoutX="281.0" layoutY="234.0" mnemonicParsing="false" onAction="#handleConfirmButton" text="Ok" visible="false" />
       <Button fx:id="endButton" layoutX="282.0" layoutY="234.0" mnemonicParsing="false" onAction="#handleEndButton" text="Ok" textAlignment="CENTER" visible="false" />
         <Button fx:id="option1" layoutX="14.0" layoutY="294.0" mnemonicParsing="false" onMouseClicked="#handleOption1" prefHeight="21.0" prefWidth="67.0" text="Store logs">
