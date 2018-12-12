@@ -26,7 +26,8 @@ import javafx.util.Duration;
 
 /**
  *
- * @author daniel co-author oliver
+ * @author daniel 
+ * co-author oliver
  */
 public class TrailerController implements Initializable {
 
@@ -43,32 +44,11 @@ public class TrailerController implements Initializable {
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Trailer gameTrailer = Game.getInstanceOfSelf().getTrailer();
     private boolean running;
-    private int devilCounter = 0, days = 1, randomNum;
+    private int devilCounter = 0, randomNum;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        player.setVisible(false);
-        int daysLeftNum = humanPlayer.getNumOfDaysLeft();
-        daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
-        daysLeftListener();
-        if (!running) {
-            switch (Game.getInstanceOfSelf().getPlayerDirectionInWorld()) {
-                case "goDown":
-                    goDownTransition();
-                    break;
-                case "goLeft":
-                    goLeftTransition();
-                    break;
-                case "goUp":
-                    goUpTransition();
-                    break;
-                default:
-                    running = false;
-                    break;
-            }
-        }
-        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
-        option4.setImage(new Image(new File("src/pictures/starterAxe.png").toURI().toString()));
+        goToTrailerTransition();
         if (humanPlayer.isAxePickedUp()) {
             anchorPane.getChildren().remove(option4);
         }
@@ -80,46 +60,44 @@ public class TrailerController implements Initializable {
 
     }
 
-    private void goDownTransition() {
-        option4.setVisible(false);
-        running = true;
-        player.setVisible(true);
-        trailerPath.setVisible(true);
-        TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
-        player.setLayoutY(0);
-        down.setByY(170);
-        down.setOnFinished((ActionEvent) -> {
-            running = false;
-        });
-        down.play();
+    private void goToTrailerTransition() {
+        player.setVisible(false);
+        int daysLeftNum = gameTrailer.getNumOfDaysLeft();
+        daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
+        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        option4.setImage(new Image(new File("src/pictures/starterAxe.png").toURI().toString()));
+        if (!running) {
+            switch (Game.getInstanceOfSelf().getPlayerDirectionInWorld()) {
+                case "goDown":
+                    playerEnteringTrailerTransition(0, 170, player.getLayoutX(), 0);
+                    break;
+                case "goLeft":
+                    playerEnteringTrailerTransition(-330, 0, anchorPane.getPrefWidth(), player.getLayoutY());
+                    break;
+                case "goUp":
+                    playerEnteringTrailerTransition(0, -230, player.getLayoutX(), anchorPane.getPrefHeight());
+                    break;
+                default:
+                    running = false;
+                    break;
+            }
+        }
     }
 
-    private void goLeftTransition() {
+    private void playerEnteringTrailerTransition(int translateX, int translateY, double setLayoutX, double setLayoutY) {
         running = true;
         player.setVisible(true);
         trailerPath.setVisible(true);
         option4.setVisible(false);
         TranslateTransition left = new TranslateTransition(Duration.seconds(1.5), player);
-        player.setLayoutX(2 * player.getLayoutX() - 70);
-        left.setByX(-206);
+        player.setLayoutX(setLayoutX);
+        player.setLayoutY(setLayoutY);
+        left.setByX(translateX);
+        left.setByY(translateY);
         left.setOnFinished((ActionEvent) -> {
             running = false;
         });
         left.play();
-    }
-
-    private void goUpTransition() {
-        running = true;
-        player.setVisible(true);
-        trailerPath.setVisible(true);
-        option4.setVisible(false);
-        TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-        player.setLayoutY(player.getLayoutY() * 2);
-        up.setByY(-170);
-        up.setOnFinished((ActionEvent) -> {
-            running = false;
-        });
-        up.play();
     }
 
     @FXML
@@ -131,29 +109,29 @@ public class TrailerController implements Initializable {
         }
     }
 
-
     @FXML
     private void handleOption3(MouseEvent event) {
         if (!running) {
             running = true;
             textArea.setText(gameTrailer.option3(humanPlayer));
+            if (gameTrailer.getNumOfDaysLeft() == 0) {
+                daysLeft.setText("Goodbye");
+                HighScoreGraphics highScoreDisplay = new HighScoreGraphics();
+                highScoreDisplay.closeGame();
+                System.exit(0);
+            }
             FadeTransition sleep = new FadeTransition(Duration.seconds(3), anchorPane);
             sleep.setFromValue(1);
             sleep.setToValue(0.1);
             sleep.setCycleCount(2);
             sleep.setAutoReverse(true);
             sleep.play();
-
             sleep.setOnFinished((ActionEvent e) -> {
                 running = false;
-                days++;
-                humanPlayer.getNumOfDaysgoneBy().set(days);
-                if (humanPlayer.getNumOfDaysLeft() < 0) {
-                    HighScoreGraphics highScoreDisplay = new HighScoreGraphics();
-                    highScoreDisplay.closeGame();
-                }
-                if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
+                int daysLeftNum = gameTrailer.getNumOfDaysLeft();
+                daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
 
+                if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
                     fineLabel.setVisible(true);
                     fineLabel.setText("You didn't replant all the trees in the certified forest!\n"
                         + "Here's a chance to redeem yourself");
@@ -180,30 +158,12 @@ public class TrailerController implements Initializable {
             switch (event.getCode()) {
                 case UP:
                 case W: {
-                    running = true;
-                    Command tester = new Command(CommandWord.GO, "north");
-                    Game.getInstanceOfSelf().setPlayerDirectionInWorld("goUp");
-                    TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
-                    up.setByY(-170);
-                    up.setOnFinished((ActionEvent event1) -> {
-                        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-                        running = false;
-                    });
-                    walkTransition(up);
+                    walkTransition("north", "goUp", 0, -170);
                     break;
                 }
                 case DOWN:
                 case S: {
-                    running = true;
-                    Command tester = new Command(CommandWord.GO, "south");
-                    Game.getInstanceOfSelf().setPlayerDirectionInWorld("goDown");
-                    TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
-                    down.setByY(170);
-                    down.setOnFinished((ActionEvent event1) -> {
-                        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-                        running = false;
-                    });
-                    walkTransition(down);
+                    walkTransition("south", "goDown", 0, 170);
                     break;
                 }
                 case LEFT:
@@ -224,16 +184,7 @@ public class TrailerController implements Initializable {
                 }
                 case RIGHT:
                 case D: {
-                    running = true;
-                    Command tester = new Command(CommandWord.GO, "village");
-                    Game.getInstanceOfSelf().setPlayerDirectionInWorld("goRight");
-                    TranslateTransition right = new TranslateTransition(Duration.seconds(1.5), player);
-                    right.setByX(276);
-                    right.setOnFinished((ActionEvent event1) -> {
-                        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-                        running = false;
-                    });
-                    walkTransition(right);
+                    walkTransition("village", "goRight", 276, 0);
                     break;
                 }
                 default:
@@ -243,8 +194,19 @@ public class TrailerController implements Initializable {
         }
     }
 
-    private void walkTransition(Transition direction) {
+    private void walkTransition(String roomToGoTo, String direction, int translateX, int translateY) {
         option4.setVisible(false);
+        running = true;
+        Command roomToGo = new Command(CommandWord.GO, roomToGoTo);
+        Game.getInstanceOfSelf().setPlayerDirectionInWorld(direction);
+        TranslateTransition directionTransition = new TranslateTransition(Duration.seconds(1.5), player);
+        directionTransition.setByY(translateY);
+        directionTransition.setByX(translateX);
+        directionTransition.setOnFinished((ActionEvent event1) -> {
+            Game.getInstanceOfSelf().goRoom(roomToGo, anchorPane);
+            running = false;
+        });
+        
         if (!trailerPath.isVisible()) {
             FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1.5), trailerPath);
             trailerPath.setVisible(true);
@@ -252,12 +214,12 @@ public class TrailerController implements Initializable {
             fadeTransition.setToValue(1);
             fadeTransition.setOnFinished((ActionEvent e) -> {
                 player.setVisible(true);
-                direction.play();
+                directionTransition.play();
             });
             fadeTransition.play();
         } else {
             player.setVisible(true);
-            direction.play();
+            directionTransition.play();
         }
     }
 
@@ -342,12 +304,4 @@ public class TrailerController implements Initializable {
         endButton.setVisible(false);
         fineLabel.setVisible(false);
     }
-
-    private void daysLeftListener() {
-        humanPlayer.getNumOfDaysgoneBy().addListener((observable, oldValue, newValue) -> {
-            int daysLeftNum = humanPlayer.getNumOfDaysLeft();
-            daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
-        });
-    }
-
 }

@@ -33,7 +33,6 @@ public class Player {
     private Room previousRoom;
     private boolean slept;
     private File characterModel;
-
     private final File baseModelFile = new File("src/pictures/baseCharacter.png");
     private final File baseModelRightFile = new File("src/pictures/baseCharacterRight.png");
     private final File modelStarterAxeFile = new File("src/pictures/characterWithStarterAxe.png");
@@ -185,14 +184,6 @@ public class Player {
 
     public ArrayList<Tree> getLogsInStorage() {
         return trailer.getLogsInStorage();
-    }
-
-    public SimpleIntegerProperty getNumOfDaysgoneBy() {
-        return trailer.getNumOfDaysGoneBy();
-    }
-
-    public int getNumOfDaysLeft() {
-        return trailer.getNUM_PLAY_DAYS() - trailer.getNumOfDaysGoneByValue();
     }
 
     /**

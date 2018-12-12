@@ -8,15 +8,12 @@ import domain_layer.game_functionality.Player;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import view_layer.controllers.HighScoreGraphics;
 
 /**
  *
- * @author olive
- * co-author: daniel
+ * @author olive co-author: daniel
  */
 public class Trailer extends Room {
 
@@ -25,11 +22,10 @@ public class Trailer extends Room {
     private final ArrayList<Tree> logsInStorage;
     private Axe starterAxe = AxeFactory.createStarterAxe();
     private final Radio radio = new Radio();
-    private SimpleIntegerProperty numOfDaysGoneBy = new SimpleIntegerProperty();
+    private int numOfDaysGoneBy = 0;
 
     public Trailer() {
         this.logsInStorage = new ArrayList<>();
-        numOfDaysGoneBy.setValue(1);
     }
 
     @Override
@@ -60,14 +56,6 @@ public class Trailer extends Room {
 
     public int getNUM_PLAY_DAYS() {
         return NUM_PLAY_DAYS;
-    }
-
-    public SimpleIntegerProperty getNumOfDaysGoneBy() {
-        return numOfDaysGoneBy;
-    }
-
-    public int getNumOfDaysGoneByValue() {
-        return numOfDaysGoneBy.getValue();
     }
 
     public String option1(Player humanPlayer) {
@@ -106,7 +94,7 @@ public class Trailer extends Room {
      * @param humanPlayer the user.
      */
     public String option3(Player humanPlayer) {
-        numOfDaysGoneBy.setValue(numOfDaysGoneBy.getValue() + 1);
+        numOfDaysGoneBy++;
         Random globalOrLocal = new Random();
         if (globalOrLocal.nextBoolean()) {
             return radio.globalNews(humanPlayer);
@@ -116,7 +104,8 @@ public class Trailer extends Room {
     }
 
     /**
-     * If the player hasn't picked up the starterAxe they will be prompted with the option to pick it up
+     * If the player hasn't picked up the starterAxe they will be prompted with the option to pick
+     * it up
      *
      * @param humanPlayer user that picks up the starter axe
      */
@@ -147,5 +136,13 @@ public class Trailer extends Room {
             System.out.println("The fxml does not exist");
         }
         return null;
+    }
+
+    public int getNumOfDaysgoneBy() {
+        return numOfDaysGoneBy;
+    }
+
+    public int getNumOfDaysLeft() {
+        return NUM_PLAY_DAYS - numOfDaysGoneBy;
     }
 }
