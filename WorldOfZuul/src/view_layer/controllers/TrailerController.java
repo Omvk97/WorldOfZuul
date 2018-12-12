@@ -27,7 +27,7 @@ import javafx.util.Duration;
 
 /**
  *
- * @author daniel co-author oliver
+ * @author daniel
  */
 public class TrailerController implements Initializable {
 
