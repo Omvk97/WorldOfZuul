@@ -69,12 +69,15 @@ public class TrailerController implements Initializable {
         if (!running) {
             switch (Game.getInstanceOfSelf().getPlayerDirectionInWorld()) {
                 case "goDown":
+                    textArea.setVisible(false);
                     playerEnteringTrailerTransition(0, 170, player.getLayoutX(), 0);
                     break;
                 case "goLeft":
+                    textArea.setVisible(false);
                     playerEnteringTrailerTransition(-330, 0, anchorPane.getPrefWidth(), player.getLayoutY());
                     break;
                 case "goUp":
+                    textArea.setVisible(false);
                     playerEnteringTrailerTransition(0, -230, player.getLayoutX(), anchorPane.getPrefHeight());
                     break;
                 default:
@@ -158,32 +161,40 @@ public class TrailerController implements Initializable {
             switch (event.getCode()) {
                 case UP:
                 case W: {
+                    textArea.setVisible(false);
                     walkTransition("north", "goUp", 0, -170);
                     break;
                 }
                 case DOWN:
                 case S: {
+                    textArea.setVisible(false);
                     walkTransition("south", "goDown", 0, 170);
                     break;
                 }
                 case LEFT:
                 case A: {
+                    textArea.setVisible(true);
                     running = true;
                     player.setVisible(false);
                     option4.setVisible(true);
                     FadeTransition upFade = new FadeTransition(Duration.seconds(1.5), trailerPath);
+                    FadeTransition axefade = new FadeTransition(Duration.seconds(1.5), option4);
                     upFade.setFromValue(1);
                     upFade.setToValue(0);
+                    axefade.setFromValue(0);
+                    axefade.setToValue(1);
                     upFade.setOnFinished((ActionEvent) -> {
                         running = false;
                         trailerPath.setVisible(false);
                         textArea.setText(gameTrailer.roomEntrance(humanPlayer));
                     });
+                    axefade.play();
                     upFade.play();
                     break;
                 }
                 case RIGHT:
                 case D: {
+                    textArea.setVisible(false);
                     walkTransition("village", "goRight", 276, 0);
                     break;
                 }
@@ -195,7 +206,6 @@ public class TrailerController implements Initializable {
     }
 
     private void walkTransition(String roomToGoTo, String direction, int translateX, int translateY) {
-        option4.setVisible(false);
         running = true;
         Command roomToGo = new Command(CommandWord.GO, roomToGoTo);
         Game.getInstanceOfSelf().setPlayerDirectionInWorld(direction);
@@ -209,13 +219,18 @@ public class TrailerController implements Initializable {
         
         if (!trailerPath.isVisible()) {
             FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1.5), trailerPath);
+            FadeTransition axeFadeTransition = new FadeTransition(Duration.seconds(1.5), option4);
             trailerPath.setVisible(true);
             fadeTransition.setFromValue(0);
             fadeTransition.setToValue(1);
+            axeFadeTransition.setFromValue(1);
+            axeFadeTransition.setToValue(0);
             fadeTransition.setOnFinished((ActionEvent e) -> {
                 player.setVisible(true);
+                option4.setVisible(false);
                 directionTransition.play();
             });
+            axeFadeTransition.play();
             fadeTransition.play();
         } else {
             player.setVisible(true);
