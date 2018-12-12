@@ -44,8 +44,8 @@ public class BlacksmithController implements Initializable {
         if (humanPlayer.getMoneyValue() >= axe.getPrice()) {
             humanPlayer.boughtAxe(axe);
             return "You just bought a " + axe.getDescription() + "!\n"
-                    + "It costs you " + axe.getPrice() + " gold coins"
-                    + "\nEnjoy it while it lasts!";
+                + "It costs you " + axe.getPrice() + " gold coins"
+                + "\nEnjoy it while it lasts!";
         } else {
             return "YOU NEED " + axe.getPrice() + " GOLD COINS TO BUY THIS AXE";
         }
@@ -58,24 +58,29 @@ public class BlacksmithController implements Initializable {
     @FXML
     private void handlerepair(MouseEvent event) {
         gameBlacksmith.getBlackSmithNPC();
-        switch (gameBlacksmith.grindAxe_menu(humanPlayer)) {
-            case 1:
-                textArea.setText(gameBlacksmith.getBlackSmithNPC() + "You don't have an axe equipped");
-                break;
-            case 2:
-                textArea.setText(gameBlacksmith.getBlackSmithNPC() + "Your axe is fine! Come back if it ever gets dull");
-                break;
-            case 3:
+
+        if (humanPlayer.getAxe() == null) {
+            textArea.setText(gameBlacksmith.getBlackSmithNPC() + "You don't have an axe equipped");
+
+        } else if (humanPlayer.getAxe().getDurability() == humanPlayer.getAxe().getStartDurability()) {
+            textArea.setText(gameBlacksmith.getBlackSmithNPC() + "Your axe is fine! Come back if it ever gets dull");
+
+        } else if (humanPlayer.getAxe().getDurability() < humanPlayer.getAxe().getStartDurability()) {
+
+            if (humanPlayer.getMoneyValue() >= gameBlacksmith.fixAxePrice(humanPlayer)) {
+                System.out.println(gameBlacksmith.blackSmithNPC + "I will grind your axe for you. Please wait");
+                textArea.setText(gameBlacksmith.getBlackSmithNPC() + "I will grind your axe for you. Please wait");
+                gameBlacksmith.grindTime();
+                gameBlacksmith.grindAxe(humanPlayer.getAxe());
+                System.out.println("humanPlayer.grindedAxe(fixAxePrice)");
+                humanPlayer.grindedAxe(gameBlacksmith.fixAxePrice(humanPlayer));
                 textArea.setText(gameBlacksmith.getBlackSmithNPC() + "Your axe is done");
-                break;
-            case 4:
+            } else {
                 textArea.setText(gameBlacksmith.getBlackSmithNPC() + "You do not have enough money");
-                break;
-            default:
-                textArea.setText(gameBlacksmith.getBlackSmithNPC() + "dont know what you mean???");
-                break;
+            }
 
         }
+
     }
 
     @FXML
@@ -111,7 +116,7 @@ public class BlacksmithController implements Initializable {
 
     @FXML
     private void handlerSteelAxe(MouseEvent event) {
-        textArea.setText(getAxeInfo(humanPlayer,  AxeFactory.createSteelAxe()));
+        textArea.setText(getAxeInfo(humanPlayer, AxeFactory.createSteelAxe()));
         humanPlayer.setCharacterModel(false);
     }
 
@@ -132,6 +137,5 @@ public class BlacksmithController implements Initializable {
     private void handlerBack(MouseEvent event) {
         Buypane.setVisible(false);
     }
-
 
 }

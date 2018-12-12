@@ -1,19 +1,25 @@
 package domain_layer.game_locations;
 
+import domain_layer.game_elements.Axe;
 import domain_layer.game_functionality.Player;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
+import javax.swing.UIManager;
 
 /**
  *
- * @author steffen
- * co-author: oliver
+ * @author steffen co-author: oliver
  */
 public class BlackSmith extends Room {
 
-    private final String blackSmithNPC = "Smith:\n";
-
+    public final String blackSmithNPC = "Smith:\n";
+  String hammer = "src/pictures/hammering.wav";
+                Media hammerSound = new Media(new File(hammer).toURI().toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(hammerSound);
     public BlackSmith() {
     }
 
@@ -27,38 +33,28 @@ public class BlackSmith extends Room {
             + "If you pay I will make your axe stronger \n";
     }
 
-    public int grindAxe_menu(Player humanPlayer) {
-        final int pricePerAxeDurability = 2;
-
-        if (humanPlayer.getAxe() == null) {
-            return 1;
-
-        } else if (humanPlayer.getAxe().getDurability() == humanPlayer.getAxe().getStartDurability()) {
-            return 2;
-
-        } else if (humanPlayer.getAxe().getDurability() < humanPlayer.getAxe().getStartDurability()) {
-            int durabilityLostOnAxe = humanPlayer.getAxe().getStartDurability() - humanPlayer.getAxe().getDurability();
-            int fixAxePrice = pricePerAxeDurability * durabilityLostOnAxe;
-            if (humanPlayer.getMoneyValue() >= fixAxePrice) {
-                System.out.println(blackSmithNPC + "I will grind your axe for you. Please wait");
-                int timeToWait = 6;
-                try {
-                    for (int i = 0; i < timeToWait; i++) {
-                        Thread.sleep(1000);
-                        System.out.println("**Ding**");
-                    }
-                } catch (InterruptedException ie) {
-                    Thread.currentThread().interrupt();
-                }
-                humanPlayer.grindedAxe(fixAxePrice);
-                return 3;
-            } else {
-                return 4;
-            }
-        }
-        return 0;
+    public void grindTime() {
+        int timeToWait = 0;
+               Media hammerSound = new Media(new File(hammer).toURI().toString());
+               MediaPlayer mediaPlayer = new MediaPlayer(hammerSound); 
+               mediaPlayer.play();
+               mediaPlayer.stop();
+               mediaPlayer.play();
+              
+   
+               
     }
 
+    public int fixAxePrice(Player humanPlayer) {
+        final int pricePerAxeDurability = 2;
+        int durabilityLostOnAxe = humanPlayer.getAxe().getStartDurability() - humanPlayer.getAxe().getDurability();
+        int fixAxePrice = pricePerAxeDurability * durabilityLostOnAxe;
+        return fixAxePrice;
+    }
+
+       public void grindAxe(Axe axe) {
+        axe.getDurabilityIntegerProperty().setValue(axe.getStartDurability());
+    }
     @Override
     public Parent getRoomFXML() {
         try {
