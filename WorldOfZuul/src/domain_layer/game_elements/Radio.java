@@ -4,6 +4,7 @@ import domain_layer.game_functionality.Player;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import javafx.scene.control.Label;
 
 /**
  *
@@ -48,7 +49,18 @@ public class Radio {
             + "Global Temperature: 31 degrees Celsius\n"
             + "Water Level: Risen 20 meters\n");
 
-        return getStringOfScenarios(humanPlayer, scenarios);
+        int climatePoints = humanPlayer.getClimatePointsValue();
+        List<Integer> keySet = new ArrayList<>(scenarios.keySet());
+        for (int i = 0; i < keySet.size(); i++) {
+            if (climatePoints > keySet.get(0)) {
+                return scenarios.get(keySet.get(0));
+            } else if (climatePoints < keySet.get(keySet.size() - 1)) {
+                return scenarios.get(keySet.get(keySet.size() - 1));
+            } else if (climatePoints < keySet.get(i) && climatePoints > keySet.get(i + 1)) {
+                return scenarios.get(keySet.get(i));
+            }
+        }
+        return "";
     }
 
     public String localNews(Player humanPlayer) {
@@ -81,10 +93,6 @@ public class Radio {
             + "Local Temperature: Error\n"
             + "Wind Speeds: Error\n");
 
-        return getStringOfScenarios(humanPlayer, scenarios);
-    }
-
-    public String getStringOfScenarios(Player humanPlayer, LinkedHashMap<Integer, String> scenarios) {
         int climatePoints = humanPlayer.getClimatePointsValue();
         List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {
