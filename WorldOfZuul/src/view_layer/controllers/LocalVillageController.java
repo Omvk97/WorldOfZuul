@@ -71,6 +71,9 @@ public class LocalVillageController implements Initializable {
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         choosingRainScenario();
     }
+/*
+    This method is used to determin the rain's intensity depending on the amount og climatepoints
+    */
 
     private void choosingRainScenario() {
         switch (getClimateScenario()) {
@@ -93,7 +96,9 @@ public class LocalVillageController implements Initializable {
                 sun.setVisible(true);
         }
     }
-
+/*
+    This method places the rainDrops image on random spots on the sceen and animates it down the screen
+    */
     private void rainDrops(int numOfRainDropsOnScreen, int rainDropSpeed) {
         ImageView[] rainDrops = new ImageView[numOfRainDropsOnScreen];
         for (int i = 0; i < rainDrops.length; i++) {
@@ -102,7 +107,9 @@ public class LocalVillageController implements Initializable {
             makeItRain(rainDrops[i], rainDropSpeed);
         }
     }
-
+/*
+    This method checks the climatepoints
+    */
     private int getClimateScenario() {
         int climatePoints = humanPlayer.getClimatePointsValue();
         if (climatePoints < 0 && climatePoints > -19) {
@@ -118,7 +125,9 @@ public class LocalVillageController implements Initializable {
         }
         return 0;
     }
-
+/*
+    This method handles the rain animation
+    */
     private void makeItRain(ImageView rain, int rainDropSpeed) {
         rain.setTranslateX((Math.random() * 620) + 1);
         rain.setTranslateY((Math.random() * 320) + 1);
@@ -131,12 +140,18 @@ public class LocalVillageController implements Initializable {
         });
         timeline.play();
     }
-
+/*
+    This method handels what's going to happen when the talkToVillageButton is pressed.
+    In this case it calls the scenario method.
+    */
     @FXML
     private void handleTalkToVillageButton(MouseEvent event) {
         scenario();
     }
-
+/*
+    This method handels what's going to happen when the backToPreviousButton is pressed.
+    In this case it makes the player go back to the previous room depending on where it last traveld
+    */
     @FXML
     private void handleBackToPreviousButton(MouseEvent event) {
         backToPreviousRoomButton.setDisable(true);
@@ -162,7 +177,10 @@ public class LocalVillageController implements Initializable {
             }
         }
     }
-
+/*
+    This method handels what's going to happen when the rectangle placed over store is pressed.
+    In this case it calls the goToTransitionHandle to animate the charector based on the given parameters.
+    */
     @FXML
     private void handleGoToStore(MouseEvent event) {
         backToPreviousRoomButton.setDisable(true);
@@ -174,7 +192,10 @@ public class LocalVillageController implements Initializable {
                 "goStore", "store", false);
         }
     }
-
+/*
+    This method handels what's going to happen when the rectangle placed over blacksmith is pressed.
+    In this case it calls the goToTransitionHandle to animate the charector based on the given parameters.
+    */
     @FXML
     private void handleGoToBlacksmith(MouseEvent event) {
         backToPreviousRoomButton.setDisable(true);
@@ -186,7 +207,10 @@ public class LocalVillageController implements Initializable {
                 "goBlacksmith", "blacksmith", true);
         }
     }
-
+/*
+    This method handels what's going to happen when the rectangle placed over library is pressed.
+    In this case it calls the goToTransitionHandle to animate the charector based on the given parameters.
+    */
     @FXML
     private void handleGoToLibrary(MouseEvent event) {
         backToPreviousRoomButton.setDisable(true);
@@ -198,7 +222,11 @@ public class LocalVillageController implements Initializable {
                 "goLibrary", "library", false);
         }
     }
-
+/*
+    This method handels what's going to happen when a key is pressed.
+    In this case it calls the goToTransitionHandle to animate the charector 
+    based on the given parameters and only if the right key is presed.
+    */
     @FXML
     private void handleExits(KeyEvent event) {
         firstVisitGreatings.setVisible(false);
@@ -211,7 +239,10 @@ public class LocalVillageController implements Initializable {
             }
         }
     }
-
+/*
+    This method handels should happen when the charector comes from a given lokation.
+    In this case it calls the backTransitionHandle to animate the charector based on the given parameters.
+    */
     private void transition() {
         playerEntranceCoordinatX = (int) mainAnchorPane.getPrefWidth() / 2;
         playerEntranceCoordinatY = ((int) mainAnchorPane.getPrefHeight() / 4) + 40;
@@ -233,7 +264,9 @@ public class LocalVillageController implements Initializable {
                 break;
         }
     }
-
+/*
+    This method handels how the animation of the text.
+    */
     private void textAnimation(Label animateInLabel, String textToAnimate) {
         final Animation animation = new Transition() {
             {
@@ -249,14 +282,19 @@ public class LocalVillageController implements Initializable {
         };
         animation.play();
     }
-
+/*
+    This method handels what's going to happen the the scenario is called.
+    */
     private void scenario() {
         currentDialouge = 1;
         villageGiftAndScenario.setVisible(true);
         textAnimation(villagerText, gameVillage.getScenario(humanPlayer));
 
     }
-
+/*
+    This method handels what's going to happen when the button in the villageGiftAndScenario Pane is pressed.
+    In this case it determins what should happen next based on if the player has been given a gift or not.
+    */
     @FXML
     private void handleNextScenarioTextButton() {
         if (humanPlayer.isGiftHasBeenGivenToday() && currentDialouge == 1) {
@@ -266,7 +304,9 @@ public class LocalVillageController implements Initializable {
             villageGiftAndScenario.setVisible(false);
         }
     }
-
+/*
+    This method handels what's going to happen the the scenario is called.
+    */
     private void firstVisit(Player humanPlayer) {
         currentDialouge = 0;
         if (humanPlayer.isFirstVillageVisit()) {
@@ -276,7 +316,10 @@ public class LocalVillageController implements Initializable {
 
         }
     }
-
+/*
+    This method handels what's going to happen when the button in the firstVisitGreatings Pane is pressed.
+    In this case it determins what should happen next based on what the currentDialouge is.
+    */
     @FXML
     private void handleNextDialougeFirstVisitButton(MouseEvent event) {
         switch (currentDialouge) {
