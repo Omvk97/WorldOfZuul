@@ -17,38 +17,38 @@ public class BlackSmith extends Room {
 
     public final String blackSmithNPC = "Smith:\n";
     String hammer = "src/pictures/hammering_1.wav";
-                Media hammerSound = new Media(new File(hammer).toURI().toString());
-                MediaPlayer mediaPlayer = new MediaPlayer(hammerSound);
+
     public BlackSmith() {
     }
 
     public String getBlackSmithNPC() {
         return blackSmithNPC;
     }
-
     @Override
     public String roomEntrance(Player humanPlayer) {
         return blackSmithNPC + "Welcome to my shop! \n"
             + "If you pay I will make your axe stronger \n";
     }
-
+   /*
+    *make the sound when the player grinds the axe
+    */
     public void grindSound() {
                Media hammerSound = new Media(new File(hammer).toURI().toString());
                MediaPlayer mediaPlayer = new MediaPlayer(hammerSound);
-               mediaPlayer.play();
-              
-              
-   
-               
+               mediaPlayer.play();            
     }
-
+    /*
+    *for paying the grainding of the axe
+    */
     public int fixAxePrice(Player humanPlayer) {
         final int pricePerAxeDurability = 2;
         int durabilityLostOnAxe = humanPlayer.getAxe().getStartDurability() - humanPlayer.getAxe().getDurability();
         int fixAxePrice = pricePerAxeDurability * durabilityLostOnAxe;
         return fixAxePrice;
     }
-
+    /*
+    * mothod for grind the axe
+    */
        public void grindAxe(Axe axe) {
         axe.getDurabilityIntegerProperty().setValue(axe.getStartDurability());
     }

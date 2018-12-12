@@ -39,7 +39,9 @@ public class BlacksmithController implements Initializable {
         Buypane.setVisible(false);
         textArea.setText(gameBlacksmith.roomEntrance(humanPlayer));
     }
-
+    /*
+    *gets the information of the axe and tjek is the player have enough money i
+    */
     public String getAxeInfo(Player humanPlayer, Axe axe) {
         if (humanPlayer.getMoneyValue() >= axe.getPrice()) {
             humanPlayer.boughtAxe(axe);
@@ -54,19 +56,19 @@ public class BlacksmithController implements Initializable {
     public AnchorPane getAnchorPane() {
         return anchorPane;
     }
-
+    /*
+    * See if player have an axe
+    * see if players axe has taken damaget 
+    * fix players axe
+    */
     @FXML
     private void handlerepair(MouseEvent event) {
         gameBlacksmith.getBlackSmithNPC();
-
         if (humanPlayer.getAxe() == null) {
             textArea.setText(gameBlacksmith.getBlackSmithNPC() + "You don't have an axe equipped");
-
         } else if (humanPlayer.getAxe().getDurability() == humanPlayer.getAxe().getStartDurability()) {
             textArea.setText(gameBlacksmith.getBlackSmithNPC() + "Your axe is fine! Come back if it ever gets dull");
-
         } else if (humanPlayer.getAxe().getDurability() < humanPlayer.getAxe().getStartDurability()) {
-
             if (humanPlayer.getMoneyValue() >= gameBlacksmith.fixAxePrice(humanPlayer)) {
                 System.out.println(gameBlacksmith.blackSmithNPC + "I will grind your axe for you. Please wait");
                 textArea.setText(gameBlacksmith.getBlackSmithNPC() + "I will grind your axe for you. Please wait");
