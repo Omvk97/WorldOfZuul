@@ -10,8 +10,8 @@
         <URL value="@styleSheetForRooms.css" />
     </stylesheets> 
     <children>
-        <Button id="txtStartGameButton" fx:id="txtStartGameButton" layoutX="129.0" layoutY="148.0" mnemonicParsing="false" onAction="#HandleStartGameAction" prefHeight="25.0" prefWidth="134.0" text="Start Game" />
-      <Button fx:id="btnOptionhandler" layoutX="129.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#handlerHighscore" prefHeight="25.0" prefWidth="134.0" stylesheets="@styleSheetForRooms.css" text=" highScore " />
-      <Button fx:id="btnEXIT" layoutX="129.0" layoutY="266.0" mnemonicParsing="false" onAction="#ExitAction" prefHeight="25.0" prefWidth="134.0" stylesheets="@styleSheetForRooms.css" text="Exit" />
+        <Button id="startButton" fx:id="txtStartGameButton" layoutX="129.0" layoutY="148.0" mnemonicParsing="false" onAction="#HandleStartGameAction" prefHeight="25.0" prefWidth="134.0" text="Start Game" />
+      <Button fx:id="btnOptionhandler" id="startButton" layoutX="129.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#handlerHighscore" prefHeight="25.0" prefWidth="134.0" stylesheets="@styleSheetForRooms.css" text=" highScore " />
+      <Button fx:id="btnEXIT" id="startButton" layoutX="129.0" layoutY="266.0" mnemonicParsing="false" onAction="#ExitAction" prefHeight="25.0" prefWidth="134.0" stylesheets="@styleSheetForRooms.css" text="Exit" />
     </children>
 </AnchorPane>
