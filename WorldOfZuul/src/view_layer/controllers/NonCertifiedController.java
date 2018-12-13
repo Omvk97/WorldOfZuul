@@ -22,6 +22,10 @@ import view_layer.PlayerGraphics;
 /**
  * 
  * @author oliver
+ * This controller has the responsibility for the connection between
+ * domain_layer.game_location/noncertifiedForest and the view_layer.room_fxml/NonCertifiedForest 
+ * 
+ * 
  */
 public class NonCertifiedController extends ForestAnimation implements Initializable {
 
@@ -45,9 +49,8 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
         mediumTreeLabel.setText(Integer.toString(gameForest.countMediumTrees()));
         largeTreeLabel.setText(Integer.toString(gameForest.countLargeTrees()));
     }
-
     @FXML
-    private void handleOption1(MouseEvent event) {
+    private void handleChopTree(MouseEvent event) {
         if (!animation.isRunning()) {
             if (humanPlayer.getClimatePointsValue() == playerInteraction.getMIN_CLIMATEPOINTS()) {
                 animation.textAnimation(textArea, "YOU HAVE DESTROYED TOO MUCH OF THE EARTH");
@@ -73,7 +76,6 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
                 animation.textAnimation(textArea, "There is no trees to fell and your backpack is full!");
             }
         } else {
-//            do nothing
         }
     }
 
@@ -121,7 +123,8 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
     }
 
     @FXML
-    private void handleOption2(MouseEvent event) {
+
+    private void handleTreeInfo(MouseEvent event) {
         animation.textAnimation(textArea, "There are " + gameForest.countFellableTrees() + " trees ready to be felled!");
     }
 

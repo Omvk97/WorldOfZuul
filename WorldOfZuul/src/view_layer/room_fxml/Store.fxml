@@ -20,8 +20,8 @@
         <ImageView fx:id="player" fitHeight="75.0" fitWidth="75.0" layoutX="276.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" />
         <fx:include source="Hud.fxml"/>
         <Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="330.0" prefHeight="80.0" prefWidth="320.0" styleClass="textArea" textAlignment="CENTER" wrapText="true" />
-        <Button fx:id="option1" layoutX="14.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#handleSellLogs" prefWidth="85" text="Sell Logs" />
-        <Button fx:id="option2" layoutX="14.0" layoutY="356.0" mnemonicParsing="false" onMouseClicked="#handleBuyItems" prefWidth="85" text="Buy Items" />
+        <Button fx:id="SellLogsBtn" layoutX="14.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#handleSellLogs" prefWidth="85" text="Sell Logs" />
+        <Button fx:id="BuyItemsBtn" layoutX="14.0" layoutY="356.0" mnemonicParsing="false" onMouseClicked="#handleBuyItems" prefWidth="85" text="Buy Items" />
         <Button fx:id="backBtn" layoutX="540.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#handleBackBtn">
             <graphic>
                 <ImageView fitHeight="23.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
