@@ -39,9 +39,6 @@ public class BackPack extends Item {
         return logsInBackPack.size();
     }
 
-    /**
-     * @param tree that is to be added to the backpack
-     */
     public void addTreeToBackpack(Tree tree) {
         logsInBackPack.add(tree);
     }

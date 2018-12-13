@@ -40,13 +40,13 @@ public class LocalVillage extends Room {
 
     public String getScenario(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
-        scenarios.put(99, "The local people from the village are happy about your\n"
-            + "environmental considerations and wildlife is flourishing");
-        scenarios.put(49, "The local people from the village greet you a kind welcome \n"
+        scenarios.put(99, "The local people are happy about your\n"
+            + "environmental considerations and \nwildlife is flourishing");
+        scenarios.put(49, "The local people greet you a kind welcome \n"
             + "and you observe a healthy and vibrant wildlife");
         scenarios.put(-49, "The local people from the village greet you welcome"
             + "\nand you observe animals starving");
-        scenarios.put(-99, "The local people from the village stopped giving you"
+        scenarios.put(-99, "The local people stopped giving you"
             + "\nhospitality and the wildlife is suffering");
         scenarios.put(-149, "You go and talk to some of the locals...\n"
             + "They scream and shout at you...\n"
@@ -63,7 +63,11 @@ public class LocalVillage extends Room {
         List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {
             if (climatePoints > keySet.get(0)) {
-                return giftScenario(humanPlayer);
+                if (!playerInteraction.isGiftHasBeenGivenToday()) {
+                    return giftScenario(humanPlayer);
+                } else {
+                    return scenarios.get(keySet.get(i));
+                }
             } else if (climatePoints < keySet.get(keySet.size() - 1)) {
                 return scenarios.get(keySet.get(keySet.size() - 1));
             } else if (climatePoints < keySet.get(i) && climatePoints > keySet.get(i + 1)) {
@@ -85,11 +89,11 @@ public class LocalVillage extends Room {
         if (!playerInteraction.isGiftHasBeenGivenToday()) {
             if (trailer.isStorageFull()) {
                 trailer.getLogsInStorage().add(new NonCertifiedTree(12));
-                int moneyAmountGiven = (int) (Math.random() * 10) + 1;
+                int moneyAmountGiven = (int) (Math.random() * 50) + 50;
                 humanPlayer.addMoney(moneyAmountGiven);
                 playerInteraction.setGiftHasBeenGivenToday(true);
 
-                return "The villagers are very happy about your enviromental efforts\n"
+                return "The villagers are very happy\n about your enviromental efforts\n"
                     + "and offer to donate " + moneyAmountGiven + " gold coins and 1 tree to you";
             } else {
                 int moneyAmountGiven = (int) (Math.random() * 10) + 1;
@@ -99,7 +103,7 @@ public class LocalVillage extends Room {
                     + "and offer to donate " + moneyAmountGiven + " gold coins to you";
             }
         } else {
-            return "The villagers are very happy about your envriomental efforts\n"
+            return "The villagers are very happy\n about your envriomental efforts\n"
                 + "but they don't have any more gifts for you today";
         }
     }

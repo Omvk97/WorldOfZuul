@@ -1,6 +1,8 @@
 package view_layer;
 
 import domain_layer.game_elements.Axe;
+import domain_layer.game_functionality.Game;
+import domain_layer.game_functionality.Player;
 import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,6 +29,7 @@ public class PlayerGraphics {
     private final File modelFireAxeFile = new File("src/pictures/characterWithFireAxe.png");
     private final File modelFireAxeRightFile = new File("src/pictures/characterWithFireAxeRight.png");
     private File characterModel = baseModelFile;
+    private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private static final PlayerGraphics instance = new PlayerGraphics();
 
     private PlayerGraphics() {
@@ -37,17 +40,14 @@ public class PlayerGraphics {
     }
 
     /**
-     * A method that combines setCharactModel and updateCharacterModel, in the rooms
-     * that uses both right after eachother when the model both needs to be updated and the player
-     * needs to be set.
+     * A method that combines setCharactModel and updateCharacterModel, in the rooms that uses both
+     * right after eachother when the model both needs to be updated and the player needs to be set.
+     *
      * @param characterGoingRight the players walking direction
-     * @param playerAxe the players equipped axe
      * @param playerImage the image representation of Player
      */
-    public void setAndUpdateCharacterModel(boolean characterGoingRight,
-        Axe playerAxe,
-        ImageView playerImage) {
-        setCharacterModel(characterGoingRight, playerAxe);
+    public void setAndUpdateCharacterModel(boolean characterGoingRight, ImageView playerImage) {
+        setCharacterModel(characterGoingRight);
         updateCharacterModel(playerImage);
     }
 
@@ -65,35 +65,34 @@ public class PlayerGraphics {
      * and if the player's walking direction should be left or right.
      *
      * @param characterGoingRight the players walking direction
-     * @param playerAxe the players equipped axe
      */
-    public void setCharacterModel(boolean characterGoingRight, Axe playerAxe) {
+    public void setCharacterModel(boolean characterGoingRight) {
         if (!characterGoingRight) {
-            if (playerAxe == null) {
+            if (humanPlayer.getEquippedAxe() == null) {
                 characterModel = baseModelFile;
-            } else if (playerAxe.getDescription().equals("starter axe")) {
+            } else if (humanPlayer.getEquippedAxe().getDescription().equals("starter axe")) {
                 characterModel = modelStarterAxeFile;
-            } else if (playerAxe.getDescription().equals("iron axe")) {
+            } else if (humanPlayer.getEquippedAxe().getDescription().equals("iron axe")) {
                 characterModel = modelIronAxeFile;
-            } else if (playerAxe.getDescription().equals("steel axe")) {
+            } else if (humanPlayer.getEquippedAxe().getDescription().equals("steel axe")) {
                 characterModel = modelSteelAxeFile;
-            } else if (playerAxe.getDescription().equals("diamond axe")) {
+            } else if (humanPlayer.getEquippedAxe().getDescription().equals("diamond axe")) {
                 characterModel = modelDiamondAxeFile;
-            } else if (playerAxe.getDescription().equals("fire axe")) {
+            } else if (humanPlayer.getEquippedAxe().getDescription().equals("fire axe")) {
                 characterModel = modelFireAxeFile;
             }
         } else {
-            if (playerAxe == null) {
+            if (humanPlayer.getEquippedAxe() == null) {
                 characterModel = baseModelRightFile;
-            } else if (playerAxe.getDescription().equals("starter axe")) {
+            } else if (humanPlayer.getEquippedAxe().getDescription().equals("starter axe")) {
                 characterModel = modelStarterAxeRightFile;
-            } else if (playerAxe.getDescription().equals("iron axe")) {
+            } else if (humanPlayer.getEquippedAxe().getDescription().equals("iron axe")) {
                 characterModel = modelIronAxeRightFile;
-            } else if (playerAxe.getDescription().equals("steel axe")) {
+            } else if (humanPlayer.getEquippedAxe().getDescription().equals("steel axe")) {
                 characterModel = modelSteelAxeRightFile;
-            } else if (playerAxe.getDescription().equals("diamond axe")) {
+            } else if (humanPlayer.getEquippedAxe().getDescription().equals("diamond axe")) {
                 characterModel = modelDiamondAxeRightFile;
-            } else if (playerAxe.getDescription().equals("fire axe")) {
+            } else if (humanPlayer.getEquippedAxe().getDescription().equals("fire axe")) {
                 characterModel = modelFireAxeRightFile;
             }
         }

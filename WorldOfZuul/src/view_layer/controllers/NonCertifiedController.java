@@ -1,5 +1,6 @@
 package view_layer.controllers;
 
+import view_layer.room_animations.ForestAnimation;
 import domain_layer.game_functionality.Command;
 import domain_layer.game_functionality.CommandWord;
 import domain_layer.game_functionality.Game;
@@ -22,26 +23,23 @@ import view_layer.PlayerGraphics;
  *
  * @author oliver
  */
-public class NonCertifiedController extends ForestController implements Initializable {
+public class NonCertifiedController extends ForestAnimation implements Initializable {
 
     private final NonCertifiedForest gameForest = (NonCertifiedForest) Game.getInstanceOfSelf()
         .getNonCertificedForest();
     private final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
 
-    public NonCertifiedController() {
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        running = true;
+        animation.setRunning(true);
         TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
         up.setFromY(170);
         up.setByY(-170);
         up.setOnFinished((ActionEvent event) -> {
-            running = false;
+            animation.setRunning(false);
         });
         up.play();
-        textArea.setText(gameForest.roomEntrance(humanPlayer));
+        animation.textAnimation(textArea, gameForest.roomEntrance(humanPlayer));
         PlayerGraphics.getInstanceOfSelf().updateCharacterModel(player);
         smallTreeLabel.setText(Integer.toString(gameForest.countSmallTrees()));
         mediumTreeLabel.setText(Integer.toString(gameForest.countMediumTrees()));
@@ -50,14 +48,14 @@ public class NonCertifiedController extends ForestController implements Initiali
 
     @FXML
     private void handleOption1(MouseEvent event) {
-        if (!running) {
+        if (!animation.isRunning()) {
             if (humanPlayer.getClimatePointsValue() == playerInteraction.getMIN_CLIMATEPOINTS()) {
-                textArea.setText("YOU HAVE DESTROYED TOO MUCH OF THE EARTH");
+                animation.textAnimation(textArea, "YOU HAVE DESTROYED TOO MUCH OF THE EARTH");
                 highScoreGraphics.closeGame();
                 System.exit(0);
             }
             if (humanPlayer.canCarryMoreTrees() && gameForest.thereIsMoreTreesToCut()) {
-                running = true;
+                animation.setRunning(true);
                 if (gameForest.lastTreeInArray().getTreeHealth() >= gameForest.getLARGE_TREE_SIZE()) {
                     int number = gameForest.countNumOfHits(humanPlayer);
                     treeAnimationToLargeTree(number, gameForest.countLargeTrees(), gameForest);
@@ -66,13 +64,13 @@ public class NonCertifiedController extends ForestController implements Initiali
                     treeAnimationToMediumTree(number, gameForest.countMediumTrees());
                 }
             } else if (humanPlayer.canCarryMoreTrees() && !gameForest.thereIsMoreTreesToCut()) {
-                textArea.setText("There is no more trees to fell right now!"
+                animation.textAnimation(textArea, "There is no more trees to fell right now!"
                     + "\nYou have to wait for the forest to regrow!");
             } else if (gameForest.thereIsMoreTreesToCut() && !humanPlayer.canCarryMoreTrees()) {
-                textArea.setText("You are carrying too much wood!\n"
+                animation.textAnimation(textArea, "You are carrying too much wood!\n"
                     + "Sell or store your logs!");
             } else {
-                textArea.setText("There is no trees to fell and your backpack is full!");
+                animation.textAnimation(textArea, "There is no trees to fell and your backpack is full!");
             }
         } else {
 //            do nothing
@@ -91,8 +89,7 @@ public class NonCertifiedController extends ForestController implements Initiali
         }
         sounds.add(treeFallingSound);
 
-        PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(false,
-            humanPlayer.getEquippedAxe(), player);
+        PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(false, player);
         TranslateTransition goToTree = new TranslateTransition(Duration.seconds(1.5), player);
         goToTree.setByX((mediumTree.getLayoutX() - player.getLayoutX()) + 70);
         goToTree.setByY(-(player.getLayoutY() - mediumTree.getLayoutY()) + 60);
@@ -116,8 +113,7 @@ public class NonCertifiedController extends ForestController implements Initiali
             mediumTreeLabel.setText(Integer.toString(treeCount));
             gameForest.chopWood(humanPlayer);
             treeFelledConfirmation();
-            PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(true,
-                humanPlayer.getEquippedAxe(), player);
+            PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(true, player);
         });
 
         SequentialTransition transition = new SequentialTransition(goToTree, goFromTree);
@@ -126,13 +122,13 @@ public class NonCertifiedController extends ForestController implements Initiali
 
     @FXML
     private void handleOption2(MouseEvent event) {
-        textArea.setText("There are " + gameForest.countFellableTrees() + " trees ready to be felled!");
+        animation.textAnimation(textArea, "There are " + gameForest.countFellableTrees() + " trees ready to be felled!");
     }
 
     @FXML
     private void handleExits(KeyEvent event) {
-        if (!running) {
-            running = true;
+        if (!animation.isRunning()) {
+            animation.setRunning(true);
             if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
                 playerInteraction.setPlayerDirectionInWorld("goDown");
                 Command tester = new Command(CommandWord.GO, "trailer");
@@ -141,7 +137,7 @@ public class NonCertifiedController extends ForestController implements Initiali
                 down.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
                 down.play();
             } else {
-                textArea.setText("There is no road!");
+                animation.textAnimation(textArea, "There is no road!");
             }
         }
     }
