@@ -12,6 +12,9 @@ import java.io.File;
 /**
  *
  * @author steffen co-author: oliver.
+ * This Class have the responsibility for making and grinding axes:
+ * 
+ * 
  */
 public class BlackSmith extends Room {
 
@@ -29,16 +32,18 @@ public class BlackSmith extends Room {
         return blackSmithNPC + "Welcome to my shop! \n"
             + "If you pay I will make your axe stronger \n";
     }
-   /*
-    *Makes the sound when the player grinds an axe.
+   /**
+    * Makes the sound when the player grinds an axe.
     */
     public void grindSound() {
                Media hammerSound = new Media(new File(hammer).toURI().toString());
                MediaPlayer mediaPlayer = new MediaPlayer(hammerSound);
                mediaPlayer.play();            
     }
-    /*
-    *Grainding of the axe.
+   /**
+    * Grainding of the axe.
+    * @param humanPlayer
+    * @return 
     */
     public int fixAxePrice(Player humanPlayer) {
         final int pricePerAxeDurability = 2;
@@ -46,9 +51,10 @@ public class BlackSmith extends Room {
         int fixAxePrice = pricePerAxeDurability * durabilityLostOnAxe;
         return fixAxePrice;
     }
-    /*
-    * Mothod for grind the axe.
-    */
+    /**
+     * Mothod for grind the axe.
+     * @param axe 
+     */
        public void grindAxe(Axe axe) {
         axe.getDurabilityIntegerProperty().setValue(axe.getStartDurability());
     }

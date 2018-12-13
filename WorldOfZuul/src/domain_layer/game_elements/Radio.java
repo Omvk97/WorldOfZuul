@@ -9,6 +9,7 @@ import java.util.List;
  *
  * @author steffen
  * co-author: oliver
+ * This class controlles the scenarios for the humansplayers climapoints.
  */
 public class Radio {
 
@@ -50,7 +51,6 @@ public class Radio {
 
         return getStringOfscenarios(humanPlayer, scenarios);
     }
-
     public String localNews(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
         scenarios.put(-199, weatherReporter + "The weather forecast indicates mild winds\n"
@@ -83,9 +83,12 @@ public class Radio {
 
         return getStringOfscenarios(humanPlayer, scenarios);
     }
-    /*
-    *
-    */
+    /**
+     * Take the climaPoints from Humanplayer and finde the scenarios tha match the climepointe.
+     * @param humanPlayer
+     * @param scenarios
+     * @return 
+     */
     public String getStringOfscenarios(Player humanPlayer, LinkedHashMap<Integer, String> scenarios) {
         int climatePoints = humanPlayer.getClimatePointsValue();
         List<Integer> keySet = new ArrayList<>(scenarios.keySet());

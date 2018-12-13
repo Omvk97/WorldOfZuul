@@ -22,6 +22,9 @@ import javafx.scene.layout.AnchorPane;
 /**
  *
  * @author steffen
+ * 
+ * This controller has the responsibility for the conektions between the Blacksmith location class
+ * and the blacksmith.fxml (view layer)
  */
 public class BlacksmithController implements Initializable {
 
@@ -56,10 +59,6 @@ public class BlacksmithController implements Initializable {
             return "YOU NEED " + axe.getPrice() + " GOLD COINS TO BUY THIS AXE";
         }
     }
-//
-//    public AnchorPane getAnchorPane() {
-//        return anchorPane;
-//    }
    /**
     *Tjeks if player have an axe.
     *Tjeks if axe has taken damaget. 

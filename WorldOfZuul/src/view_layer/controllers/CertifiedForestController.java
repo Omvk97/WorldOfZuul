@@ -8,7 +8,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -59,15 +58,12 @@ public class CertifiedForestController extends ForestController implements Initi
                 textArea.setText("There is no trees to fell and your backpack is full!");
             }
         } else {
-//            do nothing
         }
     }
-
     @FXML
     private void handleOption2(MouseEvent event) {
         textArea.setText("There are " + gameForest.countFellableTrees() + " trees ready to be felled!");
     }
-
     @FXML
     private void handleOption3(MouseEvent event) {
         if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() > 0) {

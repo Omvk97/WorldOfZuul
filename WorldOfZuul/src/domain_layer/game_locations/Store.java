@@ -14,7 +14,6 @@ import javafx.scene.image.ImageView;
  * @author oliver
  */
 public class Store extends Room {
-
     private static final int SAPLING_PRICE = 5;
     private final String StoreOwner = "Reginald:\n";
     private BackPack smallBackPack = BackPackFactory.createSmallBackPack();
@@ -23,7 +22,6 @@ public class Store extends Room {
 
     public Store() {
     }
-
     @Override
     public String roomEntrance(Player humanPlayer) {
         return StoreOwner + "Hi " + "Welcome to my store!\n"
@@ -38,7 +36,6 @@ public class Store extends Room {
         mediumBackPack = BackPackFactory.createMediumBackPack();
         largeBackPack = BackPackFactory.createLargeBackPack();
     }
-
     public String getItemInfo(ImageView image) {
         switch (image.getId()) {
             case "smallBackPack":
@@ -56,7 +53,6 @@ public class Store extends Room {
         }
         return "";
     }
-
     public boolean sellLogs(Player humanPlayer) {
         if (humanPlayer.getLogsInStorage().isEmpty()
             && humanPlayer.getBackPack().getLogsInBackPack().isEmpty()) {
