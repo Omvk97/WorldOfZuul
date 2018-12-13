@@ -110,19 +110,11 @@
     
 }
 
-#daysLeft{
-    -fx-background-radius: 50px;
-    -fx-background-color: #00c000;
-    -fx-border-color: transparent;
-    -fx-color: #ffffff;
-    -fx-display: inline-block;
-    -fx-font-family:Arial;
-    -fx-font-size: 0.75em;
-    -fx-margin: auto;
-    -fx-padding: 5px;
-    -fx-text-decoration: none;
-    -fx-text-shadow: #000000 5px 5px 47px;
-    -fx-transition: all .2s ease-in-out;
-    
+
+.miniLabel{
+    -fx-background-image:  url("/pictures/GameTextBox.png");
+    -fx-background-size: cover;
+    -fx-text-fill: white;
+    -fx-alignment: center;
 }
 

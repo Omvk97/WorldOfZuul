@@ -20,7 +20,7 @@ import javafx.scene.Parent;
  */
 public class Trailer extends Room {
 
-    private final static int NUM_PLAY_DAYS = 5;
+    private final static int NUM_PLAY_DAYS = 15;
     private final static int MAX_TREESTORAGEAMOUNT = 30;
     private final ArrayList<Tree> logsInStorage;
     private Axe starterAxe = AxeFactory.createStarterAxe();

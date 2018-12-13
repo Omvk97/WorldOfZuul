@@ -9,12 +9,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="cabin" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleExits" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view_layer.controllers.TrailerController">
+
+<AnchorPane id="cabin" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleExits" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view_layer.controllers.TrailerController">
     <stylesheets>
         <URL value="@styleSheetForRooms.css" />
     </stylesheets>
     <children>
-        <Label fx:id="daysLeft" layoutX="524.0" layoutY="36.0" prefHeight="26.0" prefWidth="67.0" stylesheets="@styleSheetForRooms.css" />
+
+        <Label fx:id="daysLeft" layoutX="519.0" layoutY="45.0" prefHeight="26.0" prefWidth="87.0" styleClass="miniLabel" />
+
         <ImageView id="TrailerParth" fx:id="trailerPath" fitHeight="450.0" fitWidth="650.0" layoutX="-4.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" visible="false">
             <image>
                 <Image url="file:src/pictures/TrailerPath.png" />
