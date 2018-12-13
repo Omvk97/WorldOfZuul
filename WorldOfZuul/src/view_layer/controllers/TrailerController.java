@@ -105,6 +105,12 @@ public class TrailerController implements Initializable {
         left.play();
     }
 
+    /**
+     * Stores inventory logs to trailer container and displays relevant text in the textArea in
+     * trailer
+     *
+     * @param event This is an input event that occurs when a mouse is clicked
+     */
     @FXML
     private void handleOption1(MouseEvent event) {
         if (!trailerPath.isVisible()) {
@@ -114,6 +120,12 @@ public class TrailerController implements Initializable {
         }
     }
 
+    /**
+     * This method is supposed to provide sleep functionality while resetting day. The method also
+     * checks if the player should receive a fine for not replanting trees in the certified forest
+     *
+     * @param event This is an input event that occurs when a mouse is clicked
+     */
     @FXML
     private void handleOption3(MouseEvent event) {
         if (!running) {
@@ -148,6 +160,11 @@ public class TrailerController implements Initializable {
         }
     }
 
+    /**
+     * Picks up the starter axe and removes it from the screen
+     *
+     * @param event This is an input event that occurs when a mouse is clicked
+     */
     @FXML
     private void handleOption4(MouseEvent event) {
         textArea.setText(gameTrailer.option4(humanPlayer));
@@ -157,6 +174,11 @@ public class TrailerController implements Initializable {
         playerInteraction.setAxePickedUp(true);
     }
 
+    /**
+     * This method moves the player to the next room depending on the user input
+     *
+     * @param event This is an input event that indicates the key stroke occurred on a node
+     */
     @FXML
     private void handleExits(KeyEvent event) {
         if (!running) {
@@ -199,6 +221,11 @@ public class TrailerController implements Initializable {
         }
     }
 
+    /**
+     * This method makes the trailer path to transition between rooms visible
+     *
+     * @param direction Determines what direction the player should move
+     */
     private void walkTransition(String roomToGoTo, String direction, int translateX, int translateY) {
         option4.setVisible(false);
         running = true;
@@ -228,6 +255,11 @@ public class TrailerController implements Initializable {
         }
     }
 
+    /**
+     * This debug method is supposed to add a large amount of mouney
+     *
+     * @param event This is an input event that occurs when a mouse is clicked
+     */
     @FXML
     private void giveMoneyForTesting(MouseEvent event) {
         if (devilCounter > 1) {
@@ -238,6 +270,11 @@ public class TrailerController implements Initializable {
         }
     }
 
+    /**
+     * This method outputs a random question between 3 options after interaction with button event
+     *
+     * @param event This is an input event that occurs when an action from a button as been fired
+     */
     @FXML
     private void handleConfirmButton(ActionEvent event) {
 
@@ -270,6 +307,14 @@ public class TrailerController implements Initializable {
         }
     }
 
+    /**
+     * This method is supposed to evaluate the user's answer to the question outputted by
+     * confirmButton and decides the fine the user has to pay based off a correct or incorrect
+     * answer
+     *
+     * @param event This is an input event that occurs when an action from a textarea has been
+     * entered
+     */
     @FXML
     private void handleFineInput(ActionEvent event) {
         Boolean correctAnswer = true;
@@ -289,22 +334,27 @@ public class TrailerController implements Initializable {
         if (!correctAnswer) {
             fineLabel.setText("WRONG, study in the library!\n"
                 + "We also need you to cover the cost of planting the trees that you forgot!\n"
-                + "Your fine adds up to " + 
-                (playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
+                + "Your fine adds up to "
+                + (playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
             fineInput.setVisible(false);
             endButton.setVisible(true);
             humanPlayer.sleep(playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
         } else {
             fineLabel.setText("Correct! Your fine has been cut in half! We also need you\n"
                 + "to cover the cost of planting the trees that you forgot!\n"
-                + "Total cost of " +
-                (playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
+                + "Total cost of "
+                + (playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
             fineInput.setVisible(false);
             endButton.setVisible(true);
             humanPlayer.sleep(playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
         }
     }
 
+    /**
+     * This button removes all contents addressing the fine function
+     *
+     * @param event This is an input event that occurs when an action from a button as been fired
+     */
     @FXML
     private void handleEndButton(ActionEvent event) {
         fineScroll.setVisible(false);
