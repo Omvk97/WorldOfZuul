@@ -110,3 +110,9 @@
     
 }
 
+.miniLabel{
+    -fx-background-image:  url("/pictures/GameTextBox.png");
+    -fx-background-size: cover;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
