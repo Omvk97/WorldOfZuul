@@ -6,7 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 /**
- *  handles the logic of library.
+ * handles the logic of library.
+ *
  * @author michael
  */
 public class Library extends Room {
@@ -15,19 +16,23 @@ public class Library extends Room {
 
     public Library() {
     }
-/**
- * Sets the library roomEntrance
- * @param humanplayer
- * @return String
- */
+
+    /**
+     * Sets the library roomEntrance
+     *
+     * @param humanplayer
+     * @return String
+     */
     @Override
     public String roomEntrance(Player humanplayer) {
         return libraryOwner + "Hi there, Feel free to read any of the books on the bookshelf.";
     }
-/**
- * Sets what FXML document it should try to load.
- * @return FXML
- */
+
+    /**
+     * Sets what FXML document it should try to load.
+     *
+     * @return FXML
+     */
     @Override
     public Parent getRoomFXML() {
         try {

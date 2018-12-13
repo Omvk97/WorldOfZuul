@@ -1,6 +1,5 @@
 package view_layer;
 
-import domain_layer.game_elements.Axe;
 import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
 import java.io.File;

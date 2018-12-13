@@ -28,6 +28,7 @@ public class WorldOfZuul extends Application {
 
         stage.setScene(scene);
         stage.show();
+//        Makes sure that the players highscore gets recorded even if they exit the game.
         stage.setOnCloseRequest((WindowEvent event) -> {
             highScoreGraphics.closeGame();
         });

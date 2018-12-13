@@ -20,7 +20,8 @@ import javafx.util.Duration;
 import view_layer.PlayerGraphics;
 
 /**
- *
+ * This class contains all ressources related to the two forests, it handles when the user
+ * wants to chop a tree and how to play hit and chop sound when chopping trees.
  * @author oliver
  */
 abstract public class ForestAnimation {
@@ -44,6 +45,14 @@ abstract public class ForestAnimation {
     protected final HighScoreGraphics highScoreGraphics = new HighScoreGraphics();
     protected final GameAnimation animation = new GameAnimation(player);
 
+    /**
+     * When the player wants to chop a tree, if it's a big tree the player chops down this
+     * method will handle where the player image should go and what animations to play.
+     * @param numOfHits how many hits the tree takes to be felled and therefor how many sounds
+     * is to be played.
+     * @param treeCount how many trees that's left after the player has felled the tree.
+     * @param gameForest the forest that the animation is to be run in.
+     */
     protected void treeAnimationToLargeTree(int numOfHits, int treeCount, Forest gameForest) {
         if (humanPlayer.playerHasAnAxe()) {
             for (int i = 0; i < numOfHits; i++) {
@@ -85,6 +94,11 @@ abstract public class ForestAnimation {
         transition.play();
     }
 
+    /**
+     * A recursive method that makes sure that the sounds that is to be played will be played
+     * one after another. This makes sure that the compiler doesn't run all sounds at the same time.
+     * @param sounds all the sounds that is to be played in an arraylist.
+     */
     protected void playMediaTracks(ArrayList<Media> sounds) {
         if (sounds.isEmpty()) {
             return;
@@ -98,6 +112,10 @@ abstract public class ForestAnimation {
         });
     }
 
+    /**
+     * When the player has chopped down the tree, they need to get som sort of visual confirmation
+     * This methods takes care of that and also handles if the players axe is destroyed.
+     */
     protected void treeFelledConfirmation() {
         if (humanPlayer.playerHasAnAxe()) {
             animation.textAnimation(textArea, "You have chopped down a tree with your "
@@ -113,7 +131,13 @@ abstract public class ForestAnimation {
         animation.setRunning(false);
     }
 
-    protected void hitAnimation(int numOfChops, boolean characterGoingRight) {
+    /**
+     * The animation of "hitting" the tree is controlled in this class. It is meant to be called
+     * after the animation walking to the tree is finished.
+     * @param numOfHits how many hits that should be animated
+     * @param characterGoingRight whether or not the player image is going right.
+     */
+    protected void hitAnimation(int numOfHits, boolean characterGoingRight) {
         TranslateTransition hitAnimation = new TranslateTransition();
         hitAnimation.setNode(player);
         if (humanPlayer.playerHasAnAxe()) {
@@ -127,7 +151,7 @@ abstract public class ForestAnimation {
             hitAnimation.setByX(-40);
         }
         hitAnimation.setAutoReverse(true);
-        hitAnimation.setCycleCount(numOfChops * 2);
+        hitAnimation.setCycleCount(numOfHits * 2);
         hitAnimation.setInterpolator(Interpolator.LINEAR);
         hitAnimation.setOnFinished((ActionEvent event1) -> {
             PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(false, player);

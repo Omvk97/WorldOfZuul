@@ -20,7 +20,7 @@ import javafx.util.Duration;
 import view_layer.PlayerGraphics;
 
 /**
- *
+ * 
  * @author oliver
  */
 public class NonCertifiedController extends ForestAnimation implements Initializable {

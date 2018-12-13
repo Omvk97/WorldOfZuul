@@ -75,14 +75,14 @@ public class BlacksmithController implements Initializable {
     private void handlerepair(MouseEvent event) {
         gameBlacksmith.getBlackSmithNPC();
         if (humanPlayer.getEquippedAxe() == null) {
-            textArea.setText(gameBlacksmith.getBlackSmithNPC() + "You don't have an axe equipped");
+            animation.textAnimation(textArea, gameBlacksmith.getBlackSmithNPC() + "You don't have an axe equipped");
         } else if (humanPlayer.getEquippedAxe().getDurability() == humanPlayer.getEquippedAxe().getStartDurability()) {
-            textArea.setText(gameBlacksmith.getBlackSmithNPC() + "Your axe is fine! Come back if it ever gets dull");
+            animation.textAnimation(textArea, gameBlacksmith.getBlackSmithNPC() + "Your axe is fine! Come back if it ever gets dull");
         } else if (humanPlayer.getEquippedAxe().getDurability() < humanPlayer.getEquippedAxe().getStartDurability()) {
             if (humanPlayer.getMoneyValue() >= gameBlacksmith.fixAxePrice(humanPlayer)) {
                 FixAxe();
             } else {
-                textArea.setText(gameBlacksmith.getBlackSmithNPC() + "You do not have enough money");
+                animation.textAnimation(textArea, gameBlacksmith.getBlackSmithNPC() + "You do not have enough money");
             }
 
         }
