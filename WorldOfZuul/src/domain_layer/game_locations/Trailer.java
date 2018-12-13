@@ -14,7 +14,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 /**
- * 
+ * This is the players home, it has a storage of trees.
+ * It is also where the player sleeps and hears the weather report.
  * @author olive co-author: daniel
  */
 public class Trailer extends Room {
@@ -52,7 +53,7 @@ public class Trailer extends Room {
     }
 
     /**
-     * @return true if there is no more space left for trees in storage
+     * @return true if there is no more space left in storage
      */
     public boolean isStorageFull() {
         return getLogsInStorage().size() == MAX_TREESTORAGEAMOUNT;

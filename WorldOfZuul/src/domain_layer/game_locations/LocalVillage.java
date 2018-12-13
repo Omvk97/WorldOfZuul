@@ -12,11 +12,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 /**
- *
+ * This room is where the player will be met with some consequences of their actions.
+ * The room functions as a stop between other rooms and gives different scenarios depending on
+ * the players action
  * @author oliver co-author: daniel
  */
 public class LocalVillage extends Room {
-    
+
     private final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
 
     public LocalVillage() {
@@ -27,6 +29,14 @@ public class LocalVillage extends Room {
         return "You are standing in the local village! \n"
             + getScenario(humanPlayer) + "\n";
     }
+
+    /**
+     * This method is supposed to return a given scenario based off an integer and reward the user
+     * for certain scenarios
+     *
+     * @param humanPlayer The object that functions as the player for the game interacting with
+     * aspects of the game
+     */
 
     public String getScenario(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
@@ -63,6 +73,13 @@ public class LocalVillage extends Room {
         return "You successfully broke the game";
     }
 
+    /**
+     * This method is supposed to reward the user with a gift based on inventory space
+     *
+     * @param humanPlayer The object that functions as the player for the game interacting with
+     * aspects of the game
+     * @return text associated with getting a gift
+     */
     public String giftScenario(Player humanPlayer) {
         final Trailer trailer = Game.getInstanceOfSelf().getTrailer();
         if (!playerInteraction.isGiftHasBeenGivenToday()) {
