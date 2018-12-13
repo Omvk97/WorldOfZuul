@@ -3,7 +3,8 @@ package domain_layer.game_elements;
 import java.util.ArrayList;
 
 /**
- * 
+ * Has the responsibility of storing trees and makes sure that the trees the player fells
+ * is saved no matter where player moves.
  * @author oliver
  */
 public class BackPack extends Item {
@@ -59,6 +60,11 @@ public class BackPack extends Item {
         logsInBackPack.remove(0);
     }
 
+    /**
+     * Information about the backpack so the player can make a decision on whether or not to buy
+     * the backpack.
+     * @return all the information about the backpack.
+     */
     @Override
     public String toString() {
         return getDescription() + " with a capacity of " + getBackpackCapacity()

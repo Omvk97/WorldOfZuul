@@ -4,7 +4,6 @@ import domain_layer.game_functionality.Player;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import javafx.scene.control.Label;
 
 /**
  *

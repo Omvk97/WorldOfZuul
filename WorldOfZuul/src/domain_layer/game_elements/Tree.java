@@ -1,7 +1,7 @@
 package domain_layer.game_elements;
 
 /**
- *
+ * 
  * @author oliver
  * co-author: michael
  */

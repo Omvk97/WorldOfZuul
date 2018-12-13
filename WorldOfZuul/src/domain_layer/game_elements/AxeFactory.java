@@ -2,7 +2,7 @@ package domain_layer.game_elements;
 
 /**
  * Responsibility of creating new axes whenever the gameWorld needs it, this ensures that
- * when a new axe is made that it always is a new axe in memory that is made.
+ * when a new axe is made that it always is a new axe in main memory that is made.
  * @author oliver
  */
 public class AxeFactory {

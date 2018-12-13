@@ -1,7 +1,8 @@
 package domain_layer.game_elements;
 
 /**
- *
+ * Responsibility of creating new backpacks whenever the gameWorld needs it, this ensures that
+ * when a new backpack is made that it always is a new backpack in main memory that is made.
  * @author oliver
  */
 public class BackPackFactory {
