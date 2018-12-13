@@ -3,6 +3,7 @@ package domain_layer.game_locations;
 import domain_layer.game_elements.NonCertifiedTree;
 import domain_layer.game_elements.Tree;
 import domain_layer.game_functionality.Player;
+import domain_layer.game_functionality.PlayerInteraction;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,8 @@ import javafx.scene.Parent;
  * @author oliver
  */
 public class NonCertifiedForest extends Forest {
+    
+    private final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
 
     public NonCertifiedForest() {
         for (int i = 0; i < 15; i++) {
@@ -24,9 +27,9 @@ public class NonCertifiedForest extends Forest {
 
     @Override
     public String roomEntrance(Player humanPlayer) {
-        if (humanPlayer.isSlept()) {
+        if (playerInteraction.isSlept()) {
             treeGrowth();
-            humanPlayer.setSlept(false);
+            playerInteraction.setSlept(false);
         }
         moveChoppableTreesUp();
         return "You are standing in a non certified forest! \n"

@@ -3,7 +3,7 @@ package domain_layer.game_elements;
 import java.util.ArrayList;
 
 /**
- *
+ * 
  * @author oliver
  */
 public class BackPack extends Item {

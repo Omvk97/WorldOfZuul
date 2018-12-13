@@ -3,6 +3,7 @@ package view_layer.controllers;
 import domain_layer.game_functionality.Command;
 import domain_layer.game_functionality.CommandWord;
 import domain_layer.game_functionality.Game;
+import domain_layer.game_functionality.PlayerInteraction;
 import domain_layer.game_locations.CertifiedForest;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -10,11 +11,11 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import view_layer.PlayerGraphics;
 
 /**
  *
@@ -35,7 +36,7 @@ public class CertifiedForestController extends ForestController implements Initi
         });
         down.play();
         textArea.setText(gameForest.roomEntrance(humanPlayer));
-        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        PlayerGraphics.getInstanceOfSelf().updateCharacterModel(player);
         smallTreeLabel.setText(Integer.toString(gameForest.countSmallTrees()));
         mediumTreeLabel.setText(Integer.toString(gameForest.countMediumTrees()));
         largeTreeLabel.setText(Integer.toString(gameForest.countLargeTrees()));
@@ -69,7 +70,7 @@ public class CertifiedForestController extends ForestController implements Initi
 
     @FXML
     private void handleOption3(MouseEvent event) {
-        if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() > 0) {
+        if (PlayerInteraction.getInstanceOfSelf().getNumChoppedTreesWithoutPlantingSaplings() > 0) {
             int amountOfSeedsPlanted = gameForest.replantTrees(humanPlayer);
             if (amountOfSeedsPlanted > 0) {
                 textArea.setText("You just planted " + (amountOfSeedsPlanted > 1

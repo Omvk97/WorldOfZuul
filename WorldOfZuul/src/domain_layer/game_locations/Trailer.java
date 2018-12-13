@@ -8,6 +8,7 @@ import domain_layer.game_functionality.Player;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
@@ -23,9 +24,10 @@ public class Trailer extends Room {
     private Axe starterAxe = AxeFactory.createStarterAxe();
     private final Radio radio = new Radio();
     private int numOfDaysGoneBy = 0;
+    private final SimpleIntegerProperty logsInStorageProperty = new SimpleIntegerProperty();
 
     public Trailer() {
-        this.logsInStorage = new ArrayList<>();
+        logsInStorage = new ArrayList<>();
     }
 
     @Override
@@ -37,14 +39,15 @@ public class Trailer extends Room {
      * @return arrayList with the trees in storage
      */
     public ArrayList<Tree> getLogsInStorage() {
-        return this.logsInStorage;
+        return logsInStorage;
     }
 
     /**
      * when the trees are sold at the store, the storage has to be emptied
      */
     public void loadOffLogsInStorage() {
-        this.logsInStorage.clear();
+        logsInStorage.clear();
+        updateLogsInStorage();
     }
 
     /**
@@ -78,7 +81,8 @@ public class Trailer extends Room {
                 humanPlayer.getBackPack().removeLogFromBackpack();
             }
         }
-        humanPlayer.updateLogsInBackPackAndStorage();
+        humanPlayer.updateLogsInBackPack();
+        updateLogsInStorage();
 
         if (isStorageFull()) {
             return "Your storage contains " + getLogsInStorage().size() + " logs "
@@ -145,4 +149,13 @@ public class Trailer extends Room {
     public int getNumOfDaysLeft() {
         return NUM_PLAY_DAYS - numOfDaysGoneBy;
     }
+
+    private void updateLogsInStorage() {
+        logsInStorageProperty.setValue(logsInStorage.size());
+    }
+
+    public SimpleIntegerProperty getLogsInStorageProperty() {
+        return logsInStorageProperty;
+    }
+
 }

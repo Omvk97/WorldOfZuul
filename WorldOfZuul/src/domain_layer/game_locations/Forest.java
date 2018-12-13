@@ -2,6 +2,7 @@ package domain_layer.game_locations;
 
 import domain_layer.game_functionality.Player;
 import domain_layer.game_elements.Tree;
+import domain_layer.game_functionality.PlayerInteraction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +40,11 @@ public abstract class Forest extends Room {
      */
     public void chopWood(Player humanPlayer) {
         if (this instanceof CertifiedForest) {
-            humanPlayer.addChoppedTreesInCertifiedForest();
+            PlayerInteraction.getInstanceOfSelf().addChoppedTreesInCertifiedForest();
         }
         humanPlayer.getBackPack().addTreeToBackpack(lastTreeInArray());
         humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
-        humanPlayer.updateLogsInBackPackAndStorage();
+        humanPlayer.updateLogsInBackPack();
         trees.remove(lastTreeInArray());
     }
 

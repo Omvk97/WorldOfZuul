@@ -24,6 +24,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import view_layer.PlayerGraphics;
 
 /**
  *
@@ -53,7 +54,7 @@ public class LocalVillageController implements Initializable {
         backBtn.setDisable(true);
         transition();
         textArea.setText(gameVillage.roomEntrance(humanPlayer));
-        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        PlayerGraphics.getInstanceOfSelf().updateCharacterModel(player);
         choosingRainScenario();
     }
 

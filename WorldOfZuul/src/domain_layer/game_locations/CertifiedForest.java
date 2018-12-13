@@ -3,6 +3,7 @@ package domain_layer.game_locations;
 import domain_layer.game_elements.CertifiedTree;
 import domain_layer.game_elements.Tree;
 import domain_layer.game_functionality.Player;
+import domain_layer.game_functionality.PlayerInteraction;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,8 @@ import javafx.scene.Parent;
  * @author oliver
  */
 public class CertifiedForest extends Forest {
+    
+    private final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
 
     public CertifiedForest() {
         for (int i = 0; i < 15; i++) {
@@ -24,9 +27,9 @@ public class CertifiedForest extends Forest {
 
     @Override
     public String roomEntrance(Player humanPlayer) {
-        if (humanPlayer.isSlept()) {
+        if (playerInteraction.isSlept()) {
             treeGrowth();
-            humanPlayer.setSlept(false);
+            playerInteraction.setSlept(false);
             plantNewTrees(MAX_AMOUNTOFTREESINFOREST);
         }
         moveChoppableTreesUp();

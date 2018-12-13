@@ -1,5 +1,6 @@
 package view_layer.controllers;
 
+import view_layer.HighScoreGraphics;
 import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
 import domain_layer.game_locations.Forest;
@@ -9,7 +10,6 @@ import javafx.animation.Interpolator;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
+import view_layer.PlayerGraphics;
 
 /**
  *
@@ -56,9 +57,8 @@ abstract public class ForestController {
         }
 
         sounds.add(treeFallingSound);
-        humanPlayer.setCharacterModel(true);
-        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
-
+        PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(true,
+            humanPlayer.getEquippedAxe(), player);
         TranslateTransition goToTree = new TranslateTransition(Duration.seconds(1.5), player);
         goToTree.setByX((largeTree.getLayoutX() - player.getLayoutX()) - 20);
         goToTree.setByY(-(player.getLayoutY() - largeTree.getLayoutY()) + 75);
@@ -107,8 +107,8 @@ abstract public class ForestController {
             boolean axeDestroyed = humanPlayer.useAxe();
             if (axeDestroyed) {
                 textArea.setText("Your axe broke!");
-                humanPlayer.setCharacterModel(true);
-                player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+                PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(false,
+                    humanPlayer.getEquippedAxe(), player);
             }
         } else {
             textArea.setText("You have punched down a tree! But your knuckles hurt");
@@ -133,8 +133,8 @@ abstract public class ForestController {
         hitAnimation.setCycleCount(numOfChops * 2);
         hitAnimation.setInterpolator(Interpolator.LINEAR);
         hitAnimation.setOnFinished((ActionEvent event1) -> {
-            humanPlayer.setCharacterModel(characterGoingRight);
-            player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+            PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(false, 
+            humanPlayer.getEquippedAxe(), player);
         });
         hitAnimation.play();
     }

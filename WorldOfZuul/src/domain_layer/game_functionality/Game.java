@@ -28,13 +28,12 @@ public class Game {
     private final Room store = new Store();
     private final Room blacksmith = new BlackSmith();
     private final Room library = new Library();
-    private String playerDirectionInWorld = "noDirection";
+    private final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
     private final HighScore highScoreData = new HighScore();
-    
 
     private Game() {
         setExitsForRooms();
-        humanPlayer.setCurrentRoom(trailer);
+        playerInteraction.setCurrentRoom(trailer);
     }
 
     public static Game getInstanceOfSelf() {
@@ -68,21 +67,25 @@ public class Game {
 
         // The player can write "go back" to get back to the room they were in before
         if (direction.equals("back")) {
-            if (humanPlayer.getPreviousRoom() != null) {
-                humanPlayer.setCurrentRoom(humanPlayer.getPreviousRoom());
-                anchorPane.getScene().setRoot(humanPlayer.getCurrentRoom().getRoomFXML());
+            if (playerInteraction.getPreviousRoom() != null) {
+                playerInteraction.setCurrentRoom(playerInteraction.getPreviousRoom());
+                anchorPane.getScene().setRoot(playerInteraction.getCurrentRoom().getRoomFXML());
                 return;
             }
         }
 
-        Room nextRoom = humanPlayer.getCurrentRoom().getExit(direction);
+        Room nextRoom = playerInteraction.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no road!");
         } else {
-            humanPlayer.setCurrentRoom(nextRoom);
+            playerInteraction.setCurrentRoom(nextRoom);
         }
-        anchorPane.getScene().setRoot(humanPlayer.getCurrentRoom().getRoomFXML());
+        anchorPane.getScene().setRoot(playerInteraction.getCurrentRoom().getRoomFXML());
+    }
+
+    public PlayerInteraction getPlayerInteraction() {
+        return playerInteraction;
     }
 
     public Player getHumanPlayer() {
@@ -118,11 +121,11 @@ public class Game {
     }
 
     public String getPlayerDirectionInWorld() {
-        return playerDirectionInWorld;
+        return playerInteraction.getPlayerDirectionInWorld();
     }
 
     public void setPlayerDirectionInWorld(String direction) {
-        this.playerDirectionInWorld = direction;
+        playerInteraction.setPlayerDirectionInWorld(direction);
     }
 
     public HighScore getHighScoreData() {

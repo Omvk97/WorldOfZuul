@@ -1,15 +1,16 @@
 package view_layer.controllers;
 
+import view_layer.HighScoreGraphics;
 import domain_layer.game_functionality.Command;
 import domain_layer.game_functionality.CommandWord;
 import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
+import domain_layer.game_functionality.PlayerInteraction;
 import domain_layer.game_locations.Trailer;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
-import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,11 +24,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import view_layer.PlayerGraphics;
 
 /**
  *
- * @author daniel 
- * co-author oliver
+ * @author daniel co-author oliver
  */
 public class TrailerController implements Initializable {
 
@@ -45,11 +46,12 @@ public class TrailerController implements Initializable {
     private final Trailer gameTrailer = Game.getInstanceOfSelf().getTrailer();
     private boolean running;
     private int devilCounter = 0, randomNum;
+    private final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         goToTrailerTransition();
-        if (humanPlayer.isAxePickedUp()) {
+        if (playerInteraction.isAxePickedUp()) {
             anchorPane.getChildren().remove(option4);
         }
         if (trailerPath.isVisible()) {
@@ -64,7 +66,7 @@ public class TrailerController implements Initializable {
         player.setVisible(false);
         int daysLeftNum = gameTrailer.getNumOfDaysLeft();
         daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
-        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        PlayerGraphics.getInstanceOfSelf().updateCharacterModel(player);
         option4.setImage(new Image(new File("src/pictures/starterAxe.png").toURI().toString()));
         if (!running) {
             switch (Game.getInstanceOfSelf().getPlayerDirectionInWorld()) {
@@ -84,7 +86,10 @@ public class TrailerController implements Initializable {
         }
     }
 
-    private void playerEnteringTrailerTransition(int translateX, int translateY, double setLayoutX, double setLayoutY) {
+    private void playerEnteringTrailerTransition(int translateX,
+        int translateY,
+        double setLayoutX,
+        double setLayoutY) {
         running = true;
         player.setVisible(true);
         trailerPath.setVisible(true);
@@ -131,7 +136,7 @@ public class TrailerController implements Initializable {
                 int daysLeftNum = gameTrailer.getNumOfDaysLeft();
                 daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
 
-                if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
+                if (playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
                     fineLabel.setVisible(true);
                     fineLabel.setText("You didn't replant all the trees in the certified forest!\n"
                         + "Here's a chance to redeem yourself");
@@ -146,10 +151,10 @@ public class TrailerController implements Initializable {
     @FXML
     private void handleOption4(MouseEvent event) {
         textArea.setText(gameTrailer.option4(humanPlayer));
-        humanPlayer.setCharacterModel(false);
-        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(false,
+            humanPlayer.getEquippedAxe(), player);
         anchorPane.getChildren().remove(option4);
-        humanPlayer.setAxePickedUp(true);
+        playerInteraction.setAxePickedUp(true);
     }
 
     @FXML
@@ -206,7 +211,7 @@ public class TrailerController implements Initializable {
             Game.getInstanceOfSelf().goRoom(roomToGo, anchorPane);
             running = false;
         });
-        
+
         if (!trailerPath.isVisible()) {
             FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1.5), trailerPath);
             trailerPath.setVisible(true);
@@ -284,17 +289,19 @@ public class TrailerController implements Initializable {
         if (!correctAnswer) {
             fineLabel.setText("WRONG, study in the library!\n"
                 + "We also need you to cover the cost of planting the trees that you forgot!\n"
-                + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
+                + "Your fine adds up to " + 
+                (playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
             fineInput.setVisible(false);
             endButton.setVisible(true);
-            humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
+            humanPlayer.sleep(playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
         } else {
             fineLabel.setText("Correct! Your fine has been cut in half! We also need you\n"
                 + "to cover the cost of planting the trees that you forgot!\n"
-                + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
+                + "Total cost of " +
+                (playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
             fineInput.setVisible(false);
             endButton.setVisible(true);
-            humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
+            humanPlayer.sleep(playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
         }
     }
 

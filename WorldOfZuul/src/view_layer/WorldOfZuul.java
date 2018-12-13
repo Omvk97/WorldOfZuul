@@ -1,6 +1,5 @@
 package view_layer;
 
-import view_layer.controllers.HighScoreGraphics;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

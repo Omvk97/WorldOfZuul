@@ -2,6 +2,8 @@ package view_layer.controllers;
 
 import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
+import domain_layer.game_functionality.PlayerInteraction;
+import domain_layer.game_locations.Trailer;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,6 +27,8 @@ public class HudController implements Initializable {
     @FXML
     private ImageView playerWeapon;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
+    private final Trailer trailer = Game.getInstanceOfSelf().getTrailer();
+    private final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -32,7 +36,7 @@ public class HudController implements Initializable {
         playerClimate.setText(humanPlayer.getClimatePointsValue() + " CP");
         int logsCarryingNum = humanPlayer.getLogsInBackPack().getValue();
         logsCarrying.setText(logsCarryingNum + (logsCarryingNum == 1 ? " Log" : " Logs"));
-        int logsInStorageNum = humanPlayer.getLogsInStorageProperty().getValue();
+        int logsInStorageNum = trailer.getLogsInStorageProperty().getValue();
         logsInStorage.setText(logsInStorageNum + (logsInStorageNum == 1 ? " Log" : " Logs"));
         int saplingsCarryingNum = humanPlayer.getSaplingsCarryingValue();
         saplingsCarrying.setText(saplingsCarryingNum + (saplingsCarryingNum == 1 ? " Sapling" : " Saplings"));
@@ -54,8 +58,8 @@ public class HudController implements Initializable {
             logsCarrying.setText(logsCarryingNum + (logsCarryingNum == 1 ? " Log" : " Logs"));
         });
 
-        humanPlayer.getLogsInStorageProperty().addListener((observable, oldValue, newValue) -> {
-            int logsInStorageNum = humanPlayer.getLogsInStorageProperty().getValue();
+        trailer.getLogsInStorageProperty().addListener((observable, oldValue, newValue) -> {
+            int logsInStorageNum = trailer.getLogsInStorageProperty().getValue();
             logsInStorage.setText(logsInStorageNum + (logsInStorageNum == 1 ? " Log" : " Logs"));
         });
 
@@ -64,7 +68,7 @@ public class HudController implements Initializable {
             saplingsCarrying.setText(saplingsCarryingNum + (saplingsCarryingNum == 1 ? " Sapling" : " Saplings"));
         });
 
-        humanPlayer.getEquippedAxeChange().addListener(((observable, oldValue, newValue) -> {
+        playerInteraction.getEquippedAxeChange().addListener(((observable, oldValue, newValue) -> {
             updateAxeHudImage();
         }));
 

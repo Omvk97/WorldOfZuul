@@ -3,6 +3,7 @@ package domain_layer.game_locations;
 import domain_layer.game_elements.BackPack;
 import domain_layer.game_elements.BackPackFactory;
 import domain_layer.game_elements.Tree;
+import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
@@ -58,7 +59,9 @@ public class Store extends Room {
     }
 
     public boolean sellLogs(Player humanPlayer) {
-        if (humanPlayer.getLogsInStorage().isEmpty()
+        final Trailer trailer = Game.getInstanceOfSelf().getTrailer();
+
+        if (trailer.getLogsInStorage().isEmpty()
             && humanPlayer.getBackPack().getLogsInBackPack().isEmpty()) {
             return false;
         }
@@ -68,10 +71,10 @@ public class Store extends Room {
             }
             humanPlayer.getBackPack().emptyBackpack();
         }
-        if (!humanPlayer.getLogsInStorage().isEmpty()) {
-            humanPlayer.getLogsInStorage().forEach((tree)
+        if (!trailer.getLogsInStorage().isEmpty()) {
+            trailer.getLogsInStorage().forEach((tree)
                 -> humanPlayer.addMoney(tree.getTreePrice()));
-            humanPlayer.loadOffLogsInStorage();
+            trailer.loadOffLogsInStorage();
         }
         return true;
     }

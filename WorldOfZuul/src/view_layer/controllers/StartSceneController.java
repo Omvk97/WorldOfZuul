@@ -1,7 +1,9 @@
 package view_layer.controllers;
 
+import view_layer.HighScoreGraphics;
 import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
+import domain_layer.game_functionality.PlayerInteraction;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -28,7 +30,7 @@ public class StartSceneController implements Initializable {
 
     @FXML
     private void HandleStartGameAction(ActionEvent event) {
-        anchorPane.getScene().setRoot(humanPlayer.getCurrentRoom().getRoomFXML());
+        anchorPane.getScene().setRoot(PlayerInteraction.getInstanceOfSelf().getCurrentRoom().getRoomFXML());
     }
 
     @FXML

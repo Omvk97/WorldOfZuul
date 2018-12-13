@@ -1,7 +1,9 @@
 package domain_layer.game_locations;
 
 import domain_layer.game_elements.NonCertifiedTree;
+import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
+import domain_layer.game_functionality.PlayerInteraction;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -11,10 +13,11 @@ import javafx.scene.Parent;
 
 /**
  *
- * @author oliver
- * co-author: daniel
+ * @author oliver co-author: daniel
  */
 public class LocalVillage extends Room {
+    
+    private final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
 
     public LocalVillage() {
     }
@@ -61,19 +64,20 @@ public class LocalVillage extends Room {
     }
 
     public String giftScenario(Player humanPlayer) {
-        if (!humanPlayer.isGiftHasBeenGivenToday()) {
-            if (humanPlayer.isStorageFull()) {
-                humanPlayer.getLogsInStorage().add(new NonCertifiedTree(12));
+        final Trailer trailer = Game.getInstanceOfSelf().getTrailer();
+        if (!playerInteraction.isGiftHasBeenGivenToday()) {
+            if (trailer.isStorageFull()) {
+                trailer.getLogsInStorage().add(new NonCertifiedTree(12));
                 int moneyAmountGiven = (int) (Math.random() * 10) + 1;
                 humanPlayer.addMoney(moneyAmountGiven);
-                humanPlayer.giftHasBeenGiven();
+                playerInteraction.setGiftHasBeenGivenToday(true);
 
                 return "The villagers are very happy about your enviromental efforts\n"
                     + "and offer to donate " + moneyAmountGiven + " gold coins and 1 tree to you";
             } else {
                 int moneyAmountGiven = (int) (Math.random() * 10) + 1;
                 humanPlayer.addMoney(moneyAmountGiven);
-                humanPlayer.giftHasBeenGiven();
+                playerInteraction.setGiftHasBeenGivenToday(true);
                 return "The villagers are very happy about your enviromental efforts\n"
                     + "and offer to donate " + moneyAmountGiven + " gold coins to you";
             }
@@ -82,7 +86,7 @@ public class LocalVillage extends Room {
                 + "but they don't have any more gifts for you today";
         }
     }
-    
+
     @Override
     public Parent getRoomFXML() {
         try {

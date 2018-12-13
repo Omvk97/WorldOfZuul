@@ -3,7 +3,9 @@ package domain_layer.game_elements;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
- *
+ * Axe with damage
+ * Price which is how many gold coins is required to purchase the axe and
+ * Durability which is how many trees the axe can fell before getting destroyed.
  * @author oliver
  */
 public class Axe extends Item {

@@ -4,20 +4,20 @@ import domain_layer.game_functionality.Command;
 import domain_layer.game_functionality.CommandWord;
 import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
+import domain_layer.game_functionality.PlayerInteraction;
 import domain_layer.game_locations.NonCertifiedForest;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import view_layer.PlayerGraphics;
 
 /**
  *
@@ -25,7 +25,9 @@ import javafx.util.Duration;
  */
 public class NonCertifiedController extends ForestController implements Initializable {
 
-    private final NonCertifiedForest gameForest = (NonCertifiedForest) Game.getInstanceOfSelf().getNonCertificedForest();
+    private final NonCertifiedForest gameForest = (NonCertifiedForest) Game.getInstanceOfSelf()
+        .getNonCertificedForest();
+    private final PlayerInteraction playerInteraction = Game.getInstanceOfSelf().getPlayerInteraction();
 
     public NonCertifiedController() {
     }
@@ -36,16 +38,12 @@ public class NonCertifiedController extends ForestController implements Initiali
         TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
         up.setFromY(170);
         up.setByY(-170);
-        up.setOnFinished(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                running = false;
-            }
+        up.setOnFinished((ActionEvent event) -> {
+            running = false;
         });
         up.play();
         textArea.setText(gameForest.roomEntrance(humanPlayer));
-        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        PlayerGraphics.getInstanceOfSelf().updateCharacterModel(player);
         smallTreeLabel.setText(Integer.toString(gameForest.countSmallTrees()));
         mediumTreeLabel.setText(Integer.toString(gameForest.countMediumTrees()));
         largeTreeLabel.setText(Integer.toString(gameForest.countLargeTrees()));
@@ -54,7 +52,7 @@ public class NonCertifiedController extends ForestController implements Initiali
     @FXML
     private void handleOption1(MouseEvent event) {
         if (!running) {
-            if (humanPlayer.getClimatePointsValue() == Player.getMIN_CLIMATEPOINTS()) {
+            if (humanPlayer.getClimatePointsValue() == playerInteraction.getMIN_CLIMATEPOINTS()) {
                 textArea.setText("YOU HAVE DESTROYED TOO MUCH OF THE EARTH");
                 highScoreGraphics.closeGame();
                 System.exit(0);
@@ -94,8 +92,8 @@ public class NonCertifiedController extends ForestController implements Initiali
         }
         sounds.add(treeFallingSound);
 
-        humanPlayer.setCharacterModel(false);
-        player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
+        PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(false,
+            humanPlayer.getEquippedAxe(), player);
         TranslateTransition goToTree = new TranslateTransition(Duration.seconds(1.5), player);
         goToTree.setByX((mediumTree.getLayoutX() - player.getLayoutX()) + 70);
         goToTree.setByY(-(player.getLayoutY() - mediumTree.getLayoutY()) + 60);
@@ -119,6 +117,8 @@ public class NonCertifiedController extends ForestController implements Initiali
             mediumTreeLabel.setText(Integer.toString(treeCount));
             gameForest.chopWood(humanPlayer);
             treeFelledConfirmation();
+            PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(true,
+                humanPlayer.getEquippedAxe(), player);
         });
 
         SequentialTransition transition = new SequentialTransition(goToTree, goFromTree);

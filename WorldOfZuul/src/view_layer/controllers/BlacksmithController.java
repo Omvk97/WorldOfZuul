@@ -18,6 +18,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import view_layer.PlayerGraphics;
 
 /**
  *
@@ -44,15 +45,11 @@ public class BlacksmithController implements Initializable {
         if (humanPlayer.getMoneyValue() >= axe.getPrice()) {
             humanPlayer.boughtAxe(axe);
             return "You just bought a " + axe.getDescription() + "!\n"
-                    + "It costs you " + axe.getPrice() + " gold coins"
-                    + "\nEnjoy it while it lasts!";
+                + "It costs you " + axe.getPrice() + " gold coins"
+                + "\nEnjoy it while it lasts!";
         } else {
             return "YOU NEED " + axe.getPrice() + " GOLD COINS TO BUY THIS AXE";
         }
-    }
-
-    public AnchorPane getAnchorPane() {
-        return anchorPane;
     }
 
     @FXML
@@ -105,33 +102,31 @@ public class BlacksmithController implements Initializable {
     @FXML
     private void HandlerIronAxe(MouseEvent event) {
         textArea.setText(getAxeInfo(humanPlayer, AxeFactory.createIronAxe()));
-        humanPlayer.setCharacterModel(false);
-
+        PlayerGraphics.getInstanceOfSelf().setCharacterModel(false, humanPlayer.getEquippedAxe());
     }
 
     @FXML
     private void handlerSteelAxe(MouseEvent event) {
-        textArea.setText(getAxeInfo(humanPlayer,  AxeFactory.createSteelAxe()));
-        humanPlayer.setCharacterModel(false);
+        textArea.setText(getAxeInfo(humanPlayer, AxeFactory.createSteelAxe()));
+        PlayerGraphics.getInstanceOfSelf().setCharacterModel(false, humanPlayer.getEquippedAxe());
     }
 
     @FXML
     private void HandlerDiamondAxe(MouseEvent event) {
         textArea.setText(getAxeInfo(humanPlayer, AxeFactory.createDiamondAxe()));
-        humanPlayer.setCharacterModel(false);
+        PlayerGraphics.getInstanceOfSelf().setCharacterModel(false, humanPlayer.getEquippedAxe());
     }
 
     @FXML
     private void handlerFireAxe(MouseEvent event) {
         textArea.setText(getAxeInfo(humanPlayer, AxeFactory.createFireAxe()));
-        humanPlayer.setCharacterModel(false);
+        PlayerGraphics.getInstanceOfSelf().setCharacterModel(false, humanPlayer.getEquippedAxe());
 
     }
 
     @FXML
     private void handlerBack(MouseEvent event) {
-        Buypane.setVisible(false);
+        PlayerGraphics.getInstanceOfSelf().setCharacterModel(false, humanPlayer.getEquippedAxe());
     }
-
 
 }
