@@ -63,7 +63,7 @@ public class StoreController implements Initializable {
     }
 
     @FXML
-    private void handleOption2(MouseEvent event) {
+    private void handleBuyItemsBtn(MouseEvent event) {
         if (anchorPane.getChildren().contains(storeShelf)) {
             // do nothing
         } else {
