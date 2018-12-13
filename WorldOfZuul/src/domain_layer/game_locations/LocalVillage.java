@@ -12,9 +12,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 /**
- * This room is where the player will be met with some consequences of their actions.
- * The room functions as a stop between other rooms and gives different scenarios depending on
- * the players action
+ * This room is where the player will be met with some consequences of their actions. The room
+ * functions as a stop between other rooms and gives different scenarios depending on the players
+ * action
+ *
  * @author oliver co-author: daniel
  */
 public class LocalVillage extends Room {
@@ -31,13 +32,11 @@ public class LocalVillage extends Room {
     }
 
     /**
-     * This method is supposed to return a given scenario based off an integer and reward the user
-     * for certain scenarios
+     * This method is supposed to return a given scenario based off the players climate points.
      *
-     * @param humanPlayer The object that functions as the player for the game interacting with
-     * aspects of the game
+     * @param humanPlayer the player that enters the village.
+     * @return what the villagers think about the player and how the village is doing.
      */
-
     public String getScenario(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
         scenarios.put(99, "The local people are happy about your\n"
@@ -78,7 +77,9 @@ public class LocalVillage extends Room {
     }
 
     /**
-     * This method is supposed to reward the user with a gift based on inventory space
+     * This method is supposed to reward the user with a gift if they have enough climate points If
+     * the players storage is full the player will recieve a gold coin reward and otherwise the
+     * player will recieve 1 tree and some gold.
      *
      * @param humanPlayer The object that functions as the player for the game interacting with
      * aspects of the game
@@ -96,7 +97,7 @@ public class LocalVillage extends Room {
                 return "The villagers are very happy\n about your enviromental efforts\n"
                     + "and offer to donate " + moneyAmountGiven + " gold coins and 1 tree to you";
             } else {
-                int moneyAmountGiven = (int) (Math.random() * 10) + 1;
+                int moneyAmountGiven = (int) (Math.random() * 50) + 50;
                 humanPlayer.addMoney(moneyAmountGiven);
                 playerInteraction.setGiftHasBeenGivenToday(true);
                 return "The villagers are very happy about your enviromental efforts\n"

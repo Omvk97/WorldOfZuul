@@ -11,9 +11,11 @@ import javafx.scene.Parent;
 
 /**
  * This room is where the player can purchase new backpacks and saplings.
+ *
  * @author oliver
  */
 public class Store extends Room {
+
     private static final int SAPLING_PRICE = 5;
     private final String StoreOwner = "Reginald:\n";
     private BackPack smallBackPack = BackPackFactory.createSmallBackPack();
@@ -22,6 +24,7 @@ public class Store extends Room {
 
     public Store() {
     }
+
     @Override
     public String roomEntrance(Player humanPlayer) {
         return StoreOwner + "Hi " + "Welcome to my store!\n"
@@ -39,6 +42,7 @@ public class Store extends Room {
 
     /**
      * Used in order to return sale information about the item that is requested.
+     *
      * @param itemRequest the product that is requested.
      * @return the requested products sale information.
      */
@@ -62,6 +66,7 @@ public class Store extends Room {
 
     /**
      * Sell all the logs the player has in storage and has in their backpack.
+     *
      * @param humanPlayer - the player that wants to sell their logs.
      * @return true if any logs were sold.
      */
@@ -88,6 +93,7 @@ public class Store extends Room {
 
     /**
      * Purchases a new item and gives the item to the player.
+     *
      * @param itemToBePurchased the item that the player wants to purchase
      * @param humanPlayer the player that wants to buy an item
      * @return true if the purchase was succesfull.

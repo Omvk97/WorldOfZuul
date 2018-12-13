@@ -166,6 +166,7 @@ public class PlayerInteraction {
     /**
      * Used to update whenever the player logs in backpack is altered so the listener in topMenu
      * gets notified.
+     *
      * @param equippedBackPack the backpack that the player is wearing.
      */
     public void updateLogsInBackPack(BackPack equippedBackPack) {

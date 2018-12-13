@@ -20,17 +20,19 @@ import javafx.scene.layout.HBox;
 import javafx.stage.StageStyle;
 
 /**
- * This class has access to the local highScore file and handles how the highScore data should
- * be displayed.
+ * This class has access to the local highScore file and handles how the highScore data should be
+ * displayed.
+ *
  * @author oliver
  */
 public class HighScoreGraphics {
+
     private final HighScore highScore = Game.getInstanceOfSelf().getHighScoreData();
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
-    
+
     /**
-     * This method is to be called from all the places in the game where the game needs to close
-     * and record the highScore that the player has achieved.
+     * This method is to be called from all the places in the game where the game needs to close and
+     * record the highScore that the player has achieved.
      */
     public void closeGame() {
         Dialog nameDialog = new Dialog();
@@ -63,7 +65,7 @@ public class HighScoreGraphics {
         });
         Optional result = nameDialog.showAndWait();
         if (result.isPresent()) {
-            while (highScore.isPlayerNameTaken((String) result.get())){
+            while (highScore.isPlayerNameTaken((String) result.get())) {
                 nameDialog.close();
                 nameDialog.setHeaderText("That name is already being used!");
                 result = nameDialog.showAndWait();
@@ -72,11 +74,10 @@ public class HighScoreGraphics {
         }
         highScoreOverViewDialog();
     }
-    
+
     /**
-     * This methods opens up an alert which gives an overview of how the highScore looks, it
-     * makes sure that the highScore from highScore.txt is ordered with the highest highscore on 
-     * top.
+     * This methods opens up an alert which gives an overview of how the highScore looks, it makes
+     * sure that the highScore from highScore.txt is ordered with the highest highscore on top.
      */
     public void highScoreOverViewDialog() {
         Alert overViewOfAllHighScores = new Alert(Alert.AlertType.INFORMATION);

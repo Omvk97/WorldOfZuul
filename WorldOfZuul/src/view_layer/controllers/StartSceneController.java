@@ -14,9 +14,8 @@ import javafx.scene.layout.AnchorPane;
 
 /**
  *
- * @author steffen
- * This controller handles the start game Exit game and highscoreboard.
- * 
+ * @author steffen This controller handles the start game Exit game and highscoreboard.
+ *
  */
 public class StartSceneController implements Initializable {
 

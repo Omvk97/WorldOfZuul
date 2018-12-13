@@ -26,7 +26,7 @@ import view_layer.room_animations.TrailerAnimation;
 
 /**
  *
- * @author daniel co-author oliver
+ * @author daniel co-author: oliver
  */
 public class TrailerController implements Initializable {
 
@@ -77,15 +77,15 @@ public class TrailerController implements Initializable {
             switch (playerInteraction.getPlayerDirectionInWorld()) {
                 case "goDown":
                     textArea.setVisible(false);
-                    animation.playerEnteringTrailerTransition(0, 170, player.getLayoutX(), 0);
+                    animation.playerEnteringTrailerPath(0, 170, player.getLayoutX(), 0);
                     break;
                 case "goLeft":
                     textArea.setVisible(false);
-                    animation.playerEnteringTrailerTransition(-330, 0, anchorPane.getPrefWidth(), player.getLayoutY());
+                    animation.playerEnteringTrailerPath(-330, 0, anchorPane.getPrefWidth(), player.getLayoutY());
                     break;
                 case "goUp":
                     textArea.setVisible(false);
-                    animation.playerEnteringTrailerTransition(0, -230, player.getLayoutX(), anchorPane.getPrefHeight());
+                    animation.playerEnteringTrailerPath(0, -230, player.getLayoutX(), anchorPane.getPrefHeight());
                     break;
                 default:
                     animation.setRunning(false);

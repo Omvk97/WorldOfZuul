@@ -21,11 +21,10 @@ import view_layer.PlayerGraphics;
 
 /**
  *
- * @author oliver
  * This controller has the responsibility for the connection between
- * domain_layer.game_location/noncertifiedForest and the view_layer.room_fxml/NonCertifiedForest 
- * 
- * 
+ * domain_layer.game_location/noncertifiedForest and the view_layer.room_fxml/NonCertifiedForest
+ *
+ * @author oliver
  */
 public class NonCertifiedController extends ForestAnimation implements Initializable {
 
@@ -33,6 +32,12 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
         .getNonCertificedForest();
     private final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
 
+    /**
+     * Makes a walking animation when entering the room and sets all fxml containers.
+     *
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         animation.setRunning(true);
@@ -49,6 +54,13 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
         mediumTreeLabel.setText(Integer.toString(gameForest.countMediumTrees()));
         largeTreeLabel.setText(Integer.toString(gameForest.countLargeTrees()));
     }
+
+    /**
+     * checks to see if the player can chop a tree, and if so it runs the animation assoicated with
+     * chopping down a tree. Can either go to a medium or large tree.
+     *
+     * @param event
+     */
     @FXML
     private void handleChopTree(MouseEvent event) {
         if (!animation.isRunning()) {
@@ -79,7 +91,13 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
         }
     }
 
-    private void treeAnimationToMediumTree(int numOfHits, int treeCount) {
+    /**
+     * Animation to go to the medium tree,
+     *
+     * @param numOfHits how many hits the tree has to take in order to be felled.
+     * @param amountOfMediumTrees the amount of medium trees left after the player has felled one.
+     */
+    private void treeAnimationToMediumTree(int numOfHits, int amountOfMediumTrees) {
         if (humanPlayer.playerHasAnAxe()) {
             for (int i = 0; i < numOfHits; i++) {
                 sounds.add(chopSound);
@@ -112,7 +130,7 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
             goFromTree.setDelay(Duration.millis(totalDurationPunch));
         }
         goFromTree.setOnFinished((ActionEvent event1) -> {
-            mediumTreeLabel.setText(Integer.toString(treeCount));
+            mediumTreeLabel.setText(Integer.toString(amountOfMediumTrees));
             gameForest.chopWood(humanPlayer);
             treeFelledConfirmation();
             PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(true, player);
@@ -122,12 +140,21 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
         transition.play();
     }
 
+    /**
+     * When the player clicks on tree info button this method is run
+     *
+     * @param event
+     */
     @FXML
-
     private void handleTreeInfo(MouseEvent event) {
         animation.textAnimation(textArea, "There are " + gameForest.countFellableTrees() + " trees ready to be felled!");
     }
 
+    /**
+     * when the player wants to go back to trailer this method is run.
+     *
+     * @param event
+     */
     @FXML
     private void handleExits(KeyEvent event) {
         if (!animation.isRunning()) {

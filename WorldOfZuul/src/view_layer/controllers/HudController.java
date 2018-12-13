@@ -16,11 +16,10 @@ import javafx.scene.image.ImageView;
 
 /**
  *
+ * This controller has the responsibility to show the user the stats of the game. Money,
+ * Climapoints, Logs, logs in Store, samplings, EquippedAxeChange, Axe durabilityBar.
+ *
  * @author oliver
- * This controller has the responsibility to show the user the stats of the game.
- * Money, Climapoints, Logs, logs in Store, samplings, EquippedAxeChange, Axe durabilityBar.
- * 
- * 
  */
 public class HudController implements Initializable {
 
@@ -34,6 +33,12 @@ public class HudController implements Initializable {
     private final Trailer trailer = Game.getInstanceOfSelf().getTrailer();
     private final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
 
+    /**
+     * Setting the current value of all the labels when entering a new room.
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         playerGold.setText(humanPlayer.getMoneyValue() + " Gold");
@@ -48,6 +53,10 @@ public class HudController implements Initializable {
         addListenersToLabels();
     }
 
+    /**
+     * Adding listeners to alle the labels in top Menu so that whenever a value changes the top menu
+     * icons and labels gets updated right away. This has to be run in every controller.
+     */
     private void addListenersToLabels() {
         humanPlayer.getMoney().addListener((observable, oldValue, newValue) -> {
             playerGold.setText(humanPlayer.getMoneyValue() + " Gold");
@@ -84,6 +93,10 @@ public class HudController implements Initializable {
         }
     }
 
+    /**
+     * This method handles what axe icon needs to be in the top menu depending on what axe the
+     * player has equipped.
+     */
     public void updateAxeHudImage() {
         if (humanPlayer.playerHasAnAxe()) {
             switch (humanPlayer.getEquippedAxe().getDescription()) {

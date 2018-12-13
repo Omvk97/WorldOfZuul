@@ -1,7 +1,8 @@
 package domain_layer.game_elements;
 
 /**
- * Superclass for all items in game, all items in game needs a description and a price.
+ * Superclass for all items in game, all items in the game world needs a description and a price.
+ *
  * @author oliver
  */
 public abstract class Item {

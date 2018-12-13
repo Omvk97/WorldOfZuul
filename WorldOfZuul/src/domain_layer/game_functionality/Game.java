@@ -95,10 +95,11 @@ public class Game {
     }
 
     /**
-     * All the following methods is to access the rooms and the humanplayer that is interacting
-     * with the rooms
+     * All the following methods is to access the rooms and the humanplayer that is interacting with
+     * the rooms
+     *
+     * @return the attribute player
      */
-    
     public Player getHumanPlayer() {
         return humanPlayer;
     }
@@ -133,6 +134,7 @@ public class Game {
 
     /**
      * To access the data_access_layer
+     *
      * @return the highScore data.
      */
     public HighScore getHighScoreData() {

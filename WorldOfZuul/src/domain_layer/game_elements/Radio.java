@@ -6,15 +6,20 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
- *
- * @author steffen
- * co-author: oliver
  * This class controlles the scenarios for the humansplayers climapoints.
+ *
+ * @author steffen co-author: oliver
  */
 public class Radio {
 
     private final String weatherReporter = "Jensen: ";
-    
+
+    /**
+     * This method is supposed to return a global scenario based off the players climate points.
+     *
+     * @param humanPlayer the player that listen to the radio.
+     * @return how the global glimate is doing.
+     */
     public String globalNews(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
         scenarios.put(249, weatherReporter + "The atmosphere is very stable and optimal\n"
@@ -51,6 +56,13 @@ public class Radio {
 
         return getStringOfscenarios(humanPlayer, scenarios);
     }
+
+    /**
+     * This method is supposed to return a local scenario based off the players climate points.
+     *
+     * @param humanPlayer the player that listen to the radio.
+     * @return how the local glimate is doing.
+     */
     public String localNews(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
         scenarios.put(-199, weatherReporter + "The weather forecast indicates mild winds\n"
@@ -83,11 +95,13 @@ public class Radio {
 
         return getStringOfscenarios(humanPlayer, scenarios);
     }
+
     /**
      * Take the climaPoints from Humanplayer and finde the scenarios tha match the climepointe.
+     *
      * @param humanPlayer
      * @param scenarios
-     * @return 
+     * @return
      */
     public String getStringOfscenarios(Player humanPlayer, LinkedHashMap<Integer, String> scenarios) {
         int climatePoints = humanPlayer.getClimatePointsValue();

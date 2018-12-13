@@ -21,6 +21,7 @@ import view_layer.room_animations.LocalVillageAnimation;
 
 /**
  * This controller class handles every UI element and interaction from the FXML document.
+ *
  * @author Michael
  */
 public class LocalVillageController implements Initializable {
@@ -55,7 +56,7 @@ public class LocalVillageController implements Initializable {
         PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(true, player);
         choosingRainScenario();
     }
-    
+
     public void setGlobalVariables() {
         playerEntranceCoordinatX = (int) mainAnchorPane.getPrefWidth() / 2;
         playerEntranceCoordinatY = ((int) mainAnchorPane.getPrefHeight() / 4) + 40;
@@ -72,8 +73,8 @@ public class LocalVillageController implements Initializable {
     }
 
     /**
-     * This method is used to determine the rain's
-     * intensity depending on the amount of climatepoints
+     * This method is used to determine the rain's intensity depending on the amount of
+     * climatepoints
      */
     private void choosingRainScenario() {
         switch (getClimateScenario()) {
@@ -98,7 +99,7 @@ public class LocalVillageController implements Initializable {
     }
 
     /**
-     * 
+     *
      * @return int based on the players climate Points
      */
     private int getClimateScenario() {
@@ -117,20 +118,22 @@ public class LocalVillageController implements Initializable {
         return 0;
     }
 
-  /**
-   * Calls scenario when a mouse event occurs.
-   * @param event 
-   */
+    /**
+     * Calls scenario when a mouse event occurs.
+     *
+     * @param event
+     */
     @FXML
     private void handleTalkToVillageButton(MouseEvent event) {
         scenario();
     }
 
     /**
-     * Calls the corresponding animation depending on the players direction in the game world.
-     * first it checks if an animation is allready running to dertermin if it can run.
-     * Note: it also disables the backToPreviousRoomButton button.
-     * @param event 
+     * Calls the corresponding animation depending on the players direction in the game world. first
+     * it checks if an animation is allready running to dertermin if it can run. Note: it also
+     * disables the backToPreviousRoomButton button.
+     *
+     * @param event
      */
     @FXML
     private void handleBackToPreviousButton(MouseEvent event) {
@@ -154,12 +157,13 @@ public class LocalVillageController implements Initializable {
         }
     }
 
-   /**
-     * Calls the corresponding animation depending on if a mouse event occurs.
-     * first it checks if an animation is allready running to dertermin if it can run.
-     * Note: it also disables the backToPreviousRoomButton button 
-     * and hides firstVisitGreatings and villageGiftAndScenario anchorpoint.
-     * @param event 
+    /**
+     * Calls the corresponding animation depending on if a mouse event occurs. first it checks if an
+     * animation is allready running to dertermin if it can run. Note: it also disables the
+     * backToPreviousRoomButton button and hides firstVisitGreatings and villageGiftAndScenario
+     * anchorpoint.
+     *
+     * @param event
      */
     @FXML
     private void handleGoToStore(MouseEvent event) {
@@ -174,11 +178,12 @@ public class LocalVillageController implements Initializable {
     }
 
     /**
-     * Calls the corresponding animation depending on if a mouse event occurs.
-     * First it checks if an animation is allready running to dertermin if it can run.
-     * Note: it also disables the backToPreviousRoomButton button 
-     * and hides firstVisitGreatings and villageGiftAndScenario anchorpoint.
-     * @param event 
+     * Calls the corresponding animation depending on if a mouse event occurs. First it checks if an
+     * animation is allready running to dertermin if it can run. Note: it also disables the
+     * backToPreviousRoomButton button and hides firstVisitGreatings and villageGiftAndScenario
+     * anchorpoint.
+     *
+     * @param event
      */
     @FXML
     private void handleGoToBlacksmith(MouseEvent event) {
@@ -193,11 +198,12 @@ public class LocalVillageController implements Initializable {
     }
 
     /**
-     * Calls the corresponding animation depending on if a mouse event occurs.
-     * First it checks if an animation is allready running to dertermin if it can run.
-     * Note: it also disables the backToPreviousRoomButton button 
-     * and hides firstVisitGreatings and villageGiftAndScenario anchorpoint.
-     * @param event 
+     * Calls the corresponding animation depending on if a mouse event occurs. First it checks if an
+     * animation is allready running to dertermin if it can run. Note: it also disables the
+     * backToPreviousRoomButton button and hides firstVisitGreatings and villageGiftAndScenario
+     * anchorpoint.
+     *
+     * @param event
      */
     @FXML
     private void handleGoToLibrary(MouseEvent event) {
@@ -212,10 +218,11 @@ public class LocalVillageController implements Initializable {
     }
 
     /**
-     * Calls the corresponding animation depending on if a key event occurs.
-     * First it checks if an animation is allready running to dertermin if it can run.
-     * Note: it hides firstVisitGreatings and villageGiftAndScenario anchorpoint.
-     * @param event 
+     * Calls the corresponding animation depending on if a key event occurs. First it checks if an
+     * animation is allready running to dertermin if it can run. Note: it hides firstVisitGreatings
+     * and villageGiftAndScenario anchorpoint.
+     *
+     * @param event
      */
     @FXML
     private void handleExits(KeyEvent event) {
@@ -231,9 +238,9 @@ public class LocalVillageController implements Initializable {
     }
 
     /**
-     * Calls the corresponding animation depending on where the player comes from.
-     * Note: it also checks if its the first time the player visits and if the player
-     * has received a gift. Both are true it calls scenario.
+     * Calls the corresponding animation depending on where the player comes from. Note: it also
+     * checks if its the first time the player visits and if the player has received a gift. Both
+     * are true it calls scenario.
      */
     private void transition() {
         switch (playerInteraction.getPlayerDirectionInWorld()) {
@@ -256,8 +263,8 @@ public class LocalVillageController implements Initializable {
     }
 
     /**
-     * Shows the villageGiftAndScenario anchor pane to animate the corresponding text
-     * depending on what it recives from localVillage.java.
+     * Shows the villageGiftAndScenario anchor pane to animate the corresponding text depending on
+     * what it recives from localVillage.java.
      */
     private void scenario() {
         currentDialouge = 1;
@@ -265,13 +272,11 @@ public class LocalVillageController implements Initializable {
         animation.textAnimation(villagerText, gameVillage.getScenario(humanPlayer));
 
     }
-    
-    /**
-     * Checks if the player has been given a gift that day.
-     * If true it cycles through, animats the scenario again.
-     * If False it closes the window.
-     */
 
+    /**
+     * Checks if the player has been given a gift that day. If true it cycles through, animats the
+     * scenario again. If False it closes the window.
+     */
     @FXML
     private void handleNextScenarioTextButton() {
         if (playerInteraction.isGiftHasBeenGivenToday() && currentDialouge == 1) {
@@ -283,9 +288,10 @@ public class LocalVillageController implements Initializable {
     }
 
     /**
-     * Calls the corresponding animation depending on the currentDialouge on every mouse event.
-     * If 3 it closes the firstVisitGreatings anchorpane.
-     * @param event 
+     * Calls the corresponding animation depending on the currentDialouge on every mouse event. If 3
+     * it closes the firstVisitGreatings anchorpane.
+     *
+     * @param event
      */
     @FXML
     private void handleNextDialougeFirstVisitButton(MouseEvent event) {

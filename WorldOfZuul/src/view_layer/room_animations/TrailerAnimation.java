@@ -13,12 +13,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+/**
+ * This class has the responsibility of handling how the player moves around in trailer.
+ *
+ * @author oliver co-author: daniel
+ */
 public class TrailerAnimation extends GameAnimation {
 
     private AnchorPane anchorPane;
     private ImageView starterAxe, trailerPath;
     private Trailer gameTrailer;
 
+    /**
+     * Builder pattern with 5 attributes that is build through the build method. The attributes is
+     * the attributes that is needed in order to play the animations, they should come from
+     * trailercontroller
+     */
     public static class Builder {
 
         private AnchorPane anchorPane;
@@ -60,10 +70,23 @@ public class TrailerAnimation extends GameAnimation {
         }
     }
 
+    /**
+     * Private constructor so only the builder can construct new trailerAnimations
+     *
+     * @param player the player image that is in the room.
+     */
     private TrailerAnimation(ImageView player) {
         super(player);
     }
 
+    /**
+     * When the player walks from trailer to different rooms this method is called.
+     *
+     * @param roomToGoTo the room that the player wants to go to.
+     * @param direction the direction that player came from when walking into the new room
+     * @param translateX how much the player should move X axis
+     * @param translateY how much the player should move Y axis
+     */
     public void walkTransition(String roomToGoTo,
         String direction,
         int translateX,
@@ -100,7 +123,15 @@ public class TrailerAnimation extends GameAnimation {
         }
     }
 
-    public void playerEnteringTrailerTransition(int translateX,
+    /**
+     * When the player walks into trailer from different rooms this method is called.
+     *
+     * @param translateX how much the player should move in the X axis
+     * @param translateY how much the player should move in the Y axis
+     * @param setLayoutX Where the player image should start from X axis.
+     * @param setLayoutY Where the player image should start from Y axis.
+     */
+    public void playerEnteringTrailerPath(int translateX,
         int translateY,
         double setLayoutX,
         double setLayoutY) {
@@ -119,6 +150,12 @@ public class TrailerAnimation extends GameAnimation {
         left.play();
     }
 
+    /**
+     * When the player stands outside the trailer, and wants to go inside the trailer this method is
+     * called.
+     *
+     * @param textArea the textArea that is in trailer.
+     */
     public void goToTrailerFromPath(Label textArea) {
         textArea.setVisible(true);
         running = true;

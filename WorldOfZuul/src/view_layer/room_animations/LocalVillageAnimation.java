@@ -19,9 +19,9 @@ import javafx.util.Duration;
 import view_layer.PlayerGraphics;
 
 /**
- * This class has the sole responsibility of creating the animations that local village
- * requires.
- * @author oliver
+ * This class has the sole responsibility of creating the animations that local village requires.
+ *
+ * @author oliver co-author: michael
  */
 public class LocalVillageAnimation extends GameAnimation {
 
@@ -32,6 +32,11 @@ public class LocalVillageAnimation extends GameAnimation {
     private Label firstVisitText;
     private final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
 
+    /**
+     * Builder pattern with 8 attributes that is build through the build method. The attributes is
+     * the attributes that is needed in order to play the animations, they should come from
+     * localVillage controller
+     */
     public static class Builder {
 
         private Rectangle anchorPoint1, anchorPoint2;
@@ -59,7 +64,7 @@ public class LocalVillageAnimation extends GameAnimation {
             this.mainAnchorPane = mainAnchorPane;
             return this;
         }
-        
+
         public Builder withFirstVisitGreeTingsPane(AnchorPane firstVisitGreetings) {
             this.firstVisitGreetings = firstVisitGreetings;
             return this;
@@ -74,7 +79,7 @@ public class LocalVillageAnimation extends GameAnimation {
             this.playerEntranceCoordinatY = playerEntranceCoordinatY;
             return this;
         }
-        
+
         public Builder withfirstVisitText(Label firstVisitText) {
             this.firstVisitText = firstVisitText;
             return this;
@@ -93,36 +98,52 @@ public class LocalVillageAnimation extends GameAnimation {
         }
     }
 
+    /**
+     * Private constructor so only the builder can create instances of LocalVillageAnimation.
+     *
+     * @param player
+     */
     private LocalVillageAnimation(ImageView player) {
         super(player);
     }
 
-    public void goToTransitionHandle(int StartCoordinatX,
+    /**
+     * This method is used when the player goes to buildins (store, blacksmith or library) and when
+     * the player goes out from local village back to trailer.
+     *
+     * @param startCoordinateX where the player should start
+     * @param endCoordinatX where the player should end
+     * @param setDirection the direction the player has to go at.
+     * @param roomNameToGoTo the room the player is to go to.
+     * @param dontHaveToGoDown whether the building the player wants to go to is laying above or
+     * under players current position
+     */
+    public void goToTransitionHandle(int startCoordinateX,
         double endCoordinatX,
         String setDirection,
-        String setCommandword,
+        String roomNameToGoTo,
         boolean dontHaveToGoDown) {
-        if(firstVisitGreetings.isVisible()){
+        if (firstVisitGreetings.isVisible()) {
             firstVisitGreetings.setVisible(false);
         }
         TranslateTransition transitionToX = new TranslateTransition(Duration.seconds(1.5), player);
         TranslateTransition transitionToAnchorX = new TranslateTransition(Duration.seconds(1.5), player);
         TranslateTransition transitionToAnchorY = new TranslateTransition(Duration.seconds(1.5), player);
         if (dontHaveToGoDown) {
-            transitionToX.setByX(endCoordinatX - StartCoordinatX);
+            transitionToX.setByX(endCoordinatX - startCoordinateX);
             transitionToX.setOnFinished((ActionEvent e) -> {
-                Command tester = new Command(CommandWord.GO, setCommandword);
+                Command tester = new Command(CommandWord.GO, roomNameToGoTo);
                 game.goRoom(tester, mainAnchorPane);
             });
             transitionToX.play();
         } else {
-            transitionToAnchorX.setByX(anchorPoint1.getLayoutX() - StartCoordinatX);
+            transitionToAnchorX.setByX(anchorPoint1.getLayoutX() - startCoordinateX);
             transitionToAnchorX.setOnFinished((ActionEvent f) -> {
                 transitionToAnchorY.setByY(anchorPoint2.getLayoutY() - anchorPoint1.getLayoutY());
                 transitionToAnchorY.setOnFinished((ActionEvent h) -> {
                     transitionToX.setByX(endCoordinatX - anchorPoint2.getLayoutX());
                     transitionToX.setOnFinished((ActionEvent a) -> {
-                        Command tester = new Command(CommandWord.GO, setCommandword);
+                        Command tester = new Command(CommandWord.GO, roomNameToGoTo);
                         game.goRoom(tester, mainAnchorPane);
                     });
                     transitionToX.play();
@@ -134,11 +155,20 @@ public class LocalVillageAnimation extends GameAnimation {
         PlayerInteraction.getInstanceOfSelf().setPlayerDirectionInWorld(setDirection);
     }
 
+    /**
+     * This method is used when the player goes back from one of the buildings (store, library or
+     * blacksmith).
+     *
+     * @param fromX where the player image X axis should start at
+     * @param fromY where the player image Y axis should start at
+     * @param toX where the player image X axis should end at.
+     * @param dontHaveToGoDown whether the building the player wants to go to is laying above or
+     * under players current position
+     */
     public void backTransitionHandle(double fromX,
         double fromY,
         int toX,
         boolean dontHaveToGoDown) {
-        System.out.println("What");
         PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(false, player);
         TranslateTransition roomTransitionX = new TranslateTransition(Duration.seconds(1.5), player);
         TranslateTransition roomTransitionY = new TranslateTransition(Duration.seconds(1.5), player);
@@ -173,8 +203,8 @@ public class LocalVillageAnimation extends GameAnimation {
         }
     }
 
-    /*
-     This method handels what's going to happen the the scenario is called.
+    /**
+     * This method handles what's going to happen when the scenario is called.
      */
     private void firstVisit() {
         if (playerInteraction.isFirstVillageVisit()) {
@@ -185,8 +215,11 @@ public class LocalVillageAnimation extends GameAnimation {
         }
     }
 
-    /*
-     This method places the rainDrops image on random spots on the sceen and animates it down the screen
+    /**
+     * This method creates all the images of rain that is to be displayed on screen.
+     *
+     * @param numOfRainDropsOnScreen the amount of rain drops on screen
+     * @param rainDropSpeed how quickly the rain should run down the screen.
      */
     public void rainDrops(int numOfRainDropsOnScreen, int rainDropSpeed) {
         ImageView[] rainDrops = new ImageView[numOfRainDropsOnScreen];
@@ -197,8 +230,13 @@ public class LocalVillageAnimation extends GameAnimation {
         }
     }
 
-    /*
-     * This method handles the rain animation
+    /**
+     * Recursive method handles the rain animation on screen. It starts an animation on all
+     * raindrops on the screen and as soon as the image reach the end of the screen, the method
+     * calls itself so the image will be placed again
+     *
+     * @param rain the image that the animation is to be started on
+     * @param rainDropSpeed how quickly the rain should run down the screen.
      */
     private void makeItRain(ImageView rain, int rainDropSpeed) {
         rain.setTranslateX((Math.random() * 620) + 1);

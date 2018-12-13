@@ -48,8 +48,8 @@ public class BlackSmith extends Room {
      */
     public int fixAxePrice(Player humanPlayer) {
         final int pricePerAxeDurability = 2;
-        int durabilityLostOnAxe = humanPlayer.getEquippedAxe().getStartDurability() - 
-            humanPlayer.getEquippedAxe().getDurability();
+        int durabilityLostOnAxe = humanPlayer.getEquippedAxe().getStartDurability()
+            - humanPlayer.getEquippedAxe().getDurability();
         int fixAxePrice = pricePerAxeDurability * durabilityLostOnAxe;
         return fixAxePrice;
     }
