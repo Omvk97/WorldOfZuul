@@ -14,7 +14,6 @@ import javafx.scene.Parent;
  * @author oliver
  */
 public class Store extends Room {
-
     private static final int SAPLING_PRICE = 5;
     private final String StoreOwner = "Reginald:\n";
     private BackPack smallBackPack = BackPackFactory.createSmallBackPack();
@@ -23,7 +22,6 @@ public class Store extends Room {
 
     public Store() {
     }
-
     @Override
     public String roomEntrance(Player humanPlayer) {
         return StoreOwner + "Hi " + "Welcome to my store!\n"

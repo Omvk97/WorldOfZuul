@@ -13,7 +13,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class PlayerInteraction {
 
     private final int MIN_CLIMATEPOINTS = -250;
-    private boolean giftHasBeenGivenToday, axePickedUp, slept;
+    private boolean giftHasBeenGivenToday, axePickedUp, slept, firstVillageVisit = true;
     private Room currentRoom = null;
     private Room previousRoom;
     private int numChoppedTreesWithoutPlantingSaplings;
@@ -70,6 +70,14 @@ public class PlayerInteraction {
 
     public void setSlept(boolean slept) {
         this.slept = slept;
+    }
+
+    public boolean isFirstVillageVisit() {
+        return firstVillageVisit;
+    }
+
+    public void setFirstVillageVisit(boolean firstVillageVisit) {
+        this.firstVillageVisit = firstVillageVisit;
     }
 
     /**

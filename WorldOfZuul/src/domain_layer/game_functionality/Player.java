@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 /**
  * This class represents everything that a player is and handles what a player can do.
  *
- * @author oliver co-author: michael, steffen & daniel
+ * @author oliver co-author: michael, steffen & daniel.
  */
 public class Player {
 
@@ -205,9 +205,11 @@ public class Player {
      */
     public void sleep(int fineAmount) {
         money.setValue(money.getValue() - fineAmount);
-        playerInteraction.setNumChoppedTreesWithoutPlantingSaplings(0);
         playerInteraction.setGiftHasBeenGivenToday(false);
         playerInteraction.setSlept(true);
+        if (fineAmount != 0) {
+            playerInteraction.setNumChoppedTreesWithoutPlantingSaplings(0);
+        }
     }
 
     /**

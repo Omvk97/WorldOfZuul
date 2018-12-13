@@ -1,96 +1,106 @@
 package view_layer.controllers;
 
-import domain_layer.game_functionality.Command;
-import domain_layer.game_functionality.CommandWord;
 import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
 import domain_layer.game_functionality.PlayerInteraction;
 import domain_layer.game_locations.LocalVillage;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
-import java.io.File;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 import view_layer.PlayerGraphics;
+import javafx.scene.shape.Rectangle;
+import view_layer.room_animations.LocalVillageAnimation;
 
 /**
- *
- * @author michael
+ * This controller class handles every UI element and interaction from the FXML document.
+ * @author Michael
  */
 public class LocalVillageController implements Initializable {
-    
+
     private static final int SLOW = 6;
     private static final int MEDIUM = 4;
     private static final int FAST = 2;
-
     @FXML
-    private Label textArea;
+    private Label firstVisitText, villagerText;
     @FXML
-    private AnchorPane anchorPane;
+    private AnchorPane mainAnchorPane, villageGiftAndScenario, firstVisitGreatings;
     @FXML
-    private Button backBtn;
+    private Button backToPreviousRoomButton;
     @FXML
-    private ImageView player, store, blacksmith, library, sun;
+    private ImageView player, sun;
+    @FXML
+    private Rectangle blacksmithEntrance, storeEntrance, libraryEntrance, anchorpoint1, anchorpoint2;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final LocalVillage gameVillage = (LocalVillage) Game.getInstanceOfSelf().getLocalVillage();
-    private boolean running;
-    private PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
+    private final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
+    private int playerEntranceCoordinatX, playerEntranceCoordinatY, currentDialouge;
+    private LocalVillageAnimation animation;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        running = true;
-        backBtn.setDisable(true);
+        setGlobalVariables();
+        firstVisitGreatings.setVisible(false);
+        villageGiftAndScenario.setVisible(false);
+        animation.setRunning(true);
+        backToPreviousRoomButton.setVisible(true);
         transition();
-        textArea.setText(gameVillage.roomEntrance(humanPlayer));
-        PlayerGraphics.getInstanceOfSelf().updateCharacterModel(player);
+        PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(true, player);
         choosingRainScenario();
     }
+    
+    public void setGlobalVariables() {
+        playerEntranceCoordinatX = (int) mainAnchorPane.getPrefWidth() / 2;
+        playerEntranceCoordinatY = ((int) mainAnchorPane.getPrefHeight() / 4) + 40;
+        currentDialouge = 0;
+        this.animation = new LocalVillageAnimation.Builder(player)
+            .withAnchorPoint1(anchorpoint1)
+            .withAnchorPoint2(anchorpoint2)
+            .withFirstVisitGreeTingsPane(firstVisitGreatings)
+            .withMainAnchorPane(mainAnchorPane)
+            .withPlayerEntranceCoordinates(playerEntranceCoordinatY)
+            .withfirstVisitText(firstVisitText)
+            .withbackToPreviousRoomButton(backToPreviousRoomButton)
+            .build();
+    }
 
+    /**
+     * This method is used to determine the rain's
+     * intensity depending on the amount of climatepoints
+     */
     private void choosingRainScenario() {
         switch (getClimateScenario()) {
             case -1:
-                rainDrops(70, SLOW);
+                animation.rainDrops(70, SLOW);
                 break;
             case -2:
-                rainDrops(150, SLOW);
+                animation.rainDrops(150, SLOW);
                 break;
             case -3:
-                rainDrops(250, MEDIUM);
+                animation.rainDrops(250, MEDIUM);
                 break;
             case -4:
-                rainDrops(350, MEDIUM);
+                animation.rainDrops(350, MEDIUM);
                 break;
             case -5:
-                rainDrops(450, FAST);
+                animation.rainDrops(450, FAST);
                 break;
             default:
                 sun.setVisible(true);
         }
     }
 
-    private void rainDrops(int numOfRainDropsOnScreen, int rainDropSpeed) {
-        ImageView[] rainDrops = new ImageView[numOfRainDropsOnScreen];
-        for (int i = 0; i < rainDrops.length; i++) {
-            rainDrops[i] = new ImageView(new Image(new File("src/pictures/rain.png").toURI().toString()));
-            anchorPane.getChildren().add(rainDrops[i]);
-            makeItRain(rainDrops[i], rainDropSpeed);
-        }
-    }
-
+    /**
+     * 
+     * @return int based on the players climate Points
+     */
     private int getClimateScenario() {
         int climatePoints = humanPlayer.getClimatePointsValue();
         if (climatePoints < 0 && climatePoints > -19) {
@@ -107,204 +117,197 @@ public class LocalVillageController implements Initializable {
         return 0;
     }
 
-    private void makeItRain(ImageView rain, int rainDropSpeed) {
-        rain.setTranslateX((Math.random() * 620) + 1);
-        rain.setTranslateY((Math.random() * 320) + 1);
-        int timeToGoToBottom = (int) (420 - rain.getTranslateY()) * rainDropSpeed;
-        final Timeline timeline = new Timeline();
-        timeline.setCycleCount(1);
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(timeToGoToBottom), new KeyValue(rain.translateYProperty(), 400)));
-        timeline.setOnFinished((ActionEvent event) -> {
-            makeItRain(rain, rainDropSpeed);
-        });
-        timeline.play();
+  /**
+   * Calls scenario when a mouse event occurs.
+   * @param event 
+   */
+    @FXML
+    private void handleTalkToVillageButton(MouseEvent event) {
+        scenario();
     }
 
+    /**
+     * Calls the corresponding animation depending on the players direction in the game world.
+     * first it checks if an animation is allready running to dertermin if it can run.
+     * Note: it also disables the backToPreviousRoomButton button.
+     * @param event 
+     */
     @FXML
-    private void handleBackBtn(MouseEvent event) {
-        backBtn.setDisable(true);
-        textArea.setVisible(false);
-        if (!running) {
-            running = true;
-            TranslateTransition backTransition = new TranslateTransition(Duration.seconds(1.5), player);
-
+    private void handleBackToPreviousButton(MouseEvent event) {
+        backToPreviousRoomButton.setDisable(true);
+        if (!animation.isRunning()) {
+            animation.setRunning(true);
             switch (playerInteraction.getPlayerDirectionInWorld()) {
                 case "goRight":
-                    backTransition.setByX(-276);
-                    backTransition.setOnFinished((ActionEvent) -> {
-                        Command tester = new Command(CommandWord.GO, "trailer");
-                        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-                    });
-                    backTransition.play();
-                    playerInteraction.setPlayerDirectionInWorld("goLeft");
+                    animation.goToTransitionHandle(playerEntranceCoordinatX / 2, 0, "goLeft", "trailer", true);
                     break;
                 case "goStore":
-                    running = true;
-                    TranslateTransition transistionToStore = new TranslateTransition(Duration.seconds(1.5), player);
-                    transistionToStore.setByX(store.getLayoutX() - 276);
-                    transistionToStore.setByY(store.getLayoutY() - 170);
-                    transistionToStore.setOnFinished((ActionEvent) -> {
-                        Command tester = new Command(CommandWord.GO, "store");
-                        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-                    });
-                    transistionToStore.play();
-                    playerInteraction.setPlayerDirectionInWorld("goStore");
+                    animation.goToTransitionHandle(playerEntranceCoordinatX / 2, storeEntrance.getLayoutX(), "goStore", "store", false);
                     break;
                 case "goBlacksmith":
-                    running = true;
-                    TranslateTransition transistionToBlacksmith = new TranslateTransition(Duration.seconds(1.5), player);
-                    transistionToBlacksmith.setByX(blacksmith.getLayoutX() - 276);
-                    transistionToBlacksmith.setByY(blacksmith.getLayoutY() - 170);
-                    transistionToBlacksmith.setOnFinished((ActionEvent) -> {
-                        Command tester = new Command(CommandWord.GO, "blacksmith");
-                        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-                    });
-                    transistionToBlacksmith.play();
-                    playerInteraction.setPlayerDirectionInWorld("goBlacksmith");
+                    animation.goToTransitionHandle(playerEntranceCoordinatX / 2, blacksmithEntrance.getLayoutX(), "goBlacksmith", "blacksmith", true);
                     break;
                 case "goLibrary":
-                    running = true;
-                    TranslateTransition transistionToLibrary = new TranslateTransition(Duration.seconds(1.5), player);
-                    transistionToLibrary.setByX(library.getLayoutX() - 276);
-                    transistionToLibrary.setByY(library.getLayoutY() - 170);
-                    transistionToLibrary.setOnFinished((ActionEvent) -> {
-                        Command tester = new Command(CommandWord.GO, "library");
-                        Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-                    });
-                    transistionToLibrary.play();
-                    playerInteraction.setPlayerDirectionInWorld("goLibrary");
+                    animation.goToTransitionHandle(playerEntranceCoordinatX / 2, libraryEntrance.getLayoutX(), "goLibrary", "library", false);
                     break;
             }
         }
     }
 
+   /**
+     * Calls the corresponding animation depending on if a mouse event occurs.
+     * first it checks if an animation is allready running to dertermin if it can run.
+     * Note: it also disables the backToPreviousRoomButton button 
+     * and hides firstVisitGreatings and villageGiftAndScenario anchorpoint.
+     * @param event 
+     */
     @FXML
     private void handleGoToStore(MouseEvent event) {
-        textArea.setVisible(false);
-        backBtn.setDisable(true);
-        if (!running) {
-            running = true;
-            TranslateTransition transistionToStore = new TranslateTransition(Duration.seconds(1.5), player);
-            transistionToStore.setByX(store.getLayoutX() - 276);
-            transistionToStore.setByY(store.getLayoutY() - 170);
-            transistionToStore.setOnFinished((ActionEvent) -> {
-                Command tester = new Command(CommandWord.GO, "store");
-                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-            });
-            transistionToStore.play();
-            playerInteraction.setPlayerDirectionInWorld("goStore");
+        backToPreviousRoomButton.setDisable(true);
+        firstVisitGreatings.setVisible(false);
+        villageGiftAndScenario.setVisible(false);
+        if (!animation.isRunning()) {
+            animation.setRunning(true);
+            animation.goToTransitionHandle(playerEntranceCoordinatX / 2, storeEntrance.getLayoutX(),
+                "goStore", "store", false);
         }
     }
 
+    /**
+     * Calls the corresponding animation depending on if a mouse event occurs.
+     * First it checks if an animation is allready running to dertermin if it can run.
+     * Note: it also disables the backToPreviousRoomButton button 
+     * and hides firstVisitGreatings and villageGiftAndScenario anchorpoint.
+     * @param event 
+     */
     @FXML
     private void handleGoToBlacksmith(MouseEvent event) {
-        textArea.setVisible(false);
-        backBtn.setDisable(true);
-        if (!running) {
-            running = true;
-            TranslateTransition transistionToBlacksmith = new TranslateTransition(Duration.seconds(1.5), player);
-            transistionToBlacksmith.setByX(blacksmith.getLayoutX() - 276);
-            transistionToBlacksmith.setByY(blacksmith.getLayoutY() - 170);
-            transistionToBlacksmith.setOnFinished((ActionEvent) -> {
-                Command tester = new Command(CommandWord.GO, "blacksmith");
-                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-            });
-            transistionToBlacksmith.play();
-            playerInteraction.setPlayerDirectionInWorld("goBlacksmith");
+        backToPreviousRoomButton.setDisable(true);
+        firstVisitGreatings.setVisible(false);
+        villageGiftAndScenario.setVisible(false);
+        if (!animation.isRunning()) {
+            animation.setRunning(true);
+            animation.goToTransitionHandle(playerEntranceCoordinatX / 2, blacksmithEntrance.getLayoutX(),
+                "goBlacksmith", "blacksmith", true);
         }
     }
 
+    /**
+     * Calls the corresponding animation depending on if a mouse event occurs.
+     * First it checks if an animation is allready running to dertermin if it can run.
+     * Note: it also disables the backToPreviousRoomButton button 
+     * and hides firstVisitGreatings and villageGiftAndScenario anchorpoint.
+     * @param event 
+     */
     @FXML
     private void handleGoToLibrary(MouseEvent event) {
-        textArea.setVisible(false);
-        backBtn.setDisable(true);
-        if (!running) {
-            running = true;
-            TranslateTransition transistionToLibrary = new TranslateTransition(Duration.seconds(1.5), player);
-            transistionToLibrary.setByX(library.getLayoutX() - 276);
-            transistionToLibrary.setByY(library.getLayoutY() - 170);
-            transistionToLibrary.setOnFinished((ActionEvent) -> {
-                Command tester = new Command(CommandWord.GO, "library");
-                Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-            });
-            transistionToLibrary.play();
-            playerInteraction.setPlayerDirectionInWorld("goLibrary");
+        backToPreviousRoomButton.setDisable(true);
+        firstVisitGreatings.setVisible(false);
+        villageGiftAndScenario.setVisible(false);
+        if (!animation.isRunning()) {
+            animation.setRunning(true);
+            animation.goToTransitionHandle(playerEntranceCoordinatX / 2, libraryEntrance.getLayoutX(),
+                "goLibrary", "library", false);
         }
     }
 
+    /**
+     * Calls the corresponding animation depending on if a key event occurs.
+     * First it checks if an animation is allready running to dertermin if it can run.
+     * Note: it hides firstVisitGreatings and villageGiftAndScenario anchorpoint.
+     * @param event 
+     */
     @FXML
     private void handleExits(KeyEvent event) {
-        if (!running) {
+        firstVisitGreatings.setVisible(false);
+        villageGiftAndScenario.setVisible(false);
+        if (!animation.isRunning()) {
             if (event.getCode().equals(KeyCode.LEFT) || event.getCode().equals(KeyCode.A)) {
-                running = true;
-                textArea.setVisible(false);
-                TranslateTransition transistionToTrailer = new TranslateTransition(Duration.seconds(1.5), player);
-                transistionToTrailer.setByX(-276);
-                transistionToTrailer.setOnFinished((ActionEvent) -> {
-                    Command tester = new Command(CommandWord.GO, "trailer");
-                    Game.getInstanceOfSelf().goRoom(tester, anchorPane);
-                });
-                transistionToTrailer.play();
-                playerInteraction.setPlayerDirectionInWorld("goLeft");
+                animation.setRunning(true);
+                animation.goToTransitionHandle(playerEntranceCoordinatX / 2, 0, "goLeft", "trailer", true);
             } else {
-                textArea.setText("There is no road!");
             }
         }
     }
 
+    /**
+     * Calls the corresponding animation depending on where the player comes from.
+     * Note: it also checks if its the first time the player visits and if the player
+     * has received a gift. Both are true it calls scenario.
+     */
     private void transition() {
-        TranslateTransition roomTransition = new TranslateTransition(Duration.seconds(1.5), player);
         switch (playerInteraction.getPlayerDirectionInWorld()) {
             case "goRight":
-                player.setLayoutX(0);
-                roomTransition.setByX(276);
-                roomTransition.setOnFinished((ActionEvent) -> {
-                    textArea.setVisible(true);
-                    running = false;
-                    backBtn.setDisable(false);
-
-                });
-                roomTransition.play();
+                animation.backTransitionHandle(0, playerEntranceCoordinatY, playerEntranceCoordinatX / 2, true);
+                if (playerInteraction.isGiftHasBeenGivenToday() && !playerInteraction.isFirstVillageVisit()) {
+                    scenario();
+                }
                 break;
             case "goStore":
-                player.setLayoutX(store.getLayoutX());
-                player.setLayoutY(store.getLayoutY());
-                roomTransition.setByX(276 - store.getLayoutX());
-                roomTransition.setByY(170 - store.getLayoutY());
-                roomTransition.setOnFinished((ActionEvent) -> {
-                    textArea.setVisible(true);
-                    running = false;
-                    backBtn.setDisable(false);
-
-                });
-                roomTransition.play();
+                animation.backTransitionHandle(storeEntrance.getLayoutX(), storeEntrance.getLayoutY() - 20, playerEntranceCoordinatX / 2, false);
                 break;
             case "goBlacksmith":
-                player.setLayoutX(blacksmith.getLayoutX());
-                player.setLayoutY(blacksmith.getLayoutY());
-                roomTransition.setByX(276 - blacksmith.getLayoutX());
-                roomTransition.setByY(170 - blacksmith.getLayoutY());
-                roomTransition.setOnFinished((ActionEvent) -> {
-                    textArea.setVisible(true);
-                    running = false;
-                    backBtn.setDisable(false);
-
-                });
-                roomTransition.play();
+                animation.backTransitionHandle(blacksmithEntrance.getLayoutX(), playerEntranceCoordinatY, playerEntranceCoordinatX / 2, true);
                 break;
             case "goLibrary":
-                player.setLayoutX(library.getLayoutX());
-                player.setLayoutY(library.getLayoutY());
-                roomTransition.setByX(276 - library.getLayoutX());
-                roomTransition.setByY(170 - library.getLayoutY());
-                roomTransition.setOnFinished((ActionEvent) -> {
-                    textArea.setVisible(true);
-                    running = false;
-                    backBtn.setDisable(false);
-
-                });
-                roomTransition.play();
+                animation.backTransitionHandle(libraryEntrance.getLayoutX(), libraryEntrance.getLayoutY(), playerEntranceCoordinatX / 2, false);
                 break;
+        }
+    }
+
+    /**
+     * Shows the villageGiftAndScenario anchor pane to animate the corresponding text
+     * depending on what it recives from localVillage.java.
+     */
+    private void scenario() {
+        currentDialouge = 1;
+        villageGiftAndScenario.setVisible(true);
+        animation.textAnimation(villagerText, gameVillage.getScenario(humanPlayer));
+
+    }
+    
+    /**
+     * Checks if the player has been given a gift that day.
+     * If true it cycles through, animats the scenario again.
+     * If False it closes the window.
+     */
+
+    @FXML
+    private void handleNextScenarioTextButton() {
+        if (playerInteraction.isGiftHasBeenGivenToday() && currentDialouge == 1) {
+            animation.textAnimation(villagerText, gameVillage.getScenario(humanPlayer));
+            currentDialouge++;
+        } else {
+            villageGiftAndScenario.setVisible(false);
+        }
+    }
+
+    /**
+     * Calls the corresponding animation depending on the currentDialouge on every mouse event.
+     * If 3 it closes the firstVisitGreatings anchorpane.
+     * @param event 
+     */
+    @FXML
+    private void handleNextDialougeFirstVisitButton(MouseEvent event) {
+        switch (currentDialouge) {
+            case 0:
+                animation.textAnimation(firstVisitText, "I Havent seen you around here before.\n"
+                    + "Well anyways it's always nice to meet new people. ");
+                currentDialouge++;
+                break;
+            case 1:
+                animation.textAnimation(firstVisitText, "If you plan to stay please feel free\n"
+                    + "to explore the towns various shops.");
+                currentDialouge++;
+                break;
+            case 2:
+                animation.textAnimation(firstVisitText, "Or maybe do a bit of reading in the library?\n"
+                    + "See you around friend!");
+                currentDialouge++;
+                break;
+            case 3:
+                firstVisitGreatings.setVisible(false);
+                scenario();
         }
     }
 }

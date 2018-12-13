@@ -9,11 +9,12 @@ import java.util.List;
  *
  * @author steffen
  * co-author: oliver
+ * This class controlles the scenarios for the humansplayers climapoints.
  */
 public class Radio {
 
     private final String weatherReporter = "Jensen: ";
-
+    
     public String globalNews(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
         scenarios.put(249, weatherReporter + "The atmosphere is very stable and optimal\n"
@@ -48,20 +49,8 @@ public class Radio {
             + "Global Temperature: 31 degrees Celsius\n"
             + "Water Level: Risen 20 meters\n");
 
-        int climatePoints = humanPlayer.getClimatePointsValue();
-        List<Integer> keySet = new ArrayList<>(scenarios.keySet());
-        for (int i = 0; i < keySet.size(); i++) {
-            if (climatePoints > keySet.get(0)) {
-                return scenarios.get(keySet.get(0));
-            } else if (climatePoints < keySet.get(keySet.size() - 1)) {
-                return scenarios.get(keySet.get(keySet.size() - 1));
-            } else if (climatePoints < keySet.get(i) && climatePoints > keySet.get(i + 1)) {
-                return scenarios.get(keySet.get(i));
-            }
-        }
-        return "";
+        return getStringOfscenarios(humanPlayer, scenarios);
     }
-
     public String localNews(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
         scenarios.put(-199, weatherReporter + "The weather forecast indicates mild winds\n"
@@ -92,6 +81,15 @@ public class Radio {
             + "Local Temperature: Error\n"
             + "Wind Speeds: Error\n");
 
+        return getStringOfscenarios(humanPlayer, scenarios);
+    }
+    /**
+     * Take the climaPoints from Humanplayer and finde the scenarios tha match the climepointe.
+     * @param humanPlayer
+     * @param scenarios
+     * @return 
+     */
+    public String getStringOfscenarios(Player humanPlayer, LinkedHashMap<Integer, String> scenarios) {
         int climatePoints = humanPlayer.getClimatePointsValue();
         List<Integer> keySet = new ArrayList<>(scenarios.keySet());
         for (int i = 0; i < keySet.size(); i++) {

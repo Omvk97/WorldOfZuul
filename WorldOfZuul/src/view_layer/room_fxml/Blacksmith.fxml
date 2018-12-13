@@ -19,7 +19,7 @@
                 <Image url="file:src/pictures/steelAxe.png" />
             </image>
         </ImageView>
-        <javafx.scene.control.Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="346.0" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: black;" textAlignment="CENTER" wrapText="true" />
+        <Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="330.0" prefHeight="80.0" prefWidth="320.0" styleClass="textArea" textAlignment="CENTER" wrapText="true" />
         <Button fx:id="repair" layoutX="152.0" layoutY="276.0" mnemonicParsing="false" onMouseClicked="#handlerepair" opacity="0.01" prefHeight="50.0" prefWidth="63.0" text="Option 1" />
         <Button fx:id="Buyaxes" layoutX="484.0" layoutY="282.0" mnemonicParsing="false" onAction="#BuyOnAction" opacity="0.01" prefHeight="101.0" prefWidth="63.0" text="Option 2" />
         <Button fx:id="backBtn" layoutX="540.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#handleBackBtn">
@@ -33,6 +33,11 @@
         </Button>
         <AnchorPane fx:id="Buypane" layoutX="76.0" layoutY="55.0" prefHeight="269.0" prefWidth="435.0">
             <children>
+                <ImageView fx:id="BackIcone" fitHeight="41.0" fitWidth="40.0" layoutX="14.0" layoutY="224.0" onMouseClicked="#handlerBack" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="file:src/pictures/backImg.png" />
+                    </image>
+                </ImageView>
                 <ImageView fitHeight="295.0" fitWidth="424.0" layoutX="7.0" layoutY="-27.0" pickOnBounds="true">
                     <image>
                         <Image url="file:src/pictures/axeholderfix.PNG" />
@@ -56,11 +61,6 @@
                 <ImageView fx:id="txtFireAxe" fitHeight="114.0" fitWidth="109.0" layoutX="309.0" layoutY="24.0" onMouseClicked="#handlerFireAxe" pickOnBounds="true" preserveRatio="true" rotate="45.0">
                     <image>
                         <Image url="file:src/pictures/fireAxe.png" />
-                    </image>
-                </ImageView>
-                <ImageView fx:id="BackIcone" fitHeight="41.0" fitWidth="40.0" layoutX="14.0" layoutY="224.0" onMouseClicked="#handlerBack" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="file:src/pictures/backImg.png" />
                     </image>
                 </ImageView>
             </children>
