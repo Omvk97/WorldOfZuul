@@ -62,6 +62,7 @@ public class TrailerController implements Initializable {
             .withAnchorPane(anchorPane)
             .withStarterAxe(option4)
             .withTrailerPath(trailerPath)
+            .withGameTrailer(gameTrailer)
             .build();
         player.setVisible(false);
         int daysLeftNum = gameTrailer.getNumOfDaysLeft();

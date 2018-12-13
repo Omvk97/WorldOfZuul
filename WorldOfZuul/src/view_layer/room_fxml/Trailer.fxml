@@ -26,7 +26,7 @@
                 <Image url="file:src/pictures/starterAxe.png" />            
             </image>
         </ImageView>
-        <ImageView fx:id="fineScroll" fitHeight="203.0" fitWidth="230.0" layoutX="185.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView fx:id="fineScroll" styleClass="Book" fitHeight="203.0" fitWidth="230.0" layoutX="185.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" visible="false">
             <image>
                 <Image url="file:src/pictures/fine.png" />
             </image>

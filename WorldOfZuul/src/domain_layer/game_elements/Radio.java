@@ -4,7 +4,6 @@ import domain_layer.game_functionality.Player;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import javafx.scene.control.Label;
 
 /**
  *
@@ -14,7 +13,7 @@ import javafx.scene.control.Label;
 public class Radio {
 
     private final String weatherReporter = "Jensen: ";
-
+    
     public String globalNews(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
         scenarios.put(249, weatherReporter + "The atmosphere is very stable and optimal\n"

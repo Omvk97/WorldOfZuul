@@ -13,8 +13,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  *
- * @author oliver 
- * co-author: michael, steffen & daniel
+ * @author oliver co-author: michael, steffen & daniel
  */
 public class Player {
 
@@ -317,7 +316,10 @@ public class Player {
      */
     public void sleep(int fineAmount) {
         money.setValue(money.getValue() - fineAmount);
-        numChoppedTreesWithoutPlantingSaplings = 0;
+        if (fineAmount != 0) {
+        } else {
+            numChoppedTreesWithoutPlantingSaplings = 0;
+        }
         giftHasBeenGivenToday = false;
         slept = true;
     }

@@ -205,10 +205,4 @@ public class LocalVillageAnimation extends GameAnimation {
         });
         timeline.play();
     }
-
-    @Override
-    public String toString() {
-        return "LocalVillageAnimation{" + "anchorPoint1=" + anchorPoint1 + ", anchorPoint2=" + anchorPoint2 + ", game=" + game + ", mainAnchorPane=" + mainAnchorPane + ", player=" + player + '}';
-    }
-
 }

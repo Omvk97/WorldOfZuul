@@ -19,7 +19,7 @@ import javafx.scene.shape.Rectangle;
 import view_layer.room_animations.LocalVillageAnimation;
 
 /**
- *
+ * 
  * @author michael
  */
 public class LocalVillageController implements Initializable {
@@ -70,7 +70,7 @@ public class LocalVillageController implements Initializable {
     }
 
     /*
-     This method is used to determin the rain's intensity depending on the amount og climatepoints
+     * This method is used to determine the rain's intensity depending on the amount of climatepoints
      */
     private void choosingRainScenario() {
         switch (getClimateScenario()) {
@@ -150,8 +150,8 @@ public class LocalVillageController implements Initializable {
     }
 
     /*
-     This method handels what's going to happen when the rectangle placed over store is pressed.
-     In this case it calls the goToTransitionHandle to animate the charector based on the given parameters.
+     * This method handels what's going to happen when the rectangle placed over store is pressed.
+     * In this case it calls the goToTransitionHandle to animate the charector based on the given parameters.
      */
     @FXML
     private void handleGoToStore(MouseEvent event) {
@@ -166,8 +166,8 @@ public class LocalVillageController implements Initializable {
     }
 
     /*
-     This method handels what's going to happen when the rectangle placed over blacksmith is pressed.
-     In this case it calls the goToTransitionHandle to animate the charector based on the given parameters.
+     * This method handels what's going to happen when the rectangle placed over blacksmith is pressed.
+     * In this case it calls the goToTransitionHandle to animate the charector based on the given parameters.
      */
     @FXML
     private void handleGoToBlacksmith(MouseEvent event) {
@@ -182,8 +182,8 @@ public class LocalVillageController implements Initializable {
     }
 
     /*
-     This method handels what's going to happen when the rectangle placed over library is pressed.
-     In this case it calls the goToTransitionHandle to animate the charector based on the given parameters.
+     * This method handels what's going to happen when the rectangle placed over library is pressed.
+     * In this case it calls the goToTransitionHandle to animate the charector based on the given parameters.
      */
     @FXML
     private void handleGoToLibrary(MouseEvent event) {
@@ -198,9 +198,9 @@ public class LocalVillageController implements Initializable {
     }
 
     /*
-     This method handels what's going to happen when a key is pressed.
-     In this case it calls the goToTransitionHandle to animate the charector 
-     based on the given parameters and only if the right key is presed.
+     * This method handels what's going to happen when a key is pressed.
+     * In this case it calls the goToTransitionHandle to animate the charector 
+     * based on the given parameters and only if the right key is presed.
      */
     @FXML
     private void handleExits(KeyEvent event) {
@@ -216,8 +216,8 @@ public class LocalVillageController implements Initializable {
     }
 
     /*
-     This method handels should happen when the charector comes from a given lokation.
-     In this case it calls the backTransitionHandle to animate the charector based on the given parameters.
+     * This method handels should happen when the charector comes from a given lokation.
+     * In this case it calls the backTransitionHandle to animate the charector based on the given parameters.
      */
     private void transition() {
         switch (Game.getInstanceOfSelf().getPlayerDirectionInWorld()) {
@@ -240,7 +240,7 @@ public class LocalVillageController implements Initializable {
     }
 
     /*
-     This method handels what's going to happen the the scenario is called.
+     * This method handels what's going to happen the the scenario is called.
      */
     private void scenario() {
         currentDialouge = 1;
@@ -250,8 +250,8 @@ public class LocalVillageController implements Initializable {
     }
     
     /*
-     This method handels what's going to happen when the button in the villageGiftAndScenario Pane is pressed.
-     In this case it determins what should happen next based on if the player has been given a gift or not.
+     * This method handels what's going to happen when the button in the villageGiftAndScenario Pane is pressed.
+     * In this case it determins what should happen next based on if the player has been given a gift or not.
      */
 
     @FXML
@@ -265,8 +265,8 @@ public class LocalVillageController implements Initializable {
     }
 
     /*
-     This method handels what's going to happen when the button in the firstVisitGreatings Pane is pressed.
-     In this case it determins what should happen next based on what the currentDialouge is.
+     * This method handels what's going to happen when the button in the firstVisitGreatings Pane is pressed.
+     * In this case it determins what should happen next based on what the currentDialouge is.
      */
     @FXML
     private void handleNextDialougeFirstVisitButton(MouseEvent event) {

@@ -37,7 +37,7 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
             animation.setRunning(false);
         });
         up.play();
-        textArea.setText(gameForest.roomEntrance(humanPlayer));
+        animation.textAnimation(textArea, gameForest.roomEntrance(humanPlayer));
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         smallTreeLabel.setText(Integer.toString(gameForest.countSmallTrees()));
         mediumTreeLabel.setText(Integer.toString(gameForest.countMediumTrees()));
@@ -48,7 +48,7 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
     private void handleOption1(MouseEvent event) {
         if (!animation.isRunning()) {
             if (humanPlayer.getClimatePointsValue() == Player.getMIN_CLIMATEPOINTS()) {
-                textArea.setText("YOU HAVE DESTROYED TOO MUCH OF THE EARTH");
+                animation.textAnimation(textArea, "YOU HAVE DESTROYED TOO MUCH OF THE EARTH");
                 highScoreGraphics.closeGame();
                 System.exit(0);
             }
@@ -62,13 +62,13 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
                     treeAnimationToMediumTree(number, gameForest.countMediumTrees());
                 }
             } else if (gameForest.playerCanCarryMoreTree(humanPlayer) && !gameForest.thereIsMoreTreesToCut()) {
-                textArea.setText("There is no more trees to fell right now!"
+                animation.textAnimation(textArea, "There is no more trees to fell right now!"
                     + "\nYou have to wait for the forest to regrow!");
             } else if (gameForest.thereIsMoreTreesToCut() && !gameForest.playerCanCarryMoreTree(humanPlayer)) {
-                textArea.setText("You are carrying too much wood!\n"
+                animation.textAnimation(textArea, "You are carrying too much wood!\n"
                     + "Sell or store your logs!");
             } else {
-                textArea.setText("There is no trees to fell and your backpack is full!");
+                animation.textAnimation(textArea, "There is no trees to fell and your backpack is full!");
             }
         } else {
 //            do nothing
@@ -120,7 +120,7 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
 
     @FXML
     private void handleOption2(MouseEvent event) {
-        textArea.setText("There are " + gameForest.countFellableTrees() + " trees ready to be felled!");
+        animation.textAnimation(textArea, "There are " + gameForest.countFellableTrees() + " trees ready to be felled!");
     }
 
     @FXML
@@ -135,7 +135,7 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
                 down.setOnFinished(e -> Game.getInstanceOfSelf().goRoom(tester, anchorPane));
                 down.play();
             } else {
-                textArea.setText("There is no road!");
+                animation.textAnimation(textArea, "There is no road!");
             }
         }
     }
