@@ -5,6 +5,7 @@ import domain_layer.game_elements.BackPackFactory;
 import domain_layer.game_elements.Tree;
 import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
+import domain_layer.game_functionality.PlayerInteraction;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -88,6 +89,7 @@ public class Store extends Room {
                 -> humanPlayer.addMoney(tree.getTreePrice()));
             trailer.loadOffLogsInStorage();
         }
+        PlayerInteraction.getInstanceOfSelf().updateLogsInBackPack(humanPlayer.getEquippedBackPack());
         return true;
     }
 

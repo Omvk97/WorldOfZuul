@@ -41,7 +41,8 @@ public class CertifiedForest extends Forest {
         }
         moveChoppableTreesUp();
         return "You are standing in a certified forest!\n"
-            + "Remember to replant trees!";
+            + "Remember to replant trees!\n"
+            + "In this forest you can only chop large trees";
     }
 
     /**

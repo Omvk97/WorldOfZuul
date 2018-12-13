@@ -161,7 +161,7 @@ public class Player {
      * Checks if player has enough money to buy the sapling they want and adds it their inventory if
      * they do.
      *
-     * @param saplingAmount how many sapling the player wants to buy.
+     * @param saplingAmount how many saplings the player wants to buy.
      * @param saplingCost what the cost of each sapling is.
      * @return whether or not the player has enough money to buy the saplings.
      */
@@ -184,9 +184,8 @@ public class Player {
      * @return how many new tress the player had money to plant.
      */
     public int plantSeeds() {
-        int startAmountOfChoppedTrees = playerInteraction.getNumChoppedTreesWithoutPlantingSaplings();
         int saplingsPlanted = 0;
-        for (int i = 0; i < startAmountOfChoppedTrees; i++) {
+        for (int i = 0; i < amountOfTreesToPlant(); i++) {
             if (saplingsCarrying.getValue() > 0) {
                 saplingsCarrying.setValue(saplingsCarrying.getValue() - 1);
                 playerInteraction.reduceChoppedTreesInCertifiedForest();
@@ -194,6 +193,11 @@ public class Player {
             }
         }
         return saplingsPlanted;
+    }
+    
+    public int amountOfTreesToPlant() {
+        return playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() - 
+            saplingsCarrying.getValue();
     }
 
     /**

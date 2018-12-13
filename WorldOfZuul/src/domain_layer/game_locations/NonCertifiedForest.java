@@ -41,7 +41,8 @@ public class NonCertifiedForest extends Forest {
         }
         moveChoppableTreesUp();
         return "You are standing in a non certified forest! \n"
-            + "This forest will not regrow";
+            + "You can chop medium and large trees in this forest\n"
+            + "But this forest will not regrow\n";
     }
 
     /**

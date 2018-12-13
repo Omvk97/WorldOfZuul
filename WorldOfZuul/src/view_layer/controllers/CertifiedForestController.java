@@ -90,11 +90,14 @@ public class CertifiedForestController extends ForestAnimation implements Initia
      */
     @FXML
     private void handlePlantSeeds(MouseEvent event) {
-        if (PlayerInteraction.getInstanceOfSelf().getNumChoppedTreesWithoutPlantingSaplings() > 0) {
+        final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
+        if (playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() > 0) {
             int amountOfSeedsPlanted = gameForest.replantTrees(humanPlayer);
             if (amountOfSeedsPlanted > 0) {
                 animation.textAnimation(textArea, "You just planted " + (amountOfSeedsPlanted > 1
-                    ? amountOfSeedsPlanted + " saplings!" : "1 sapling!"));
+                    ? amountOfSeedsPlanted + " saplings!" : "1 sapling! "
+                    + (playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() > 0 ? "You still need to plant "
+                        + playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() + " saplings!" : "")));
             } else if (amountOfSeedsPlanted == 0) {
                 animation.textAnimation(textArea, "You don't have any saplings, go buy some!");
             }
