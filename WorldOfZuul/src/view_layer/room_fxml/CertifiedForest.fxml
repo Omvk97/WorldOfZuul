@@ -33,9 +33,9 @@
                 <Image url="file:src/pictures/certifiedTree.png" />            
             </image>
         </ImageView>
-        <Button fx:id="option1" layoutX="14.0" layoutY="294.0" mnemonicParsing="false" text="Chop Tree" onMouseClicked="#handleTreeFelling" prefWidth="90"/>
-        <Button fx:id="option2" layoutX="14.0" layoutY="326.0" mnemonicParsing="false" text="Tree Info" onMouseClicked="#handleCountFellableTrees" prefWidth="90"/>
-        <Button fx:id="option3" layoutX="14.0" layoutY="356.0" mnemonicParsing="false" text="Replant Trees" onMouseClicked="#handlePlantSeeds" prefWidth="90" />
+        <Button fx:id="option1" layoutX="14.0" layoutY="275.0" mnemonicParsing="false" text="Chop Tree" onMouseClicked="#handleTreeFelling" prefWidth="100"/>
+        <Button fx:id="option2" layoutX="14.0" layoutY="315.0" mnemonicParsing="false" text="Tree Info" onMouseClicked="#handleCountFellableTrees" prefWidth="100"/>
+        <Button fx:id="option3" layoutX="14.0" layoutY="355.0" mnemonicParsing="false" text="Replant Trees" onMouseClicked="#handlePlantSeeds" prefWidth="100" />
         <Label fx:id="smallTreeLabel" styleClass="miniLabel" alignment="CENTER" layoutX="30.0" layoutY="175.0" prefHeight="18.0" prefWidth="39.0" textAlignment="CENTER" />
         <Label fx:id="mediumTreeLabel" styleClass="miniLabel" alignment="CENTER" layoutX="120.0" layoutY="175.0" prefHeight="18.0" prefWidth="39.0" textAlignment="CENTER" />
         <Label fx:id="largeTreeLabel" styleClass="miniLabel" alignment="CENTER" layoutX="525.0" layoutY="175.0" prefHeight="18.0" prefWidth="39.0" textAlignment="CENTER" />

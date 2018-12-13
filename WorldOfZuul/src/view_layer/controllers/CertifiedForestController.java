@@ -101,6 +101,7 @@ public class CertifiedForestController extends ForestAnimation implements Initia
         } else {
             animation.textAnimation(textArea, "You haven't chopped any trees today!");
         }
+        gameForest.moveChoppableTreesUp();
     }
 
     /**
@@ -111,7 +112,6 @@ public class CertifiedForestController extends ForestAnimation implements Initia
     @FXML
     private void handleExits(KeyEvent event) {
         if (!animation.isRunning()) {
-            animation.setRunning(true);
             if (event.getCode().equals(KeyCode.UP) || event.getCode().equals(KeyCode.W)) {
                 animation.setRunning(true);
                 PlayerInteraction.getInstanceOfSelf().setPlayerDirectionInWorld("goUp");
