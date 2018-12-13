@@ -1,5 +1,6 @@
 package view_layer.controllers;
 
+import view_layer.room_animations.ForestAnimation;
 import domain_layer.game_functionality.Command;
 import domain_layer.game_functionality.CommandWord;
 import domain_layer.game_functionality.Game;
@@ -10,7 +11,6 @@ import java.util.ResourceBundle;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -23,25 +23,18 @@ import javafx.util.Duration;
  *
  * @author oliver
  */
-public class NonCertifiedController extends ForestController implements Initializable {
+public class NonCertifiedController extends ForestAnimation implements Initializable {
 
     private final NonCertifiedForest gameForest = (NonCertifiedForest) Game.getInstanceOfSelf().getNonCertificedForest();
 
-    public NonCertifiedController() {
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        running = true;
+        animation.setRunning(true);
         TranslateTransition up = new TranslateTransition(Duration.seconds(1.5), player);
         up.setFromY(170);
         up.setByY(-170);
-        up.setOnFinished(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                running = false;
-            }
+        up.setOnFinished((ActionEvent event) -> {
+            animation.setRunning(false);
         });
         up.play();
         textArea.setText(gameForest.roomEntrance(humanPlayer));
@@ -53,14 +46,14 @@ public class NonCertifiedController extends ForestController implements Initiali
 
     @FXML
     private void handleOption1(MouseEvent event) {
-        if (!running) {
+        if (!animation.isRunning()) {
             if (humanPlayer.getClimatePointsValue() == Player.getMIN_CLIMATEPOINTS()) {
                 textArea.setText("YOU HAVE DESTROYED TOO MUCH OF THE EARTH");
                 highScoreGraphics.closeGame();
                 System.exit(0);
             }
             if (gameForest.playerCanCarryMoreTree(humanPlayer) && gameForest.thereIsMoreTreesToCut()) {
-                running = true;
+                animation.setRunning(true);
                 if (gameForest.lastTreeInArray().getTreeHealth() >= gameForest.getLARGE_TREE_SIZE()) {
                     int number = gameForest.countNumOfHits(humanPlayer);
                     treeAnimationToLargeTree(number, gameForest.countLargeTrees(), gameForest);
@@ -132,8 +125,8 @@ public class NonCertifiedController extends ForestController implements Initiali
 
     @FXML
     private void handleExits(KeyEvent event) {
-        if (!running) {
-            running = true;
+        if (!animation.isRunning()) {
+            animation.setRunning(true);
             if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
                 Game.getInstanceOfSelf().setPlayerDirectionInWorld("goDown");
                 Command tester = new Command(CommandWord.GO, "trailer");

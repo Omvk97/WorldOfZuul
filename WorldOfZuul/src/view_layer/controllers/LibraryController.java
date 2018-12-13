@@ -15,6 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import view_layer.room_animations.GameAnimation;
 
 /**
  *
@@ -30,11 +31,11 @@ public class LibraryController implements Initializable {
     private Button option1, backBtn;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Library gameLibrary = (Library) Game.getInstanceOfSelf().getLibrary();
-    private boolean running;
+    private final GameAnimation animation = new GameAnimation(null);
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        textArea.setText(gameLibrary.roomEntrance(humanPlayer));
+        animation.textAnimation(textArea, gameLibrary.roomEntrance(humanPlayer));
         BookTextArea1.setWrapText(true);
         BookTextArea2.setWrapText(true);
         BookText.setVisible(false);
@@ -118,7 +119,7 @@ public class LibraryController implements Initializable {
                 Command tester = new Command(CommandWord.GO, "back");
                 Game.getInstanceOfSelf().goRoom(tester, anchorPane);
             } else {
-                textArea.setText("There is no road!");
+                animation.textAnimation(textArea, "There is no road!");
             }
         }
     }

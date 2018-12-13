@@ -21,6 +21,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import view_layer.room_animations.GameAnimation;
 
 /**
  *
@@ -43,10 +44,11 @@ public class StoreController implements Initializable {
     private final Button closeShelfButton = new Button("Done");
     private final Button buySelectedItemButton = new Button("Buy");
     private final ArrayList<Node> allItemsAssociatedWithShelf = new ArrayList<>();
+    private final GameAnimation animation = new GameAnimation(null);
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        textArea.setText(gameStore.roomEntrance(humanPlayer));
+        animation.textAnimation(textArea, gameStore.roomEntrance(humanPlayer));
         setLayoutOfShelf();
         setLayoutOfItemsOnShelf();
         handleUserPurchase();
@@ -55,9 +57,9 @@ public class StoreController implements Initializable {
     @FXML
     private void handleOption1(MouseEvent event) {
         if (gameStore.sellLogs(humanPlayer)) {
-            textArea.setText("You have sold all your logs!");
+            animation.textAnimation(textArea, "You have sold all your logs!");
         } else {
-            textArea.setText("You have no logs to sell!");
+            animation.textAnimation(textArea, "You have no logs to sell!");
         }
     }
 
@@ -69,7 +71,7 @@ public class StoreController implements Initializable {
             gameStore.createNewBackPacks();
             anchorPane.getChildren().addAll(allItemsAssociatedWithShelf);
         }
-        textArea.setText("Click on the things you would like to buy!");
+        animation.textAnimation(textArea, "Click on the things you would like to buy!");
     }
 
     @FXML
@@ -78,7 +80,7 @@ public class StoreController implements Initializable {
             Command tester = new Command(CommandWord.GO, "back");
             Game.getInstanceOfSelf().goRoom(tester, anchorPane);
         } else {
-            textArea.setText("There is no road!");
+            animation.textAnimation(textArea, "There is no road!");
         }
     }
 
@@ -156,7 +158,7 @@ public class StoreController implements Initializable {
             blueDot.setLayoutX(image.getLayoutX() + image.getParent().getLayoutX());
             blueDot.setLayoutY(image.getLayoutY() + image.getParent().getLayoutY() - 5);
             blueDot.setId(image.getId());
-            textArea.setText(gameStore.getItemInfo(image));
+            animation.textAnimation(textArea, gameStore.getItemInfo(image));
         });
     }
 
@@ -164,13 +166,12 @@ public class StoreController implements Initializable {
         buySelectedItemButton.setOnMouseClicked((MouseEvent event) -> {
             if (blueDot.getId() != null) {
                 if (gameStore.buyItem(blueDot.getId(), humanPlayer)) {
-                    textArea.setText("Here you go!");
-//                    updateGoldCoins();
+                    animation.textAnimation(textArea, "Here you go!");
                 } else {
-                    textArea.setText("You can't afford that!");
+                    animation.textAnimation(textArea, "You can't afford that!");
                 }
             } else {
-                textArea.setText("You don't have anything selected!");
+                animation.textAnimation(textArea, "You don't have anything selected!");
             }
         });
     }

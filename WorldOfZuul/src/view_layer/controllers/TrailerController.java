@@ -1,7 +1,5 @@
 package view_layer.controllers;
 
-import domain_layer.game_functionality.Command;
-import domain_layer.game_functionality.CommandWord;
 import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
 import domain_layer.game_locations.Trailer;
@@ -9,8 +7,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
-import javafx.animation.Transition;
-import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import view_layer.room_animations.TrailerAnimation;
 
 /**
  *
@@ -43,80 +40,69 @@ public class TrailerController implements Initializable {
     private TextField fineInput;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final Trailer gameTrailer = Game.getInstanceOfSelf().getTrailer();
-    private boolean running;
     private int devilCounter = 0, randomNum;
+    private TrailerAnimation animation;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        goToTrailerTransition();
+        enterTrailer();
         if (humanPlayer.isAxePickedUp()) {
             anchorPane.getChildren().remove(option4);
         }
         if (trailerPath.isVisible()) {
-            textArea.setText("You stand at a crossroad, you can go north, west, south or east.");
+            animation.textAnimation(textArea, "You stand at a crossroad, you can go north, west, south or east.");
         } else {
-            textArea.setText(gameTrailer.roomEntrance(humanPlayer));
+            animation.textAnimation(textArea, gameTrailer.roomEntrance(humanPlayer));
         }
 
     }
 
-    private void goToTrailerTransition() {
+    private void enterTrailer() {
+        animation = new TrailerAnimation.Builder(player)
+            .withAnchorPane(anchorPane)
+            .withStarterAxe(option4)
+            .withTrailerPath(trailerPath)
+            .build();
         player.setVisible(false);
         int daysLeftNum = gameTrailer.getNumOfDaysLeft();
         daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         option4.setImage(new Image(new File("src/pictures/starterAxe.png").toURI().toString()));
-        if (!running) {
+        if (!animation.isRunning()) {
             switch (Game.getInstanceOfSelf().getPlayerDirectionInWorld()) {
                 case "goDown":
                     textArea.setVisible(false);
-                    playerEnteringTrailerTransition(0, 170, player.getLayoutX(), 0);
+                    animation.playerEnteringTrailerTransition(0, 170, player.getLayoutX(), 0);
                     break;
                 case "goLeft":
                     textArea.setVisible(false);
-                    playerEnteringTrailerTransition(-330, 0, anchorPane.getPrefWidth(), player.getLayoutY());
+                    animation.playerEnteringTrailerTransition(-330, 0, anchorPane.getPrefWidth(), player.getLayoutY());
                     break;
                 case "goUp":
                     textArea.setVisible(false);
-                    playerEnteringTrailerTransition(0, -230, player.getLayoutX(), anchorPane.getPrefHeight());
+                    animation.playerEnteringTrailerTransition(0, -230, player.getLayoutX(), anchorPane.getPrefHeight());
                     break;
                 default:
-                    running = false;
+                    animation.setRunning(false);
                     break;
             }
         }
     }
 
-    private void playerEnteringTrailerTransition(int translateX, int translateY, double setLayoutX, double setLayoutY) {
-        running = true;
-        player.setVisible(true);
-        trailerPath.setVisible(true);
-        option4.setVisible(false);
-        TranslateTransition left = new TranslateTransition(Duration.seconds(1.5), player);
-        player.setLayoutX(setLayoutX);
-        player.setLayoutY(setLayoutY);
-        left.setByX(translateX);
-        left.setByY(translateY);
-        left.setOnFinished((ActionEvent) -> {
-            running = false;
-        });
-        left.play();
-    }
-
     @FXML
     private void handleOption1(MouseEvent event) {
         if (!trailerPath.isVisible()) {
-            textArea.setText(gameTrailer.option1(humanPlayer));
+            animation.textAnimation(textArea, gameTrailer.option1(humanPlayer));
         } else {
-            textArea.setText("What?");
+            animation.textAnimation(textArea, "What?");
         }
     }
 
     @FXML
     private void handleOption3(MouseEvent event) {
-        if (!running) {
-            running = true;
-            textArea.setText(gameTrailer.option3(humanPlayer));
+        if (!animation.isRunning()) {
+            animation.setRunning(true);
+            animation.textAnimation(textArea, gameTrailer.option3(humanPlayer));
             if (gameTrailer.getNumOfDaysLeft() == 0) {
                 daysLeft.setText("Goodbye");
                 HighScoreGraphics highScoreDisplay = new HighScoreGraphics();
@@ -130,13 +116,13 @@ public class TrailerController implements Initializable {
             sleep.setAutoReverse(true);
             sleep.play();
             sleep.setOnFinished((ActionEvent e) -> {
-                running = false;
+                animation.setRunning(false);
                 int daysLeftNum = gameTrailer.getNumOfDaysLeft();
                 daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
 
                 if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
                     fineLabel.setVisible(true);
-                    fineLabel.setText("You didn't replant all the trees in the certified forest!\n"
+                    animation.textAnimation(fineLabel, "You didn't replant all the trees in the certified forest!\n"
                         + "Here's a chance to redeem yourself");
                     confirmButton.setVisible(true);
                     fineScroll.setVisible(true);
@@ -148,7 +134,7 @@ public class TrailerController implements Initializable {
 
     @FXML
     private void handleOption4(MouseEvent event) {
-        textArea.setText(gameTrailer.option4(humanPlayer));
+        animation.textAnimation(textArea, gameTrailer.option4(humanPlayer));
         humanPlayer.setCharacterModel(false);
         player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
         anchorPane.getChildren().remove(option4);
@@ -157,84 +143,35 @@ public class TrailerController implements Initializable {
 
     @FXML
     private void handleExits(KeyEvent event) {
-        if (!running) {
+        if (!animation.isRunning()) {
             switch (event.getCode()) {
                 case UP:
                 case W: {
                     textArea.setVisible(false);
-                    walkTransition("north", "goUp", 0, -170);
+                    animation.walkTransition("north", "goUp", 0, -170);
                     break;
                 }
                 case DOWN:
                 case S: {
                     textArea.setVisible(false);
-                    walkTransition("south", "goDown", 0, 170);
+                    animation.walkTransition("south", "goDown", 0, 170);
                     break;
                 }
                 case LEFT:
                 case A: {
-                    textArea.setVisible(true);
-                    running = true;
-                    player.setVisible(false);
-                    option4.setVisible(true);
-                    FadeTransition upFade = new FadeTransition(Duration.seconds(1.5), trailerPath);
-                    FadeTransition axefade = new FadeTransition(Duration.seconds(1.5), option4);
-                    upFade.setFromValue(1);
-                    upFade.setToValue(0);
-                    axefade.setFromValue(0);
-                    axefade.setToValue(1);
-                    upFade.setOnFinished((ActionEvent) -> {
-                        running = false;
-                        trailerPath.setVisible(false);
-                        textArea.setText(gameTrailer.roomEntrance(humanPlayer));
-                    });
-                    axefade.play();
-                    upFade.play();
+                    animation.goToTrailerFromPath(textArea);
                     break;
                 }
                 case RIGHT:
                 case D: {
                     textArea.setVisible(false);
-                    walkTransition("village", "goRight", 276, 0);
+                    animation.walkTransition("village", "goRight", 276, 0);
                     break;
                 }
                 default:
                     textArea.setText("There is no road that way!");
                     break;
             }
-        }
-    }
-
-    private void walkTransition(String roomToGoTo, String direction, int translateX, int translateY) {
-        running = true;
-        Command roomToGo = new Command(CommandWord.GO, roomToGoTo);
-        Game.getInstanceOfSelf().setPlayerDirectionInWorld(direction);
-        TranslateTransition directionTransition = new TranslateTransition(Duration.seconds(1.5), player);
-        directionTransition.setByY(translateY);
-        directionTransition.setByX(translateX);
-        directionTransition.setOnFinished((ActionEvent event1) -> {
-            Game.getInstanceOfSelf().goRoom(roomToGo, anchorPane);
-            running = false;
-        });
-        
-        if (!trailerPath.isVisible()) {
-            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1.5), trailerPath);
-            FadeTransition axeFadeTransition = new FadeTransition(Duration.seconds(1.5), option4);
-            trailerPath.setVisible(true);
-            fadeTransition.setFromValue(0);
-            fadeTransition.setToValue(1);
-            axeFadeTransition.setFromValue(1);
-            axeFadeTransition.setToValue(0);
-            fadeTransition.setOnFinished((ActionEvent e) -> {
-                player.setVisible(true);
-                option4.setVisible(false);
-                directionTransition.play();
-            });
-            axeFadeTransition.play();
-            fadeTransition.play();
-        } else {
-            player.setVisible(true);
-            directionTransition.play();
         }
     }
 
@@ -258,19 +195,19 @@ public class TrailerController implements Initializable {
         randomNum = (int) (Math.random() * 3) + 1;
         switch (randomNum) {
             case 1:
-                fineLabel.setText(questionOne);
+                animation.textAnimation(fineLabel, questionOne);
                 confirmButton.setVisible(false);
                 fineInput.setVisible(true);
                 this.randomNum = 1;
                 break;
             case 2:
-                fineLabel.setText(questionTwo);
+                animation.textAnimation(fineLabel, questionTwo);
                 confirmButton.setVisible(false);
                 fineInput.setVisible(true);
                 this.randomNum = 2;
                 break;
             case 3:
-                fineLabel.setText(questionThree);
+                animation.textAnimation(fineLabel, questionThree);
                 confirmButton.setVisible(false);
                 fineInput.setVisible(true);
                 this.randomNum = 3;
@@ -297,14 +234,14 @@ public class TrailerController implements Initializable {
                 break;
         }
         if (!correctAnswer) {
-            fineLabel.setText("WRONG, study in the library!\n"
+            animation.textAnimation(fineLabel, "WRONG, study in the library!\n"
                 + "We also need you to cover the cost of planting the trees that you forgot!\n"
                 + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
             fineInput.setVisible(false);
             endButton.setVisible(true);
             humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
         } else {
-            fineLabel.setText("Correct! Your fine has been cut in half! We also need you\n"
+            animation.textAnimation(fineLabel, "Correct! Your fine has been cut in half! We also need you\n"
                 + "to cover the cost of planting the trees that you forgot!\n"
                 + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
             fineInput.setVisible(false);

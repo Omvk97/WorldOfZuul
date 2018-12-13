@@ -18,6 +18,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import view_layer.room_animations.GameAnimation;
 
 /**
  *
@@ -33,11 +34,12 @@ public class BlacksmithController implements Initializable {
     private Button backBtn;
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final BlackSmith gameBlacksmith = (BlackSmith) Game.getInstanceOfSelf().getBlacksmith();
+    private final GameAnimation animation = new GameAnimation(null);
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Buypane.setVisible(false);
-        textArea.setText(gameBlacksmith.roomEntrance(humanPlayer));
+        animation.textAnimation(textArea, gameBlacksmith.roomEntrance(humanPlayer));
     }
 
     public String getAxeInfo(Player humanPlayer, Axe axe) {
@@ -60,19 +62,19 @@ public class BlacksmithController implements Initializable {
         gameBlacksmith.getBlackSmithNPC();
         switch (gameBlacksmith.grindAxe_menu(humanPlayer)) {
             case 1:
-                textArea.setText(gameBlacksmith.getBlackSmithNPC() + "You don't have an axe equipped");
+                animation.textAnimation(textArea,  gameBlacksmith.getBlackSmithNPC() + "You don't have an axe equipped");
                 break;
             case 2:
-                textArea.setText(gameBlacksmith.getBlackSmithNPC() + "Your axe is fine! Come back if it ever gets dull");
+                animation.textAnimation(textArea, gameBlacksmith.getBlackSmithNPC() + "Your axe is fine! Come back if it ever gets dull");
                 break;
             case 3:
-                textArea.setText(gameBlacksmith.getBlackSmithNPC() + "Your axe is done");
+                animation.textAnimation(textArea, gameBlacksmith.getBlackSmithNPC() + "Your axe is done");
                 break;
             case 4:
-                textArea.setText(gameBlacksmith.getBlackSmithNPC() + "You do not have enough money");
+                animation.textAnimation(textArea, gameBlacksmith.getBlackSmithNPC() + "You do not have enough money");
                 break;
             default:
-                textArea.setText(gameBlacksmith.getBlackSmithNPC() + "dont know what you mean???");
+                animation.textAnimation(textArea, gameBlacksmith.getBlackSmithNPC() + "dont know what you mean???");
                 break;
 
         }
@@ -84,7 +86,7 @@ public class BlacksmithController implements Initializable {
             Command tester = new Command(CommandWord.GO, "back");
             Game.getInstanceOfSelf().goRoom(tester, anchorPane);
         } else {
-            textArea.setText("There is no road!");
+            animation.textAnimation(textArea, "There is no road!");
         }
     }
 
@@ -98,32 +100,32 @@ public class BlacksmithController implements Initializable {
     @FXML
     private void BuyOnAction(ActionEvent event) {
         Buypane.setVisible(true);
-        textArea.setText("Which axe would you like to buy?");
+        animation.textAnimation(textArea, "Which axe would you like to buy?");
 
     }
 
     @FXML
     private void HandlerIronAxe(MouseEvent event) {
-        textArea.setText(getAxeInfo(humanPlayer, AxeFactory.createIronAxe()));
+        animation.textAnimation(textArea, getAxeInfo(humanPlayer, AxeFactory.createIronAxe()));
         humanPlayer.setCharacterModel(false);
 
     }
 
     @FXML
     private void handlerSteelAxe(MouseEvent event) {
-        textArea.setText(getAxeInfo(humanPlayer,  AxeFactory.createSteelAxe()));
+        animation.textAnimation(textArea, getAxeInfo(humanPlayer,  AxeFactory.createSteelAxe()));
         humanPlayer.setCharacterModel(false);
     }
 
     @FXML
     private void HandlerDiamondAxe(MouseEvent event) {
-        textArea.setText(getAxeInfo(humanPlayer, AxeFactory.createDiamondAxe()));
+        animation.textAnimation(textArea, getAxeInfo(humanPlayer, AxeFactory.createDiamondAxe()));
         humanPlayer.setCharacterModel(false);
     }
 
     @FXML
     private void handlerFireAxe(MouseEvent event) {
-        textArea.setText(getAxeInfo(humanPlayer, AxeFactory.createFireAxe()));
+        animation.textAnimation(textArea, getAxeInfo(humanPlayer, AxeFactory.createFireAxe()));
         humanPlayer.setCharacterModel(false);
 
     }

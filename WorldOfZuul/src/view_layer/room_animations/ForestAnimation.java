@@ -1,4 +1,4 @@
-package view_layer.controllers;
+package view_layer.room_animations;
 
 import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
@@ -9,7 +9,6 @@ import javafx.animation.Interpolator;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -18,12 +17,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
+import view_layer.controllers.HighScoreGraphics;
 
 /**
  *
  * @author oliver
  */
-abstract public class ForestController {
+abstract public class ForestAnimation {
 
     @FXML
     protected Label textArea, smallTreeLabel, mediumTreeLabel, largeTreeLabel;
@@ -32,7 +32,6 @@ abstract public class ForestController {
     @FXML
     protected ImageView player, largeTree, mediumTree;
     protected final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
-    protected boolean running;
     protected final File punchFile = new File("src/pictures/PunchSound.wav");
     protected final Media punchSound = new Media(punchFile.toURI().toString());
     protected final File chopFile = new File("src/pictures/ChoppingSound.wav");
@@ -43,6 +42,7 @@ abstract public class ForestController {
     protected final int punchDuration = 195;
     protected final int chopDuration = 335;
     protected final HighScoreGraphics highScoreGraphics = new HighScoreGraphics();
+    protected final GameAnimation animation = new GameAnimation(player);
 
     protected void treeAnimationToLargeTree(int numOfHits, int treeCount, Forest gameForest) {
         if (humanPlayer.playerHasAnAxe()) {
@@ -102,18 +102,18 @@ abstract public class ForestController {
 
     protected void treeFelledConfirmation() {
         if (humanPlayer.playerHasAnAxe()) {
-            textArea.setText("You have chopped down a tree with your "
+            animation.textAnimation(textArea, "You have chopped down a tree with your "
                 + humanPlayer.getEquippedAxe().getDescription() + "!");
             boolean axeDestroyed = humanPlayer.useAxe();
             if (axeDestroyed) {
-                textArea.setText("Your axe broke!");
+                animation.textAnimation(textArea, "Your axe broke!");
                 humanPlayer.setCharacterModel(true);
                 player.setImage(new Image(humanPlayer.getCharacterModel().toURI().toString()));
             }
         } else {
-            textArea.setText("You have punched down a tree! But your knuckles hurt");
+            animation.textAnimation(textArea, "You have punched down a tree! But your knuckles hurt");
         }
-        running = false;
+        animation.setRunning(false);
     }
 
     protected void hitAnimation(int numOfChops, boolean characterGoingRight) {
