@@ -13,7 +13,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  *
- * @author oliver co-author: michael, steffen & daniel
+ * @author oliver 
+ * co-author: michael, steffen & daniel
  */
 public class Player {
 

@@ -20,7 +20,7 @@ import view_layer.room_animations.LocalVillageAnimation;
 
 /**
  * This controller class handles every UI element and interaction from the FXML document.
- * @author michael
+ * @author Michael
  */
 public class LocalVillageController implements Initializable {
 

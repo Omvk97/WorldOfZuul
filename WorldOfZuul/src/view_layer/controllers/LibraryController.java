@@ -18,8 +18,8 @@ import javafx.scene.layout.AnchorPane;
 import view_layer.room_animations.GameAnimation;
 
 /**
- *
- * @author michael
+ * This controller class handles the UI and player interactions.
+ * @author Michael
  */
 public class LibraryController implements Initializable {
 
@@ -42,6 +42,10 @@ public class LibraryController implements Initializable {
         Bookshelf.setVisible(false);
     }
 
+/**
+ * Shows the Bookshelf anchor pane
+ * @param event 
+ */
     @FXML
     private void handleOption1(MouseEvent event) {
         Bookshelf.setVisible(true);
@@ -49,7 +53,10 @@ public class LibraryController implements Initializable {
         option1.setDisable(true);
         textArea.setDisable(true);
     }
-
+/**
+ * Closes the Book anchorpane if its open and if not closes bookshelf anchor pane.
+ * @param event 
+ */
     @FXML
     private void handleClose(MouseEvent event) {
         if (BookText.visibleProperty().getValue() == true) {
@@ -63,7 +70,10 @@ public class LibraryController implements Initializable {
 
         }
     }
-
+/**
+ * Shows the book anchor pane and shows text.
+ * @param event 
+ */
     @FXML
     private void handleBook1(MouseEvent event) {
         BookText.setVisible(true);
@@ -77,7 +87,10 @@ public class LibraryController implements Initializable {
         Title.setText("The Falling of the trees");
         by.setText("- written by professors.");
     }
-
+/**
+ * Shows the book anchor pane and shows text.
+ * @param event 
+ */
     @FXML
     private void handleBook2(MouseEvent event) {
         BookText.setVisible(true);
@@ -92,7 +105,10 @@ public class LibraryController implements Initializable {
         Title.setText("The Story of FSC");
         by.setText("- written by FSC.");
     }
-
+/**
+ * Shows the book anchor pane and shows text.
+ * @param event 
+ */
     @FXML
     private void handleBook3(MouseEvent event) {
         BookText.setVisible(true);
@@ -104,14 +120,20 @@ public class LibraryController implements Initializable {
         Title.setText("The Story of PEFC");
         by.setText(" - written by PEFC.");
     }
-
+/**
+ * sends the player back to the previus room when clicked.
+ * @param event 
+ */
     @FXML
     private void handleBackBtn(MouseEvent event) {
         BookText.setVisible(true);
         Command tester = new Command(CommandWord.GO, "back");
         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
     }
-
+/**
+ * sends the player back to the previus room when key event occours.
+ * @param event 
+ */
     @FXML
     private void handleExits(KeyEvent event) {
         if (!((Bookshelf.visibleProperty().getValue() == true) || (BookText.visibleProperty().getValue() == true))) {
