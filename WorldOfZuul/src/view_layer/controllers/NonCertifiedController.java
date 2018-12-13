@@ -127,7 +127,7 @@ public class NonCertifiedController extends ForestController implements Initiali
     }
 
     @FXML
-    private void handleOption2(MouseEvent event) {
+    private void handleTreeInfo(MouseEvent event) {
         textArea.setText("There are " + gameForest.countFellableTrees() + " trees ready to be felled!");
     }
 
