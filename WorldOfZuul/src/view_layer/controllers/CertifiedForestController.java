@@ -18,13 +18,19 @@ import javafx.util.Duration;
 import view_layer.PlayerGraphics;
 
 /**
- *
+ * Talks to both the room certifiedForest and the associated FXML, to visually and logically
+ * represent when the user chops a tree and when the user plants new trees.
  * @author oliver
  */
 public class CertifiedForestController extends ForestController implements Initializable {
 
     private final CertifiedForest gameForest = (CertifiedForest) Game.getInstanceOfSelf().getCertifiedForest();
 
+    /**
+     * Makes a walking animation when entering the room and sets all fxml containers.
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         running = true;
@@ -42,8 +48,13 @@ public class CertifiedForestController extends ForestController implements Initi
         largeTreeLabel.setText(Integer.toString(gameForest.countLargeTrees()));
     }
 
+    /**
+     * If there isn't another animation running, the method will check if the player can chop
+     * trees and start the animation if the player can chop tree.
+     * @param event 
+     */
     @FXML
-    private void handleOption1(MouseEvent event) {
+    private void handleTreeFelling(MouseEvent event) {
         if (!running) {
             if (humanPlayer.canCarryMoreTrees() && gameForest.thereIsMoreTreesToCut()) {
                 running = true;
@@ -64,12 +75,17 @@ public class CertifiedForestController extends ForestController implements Initi
     }
 
     @FXML
-    private void handleOption2(MouseEvent event) {
+    private void handleCountFellableTrees(MouseEvent event) {
         textArea.setText("There are " + gameForest.countLargeTrees() + " trees ready to be felled!");
     }
 
+    /**
+     * If the player is able to plant trees, the controller will ask game_locations.certfiedForest
+     * to replant trees.
+     * @param event 
+     */
     @FXML
-    private void handleOption3(MouseEvent event) {
+    private void handlePlantSeeds(MouseEvent event) {
         if (PlayerInteraction.getInstanceOfSelf().getNumChoppedTreesWithoutPlantingSaplings() > 0) {
             int amountOfSeedsPlanted = gameForest.replantTrees(humanPlayer);
             if (amountOfSeedsPlanted > 0) {
@@ -83,6 +99,10 @@ public class CertifiedForestController extends ForestController implements Initi
         }
     }
 
+    /**
+     * When the player wants to exit the room, this method will represent visually how that looks.
+     * @param event 
+     */
     @FXML
     private void handleExits(KeyEvent event) {
         if (!running) {

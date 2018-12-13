@@ -14,9 +14,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 /**
- * This is the players home, it has a storage of trees.
- * It is also where the player sleeps and hears the weather report.
- * @author olive co-author: daniel
+ * This is the players home, it has a storage of trees. It is also where the player sleeps and hears
+ * the weather report.
+ *
+ * @author oliver co-author: daniel
  */
 public class Trailer extends Room {
 
@@ -63,20 +64,23 @@ public class Trailer extends Room {
         return NUM_PLAY_DAYS;
     }
 
-    public String option1(Player humanPlayer) {
+    /**
+     * This method has the responsibillity of storing the logs in the trailer.
+     *
+     * @param humanPlayer the player that has to store logs
+     * @return the string associated with what has been done.
+     */
+    public String storeLogs(Player humanPlayer) {
         if (humanPlayer.getEquippedBackPack().getAmountOfLogsInBackPack() == 0) {
             return "You are not carrying any logs!";
         }
-        /**
-         * Copies all the elements from the backpack
-         */
+
+//        Copies all the elements from the backpack
         ArrayList<Tree> copyAmountOflogsCarrying = new ArrayList<>();
         for (Tree tree : humanPlayer.getEquippedBackPack().getLogsInBackPack()) {
             copyAmountOflogsCarrying.add(tree);
         }
-        /**
-         * Adds trees to storage and removes tree from backpack one by one.
-         */
+//         Adds trees to storage and removes tree from backpack one by one.
         for (Tree tree : copyAmountOflogsCarrying) {
             if (getLogsInStorage().size() < MAX_TREESTORAGEAMOUNT) {
                 getLogsInStorage().add(tree);
@@ -97,9 +101,12 @@ public class Trailer extends Room {
     }
 
     /**
+     * This method handles when the user sleeps and adds a day and prints out the news.
+     *
      * @param humanPlayer the user.
+     * @return the news which can be either
      */
-    public String option3(Player humanPlayer) {
+    public String sleep(Player humanPlayer) {
         numOfDaysGoneBy++;
         Random globalOrLocal = new Random();
         if (globalOrLocal.nextBoolean()) {
@@ -113,9 +120,10 @@ public class Trailer extends Room {
      * If the player hasn't picked up the starterAxe they will be prompted with the option to pick
      * it up
      *
-     * @param humanPlayer user that picks up the starter axe
+     * @param humanPlayer the player that picks up the starter axe
+     * @return text representation of what has happend.
      */
-    public String option4(Player humanPlayer) {
+    public String pickUpStarterAxe(Player humanPlayer) {
         if (starterAxe != null) {
             humanPlayer.boughtAxe(starterAxe);
             starterAxe = null;
@@ -125,12 +133,15 @@ public class Trailer extends Room {
         }
     }
 
-    public boolean answerValidation(String userAnswer, String correctAnswer) {
-        if (userAnswer.contains(correctAnswer)) {
-            return true;
-        } else {
-            return false;
-        }
+    /**
+     * Checks to see if the answer on a fine input is the correct answer to the question.
+     *
+     * @param playerAnswer what the player has answered
+     * @param correctAnswer
+     * @return true if the answer is correct.
+     */
+    public boolean answerValidation(String playerAnswer, String correctAnswer) {
+        return playerAnswer.contains(correctAnswer);
     }
 
     @Override
@@ -152,6 +163,9 @@ public class Trailer extends Room {
         return NUM_PLAY_DAYS - numOfDaysGoneBy;
     }
 
+    /**
+     * notifies the listener in the topMenu whenever logsInStorage has changed.
+     */
     private void updateLogsInStorage() {
         logsInStorageProperty.setValue(logsInStorage.size());
     }
@@ -159,5 +173,4 @@ public class Trailer extends Room {
     public SimpleIntegerProperty getLogsInStorageProperty() {
         return logsInStorageProperty;
     }
-
 }

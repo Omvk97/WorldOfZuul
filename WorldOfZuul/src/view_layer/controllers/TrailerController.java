@@ -114,7 +114,7 @@ public class TrailerController implements Initializable {
     @FXML
     private void handleOption1(MouseEvent event) {
         if (!trailerPath.isVisible()) {
-            textArea.setText(gameTrailer.option1(humanPlayer));
+            textArea.setText(gameTrailer.storeLogs(humanPlayer));
         } else {
             textArea.setText("What?");
         }
@@ -130,7 +130,7 @@ public class TrailerController implements Initializable {
     private void handleOption3(MouseEvent event) {
         if (!running) {
             running = true;
-            textArea.setText(gameTrailer.option3(humanPlayer));
+            textArea.setText(gameTrailer.sleep(humanPlayer));
             if (gameTrailer.getNumOfDaysLeft() == 0) {
                 daysLeft.setText("Goodbye");
                 HighScoreGraphics highScoreDisplay = new HighScoreGraphics();
@@ -167,7 +167,7 @@ public class TrailerController implements Initializable {
      */
     @FXML
     private void handleOption4(MouseEvent event) {
-        textArea.setText(gameTrailer.option4(humanPlayer));
+        textArea.setText(gameTrailer.pickUpStarterAxe(humanPlayer));
         PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(false,
             humanPlayer.getEquippedAxe(), player);
         anchorPane.getChildren().remove(option4);

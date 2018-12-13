@@ -12,7 +12,6 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
@@ -21,7 +20,7 @@ import javafx.util.Duration;
 import view_layer.PlayerGraphics;
 
 /**
- *
+ * 
  * @author oliver
  */
 abstract public class ForestController {
