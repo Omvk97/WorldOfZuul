@@ -106,13 +106,13 @@ public class LocalVillageController implements Initializable {
         int climatePoints = humanPlayer.getClimatePointsValue();
         if (climatePoints < 0 && climatePoints > -19) {
             return -1;
-        } else if (climatePoints < -19 && climatePoints > -29) {
+        } else if (climatePoints < -49 && climatePoints > -99) {
             return -2;
-        } else if (climatePoints < -29 && climatePoints > -39) {
+        } else if (climatePoints < -99 && climatePoints > -149) {
             return -3;
-        } else if (climatePoints < -39 && climatePoints > -49) {
+        } else if (climatePoints < -149 && climatePoints > -199) {
             return -4;
-        } else if (climatePoints < -49) {
+        } else if (climatePoints < -249) {
             return -5;
         }
         return 0;
