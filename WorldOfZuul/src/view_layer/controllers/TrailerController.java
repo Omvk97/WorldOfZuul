@@ -23,8 +23,7 @@ import view_layer.room_animations.TrailerAnimation;
 
 /**
  *
- * @author daniel 
- * co-author oliver
+ * @author daniel co-author oliver
  */
 public class TrailerController implements Initializable {
 
@@ -59,11 +58,11 @@ public class TrailerController implements Initializable {
 
     private void enterTrailer() {
         animation = new TrailerAnimation.Builder(player)
-            .withAnchorPane(anchorPane)
-            .withStarterAxe(option4)
-            .withTrailerPath(trailerPath)
-            .withGameTrailer(gameTrailer)
-            .build();
+                .withAnchorPane(anchorPane)
+                .withStarterAxe(option4)
+                .withTrailerPath(trailerPath)
+                .withGameTrailer(gameTrailer)
+                .build();
         player.setVisible(false);
         int daysLeftNum = gameTrailer.getNumOfDaysLeft();
         daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
@@ -103,7 +102,7 @@ public class TrailerController implements Initializable {
     private void handleOption3(MouseEvent event) {
         if (!animation.isRunning()) {
             animation.setRunning(true);
-            animation.textAnimation(textArea, gameTrailer.option3(humanPlayer));
+            textArea.setText("");
             if (gameTrailer.getNumOfDaysLeft() == 0) {
                 daysLeft.setText("Goodbye");
                 HighScoreGraphics highScoreDisplay = new HighScoreGraphics();
@@ -118,13 +117,14 @@ public class TrailerController implements Initializable {
             sleep.play();
             sleep.setOnFinished((ActionEvent e) -> {
                 animation.setRunning(false);
+                animation.textAnimation(textArea, gameTrailer.option3(humanPlayer));
                 int daysLeftNum = gameTrailer.getNumOfDaysLeft();
                 daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
 
                 if (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
                     fineLabel.setVisible(true);
                     animation.textAnimation(fineLabel, "You didn't replant all the trees in the certified forest!\n"
-                        + "Here's a chance to redeem yourself");
+                            + "Here's a chance to redeem yourself");
                     confirmButton.setVisible(true);
                     fineScroll.setVisible(true);
                 }
@@ -236,15 +236,15 @@ public class TrailerController implements Initializable {
         }
         if (!correctAnswer) {
             animation.textAnimation(fineLabel, "WRONG, study in the library!\n"
-                + "We also need you to cover the cost of planting the trees that you forgot!\n"
-                + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
+                    + "We also need you to cover the cost of planting the trees that you forgot!\n"
+                    + "Your fine adds up to " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200) + " gold coins");
             fineInput.setVisible(false);
             endButton.setVisible(true);
             humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
         } else {
             animation.textAnimation(fineLabel, "Correct! Your fine has been cut in half! We also need you\n"
-                + "to cover the cost of planting the trees that you forgot!\n"
-                + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
+                    + "to cover the cost of planting the trees that you forgot!\n"
+                    + "Total cost of " + (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100) + " gold coins");
             fineInput.setVisible(false);
             endButton.setVisible(true);
             humanPlayer.sleep(humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
