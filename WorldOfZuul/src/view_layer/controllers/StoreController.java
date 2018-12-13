@@ -23,8 +23,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 /**
- *
  * @author oliver
+ * 
+ * 
  */
 public class StoreController implements Initializable {
 
@@ -53,7 +54,7 @@ public class StoreController implements Initializable {
     }
 
     @FXML
-    private void handleOption1(MouseEvent event) {
+    private void handleSellLogsBtn(MouseEvent event) {
         if (gameStore.sellLogs(humanPlayer)) {
             textArea.setText("You have sold all your logs!");
         } else {
