@@ -33,6 +33,11 @@
         </Button>
         <AnchorPane fx:id="Buypane" layoutX="76.0" layoutY="55.0" prefHeight="269.0" prefWidth="435.0">
             <children>
+                <ImageView fx:id="BackIcone" fitHeight="41.0" fitWidth="40.0" layoutX="14.0" layoutY="224.0" onMouseClicked="#handlerBack" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="file:src/pictures/backImg.png" />
+                    </image>
+                </ImageView>
                 <ImageView fitHeight="295.0" fitWidth="424.0" layoutX="7.0" layoutY="-27.0" pickOnBounds="true">
                     <image>
                         <Image url="file:src/pictures/axeholderfix.PNG" />
@@ -56,11 +61,6 @@
                 <ImageView fx:id="txtFireAxe" fitHeight="114.0" fitWidth="109.0" layoutX="309.0" layoutY="24.0" onMouseClicked="#handlerFireAxe" pickOnBounds="true" preserveRatio="true" rotate="45.0">
                     <image>
                         <Image url="file:src/pictures/fireAxe.png" />
-                    </image>
-                </ImageView>
-                <ImageView fx:id="BackIcone" fitHeight="41.0" fitWidth="40.0" layoutX="14.0" layoutY="224.0" onMouseClicked="#handlerBack" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="file:src/pictures/backImg.png" />
                     </image>
                 </ImageView>
             </children>

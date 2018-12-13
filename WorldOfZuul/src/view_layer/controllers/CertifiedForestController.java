@@ -71,10 +71,8 @@ public class CertifiedForestController extends ForestAnimation implements Initia
                 animation.textAnimation(textArea, "There is no trees to fell and your backpack is full!");
             }
         } else {
-//            do nothing
         }
     }
-
     @FXML
     private void handleCountFellableTrees(MouseEvent event) {
         animation.textAnimation(textArea, "There are " + gameForest.countLargeTrees() + " trees ready to be felled!");

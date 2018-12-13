@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 /**
  * This class represents everything that a player is and handles what a player can do.
  *
- * @author oliver co-author: michael, steffen & daniel
+ * @author oliver co-author: michael, steffen & daniel.
  */
 public class Player {
 

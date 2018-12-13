@@ -24,6 +24,9 @@ import view_layer.room_animations.GameAnimation;
 /**
  *
  * @author steffen
+ * 
+ * This controller has the responsibility for the conektions between the Blacksmith location class
+ * and the blacksmith.fxml (view layer)
  */
 public class BlacksmithController implements Initializable {
 
@@ -42,7 +45,14 @@ public class BlacksmithController implements Initializable {
         Buypane.setVisible(false);
         animation.textAnimation(textArea, gameBlacksmith.roomEntrance(humanPlayer));
     }
-
+    
+    /**
+     * Gets the information of the axe and tjek is the player have enough money to buy one
+     * 
+     * @param humanPlayer
+     * @param axe
+     * @return 
+     */
     public String getAxeInfo(Player humanPlayer, Axe axe) {
         if (humanPlayer.getMoneyValue() >= axe.getPrice()) {
             humanPlayer.boughtAxe(axe);
@@ -53,28 +63,41 @@ public class BlacksmithController implements Initializable {
             return "YOU NEED " + axe.getPrice() + " GOLD COINS TO BUY THIS AXE";
         }
     }
-
+    
+   /**
+    *Tjeks if player have an axe.
+    *Tjeks if axe has taken damaget. 
+    *Tjeks if player has money for grinding the axe
+    *then fix players axe.
+    * @param event 
+    */
     @FXML
     private void handlerepair(MouseEvent event) {
         gameBlacksmith.getBlackSmithNPC();
-        switch (gameBlacksmith.grindAxe_menu(humanPlayer)) {
-            case 1:
-                animation.textAnimation(textArea, gameBlacksmith.getBlackSmithNPC() + "You don't have an axe equipped");
-                break;
-            case 2:
-                animation.textAnimation(textArea, gameBlacksmith.getBlackSmithNPC() + "Your axe is fine! Come back if it ever gets dull");
-                break;
-            case 3:
-                animation.textAnimation(textArea, gameBlacksmith.getBlackSmithNPC() + "Your axe is done");
-                break;
-            case 4:
-                animation.textAnimation(textArea, gameBlacksmith.getBlackSmithNPC() + "You do not have enough money");
-                break;
-            default:
-                animation.textAnimation(textArea, gameBlacksmith.getBlackSmithNPC() + "dont know what you mean???");
-                break;
+        if (humanPlayer.getEquippedAxe() == null) {
+            textArea.setText(gameBlacksmith.getBlackSmithNPC() + "You don't have an axe equipped");
+        } else if (humanPlayer.getEquippedAxe().getDurability() == humanPlayer.getEquippedAxe().getStartDurability()) {
+            textArea.setText(gameBlacksmith.getBlackSmithNPC() + "Your axe is fine! Come back if it ever gets dull");
+        } else if (humanPlayer.getEquippedAxe().getDurability() < humanPlayer.getEquippedAxe().getStartDurability()) {
+            if (humanPlayer.getMoneyValue() >= gameBlacksmith.fixAxePrice(humanPlayer)) {
+                FixAxe();
+            } else {
+                textArea.setText(gameBlacksmith.getBlackSmithNPC() + "You do not have enough money");
+            }
 
         }
+
+    }
+
+    /**
+     * Grinding the axe Method.
+     */
+    public void FixAxe() {
+        animation.textAnimation(textArea, gameBlacksmith.getBlackSmithNPC() + "I will grind your axe for you. Please wait");
+        gameBlacksmith.grindSound();
+        gameBlacksmith.grindAxe(humanPlayer.getEquippedAxe());
+        humanPlayer.grindedAxe(gameBlacksmith.fixAxePrice(humanPlayer));
+        animation.textAnimation(textArea, gameBlacksmith.getBlackSmithNPC() + "Your axe is done");
     }
 
     @FXML
