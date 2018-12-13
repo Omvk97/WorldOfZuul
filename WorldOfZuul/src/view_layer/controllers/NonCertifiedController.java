@@ -21,6 +21,10 @@ import view_layer.PlayerGraphics;
 /**
  *
  * @author oliver
+ * This controller has the responsibility for the connection between
+ * domain_layer.game_location/noncertifiedForest and the view_layer.room_fxml/NonCertifiedForest 
+ * 
+ * 
  */
 public class NonCertifiedController extends ForestController implements Initializable {
 
@@ -47,9 +51,8 @@ public class NonCertifiedController extends ForestController implements Initiali
         mediumTreeLabel.setText(Integer.toString(gameForest.countMediumTrees()));
         largeTreeLabel.setText(Integer.toString(gameForest.countLargeTrees()));
     }
-
     @FXML
-    private void handleOption1(MouseEvent event) {
+    private void handleChopTree(MouseEvent event) {
         if (!running) {
             if (humanPlayer.getClimatePointsValue() == playerInteraction.getMIN_CLIMATEPOINTS()) {
                 textArea.setText("YOU HAVE DESTROYED TOO MUCH OF THE EARTH");
@@ -75,7 +78,6 @@ public class NonCertifiedController extends ForestController implements Initiali
                 textArea.setText("There is no trees to fell and your backpack is full!");
             }
         } else {
-//            do nothing
         }
     }
 
