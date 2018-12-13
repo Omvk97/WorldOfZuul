@@ -34,7 +34,7 @@ public class HudController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         playerGold.setText(humanPlayer.getMoneyValue() + " Gold");
         playerClimate.setText(humanPlayer.getClimatePointsValue() + " CP");
-        int logsCarryingNum = humanPlayer.getLogsInBackPack().getValue();
+        int logsCarryingNum = humanPlayer.getEquippedBackPack().getAmountOfLogsInBackPack();
         logsCarrying.setText(logsCarryingNum + (logsCarryingNum == 1 ? " Log" : " Logs"));
         int logsInStorageNum = trailer.getLogsInStorageProperty().getValue();
         logsInStorage.setText(logsInStorageNum + (logsInStorageNum == 1 ? " Log" : " Logs"));
@@ -53,8 +53,8 @@ public class HudController implements Initializable {
             playerClimate.setText(humanPlayer.getClimatePointsValue() + " CP");
         });
 
-        humanPlayer.getLogsInBackPack().addListener((observable, oldValue, newValue) -> {
-            int logsCarryingNum = humanPlayer.getLogsInBackPack().getValue();
+        playerInteraction.getLogsInBackPack().addListener((observable, oldValue, newValue) -> {
+            int logsCarryingNum = humanPlayer.getEquippedBackPack().getAmountOfLogsInBackPack();
             logsCarrying.setText(logsCarryingNum + (logsCarryingNum == 1 ? " Log" : " Logs"));
         });
 

@@ -22,8 +22,8 @@ public abstract class Forest extends Room {
     }
 
     public boolean playerCanCarryMoreTree(Player humanPlayer) {
-        return humanPlayer.getBackPack().getAmountOfLogsInBackPack()
-            < humanPlayer.getBackPack().getBackpackCapacity();
+        return humanPlayer.getEquippedBackPack().getAmountOfLogsInBackPack()
+            < humanPlayer.getEquippedBackPack().getBackpackCapacity();
     }
 
     abstract protected boolean thereIsMoreTreesToCut();
@@ -42,9 +42,9 @@ public abstract class Forest extends Room {
         if (this instanceof CertifiedForest) {
             PlayerInteraction.getInstanceOfSelf().addChoppedTreesInCertifiedForest();
         }
-        humanPlayer.getBackPack().addTreeToBackpack(lastTreeInArray());
+        humanPlayer.getEquippedBackPack().addTreeToBackpack(lastTreeInArray());
         humanPlayer.addClimatePoints(lastTreeInArray().getTreeClimatePoints());
-        humanPlayer.updateLogsInBackPack();
+        PlayerInteraction.getInstanceOfSelf().updateLogsInBackPack(humanPlayer.getEquippedBackPack());
         trees.remove(lastTreeInArray());
     }
 

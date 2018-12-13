@@ -32,7 +32,7 @@ public class Store extends Room {
     }
 
     /**
-     * To make sure that the player can't buy a getBackPack they already own.
+     * To make sure that the player can't buy a getEquippedBackPack they already own.
      */
     public void createNewBackPacks() {
         smallBackPack = BackPackFactory.createSmallBackPack();
@@ -62,14 +62,14 @@ public class Store extends Room {
         final Trailer trailer = Game.getInstanceOfSelf().getTrailer();
 
         if (trailer.getLogsInStorage().isEmpty()
-            && humanPlayer.getBackPack().getLogsInBackPack().isEmpty()) {
+            && humanPlayer.getEquippedBackPack().getLogsInBackPack().isEmpty()) {
             return false;
         }
-        if (!humanPlayer.getBackPack().getLogsInBackPack().isEmpty()) {
-            for (Tree tree : humanPlayer.getBackPack().getLogsInBackPack()) {
+        if (!humanPlayer.getEquippedBackPack().getLogsInBackPack().isEmpty()) {
+            for (Tree tree : humanPlayer.getEquippedBackPack().getLogsInBackPack()) {
                 humanPlayer.addMoney(tree.getTreePrice());
             }
-            humanPlayer.getBackPack().emptyBackpack();
+            humanPlayer.getEquippedBackPack().emptyBackpack();
         }
         if (!trailer.getLogsInStorage().isEmpty()) {
             trailer.getLogsInStorage().forEach((tree)
@@ -82,11 +82,11 @@ public class Store extends Room {
     public boolean buyItem(String id, Player humanPlayer) {
         switch (id) {
             case "smallBackPack":
-                return humanPlayer.boughtBackPack(smallBackPack);
+                return humanPlayer.buyBackPack(smallBackPack);
             case "mediumBackPack":
-                return humanPlayer.boughtBackPack(mediumBackPack);
+                return humanPlayer.buyBackPack(mediumBackPack);
             case "largeBackPack":
-                return humanPlayer.boughtBackPack(largeBackPack);
+                return humanPlayer.buyBackPack(largeBackPack);
             case "oneSapling":
                 return humanPlayer.buySapling(1, SAPLING_PRICE);
             case "fiveSapling":

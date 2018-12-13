@@ -69,7 +69,7 @@ public class TrailerController implements Initializable {
         PlayerGraphics.getInstanceOfSelf().updateCharacterModel(player);
         option4.setImage(new Image(new File("src/pictures/starterAxe.png").toURI().toString()));
         if (!running) {
-            switch (Game.getInstanceOfSelf().getPlayerDirectionInWorld()) {
+            switch (playerInteraction.getPlayerDirectionInWorld()) {
                 case "goDown":
                     playerEnteringTrailerTransition(0, 170, player.getLayoutX(), 0);
                     break;
@@ -203,7 +203,7 @@ public class TrailerController implements Initializable {
         option4.setVisible(false);
         running = true;
         Command roomToGo = new Command(CommandWord.GO, roomToGoTo);
-        Game.getInstanceOfSelf().setPlayerDirectionInWorld(direction);
+        playerInteraction.setPlayerDirectionInWorld(direction);
         TranslateTransition directionTransition = new TranslateTransition(Duration.seconds(1.5), player);
         directionTransition.setByY(translateY);
         directionTransition.setByX(translateX);

@@ -9,15 +9,14 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
- * this class represents everything that a player is and handles what a player can do.
- * @author oliver 
- * co-author: michael, steffen & daniel
+ * This class represents everything that a player is and handles what a player can do.
+ *
+ * @author oliver co-author: michael, steffen & daniel
  */
 public class Player {
 
     private final SimpleIntegerProperty money = new SimpleIntegerProperty();
     private final SimpleIntegerProperty climatePoints = new SimpleIntegerProperty();
-    private final SimpleIntegerProperty logsInBackPack = new SimpleIntegerProperty();
     private final SimpleIntegerProperty saplingsCarrying = new SimpleIntegerProperty();
     private Axe equippedAxe;
     private BackPack equippedBackPack;
@@ -28,6 +27,11 @@ public class Player {
         playerInteraction.setPreviousRoom(trailer);
     }
 
+    /**
+     * Calculates the players highscore based on their items value, money and climatePoints.
+     *
+     * @return
+     */
     public int getHighScore() {
         int totalValueOfItems = money.getValue() + equippedBackPack.getPrice();
         for (Tree tree : equippedBackPack.getLogsInBackPack()) {
@@ -40,11 +44,21 @@ public class Player {
         return totalValueOfItems + climatePoints.getValue();
     }
 
+    /**
+     * Calculates how big of a percentage the currently equipped axe durability is at.
+     *
+     * @return fraction between 0.0 and 1 of the axe durability percentage state.
+     */
     public double getAxeDurabilityPercentage() {
         return 1 - (((double) equippedAxe.getStartDurability() - equippedAxe.getDurability())
             / equippedAxe.getStartDurability());
     }
 
+    /**
+     * Used to add listeners to the players money for the Top Menu
+     *
+     * @return the players money integer property.
+     */
     public SimpleIntegerProperty getMoney() {
         return money;
     }
@@ -70,7 +84,9 @@ public class Player {
     }
 
     /**
-     * Gives the player a new axe if the player buys a new one at the blacksmith
+     * Sets equippedAxe to the new axe the player just got. It also updates the listener so that it
+     * knows that the players axe has changed so the Top Menu icon can be updated to the correct
+     * icon
      *
      * @param newAxe The new Axe that is to be equipped
      */
@@ -87,7 +103,8 @@ public class Player {
 
     /**
      * Used to reduce durability on the players currently equipped Axe and to destroy the axe if
-     * it's durability ever reaches 0.
+     * it's durability ever reaches 0. And notifies the listener in Top menu that the players axe
+     * has changed
      *
      * @return if the axe was destroyed
      */
@@ -102,11 +119,6 @@ public class Player {
         return false;
     }
 
-    /**
-     * Used to get access to currently equipped Axe.
-     *
-     * @return Axe that is equipped
-     */
     public Axe getEquippedAxe() {
         return equippedAxe;
     }
@@ -115,24 +127,19 @@ public class Player {
         return equippedAxe != null;
     }
 
-    /**
-     * Used to get access to currently equipped BackPack.
-     *
-     * @return BackPack that is currently equipped
-     */
-    public BackPack getBackPack() {
+    public BackPack getEquippedBackPack() {
         return equippedBackPack;
     }
 
-    public void updateLogsInBackPack() {
-        logsInBackPack.setValue(equippedBackPack.getLogsInBackPack().size());
-    }
-
-    public SimpleIntegerProperty getLogsInBackPack() {
-        return logsInBackPack;
-    }
-
-    public boolean boughtBackPack(BackPack newBackPack) {
+    /**
+     * Sets equippedBackPack to the new backpack the player just got. It also updates the listener
+     * so that Top Menu axe icon can be updated to the correct. It also checks if the player has
+     * enough money to buy the backpack that the player wants.
+     *
+     * @param newBackPack The new BackPack that is to be equipped
+     * @return whether or not the player has enough money to buy the backpack.
+     */
+    public boolean buyBackPack(BackPack newBackPack) {
         if (newBackPack.getPrice() <= money.getValue()) {
             money.setValue(money.getValue() - newBackPack.getPrice());
             equippedBackPack = newBackPack;
@@ -150,6 +157,13 @@ public class Player {
         return saplingsCarrying.getValue();
     }
 
+    /**
+     * Checks if player has enough money to buy the sapling they want and adds it their inventory if
+     * they do.
+     * @param saplingAmount how many sapling the player wants to buy.
+     * @param saplingCost what the cost of each sapling is.
+     * @return whether or not the player has enough money to buy the saplings.
+     */
     public boolean buySapling(int saplingAmount, int saplingCost) {
         int totalSaplingCost = saplingAmount * saplingCost;
         if (totalSaplingCost <= money.getValue()) {
@@ -161,6 +175,12 @@ public class Player {
         }
     }
 
+    /**
+     * Checks how many trees has been felled without planting trees first, and for each tree felled
+     * a new one will be planted. It also checks first if you have enough saplings to keep planting
+     * trees.
+     * @return how many new tress the player had money to plant. 
+     */
     public int plantSeeds() {
         int startAmountOfChoppedTrees = playerInteraction.getNumChoppedTreesWithoutPlantingSaplings();
         int saplingsPlanted = 0;
@@ -188,6 +208,10 @@ public class Player {
         playerInteraction.setSlept(true);
     }
 
+    /**
+     * Determines what damage the player can do.
+     * @return 1 if no axe is equipped. Otherwise returns equippedAxe's damage.
+     */
     public double getDamage() {
         if (equippedAxe != null) {
             return equippedAxe.getDamage();

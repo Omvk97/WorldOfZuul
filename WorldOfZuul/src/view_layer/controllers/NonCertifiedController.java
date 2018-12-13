@@ -3,7 +3,6 @@ package view_layer.controllers;
 import domain_layer.game_functionality.Command;
 import domain_layer.game_functionality.CommandWord;
 import domain_layer.game_functionality.Game;
-import domain_layer.game_functionality.Player;
 import domain_layer.game_functionality.PlayerInteraction;
 import domain_layer.game_locations.NonCertifiedForest;
 import java.net.URL;
@@ -27,7 +26,7 @@ public class NonCertifiedController extends ForestController implements Initiali
 
     private final NonCertifiedForest gameForest = (NonCertifiedForest) Game.getInstanceOfSelf()
         .getNonCertificedForest();
-    private final PlayerInteraction playerInteraction = Game.getInstanceOfSelf().getPlayerInteraction();
+    private final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
 
     public NonCertifiedController() {
     }
@@ -135,7 +134,7 @@ public class NonCertifiedController extends ForestController implements Initiali
         if (!running) {
             running = true;
             if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
-                Game.getInstanceOfSelf().setPlayerDirectionInWorld("goDown");
+                playerInteraction.setPlayerDirectionInWorld("goDown");
                 Command tester = new Command(CommandWord.GO, "trailer");
                 TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);
                 down.setByY(170);

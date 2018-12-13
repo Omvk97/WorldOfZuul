@@ -13,12 +13,15 @@ import domain_layer.game_locations.Library;
 import javafx.scene.layout.AnchorPane;
 
 /**
+ * This class is a singleton, which makes sure that when the game is instantiated, all interactions
+ * made by the player with the world will be interactions with the same object in memory. The class
+ * responsibility is to make all the rooms and all exits between the rooms. And also to communicate
+ * between data_access_layer and view_layer.
  *
- * @author oliver
- * co-author: michael, steffen & daniel
+ * @author oliver co-author: michael, steffen & daniel
  */
 public class Game {
-    
+
     private static final Game instance = new Game();
     private final Trailer trailer = new Trailer();
     private final Player humanPlayer = new Player(trailer);
@@ -40,6 +43,9 @@ public class Game {
         return instance;
     }
 
+    /**
+     * Sets the valid exits for all the rooms in the game world.
+     */
     private void setExitsForRooms() {
         trailer.setExit("village", localVillage);
         trailer.setExit("south", certifiedForest);
@@ -59,13 +65,17 @@ public class Game {
         library.setExit("village", localVillage);
     }
 
+    /**
+     * It changes the players placement in the game world. So that the player can move around.
+     *
+     * @param command The direction that the player is going to.
+     * @param anchorPane The current Anchorpane the player resides in so that the scene can be
+     * accessed.
+     */
     public void goRoom(Command command, AnchorPane anchorPane) {
-        if (!command.hasSecondWord()) {
-            System.out.println("Go where?");
-        }
         String direction = command.getSecondWord();
 
-        // The player can write "go back" to get back to the room they were in before
+        // The player can go back to the room they came from.
         if (direction.equals("back")) {
             if (playerInteraction.getPreviousRoom() != null) {
                 playerInteraction.setCurrentRoom(playerInteraction.getPreviousRoom());
@@ -84,10 +94,11 @@ public class Game {
         anchorPane.getScene().setRoot(playerInteraction.getCurrentRoom().getRoomFXML());
     }
 
-    public PlayerInteraction getPlayerInteraction() {
-        return playerInteraction;
-    }
-
+    /**
+     * All the following methods is to access the rooms and the humanplayer that is interacting
+     * with the rooms
+     */
+    
     public Player getHumanPlayer() {
         return humanPlayer;
     }
@@ -120,14 +131,10 @@ public class Game {
         return library;
     }
 
-    public String getPlayerDirectionInWorld() {
-        return playerInteraction.getPlayerDirectionInWorld();
-    }
-
-    public void setPlayerDirectionInWorld(String direction) {
-        playerInteraction.setPlayerDirectionInWorld(direction);
-    }
-
+    /**
+     * To access the data_access_layer
+     * @return the highScore data.
+     */
     public HighScore getHighScoreData() {
         return highScoreData;
     }

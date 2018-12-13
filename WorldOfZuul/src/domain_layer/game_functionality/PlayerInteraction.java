@@ -1,8 +1,15 @@
 package domain_layer.game_functionality;
 
+import domain_layer.game_elements.BackPack;
 import domain_layer.game_locations.Room;
 import javafx.beans.property.SimpleIntegerProperty;
 
+/**
+ * This class has the responsibility of changing and keeping information about all the things the
+ * player interacts with during playtime.
+ *
+ * @author oliver
+ */
 public class PlayerInteraction {
 
     private final int MIN_CLIMATEPOINTS = -250;
@@ -12,6 +19,7 @@ public class PlayerInteraction {
     private int numChoppedTreesWithoutPlantingSaplings;
     private String playerDirectionInWorld = "noDirection";
     private final SimpleIntegerProperty equippedAxeChange = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty logsInBackPack = new SimpleIntegerProperty();
     private static final PlayerInteraction instance = new PlayerInteraction();
 
     private PlayerInteraction() {
@@ -31,6 +39,9 @@ public class PlayerInteraction {
         return MIN_CLIMATEPOINTS;
     }
 
+    /**
+     * @return If the player has gotten a gift from local village today.
+     */
     public boolean isGiftHasBeenGivenToday() {
         return giftHasBeenGivenToday;
     }
@@ -39,6 +50,9 @@ public class PlayerInteraction {
         this.giftHasBeenGivenToday = giftHasBeenGivenToday;
     }
 
+    /**
+     * @return if the player has picked up the starter Axe from Trailer.
+     */
     public boolean isAxePickedUp() {
         return axePickedUp;
     }
@@ -47,6 +61,9 @@ public class PlayerInteraction {
         this.axePickedUp = axePickedUp;
     }
 
+    /**
+     * @return if the player has slept, this is used to determine different actions in game world.
+     */
     public boolean isSlept() {
         return slept;
     }
@@ -82,6 +99,26 @@ public class PlayerInteraction {
         this.previousRoom = previousRoom;
     }
 
+    /**
+     * Keeps a record of how many trees has been chopped in certified forest without planting them
+     * again.
+     *
+     * @return how many chopped trees has been fell so far.
+     */
+    public int getNumChoppedTreesWithoutPlantingSaplings() {
+        return numChoppedTreesWithoutPlantingSaplings;
+    }
+
+    /**
+     * Used to reset number of chopped trees without planting them again if the player gets a fine
+     * They shouldn't be punshed again the next day for the same mistake again.
+     *
+     * @param numChoppedTreesWithoutPlantingSaplings
+     */
+    public void setNumChoppedTreesWithoutPlantingSaplings(int numChoppedTreesWithoutPlantingSaplings) {
+        this.numChoppedTreesWithoutPlantingSaplings = numChoppedTreesWithoutPlantingSaplings;
+    }
+
     public void addChoppedTreesInCertifiedForest() {
         numChoppedTreesWithoutPlantingSaplings++;
     }
@@ -90,23 +127,40 @@ public class PlayerInteraction {
         numChoppedTreesWithoutPlantingSaplings--;
     }
 
-    public int getNumChoppedTreesWithoutPlantingSaplings() {
-        return numChoppedTreesWithoutPlantingSaplings;
-    }
-
-    public void setNumChoppedTreesWithoutPlantingSaplings(int numChoppedTreesWithoutPlantingSaplings) {
-        this.numChoppedTreesWithoutPlantingSaplings = numChoppedTreesWithoutPlantingSaplings;
-    }
-
-    public SimpleIntegerProperty getEquippedAxeChange() {
-        return equippedAxeChange;
-    }
-
+    /**
+     * What direction the player has come from. This is used to determine what animations is to be
+     * run when entering and leaving rooms.
+     *
+     * @return
+     */
     public String getPlayerDirectionInWorld() {
         return playerDirectionInWorld;
     }
 
     public void setPlayerDirectionInWorld(String playerDirectionInWorld) {
         this.playerDirectionInWorld = playerDirectionInWorld;
+    }
+
+    /**
+     * Used to update whenever the player gets a new axe, so the topMenu axe icon can be updated to
+     * the correct icon representing the right type of axe.
+     *
+     * @return simple integer property in order to set a listener to it in topMenu controller
+     */
+    public SimpleIntegerProperty getEquippedAxeChange() {
+        return equippedAxeChange;
+    }
+
+    public SimpleIntegerProperty getLogsInBackPack() {
+        return logsInBackPack;
+    }
+
+    /**
+     * Used to update whenever the player logs in backpack is altered so the listener in topMenu
+     * gets notified.
+     * @param equippedBackPack the backpack that the player is wearing.
+     */
+    public void updateLogsInBackPack(BackPack equippedBackPack) {
+        logsInBackPack.setValue(equippedBackPack.getLogsInBackPack().size());
     }
 }

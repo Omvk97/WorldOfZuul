@@ -4,6 +4,7 @@ import domain_layer.game_functionality.Command;
 import domain_layer.game_functionality.CommandWord;
 import domain_layer.game_functionality.Game;
 import domain_layer.game_functionality.Player;
+import domain_layer.game_functionality.PlayerInteraction;
 import domain_layer.game_locations.LocalVillage;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -47,6 +48,7 @@ public class LocalVillageController implements Initializable {
     private final Player humanPlayer = Game.getInstanceOfSelf().getHumanPlayer();
     private final LocalVillage gameVillage = (LocalVillage) Game.getInstanceOfSelf().getLocalVillage();
     private boolean running;
+    private PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -126,7 +128,7 @@ public class LocalVillageController implements Initializable {
             running = true;
             TranslateTransition backTransition = new TranslateTransition(Duration.seconds(1.5), player);
 
-            switch (Game.getInstanceOfSelf().getPlayerDirectionInWorld()) {
+            switch (playerInteraction.getPlayerDirectionInWorld()) {
                 case "goRight":
                     backTransition.setByX(-276);
                     backTransition.setOnFinished((ActionEvent) -> {
@@ -134,7 +136,7 @@ public class LocalVillageController implements Initializable {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                     });
                     backTransition.play();
-                    Game.getInstanceOfSelf().setPlayerDirectionInWorld("goLeft");
+                    playerInteraction.setPlayerDirectionInWorld("goLeft");
                     break;
                 case "goStore":
                     running = true;
@@ -146,7 +148,7 @@ public class LocalVillageController implements Initializable {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                     });
                     transistionToStore.play();
-                    Game.getInstanceOfSelf().setPlayerDirectionInWorld("goStore");
+                    playerInteraction.setPlayerDirectionInWorld("goStore");
                     break;
                 case "goBlacksmith":
                     running = true;
@@ -158,7 +160,7 @@ public class LocalVillageController implements Initializable {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                     });
                     transistionToBlacksmith.play();
-                    Game.getInstanceOfSelf().setPlayerDirectionInWorld("goBlacksmith");
+                    playerInteraction.setPlayerDirectionInWorld("goBlacksmith");
                     break;
                 case "goLibrary":
                     running = true;
@@ -170,7 +172,7 @@ public class LocalVillageController implements Initializable {
                         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                     });
                     transistionToLibrary.play();
-                    Game.getInstanceOfSelf().setPlayerDirectionInWorld("goLibrary");
+                    playerInteraction.setPlayerDirectionInWorld("goLibrary");
                     break;
             }
         }
@@ -190,7 +192,7 @@ public class LocalVillageController implements Initializable {
                 Game.getInstanceOfSelf().goRoom(tester, anchorPane);
             });
             transistionToStore.play();
-            Game.getInstanceOfSelf().setPlayerDirectionInWorld("goStore");
+            playerInteraction.setPlayerDirectionInWorld("goStore");
         }
     }
 
@@ -208,7 +210,7 @@ public class LocalVillageController implements Initializable {
                 Game.getInstanceOfSelf().goRoom(tester, anchorPane);
             });
             transistionToBlacksmith.play();
-            Game.getInstanceOfSelf().setPlayerDirectionInWorld("goBlacksmith");
+            playerInteraction.setPlayerDirectionInWorld("goBlacksmith");
         }
     }
 
@@ -226,7 +228,7 @@ public class LocalVillageController implements Initializable {
                 Game.getInstanceOfSelf().goRoom(tester, anchorPane);
             });
             transistionToLibrary.play();
-            Game.getInstanceOfSelf().setPlayerDirectionInWorld("goLibrary");
+            playerInteraction.setPlayerDirectionInWorld("goLibrary");
         }
     }
 
@@ -243,7 +245,7 @@ public class LocalVillageController implements Initializable {
                     Game.getInstanceOfSelf().goRoom(tester, anchorPane);
                 });
                 transistionToTrailer.play();
-                Game.getInstanceOfSelf().setPlayerDirectionInWorld("goLeft");
+                playerInteraction.setPlayerDirectionInWorld("goLeft");
             } else {
                 textArea.setText("There is no road!");
             }
@@ -252,7 +254,7 @@ public class LocalVillageController implements Initializable {
 
     private void transition() {
         TranslateTransition roomTransition = new TranslateTransition(Duration.seconds(1.5), player);
-        switch (Game.getInstanceOfSelf().getPlayerDirectionInWorld()) {
+        switch (playerInteraction.getPlayerDirectionInWorld()) {
             case "goRight":
                 player.setLayoutX(0);
                 roomTransition.setByX(276);

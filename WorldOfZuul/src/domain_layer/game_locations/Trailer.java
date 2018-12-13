@@ -5,6 +5,7 @@ import domain_layer.game_elements.Axe;
 import domain_layer.game_elements.AxeFactory;
 import domain_layer.game_elements.Tree;
 import domain_layer.game_functionality.Player;
+import domain_layer.game_functionality.PlayerInteraction;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -62,14 +63,14 @@ public class Trailer extends Room {
     }
 
     public String option1(Player humanPlayer) {
-        if (humanPlayer.getBackPack().getAmountOfLogsInBackPack() == 0) {
+        if (humanPlayer.getEquippedBackPack().getAmountOfLogsInBackPack() == 0) {
             return "You are not carrying any logs!";
         }
         /**
          * Copies all the elements from the backpack
          */
         ArrayList<Tree> copyAmountOflogsCarrying = new ArrayList<>();
-        for (Tree tree : humanPlayer.getBackPack().getLogsInBackPack()) {
+        for (Tree tree : humanPlayer.getEquippedBackPack().getLogsInBackPack()) {
             copyAmountOflogsCarrying.add(tree);
         }
         /**
@@ -78,10 +79,10 @@ public class Trailer extends Room {
         for (Tree tree : copyAmountOflogsCarrying) {
             if (getLogsInStorage().size() < MAX_TREESTORAGEAMOUNT) {
                 getLogsInStorage().add(tree);
-                humanPlayer.getBackPack().removeLogFromBackpack();
+                humanPlayer.getEquippedBackPack().removeLogFromBackpack();
             }
         }
-        humanPlayer.updateLogsInBackPack();
+        PlayerInteraction.getInstanceOfSelf().updateLogsInBackPack(humanPlayer.getEquippedBackPack());
         updateLogsInStorage();
 
         if (isStorageFull()) {
