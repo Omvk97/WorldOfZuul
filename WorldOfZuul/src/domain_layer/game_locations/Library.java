@@ -11,7 +11,7 @@ import javafx.scene.Parent;
  */
 public class Library extends Room {
 
-    String libraryOwner = "Anna: \n";
+    private String libraryOwner = "Anna: \n";
 
     public Library() {
     }
