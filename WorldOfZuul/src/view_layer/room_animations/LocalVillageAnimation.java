@@ -99,6 +99,9 @@ public class LocalVillageAnimation extends GameAnimation {
         String setDirection,
         String setCommandword,
         boolean dontHaveToGoDown) {
+        if(firstVisitGreetings.visibleProperty().equals(true)){
+            firstVisitGreetings.setVisible(false);
+        }
         TranslateTransition transitionToX = new TranslateTransition(Duration.seconds(1.5), player);
         TranslateTransition transitionToAnchorX = new TranslateTransition(Duration.seconds(1.5), player);
         TranslateTransition transitionToAnchorY = new TranslateTransition(Duration.seconds(1.5), player);
