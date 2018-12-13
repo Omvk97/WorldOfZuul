@@ -17,6 +17,10 @@ import javafx.scene.image.ImageView;
 /**
  *
  * @author oliver
+ * This controller has the responsibility to show the user the stats of the game.
+ * Money, Climapoints, Logs, logs in Store, samplings, EquippedAxeChange, Axe durabilityBar.
+ * 
+ * 
  */
 public class HudController implements Initializable {
 
