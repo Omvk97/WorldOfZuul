@@ -108,13 +108,14 @@ public class LocalVillageAnimation extends GameAnimation {
     }
 
     /**
-     * This method is used when the player goes to buildins (store, blacksmith or library)
-     * and when the player goes out from local village back to trailer.
+     * This method is used when the player goes to buildins (store, blacksmith or library) and when
+     * the player goes out from local village back to trailer.
+     *
      * @param startCoordinateX where the player should start
      * @param endCoordinatX where the player should end
      * @param setDirection the direction the player has to go at.
      * @param roomNameToGoTo the room the player is to go to.
-     * @param dontHaveToGoDown whether the building the player wants to go to is laying above or 
+     * @param dontHaveToGoDown whether the building the player wants to go to is laying above or
      * under players current position
      */
     public void goToTransitionHandle(int startCoordinateX,
@@ -157,10 +158,11 @@ public class LocalVillageAnimation extends GameAnimation {
     /**
      * This method is used when the player goes back from one of the buildings (store, library or
      * blacksmith).
+     *
      * @param fromX where the player image X axis should start at
      * @param fromY where the player image Y axis should start at
      * @param toX where the player image X axis should end at.
-     * @param dontHaveToGoDown whether the building the player wants to go to is laying above or 
+     * @param dontHaveToGoDown whether the building the player wants to go to is laying above or
      * under players current position
      */
     public void backTransitionHandle(double fromX,

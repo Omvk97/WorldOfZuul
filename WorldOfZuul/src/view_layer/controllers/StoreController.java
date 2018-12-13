@@ -64,6 +64,7 @@ public class StoreController implements Initializable {
 
     /**
      * sells logs when the player clicks the first button.
+     *
      * @param event the player click event.
      */
     @FXML
@@ -76,9 +77,10 @@ public class StoreController implements Initializable {
     }
 
     /**
-     * Sets the anchorPane children of the fxml document to include the layout of the shelf
-     * If the player clicks again while the layout of the shelf already is up nothing happens.
-     * @param event 
+     * Sets the anchorPane children of the fxml document to include the layout of the shelf If the
+     * player clicks again while the layout of the shelf already is up nothing happens.
+     *
+     * @param event
      */
     @FXML
     private void handleBuyItems(MouseEvent event) {
@@ -93,6 +95,7 @@ public class StoreController implements Initializable {
 
     /**
      * Handles when the player goes out of the store.
+     *
      * @param event when the keyboard is used to go back.
      */
     @FXML
@@ -107,6 +110,7 @@ public class StoreController implements Initializable {
 
     /**
      * Handles when the player goes out of the store by click the right hand arrow.
+     *
      * @param event when goBack arrow is pressed.
      */
     @FXML
@@ -185,9 +189,10 @@ public class StoreController implements Initializable {
     }
 
     /**
-     * When the player click on an item in the shelf a blue dot will appear on 
-     * the selected item, and the blueDots ID will be updated to correspond with the ID of the 
-     * selected item. Sets an on action handler.
+     * When the player click on an item in the shelf a blue dot will appear on the selected item,
+     * and the blueDots ID will be updated to correspond with the ID of the selected item. Sets an
+     * on action handler.
+     *
      * @param image the image that is clicked on.
      */
     private void userClick(ImageView image) {
@@ -200,8 +205,8 @@ public class StoreController implements Initializable {
     }
 
     /**
-     * when the user clicks the buy button, it records where the blueDot is placed
-     * and attempts to purchase the item.
+     * when the user clicks the buy button, it records where the blueDot is placed and attempts to
+     * purchase the item.
      */
     private void handleUserPurchase() {
         buySelectedItemButton.setOnMouseClicked((MouseEvent event) -> {

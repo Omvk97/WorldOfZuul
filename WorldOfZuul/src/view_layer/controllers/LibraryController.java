@@ -19,6 +19,7 @@ import view_layer.room_animations.GameAnimation;
 
 /**
  * This controller class handles the UI and player interactions.
+ *
  * @author Michael
  */
 public class LibraryController implements Initializable {
@@ -42,10 +43,11 @@ public class LibraryController implements Initializable {
         Bookshelf.setVisible(false);
     }
 
-/**
- * Shows the Bookshelf anchor pane
- * @param event 
- */
+    /**
+     * Shows the Bookshelf anchor pane
+     *
+     * @param event
+     */
     @FXML
     private void handleOption1(MouseEvent event) {
         Bookshelf.setVisible(true);
@@ -53,10 +55,12 @@ public class LibraryController implements Initializable {
         option1.setDisable(true);
         textArea.setDisable(true);
     }
-/**
- * Closes the Book anchorpane if its open and if not closes bookshelf anchor pane.
- * @param event 
- */
+
+    /**
+     * Closes the Book anchorpane if its open and if not closes bookshelf anchor pane.
+     *
+     * @param event
+     */
     @FXML
     private void handleClose(MouseEvent event) {
         if (BookText.visibleProperty().getValue() == true) {
@@ -70,70 +74,80 @@ public class LibraryController implements Initializable {
 
         }
     }
-/**
- * Shows the book anchor pane and shows text.
- * @param event 
- */
+
+    /**
+     * Shows the book anchor pane and shows text.
+     *
+     * @param event
+     */
     @FXML
     private void handleBook1(MouseEvent event) {
         BookText.setVisible(true);
         BookTextArea1.setText("Around the globe 7 million hectare of forest"
-                + " area disappear each year due to deforestation.\n"
-                + "The decreased forest areas causes"
-                + " several species to become endangered.\n");
+            + " area disappear each year due to deforestation.\n"
+            + "The decreased forest areas causes"
+            + " several species to become endangered.\n");
         BookTextArea2.setText("It is estimated that 15% of all greenhouse"
-                + " gas emissions are the result\n"
-                + "of deforestation.\n This is very bad.");
+            + " gas emissions are the result\n"
+            + "of deforestation.\n This is very bad.");
         Title.setText("The Falling of the trees");
         by.setText("- written by professors.");
     }
-/**
- * Shows the book anchor pane and shows text.
- * @param event 
- */
+
+    /**
+     * Shows the book anchor pane and shows text.
+     *
+     * @param event
+     */
     @FXML
     private void handleBook2(MouseEvent event) {
         BookText.setVisible(true);
         BookTextArea1.setText("FSC, Forest Stewardship Council, is one"
-                + " of several large organizations"
-                + " dedicated to combat deforestation.\n");
+            + " of several large organizations"
+            + " dedicated to combat deforestation.\n");
         BookTextArea2.setText("Their main function"
-                + " involves certifying and regulating"
-                + "forest areas to reduce reckless deforestation."
-                + "They cover over 200 million hectare certified"
-                + " forest areas globally.");
+            + " involves certifying and regulating"
+            + "forest areas to reduce reckless deforestation."
+            + "They cover over 200 million hectare certified"
+            + " forest areas globally.");
         Title.setText("The Story of FSC");
         by.setText("- written by FSC.");
     }
-/**
- * Shows the book anchor pane and shows text.
- * @param event 
- */
+
+    /**
+     * Shows the book anchor pane and shows text.
+     *
+     * @param event
+     */
     @FXML
     private void handleBook3(MouseEvent event) {
         BookText.setVisible(true);
         BookTextArea1.setText("PEFC, Programme for the Endorsement of Forest Certification, is the largest"
-                + " organization dedicated to combat deforestation.");
+            + " organization dedicated to combat deforestation.");
         BookTextArea2.setText("Their main function involves certifying and regulating "
-                + "forest areas to reduce reckless deforestation."
-                + "They cover over 300 million hectare certified forest areas globally.");
+            + "forest areas to reduce reckless deforestation."
+            + "They cover over 300 million hectare certified forest areas globally.");
         Title.setText("The Story of PEFC");
         by.setText(" - written by PEFC.");
     }
-/**
- * sends the player back to the previus room when clicked.
- * @param event 
- */
+
+    /**
+     * sends the player back to the previus room when clicked.
+     *
+     * @param event
+     */
     @FXML
     private void handleBackBtn(MouseEvent event) {
         BookText.setVisible(true);
         Command tester = new Command(CommandWord.GO, "back");
         Game.getInstanceOfSelf().goRoom(tester, anchorPane);
     }
-/**
- * sends the player back to the previus room when key event occours.
- * @param event 
- */
+
+    /**
+     * sends the player back to the previus room when key event occours.
+     *
+     * @param event
+     */
     @FXML
     private void handleExits(KeyEvent event) {
         if (!((Bookshelf.visibleProperty().getValue() == true) || (BookText.visibleProperty().getValue() == true))) {

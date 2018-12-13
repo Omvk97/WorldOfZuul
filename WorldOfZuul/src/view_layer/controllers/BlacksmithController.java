@@ -24,7 +24,7 @@ import view_layer.room_animations.GameAnimation;
 /**
  *
  * @author steffen
- * 
+ *
  * This controller has the responsibility for the conektions between the Blacksmith location class
  * and the blacksmith.fxml (view layer)
  */
@@ -45,13 +45,13 @@ public class BlacksmithController implements Initializable {
         Buypane.setVisible(false);
         animation.textAnimation(textArea, gameBlacksmith.roomEntrance(humanPlayer));
     }
-    
+
     /**
      * Gets the information of the axe and tjek is the player have enough money to buy one
-     * 
+     *
      * @param humanPlayer
      * @param axe
-     * @return 
+     * @return
      */
     public String getAxeInfo(Player humanPlayer, Axe axe) {
         if (humanPlayer.getMoneyValue() >= axe.getPrice()) {
@@ -63,14 +63,13 @@ public class BlacksmithController implements Initializable {
             return "YOU NEED " + axe.getPrice() + " GOLD COINS TO BUY THIS AXE";
         }
     }
-    
-   /**
-    *Tjeks if player have an axe.
-    *Tjeks if axe has taken damaget. 
-    *Tjeks if player has money for grinding the axe
-    *then fix players axe.
-    * @param event 
-    */
+
+    /**
+     * Tjeks if player have an axe. Tjeks if axe has taken damaget. Tjeks if player has money for
+     * grinding the axe then fix players axe.
+     *
+     * @param event
+     */
     @FXML
     private void handlerepair(MouseEvent event) {
         gameBlacksmith.getBlackSmithNPC();

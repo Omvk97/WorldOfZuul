@@ -9,8 +9,8 @@ import javafx.util.Duration;
 
 /**
  * This class handles animations that all rooms needs.
- * @author oliver
- * co-author: Michael
+ *
+ * @author oliver co-author: Michael
  */
 public class GameAnimation {
 
@@ -22,10 +22,11 @@ public class GameAnimation {
     public GameAnimation(ImageView player) {
         this.player = player;
     }
-    
+
     /**
      * This gives a floating text style to the text in a rate that is constant no matter how long
      * the string.
+     *
      * @param animateInLabel the label that holds the text that is to be animated
      * @param textToAnimate the String which is the text that is to be animated.
      */

@@ -2,6 +2,7 @@ package domain_layer.game_elements;
 
 /**
  * Certified Forest is made up of these trees.
+ *
  * @author oliver
  */
 public class CertifiedTree extends Tree {

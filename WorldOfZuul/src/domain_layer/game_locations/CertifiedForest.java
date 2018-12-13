@@ -9,8 +9,8 @@ import javafx.scene.Parent;
 
 /**
  * This forest is made up of CertifiedTrees, and it will always contain 100 trees after the player
- * has slept. 
- * The player can only chop large trees in this forest.
+ * has slept. The player can only chop large trees in this forest.
+ *
  * @author oliver
  */
 public class CertifiedForest extends Forest {

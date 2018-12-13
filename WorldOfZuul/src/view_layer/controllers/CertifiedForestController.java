@@ -21,6 +21,7 @@ import view_layer.PlayerGraphics;
 /**
  * Talks to both the room certifiedForest and the associated FXML, to visually and logically
  * represent when the user chops a tree and when the user plants new trees.
+ *
  * @author oliver
  */
 public class CertifiedForestController extends ForestAnimation implements Initializable {
@@ -29,8 +30,9 @@ public class CertifiedForestController extends ForestAnimation implements Initia
 
     /**
      * Makes a walking animation when entering the room and sets all fxml containers.
+     *
      * @param url
-     * @param rb 
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -50,9 +52,10 @@ public class CertifiedForestController extends ForestAnimation implements Initia
     }
 
     /**
-     * If there isn't another animation running, the method will check if the player can chop
-     * trees and start the animation if the player can chop tree.
-     * @param event 
+     * If there isn't another animation running, the method will check if the player can chop trees
+     * and start the animation if the player can chop tree.
+     *
+     * @param event
      */
     @FXML
     private void handleTreeFelling(MouseEvent event) {
@@ -73,6 +76,7 @@ public class CertifiedForestController extends ForestAnimation implements Initia
         } else {
         }
     }
+
     @FXML
     private void handleCountFellableTrees(MouseEvent event) {
         animation.textAnimation(textArea, "There are " + gameForest.countLargeTrees() + " trees ready to be felled!");
@@ -81,7 +85,8 @@ public class CertifiedForestController extends ForestAnimation implements Initia
     /**
      * If the player is able to plant trees, the controller will ask game_locations.certfiedForest
      * to replant trees.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void handlePlantSeeds(MouseEvent event) {
@@ -100,7 +105,8 @@ public class CertifiedForestController extends ForestAnimation implements Initia
 
     /**
      * When the player wants to exit the room, this method will represent visually how that looks.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void handleExits(KeyEvent event) {

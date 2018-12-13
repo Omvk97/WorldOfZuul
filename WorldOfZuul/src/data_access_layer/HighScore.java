@@ -8,8 +8,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * saves and loads local file highScore.txt and returns a hashMap representation of the file
- * so that other classes can decide what to do with the data.
+ * saves and loads local file highScore.txt and returns a hashMap representation of the file so that
+ * other classes can decide what to do with the data.
+ *
  * @author oliver
  */
 public class HighScore {
@@ -18,6 +19,7 @@ public class HighScore {
 
     /**
      * when a new highScore is achieved this methods is to be called.
+     *
      * @param playerName the player who has achieved the new highScore
      * @param playerHighScore the players new highscore.
      */
@@ -31,6 +33,7 @@ public class HighScore {
 
     /**
      * Reads all the data from highScore file
+     *
      * @return hashMap representation of the data from the file.
      */
     public HashMap<String, Double> readHighScoresFromFile() {

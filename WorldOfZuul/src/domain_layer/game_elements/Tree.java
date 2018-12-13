@@ -1,10 +1,10 @@
 package domain_layer.game_elements;
 
 /**
- * This class represents everything that a tree is and what a tree can do.
- * A tree has life, climate points and a sell price.
- * @author oliver
- * co-author: michael
+ * This class represents everything that a tree is and what a tree can do. A tree has life, climate
+ * points and a sell price.
+ *
+ * @author oliver co-author: michael
  */
 public abstract class Tree {
 
@@ -29,8 +29,8 @@ public abstract class Tree {
     }
 
     /**
-     * Returns the price of the current tree based on the highest treeHealth the tree had
-     * before the player started chopping it down.
+     * Returns the price of the current tree based on the highest treeHealth the tree had before the
+     * player started chopping it down.
      *
      * @return amount worth of tree. Converted to int
      */
@@ -52,8 +52,9 @@ public abstract class Tree {
     }
 
     /**
-     * After the player sleeps the tree has to grow in size, this methods makes sure of that.
-     * It also makes sure that the tree never grows bigger than MAX_TREEHEALTH.
+     * After the player sleeps the tree has to grow in size, this methods makes sure of that. It
+     * also makes sure that the tree never grows bigger than MAX_TREEHEALTH.
+     *
      * @param amountOfTreeGrowth how much the tree should grow.
      */
     public void treeGrowth(int amountOfTreeGrowth) {

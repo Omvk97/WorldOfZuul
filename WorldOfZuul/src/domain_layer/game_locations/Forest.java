@@ -26,12 +26,14 @@ public abstract class Forest extends Room {
     /**
      * Abstract method as the two forests has different laws on how big a tree should be before
      * being able to cut the tree.
+     *
      * @return true if the player is still able to chop trees that are big enough to chop.
      */
     abstract protected boolean thereIsMoreTreesToCut();
 
     /**
      * The last tree in the arrayList is the tree that the player interacts with and chops down.
+     *
      * @return last tree in the arrayList
      */
     public Tree lastTreeInArray() {
