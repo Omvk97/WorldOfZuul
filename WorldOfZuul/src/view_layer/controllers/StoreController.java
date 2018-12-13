@@ -129,8 +129,8 @@ public class StoreController implements Initializable {
         storeShelf.setFitHeight(250);
         storeShelf.setFitWidth(300);
         buySelectedItemButton.setLayoutX(375);
-        buySelectedItemButton.setLayoutY(285);
-        closeShelfButton.setLayoutX(buySelectedItemButton.getLayoutX() - 50);
+        buySelectedItemButton.setLayoutY(305);
+        closeShelfButton.setLayoutX(buySelectedItemButton.getLayoutX() - 80);
         closeShelfButton.setLayoutY(buySelectedItemButton.getLayoutY());
         closeShelfButton.setOnMouseClicked((MouseEvent event1) -> {
             anchorPane.getChildren().removeAll(allItemsAssociatedWithShelf);

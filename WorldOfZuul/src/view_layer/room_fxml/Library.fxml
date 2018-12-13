@@ -17,7 +17,7 @@
         <ImageView fx:id="player" fitHeight="75.0" fitWidth="75.0" layoutX="276.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" />
         <fx:include source="Hud.fxml"/>
         <Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="330.0" prefHeight="80.0" prefWidth="320.0" styleClass="textArea" textAlignment="CENTER" wrapText="true" />
-        <Button fx:id="option1" layoutX="14.0" layoutY="315" mnemonicParsing="false" onMouseClicked="#handleOption1" text="Open bookshelf" />
+        <Button fx:id="option1" layoutX="12.0" layoutY="355" mnemonicParsing="false" onMouseClicked="#handleOption1" text="Open bookshelf" />
         <Button fx:id="backBtn" layoutX="540.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#handleBackBtn">
             <graphic>
                 <ImageView fitHeight="23.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">

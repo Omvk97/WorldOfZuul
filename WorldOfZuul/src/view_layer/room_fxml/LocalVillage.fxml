@@ -16,7 +16,7 @@
     <children>
         <ImageView fx:id="player" fitHeight="75.0" fitWidth="75.0" layoutX="276.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" />
         <fx:include source="Hud.fxml" />
-        <Button fx:id="talkToVillageButton" layoutX="14.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#handleTalkToVillageButton" text="Talk to village" />
+        <Button fx:id="talkToVillageButton" layoutX="12.0" layoutY="355.0" mnemonicParsing="false" onMouseClicked="#handleTalkToVillageButton" text="Talk to village" />
         <Button fx:id="backToPreviousRoomButton" layoutX="540.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#handleBackToPreviousButton">
             <graphic>
                 <ImageView fitHeight="23.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
