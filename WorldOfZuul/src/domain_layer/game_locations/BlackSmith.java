@@ -11,7 +11,7 @@ import java.io.File;
 
 /**
  *
- * @author steffen co-author: oliver
+ * @author steffen co-author: oliver.
  */
 public class BlackSmith extends Room {
 
@@ -30,7 +30,7 @@ public class BlackSmith extends Room {
             + "If you pay I will make your axe stronger \n";
     }
    /*
-    *make the sound when the player grinds the axe
+    *Makes the sound when the player grinds an axe.
     */
     public void grindSound() {
                Media hammerSound = new Media(new File(hammer).toURI().toString());
@@ -38,7 +38,7 @@ public class BlackSmith extends Room {
                mediaPlayer.play();            
     }
     /*
-    *for paying the grainding of the axe
+    *Grainding of the axe.
     */
     public int fixAxePrice(Player humanPlayer) {
         final int pricePerAxeDurability = 2;
@@ -47,7 +47,7 @@ public class BlackSmith extends Room {
         return fixAxePrice;
     }
     /*
-    * mothod for grind the axe
+    * Mothod for grind the axe.
     */
        public void grindAxe(Axe axe) {
         axe.getDurabilityIntegerProperty().setValue(axe.getStartDurability());

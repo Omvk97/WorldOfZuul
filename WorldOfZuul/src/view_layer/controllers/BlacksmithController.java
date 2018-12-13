@@ -39,9 +39,13 @@ public class BlacksmithController implements Initializable {
         Buypane.setVisible(false);
         textArea.setText(gameBlacksmith.roomEntrance(humanPlayer));
     }
-    /*
-    *gets the information of the axe and tjek is the player have enough money i
-    */
+    /**
+     * Gets the information of the axe and tjek is the player have enough money to buy one
+     * 
+     * @param humanPlayer
+     * @param axe
+     * @return 
+     */
     public String getAxeInfo(Player humanPlayer, Axe axe) {
         if (humanPlayer.getMoneyValue() >= axe.getPrice()) {
             humanPlayer.boughtAxe(axe);
@@ -52,14 +56,16 @@ public class BlacksmithController implements Initializable {
             return "YOU NEED " + axe.getPrice() + " GOLD COINS TO BUY THIS AXE";
         }
     }
-
-    public AnchorPane getAnchorPane() {
-        return anchorPane;
-    }
-    /*
-    * See if player have an axe
-    * see if players axe has taken damaget 
-    * fix players axe
+//
+//    public AnchorPane getAnchorPane() {
+//        return anchorPane;
+//    }
+   /**
+    *Tjeks if player have an axe.
+    *Tjeks if axe has taken damaget. 
+    *Tjeks if player has money for grinding the axe
+    *then fix players axe.
+    * @param event 
     */
     @FXML
     private void handlerepair(MouseEvent event) {
@@ -70,19 +76,24 @@ public class BlacksmithController implements Initializable {
             textArea.setText(gameBlacksmith.getBlackSmithNPC() + "Your axe is fine! Come back if it ever gets dull");
         } else if (humanPlayer.getAxe().getDurability() < humanPlayer.getAxe().getStartDurability()) {
             if (humanPlayer.getMoneyValue() >= gameBlacksmith.fixAxePrice(humanPlayer)) {
-                System.out.println(gameBlacksmith.blackSmithNPC + "I will grind your axe for you. Please wait");
-                textArea.setText(gameBlacksmith.getBlackSmithNPC() + "I will grind your axe for you. Please wait");
-                gameBlacksmith.grindSound();
-                gameBlacksmith.grindAxe(humanPlayer.getAxe());
-                System.out.println("humanPlayer.grindedAxe(fixAxePrice)");
-                humanPlayer.grindedAxe(gameBlacksmith.fixAxePrice(humanPlayer));
-                textArea.setText(gameBlacksmith.getBlackSmithNPC() + "Your axe is done");
+                FixAxe();
             } else {
                 textArea.setText(gameBlacksmith.getBlackSmithNPC() + "You do not have enough money");
             }
 
         }
 
+    }
+
+    /**
+     * Grinding the axe Method.
+     */
+    public void FixAxe() {
+        textArea.setText(gameBlacksmith.getBlackSmithNPC() + "I will grind your axe for you. Please wait");
+        gameBlacksmith.grindSound();
+        gameBlacksmith.grindAxe(humanPlayer.getAxe());
+        humanPlayer.grindedAxe(gameBlacksmith.fixAxePrice(humanPlayer));
+        textArea.setText(gameBlacksmith.getBlackSmithNPC() + "Your axe is done");
     }
 
     @FXML

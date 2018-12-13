@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  *
- * @author oliver
+ * @author oliver.
  */
 public class Axe extends Item {
 

@@ -8,7 +8,6 @@ import domain_layer.game_functionality.Player;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -137,36 +136,6 @@ public class Trailer extends Room {
             return "I don't know what you mean";
         }
     }
-
-//    public int givePlayerFine(Player humanPlayer) {
-//        Boolean correctAnswer = true;
-//        Scanner questionAnswer = new Scanner(System.in);
-//        String questionOne = "How many million hectare forest area disappear each year?";
-//        String questionTwo = "How many million hectare forest area does FSC cover over?";
-//        String questionThree = "How many million hectare forest area does PEFC cover over?";
-//        System.out.println("You didn't replant all the trees in the ceritifed forest!\n"
-//            + "Here is a chance to redeem yourself");
-//        int randomNum = (int) (Math.random() * 3) + 1;
-//        switch (randomNum) {
-//            case 1:
-//                System.out.println(questionOne);
-//                correctAnswer = answerValidation(questionAnswer.nextLine(), "7");
-//                break;
-//            case 2:
-//                System.out.println(questionTwo);
-//                correctAnswer = answerValidation(questionAnswer.nextLine(), "200");
-//                break;
-//            case 3:
-//                System.out.println(questionThree);
-//                correctAnswer = answerValidation(questionAnswer.nextLine(), "300");
-//                break;
-//        }
-//        if (!correctAnswer) {
-//            System.out.println("WRONG, study in the library!");
-//            return (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 200);
-//        }
-//        return (humanPlayer.getNumChoppedTreesWithoutPlantingSaplings() * 8 + 100);
-//    }
 
     public boolean answerValidation(String userAnswer, String correctAnswer) {
         if (userAnswer.contains(correctAnswer)) {

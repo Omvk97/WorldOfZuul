@@ -83,7 +83,9 @@ public class Radio {
 
         return getStringOfscenarios(humanPlayer, scenarios);
     }
-
+    /*
+    *
+    */
     public String getStringOfscenarios(Player humanPlayer, LinkedHashMap<Integer, String> scenarios) {
         int climatePoints = humanPlayer.getClimatePointsValue();
         List<Integer> keySet = new ArrayList<>(scenarios.keySet());
