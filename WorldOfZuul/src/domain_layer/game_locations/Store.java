@@ -8,10 +8,9 @@ import domain_layer.game_functionality.Player;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.image.ImageView;
 
 /**
- *
+ * This room is where the player can purchase new backpacks and saplings.
  * @author oliver
  */
 public class Store extends Room {
@@ -32,7 +31,7 @@ public class Store extends Room {
     }
 
     /**
-     * To make sure that the player can't buy a getEquippedBackPack they already own.
+     * To make sure that the player can't buy a backpack that is the same backpack in main memory.
      */
     public void createNewBackPacks() {
         smallBackPack = BackPackFactory.createSmallBackPack();
@@ -40,8 +39,13 @@ public class Store extends Room {
         largeBackPack = BackPackFactory.createLargeBackPack();
     }
 
-    public String getItemInfo(ImageView image) {
-        switch (image.getId()) {
+    /**
+     * Used in order to return sale information about the item that is requested.
+     * @param itemRequest the product that is requested.
+     * @return the requested products sale information.
+     */
+    public String getItemInfo(String itemRequest) {
+        switch (itemRequest) {
             case "smallBackPack":
                 return smallBackPack.toString();
             case "mediumBackPack":
@@ -58,6 +62,11 @@ public class Store extends Room {
         return "";
     }
 
+    /**
+     * Sell all the logs the player has in storage and has in their backpack.
+     * @param humanPlayer - the player that wants to sell their logs.
+     * @return true if any logs were sold.
+     */
     public boolean sellLogs(Player humanPlayer) {
         final Trailer trailer = Game.getInstanceOfSelf().getTrailer();
 
@@ -79,8 +88,14 @@ public class Store extends Room {
         return true;
     }
 
-    public boolean buyItem(String id, Player humanPlayer) {
-        switch (id) {
+    /**
+     * Purchases a new item and gives the item to the player.
+     * @param itemToBePurchased the item that the player wants to purchase
+     * @param humanPlayer the player that wants to buy an item
+     * @return true if the purchase was succesfull.
+     */
+    public boolean buyItem(String itemToBePurchased, Player humanPlayer) {
+        switch (itemToBePurchased) {
             case "smallBackPack":
                 return humanPlayer.buyBackPack(smallBackPack);
             case "mediumBackPack":

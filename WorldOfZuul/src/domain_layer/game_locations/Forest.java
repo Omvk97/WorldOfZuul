@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Super class for Non-Certified and Certified forests. It is responsible for the act of felling
+ * trees and
  *
  * @author oliver
  */
@@ -21,13 +23,17 @@ public abstract class Forest extends Room {
         trees = new ArrayList<>();
     }
 
-    public boolean playerCanCarryMoreTree(Player humanPlayer) {
-        return humanPlayer.getEquippedBackPack().getAmountOfLogsInBackPack()
-            < humanPlayer.getEquippedBackPack().getBackpackCapacity();
-    }
-
+    /**
+     * Abstract method as the two forests has different laws on how big a tree should be before
+     * being able to cut the tree.
+     * @return true if the player is still able to chop trees that are big enough to chop.
+     */
     abstract protected boolean thereIsMoreTreesToCut();
 
+    /**
+     * The last tree in the arrayList is the tree that the player interacts with and chops down.
+     * @return last tree in the arrayList
+     */
     public Tree lastTreeInArray() {
         return trees.get(trees.size() - 1);
     }
@@ -50,6 +56,7 @@ public abstract class Forest extends Room {
 
     /**
      * Used to know how many sounds has to be played when the player wants to chop a tree
+     *
      * @param humanPlayer that is going to chop down the tree.
      * @return how many hits it took to fell the tree
      */
@@ -62,21 +69,21 @@ public abstract class Forest extends Room {
         return hitsToTree;
     }
 
-    public String treeSize(Tree tree) {
-        if (tree.getTreeHealth() > MEDIUM_TREE_SIZE && tree.getTreeHealth()
-            < LARGE_TREE_SIZE) {
-            return " at a medium sized tree!";
-        } else {
-            return " at a large tree!";
-        }
-    }
-
+    /**
+     * Grows all the trees in the forest by adding treeHealth, with a random number between 1 & 2
+     */
     public void treeGrowth() {
         for (Tree tree : trees) {
             tree.treeGrowth((int) (Math.random() * 2) + 1);
         }
     }
 
+    /**
+     * This makes sure that the trees that the player can chop down is choppable. Because the player
+     * always chops down the last tree in trees, the last trees in the array has to be choppable.
+     * Otherwise the player would be stuck not able to cut down trees.
+     *
+     */
     public void moveChoppableTreesUp() {
         ArrayList<Tree> cloneOfTrees = new ArrayList<>();
         for (Tree tree : trees) {
@@ -91,6 +98,9 @@ public abstract class Forest extends Room {
         }
     }
 
+    /**
+     * @return How many small trees is in the forest.
+     */
     public int countSmallTrees() {
         int count = 0;
         for (Tree tree : trees) {
@@ -101,6 +111,9 @@ public abstract class Forest extends Room {
         return count;
     }
 
+    /**
+     * @return How many medium trees is in the forest.
+     */
     public int countMediumTrees() {
         int count = 0;
         for (Tree tree : trees) {
@@ -111,6 +124,9 @@ public abstract class Forest extends Room {
         return count;
     }
 
+    /**
+     * @return How many large trees is in the forest.
+     */
     public int countLargeTrees() {
         int count = 0;
         for (Tree tree : trees) {

@@ -156,7 +156,7 @@ public class StoreController implements Initializable {
             blueDot.setLayoutX(image.getLayoutX() + image.getParent().getLayoutX());
             blueDot.setLayoutY(image.getLayoutY() + image.getParent().getLayoutY() - 5);
             blueDot.setId(image.getId());
-            textArea.setText(gameStore.getItemInfo(image));
+            textArea.setText(gameStore.getItemInfo(image.getId()));
         });
     }
 

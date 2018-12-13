@@ -14,7 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 /**
- *
+ * 
  * @author olive co-author: daniel
  */
 public class Trailer extends Room {

@@ -56,7 +56,7 @@ public class NonCertifiedController extends ForestController implements Initiali
                 highScoreGraphics.closeGame();
                 System.exit(0);
             }
-            if (gameForest.playerCanCarryMoreTree(humanPlayer) && gameForest.thereIsMoreTreesToCut()) {
+            if (humanPlayer.canCarryMoreTrees() && gameForest.thereIsMoreTreesToCut()) {
                 running = true;
                 if (gameForest.lastTreeInArray().getTreeHealth() >= gameForest.getLARGE_TREE_SIZE()) {
                     int number = gameForest.countNumOfHits(humanPlayer);
@@ -65,10 +65,10 @@ public class NonCertifiedController extends ForestController implements Initiali
                     int number = gameForest.countNumOfHits(humanPlayer);
                     treeAnimationToMediumTree(number, gameForest.countMediumTrees());
                 }
-            } else if (gameForest.playerCanCarryMoreTree(humanPlayer) && !gameForest.thereIsMoreTreesToCut()) {
+            } else if (humanPlayer.canCarryMoreTrees() && !gameForest.thereIsMoreTreesToCut()) {
                 textArea.setText("There is no more trees to fell right now!"
                     + "\nYou have to wait for the forest to regrow!");
-            } else if (gameForest.thereIsMoreTreesToCut() && !gameForest.playerCanCarryMoreTree(humanPlayer)) {
+            } else if (gameForest.thereIsMoreTreesToCut() && !humanPlayer.canCarryMoreTrees()) {
                 textArea.setText("You are carrying too much wood!\n"
                     + "Sell or store your logs!");
             } else {

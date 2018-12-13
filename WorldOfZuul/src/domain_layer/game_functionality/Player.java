@@ -160,6 +160,7 @@ public class Player {
     /**
      * Checks if player has enough money to buy the sapling they want and adds it their inventory if
      * they do.
+     *
      * @param saplingAmount how many sapling the player wants to buy.
      * @param saplingCost what the cost of each sapling is.
      * @return whether or not the player has enough money to buy the saplings.
@@ -179,7 +180,8 @@ public class Player {
      * Checks how many trees has been felled without planting trees first, and for each tree felled
      * a new one will be planted. It also checks first if you have enough saplings to keep planting
      * trees.
-     * @return how many new tress the player had money to plant. 
+     *
+     * @return how many new tress the player had money to plant.
      */
     public int plantSeeds() {
         int startAmountOfChoppedTrees = playerInteraction.getNumChoppedTreesWithoutPlantingSaplings();
@@ -210,6 +212,7 @@ public class Player {
 
     /**
      * Determines what damage the player can do.
+     *
      * @return 1 if no axe is equipped. Otherwise returns equippedAxe's damage.
      */
     public double getDamage() {
@@ -218,6 +221,11 @@ public class Player {
         } else {
             return 1;
         }
+    }
+
+    public boolean canCarryMoreTrees() {
+        return equippedBackPack.getAmountOfLogsInBackPack()
+            < equippedBackPack.getBackpackCapacity();
     }
 
 }

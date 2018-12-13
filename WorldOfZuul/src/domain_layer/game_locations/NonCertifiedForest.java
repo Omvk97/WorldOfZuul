@@ -9,11 +9,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 /**
+ * At start this forest will contain 100 trees. But trees will not regrow in this forest. * The
+ * player can chop trees in this forest as long as they are medium size or bigger.
  *
  * @author oliver
  */
 public class NonCertifiedForest extends Forest {
-    
+
     private final PlayerInteraction playerInteraction = PlayerInteraction.getInstanceOfSelf();
 
     public NonCertifiedForest() {
@@ -25,6 +27,12 @@ public class NonCertifiedForest extends Forest {
         }
     }
 
+    /**
+     * Makes the tree grow when the player enters the forest if they have slept.
+     *
+     * @param humanPlayer the humanPlayer entering the Room.
+     * @return the description of the room.
+     */
     @Override
     public String roomEntrance(Player humanPlayer) {
         if (playerInteraction.isSlept()) {
@@ -36,12 +44,21 @@ public class NonCertifiedForest extends Forest {
             + "This forest will not regrow";
     }
 
+    /**
+     * @return if there is trees bigger or equal to a medium size tree.
+     */
     @Override
     public boolean thereIsMoreTreesToCut() {
         return (lastTreeInArray().getTreeHealth() >= MEDIUM_TREE_SIZE
             && trees.size() > 0);
     }
 
+    /**
+     * counts how many trees that can be cut in the forest, so the player can use option2 to get
+     * this information.
+     *
+     * @return how many fellable trees there is.
+     */
     public int countFellableTrees() {
         int counter = 0;
         for (Tree tree : trees) {
@@ -51,7 +68,7 @@ public class NonCertifiedForest extends Forest {
         }
         return counter;
     }
-    
+
     @Override
     public Parent getRoomFXML() {
         try {

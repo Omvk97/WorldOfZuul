@@ -45,14 +45,14 @@ public class CertifiedForestController extends ForestController implements Initi
     @FXML
     private void handleOption1(MouseEvent event) {
         if (!running) {
-            if (gameForest.playerCanCarryMoreTree(humanPlayer) && gameForest.thereIsMoreTreesToCut()) {
+            if (humanPlayer.canCarryMoreTrees() && gameForest.thereIsMoreTreesToCut()) {
                 running = true;
                 int number = gameForest.countNumOfHits(humanPlayer);
                 treeAnimationToLargeTree(number, gameForest.countLargeTrees(), gameForest);
-            } else if (gameForest.playerCanCarryMoreTree(humanPlayer) && !gameForest.thereIsMoreTreesToCut()) {
+            } else if (humanPlayer.canCarryMoreTrees() && !gameForest.thereIsMoreTreesToCut()) {
                 textArea.setText("There is no more trees to fell right now!"
                     + "\nYou have to wait for the forest to regrow!");
-            } else if (gameForest.thereIsMoreTreesToCut() && !gameForest.playerCanCarryMoreTree(humanPlayer)) {
+            } else if (gameForest.thereIsMoreTreesToCut() && !humanPlayer.canCarryMoreTrees()) {
                 textArea.setText("You are carrying too much wood!\n"
                     + "Sell or store your logs!");
             } else {
@@ -65,7 +65,7 @@ public class CertifiedForestController extends ForestController implements Initi
 
     @FXML
     private void handleOption2(MouseEvent event) {
-        textArea.setText("There are " + gameForest.countFellableTrees() + " trees ready to be felled!");
+        textArea.setText("There are " + gameForest.countLargeTrees() + " trees ready to be felled!");
     }
 
     @FXML
