@@ -8,14 +8,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane id="localVillage" fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleExits" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view_layer.controllers.LocalVillageController">
+<AnchorPane id="localVillage" fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleExits" prefHeight="400.0" prefWidth="600.0" 
+            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view_layer.controllers.LocalVillageController">
     <stylesheets>
         <URL value="@styleSheetForRooms.css" />
     </stylesheets>
     <children>
         <ImageView fx:id="player" fitHeight="75.0" fitWidth="75.0" layoutX="276.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" />
         <fx:include source="Hud.fxml" />
-        <Button fx:id="talkToVillageButton" layoutX="14.0" layoutY="294.0" mnemonicParsing="false" onMouseClicked="#handleTalkToVillageButton" text="Talk to village" />
+        <Button fx:id="talkToVillageButton" layoutX="14.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#handleTalkToVillageButton" text="Talk to village" />
         <Button fx:id="backToPreviousRoomButton" layoutX="540.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#handleBackToPreviousButton">
             <graphic>
                 <ImageView fitHeight="23.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
