@@ -127,7 +127,7 @@ public class LocalVillageAnimation extends GameAnimation {
             firstVisitGreetings.setVisible(false);
         }
         TranslateTransition transitionToX = new TranslateTransition(Duration.seconds(1.5), player);
-        TranslateTransition transitionToAnchorX = new TranslateTransition(Duration.seconds(1.5), player);
+        TranslateTransition transitionToAnchorX = new TranslateTransition(Duration.seconds(0.5), player);
         TranslateTransition transitionToAnchorY = new TranslateTransition(Duration.seconds(1.5), player);
         if (dontHaveToGoDown) {
             transitionToX.setByX(endCoordinatX - startCoordinateX);

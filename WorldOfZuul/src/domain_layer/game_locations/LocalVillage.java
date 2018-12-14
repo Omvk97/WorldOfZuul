@@ -60,16 +60,16 @@ public class LocalVillage extends Room {
 
         int climatePoints = humanPlayer.getClimatePointsValue();
         List<Integer> keySet = new ArrayList<>(scenarios.keySet());
-        for (int i = 0; i < keySet.size(); i++) {
-            if (climatePoints > keySet.get(0)) {
+        for (int i = 0; i < keySet.size(); i++) {   
+            if (climatePoints > keySet.get(0)) {    // Checks for the first scenario
                 if (!playerInteraction.isGiftHasBeenGivenToday()) {
                     return giftScenario(humanPlayer);
                 } else {
                     return scenarios.get(keySet.get(i));
                 }
-            } else if (climatePoints < keySet.get(keySet.size() - 1)) {
+            } else if (climatePoints < keySet.get(keySet.size() - 1)) {    // Checks for the last scenario
                 return scenarios.get(keySet.get(keySet.size() - 1));
-            } else if (climatePoints < keySet.get(i) && climatePoints > keySet.get(i + 1)) {
+            } else if (climatePoints < keySet.get(i) && climatePoints > keySet.get(i + 1)) { // Checks for the rest of the scenarios
                 return scenarios.get(keySet.get(i));
             }
         }

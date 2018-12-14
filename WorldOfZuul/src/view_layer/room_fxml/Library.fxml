@@ -78,7 +78,7 @@
                             </graphic>
                         </Button>
                         <Label id="Title" fx:id="Title" layoutX="52.0" layoutY="36.0" prefHeight="19.0" prefWidth="178.0" styleClass="Book" />
-                        <Label id="by" fx:id="by" layoutX="268.0" layoutY="36.0" prefHeight="19.0" prefWidth="178.0" styleClass="Book" />
+                        <Label id="Title" fx:id="by" layoutX="268.0" layoutY="36.0" prefHeight="19.0" prefWidth="178.0" styleClass="Book" />
                         <Line endX="230.4000244140625" endY="71.4000015258789" layoutX="218.0" layoutY="-17.0" startX="48.0" startY="71.4000015258789" />
                     </children>
                 </AnchorPane>

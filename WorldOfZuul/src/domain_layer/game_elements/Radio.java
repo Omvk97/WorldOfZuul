@@ -65,13 +65,13 @@ public class Radio {
      */
     public String localNews(Player humanPlayer) {
         LinkedHashMap<Integer, String> scenarios = new LinkedHashMap<>();
-        scenarios.put(-199, weatherReporter + "The weather forecast indicates mild winds\n"
+        scenarios.put(199, weatherReporter + "The weather forecast indicates mild winds\n"
             + "Local Temperature: 32 degree Celsius\n"
             + "Wind Speeds: 5 m/sec\n");
-        scenarios.put(-149, weatherReporter + "The weather forecast indicates no clouds and warm temperatures\n"
+        scenarios.put(149, weatherReporter + "The weather forecast indicates no clouds and warm temperatures\n"
             + "Local Temperature: 35 degree Celsius\n"
             + "Wind speeds: 2 m/sec\n");
-        scenarios.put(-99, weatherReporter + "The weather forecast indicates light rain\n"
+        scenarios.put(99, weatherReporter + "The weather forecast indicates light rain\n"
             + "Local Temperature: 28 degrees Celsius\n"
             + "Wind Speeds: 7 m/sec\n");
         scenarios.put(49, weatherReporter + "The weather forecast indicates a calm weather\n"
@@ -106,12 +106,12 @@ public class Radio {
     public String getStringOfscenarios(Player humanPlayer, LinkedHashMap<Integer, String> scenarios) {
         int climatePoints = humanPlayer.getClimatePointsValue();
         List<Integer> keySet = new ArrayList<>(scenarios.keySet());
-        for (int i = 0; i < keySet.size(); i++) {
+        for (int i = 0; i < keySet.size(); i++) {   // Checks for the first scenario
             if (climatePoints > keySet.get(0)) {
                 return scenarios.get(keySet.get(0));
-            } else if (climatePoints < keySet.get(keySet.size() - 1)) {
+            } else if (climatePoints < keySet.get(keySet.size() - 1)) {     // Checks for the last scenario
                 return scenarios.get(keySet.get(keySet.size() - 1));
-            } else if (climatePoints < keySet.get(i) && climatePoints > keySet.get(i + 1)) {
+            } else if (climatePoints < keySet.get(i) && climatePoints > keySet.get(i + 1)) { // Checks for the rest of the scenarios
                 return scenarios.get(keySet.get(i));
             }
         }

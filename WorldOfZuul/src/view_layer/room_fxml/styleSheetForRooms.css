@@ -50,6 +50,11 @@
     -fx-font-size: 18px;
 }
 
+#Title {
+    -fx-font-size: 12px;
+}
+
+
 .textArea{
     -fx-background-image:  url("/pictures/GameTextBox.png");
     -fx-background-color: transparent;
@@ -81,14 +86,14 @@
 }
 
 .button {
-    -fx-padding: 8 15 15 15;
+    -fx-padding: 8 10 10 10;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
     -fx-background-color: 
         linear-gradient(from 0% 93% to 0% 100%, #79bbff 0%, #378de5 100%),
         #1564ad,
         #337bc4,
-        
+
         radial-gradient(center 50% 50%, radius 100%, #79bbff, #378de5);
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;

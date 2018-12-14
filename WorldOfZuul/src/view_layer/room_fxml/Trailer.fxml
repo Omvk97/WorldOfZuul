@@ -35,7 +35,7 @@
         </ImageView>
         <Label fx:id="textArea" alignment="CENTER" layoutX="152.0" layoutY="330.0" prefHeight="80.0" prefWidth="320.0" styleClass="textArea" textAlignment="CENTER" wrapText="true" />
         <TextField fx:id="fineInput" alignment="CENTER" layoutX="234.0" layoutY="252.0" onAction="#handleFineInput" prefHeight="26.0" prefWidth="131.0" promptText="Input answer" visible="false" />
-        <Label fx:id="fineLabel" alignment="CENTER" layoutX="199.0" layoutY="121.0" prefHeight="98.0" prefWidth="198.0" styleClass="Book" textAlignment="CENTER" visible="false" wrapText="true" />
+        <Label id="Title" fx:id="fineLabel" alignment="CENTER" layoutX="199.0" layoutY="121.0" prefHeight="98.0" prefWidth="198.0" styleClass="Book" textAlignment="CENTER" visible="false" wrapText="true" />
         <Button fx:id="confirmButton" layoutX="281.0" layoutY="234.0" mnemonicParsing="false" onAction="#handleConfirmButton" text="Ok" visible="false" />
         <Button fx:id="endButton" layoutX="282.0" layoutY="234.0" mnemonicParsing="false" onAction="#handleEndButton" text="Ok" textAlignment="CENTER" visible="false" />
         <Button fx:id="option3" layoutX="12.0" layoutY="305.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" mnemonicParsing="false" onMouseClicked="#handleOption3" prefHeight="22.0" prefWidth="110.0" text="Sleep" textAlignment="LEFT" wrapText="false" />

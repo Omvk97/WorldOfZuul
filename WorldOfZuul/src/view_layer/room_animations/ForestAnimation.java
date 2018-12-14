@@ -158,7 +158,7 @@ abstract public class ForestAnimation {
         hitAnimation.setCycleCount(numOfHits * 2);
         hitAnimation.setInterpolator(Interpolator.LINEAR);
         hitAnimation.setOnFinished((ActionEvent event1) -> {
-            PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(false, player);
+            PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(characterGoingRight, player);
         });
         hitAnimation.play();
     }

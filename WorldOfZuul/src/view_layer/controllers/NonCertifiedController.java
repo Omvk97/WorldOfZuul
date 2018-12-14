@@ -21,8 +21,8 @@ import view_layer.PlayerGraphics;
 
 /**
  *
- * This controller has the responsibility for the connection between
- * domain_layer.game_location/noncertifiedForest and the view_layer.room_fxml/NonCertifiedForest
+ * This controller has the responsibility for the connection between domain_layer.game_location/noncertifiedForest and
+ * the view_layer.room_fxml/NonCertifiedForest
  *
  * @author oliver
  */
@@ -56,8 +56,8 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
     }
 
     /**
-     * checks to see if the player can chop a tree, and if so it runs the animation assoicated with
-     * chopping down a tree. Can either go to a medium or large tree.
+     * checks to see if the player can chop a tree, and if so it runs the animation assoicated with chopping down a
+     * tree. Can either go to a medium or large tree.
      *
      * @param event
      */
@@ -112,7 +112,7 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
         PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(false, player);
         TranslateTransition goToTree = new TranslateTransition(Duration.seconds(1.5), player);
         goToTree.setByX((mediumTree.getLayoutX() - player.getLayoutX()) + 70);
-        goToTree.setByY(-(player.getLayoutY() - mediumTree.getLayoutY()) + 60);
+        goToTree.setByY(-(player.getLayoutY() - mediumTree.getLayoutY()) + 45);
 
         goToTree.setOnFinished((ActionEvent event1) -> {
             playMediaTracks(sounds);
@@ -133,7 +133,6 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
             mediumTreeLabel.setText(Integer.toString(amountOfMediumTrees));
             gameForest.chopWood(humanPlayer);
             treeFelledConfirmation();
-            PlayerGraphics.getInstanceOfSelf().setAndUpdateCharacterModel(true, player);
         });
 
         SequentialTransition transition = new SequentialTransition(goToTree, goFromTree);
@@ -158,8 +157,8 @@ public class NonCertifiedController extends ForestAnimation implements Initializ
     @FXML
     private void handleExits(KeyEvent event) {
         if (!animation.isRunning()) {
-            animation.setRunning(true);
             if (event.getCode().equals(KeyCode.DOWN) || event.getCode().equals(KeyCode.S)) {
+                animation.setRunning(true);
                 playerInteraction.setPlayerDirectionInWorld("goDown");
                 Command tester = new Command(CommandWord.GO, "trailer");
                 TranslateTransition down = new TranslateTransition(Duration.seconds(1.5), player);

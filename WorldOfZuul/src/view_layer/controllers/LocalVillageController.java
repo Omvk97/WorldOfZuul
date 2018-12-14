@@ -104,7 +104,7 @@ public class LocalVillageController implements Initializable {
      */
     private int getClimateScenario() {
         int climatePoints = humanPlayer.getClimatePointsValue();
-        if (climatePoints < 0 && climatePoints > -19) {
+        if (climatePoints < 0 && climatePoints > -49) {
             return -1;
         } else if (climatePoints < -49 && climatePoints > -99) {
             return -2;

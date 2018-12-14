@@ -83,14 +83,13 @@ public class LibraryController implements Initializable {
     @FXML
     private void handleBook1(MouseEvent event) {
         BookText.setVisible(true);
-        BookTextArea1.setText("Around the globe 7 million hectare of forest"
-            + " area disappear each year due to deforestation.\n"
-            + "The decreased forest areas causes"
-            + " several species to become endangered.\n");
+        BookTextArea1.setText("Each year, around the globe, 7-million-hectare forest"
+            + " area disappears due to deforestation.\n"
+            + "The decreased forest area causes several species to become endangered\n");
         BookTextArea2.setText("It is estimated that 15% of all greenhouse"
-            + " gas emissions are the result\n"
-            + "of deforestation.\n This is very bad.");
-        Title.setText("The Falling of the trees");
+            + " gas emissions are the result \n"
+            + "of deforestation.\n This is very bad. Subscribe to pewdiepie *CLAP* *CLAP*");
+        Title.setText("The Felling of trees");
         by.setText("- written by professors.");
     }
 
@@ -102,14 +101,11 @@ public class LibraryController implements Initializable {
     @FXML
     private void handleBook2(MouseEvent event) {
         BookText.setVisible(true);
-        BookTextArea1.setText("FSC, Forest Stewardship Council, is one"
+        BookTextArea1.setText("FSC - Forest Stewardship Council, is one"
             + " of several large organizations"
-            + " dedicated to combat deforestation.\n");
-        BookTextArea2.setText("Their main function"
-            + " involves certifying and regulating"
-            + "forest areas to reduce reckless deforestation."
-            + "They cover over 200 million hectare certified"
-            + " forest areas globally.");
+            + " dedicated to fight deforestation.\n");
+        BookTextArea2.setText("In order to reduce reckless deforestation, FSC certifies and regulates forest areas.\n"
+            + "They cover 200 million certified hectare forest area globally.");
         Title.setText("The Story of FSC");
         by.setText("- written by FSC.");
     }
@@ -122,11 +118,10 @@ public class LibraryController implements Initializable {
     @FXML
     private void handleBook3(MouseEvent event) {
         BookText.setVisible(true);
-        BookTextArea1.setText("PEFC, Programme for the Endorsement of Forest Certification, is the largest"
+        BookTextArea1.setText("PEFC - Programme for the Endorsement of Forest Certification. Is the largest"
             + " organization dedicated to combat deforestation.");
-        BookTextArea2.setText("Their main function involves certifying and regulating "
-            + "forest areas to reduce reckless deforestation."
-            + "They cover over 300 million hectare certified forest areas globally.");
+        BookTextArea2.setText("In order to reduce reckless deforestation, PEFC certifies and regulates forest areas."
+            + "They cover 300 million hectare certified forest areas globally.");
         Title.setText("The Story of PEFC");
         by.setText(" - written by PEFC.");
     }

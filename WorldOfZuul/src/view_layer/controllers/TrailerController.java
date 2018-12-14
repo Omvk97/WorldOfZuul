@@ -95,8 +95,7 @@ public class TrailerController implements Initializable {
     }
 
     /**
-     * Stores inventory logs to trailer container and displays relevant text in the textArea in
-     * trailer
+     * Stores inventory logs to trailer container and displays relevant text in the textArea in trailer
      *
      * @param event This is an input event that occurs when a mouse is clicked
      */
@@ -105,48 +104,49 @@ public class TrailerController implements Initializable {
         if (!trailerPath.isVisible()) {
             animation.textAnimation(textArea, gameTrailer.storeLogs(humanPlayer));
         } else {
-            animation.textAnimation(textArea, "What?");
         }
     }
 
     /**
-     * This method is supposed to provide sleep functionality while resetting day. The method also
-     * checks if the player should receive a fine for not replanting trees in the certified forest
+     * This method is supposed to provide sleep functionality while resetting day. The method also checks if the player
+     * should receive a fine for not replanting trees in the certified forest
      *
      * @param event This is an input event that occurs when a mouse is clicked
      */
     @FXML
     private void handleOption3(MouseEvent event) {
-        if (!animation.isRunning()) {
-            animation.setRunning(true);
-            textArea.setText("");
-            if (gameTrailer.getNumOfDaysLeft() == 0) {
-                daysLeft.setText("Goodbye");
-                HighScoreGraphics highScoreDisplay = new HighScoreGraphics();
-                highScoreDisplay.closeGame();
-                System.exit(0);
-            }
-            FadeTransition sleep = new FadeTransition(Duration.seconds(3), anchorPane);
-            sleep.setFromValue(1);
-            sleep.setToValue(0.1);
-            sleep.setCycleCount(2);
-            sleep.setAutoReverse(true);
-            sleep.play();
-            sleep.setOnFinished((ActionEvent e) -> {
-                animation.setRunning(false);
-                animation.textAnimation(textArea, gameTrailer.sleep(humanPlayer));
-                int daysLeftNum = gameTrailer.getNumOfDaysLeft();
-                daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
-
-                if (playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
-                    fineLabel.setVisible(true);
-                    animation.textAnimation(fineLabel, "You didn't replant all the trees in the certified forest!\n"
-                        + "Here's a chance to redeem yourself");
-                    confirmButton.setVisible(true);
-                    fineScroll.setVisible(true);
+        if (!trailerPath.isVisible()) {
+            if (!animation.isRunning()) {
+                animation.setRunning(true);
+                textArea.setText("");
+                if (gameTrailer.getNumOfDaysLeft() == 0) {
+                    daysLeft.setText("Goodbye");
+                    HighScoreGraphics highScoreDisplay = new HighScoreGraphics();
+                    highScoreDisplay.closeGame();
+                    System.exit(0);
                 }
-                humanPlayer.sleep(0);
-            });
+                FadeTransition sleep = new FadeTransition(Duration.seconds(3), anchorPane);
+                sleep.setFromValue(1);
+                sleep.setToValue(0.1);
+                sleep.setCycleCount(2);
+                sleep.setAutoReverse(true);
+                sleep.play();
+                sleep.setOnFinished((ActionEvent e) -> {
+                    animation.setRunning(false);
+                    animation.textAnimation(textArea, gameTrailer.sleep(humanPlayer));
+                    int daysLeftNum = gameTrailer.getNumOfDaysLeft();
+                    daysLeft.setText(daysLeftNum + (daysLeftNum == 1 ? " Day" : " Days") + " Left");
+
+                    if (playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() != 0) {
+                        fineLabel.setVisible(true);
+                        animation.textAnimation(fineLabel, "You didn't replant all the trees in the certified forest!\n"
+                            + "Here's a chance to redeem yourself");
+                        confirmButton.setVisible(true);
+                        fineScroll.setVisible(true);
+                    }
+                    humanPlayer.sleep(0);
+                });
+            }
         }
     }
 
@@ -186,7 +186,9 @@ public class TrailerController implements Initializable {
                 }
                 case LEFT:
                 case A: {
-                    animation.goToTrailerFromPath(textArea);
+                    if (trailerPath.isVisible()) {
+                        animation.goToTrailerFromPath(textArea);
+                    }
                     break;
                 }
                 case RIGHT:
@@ -255,12 +257,10 @@ public class TrailerController implements Initializable {
     }
 
     /**
-     * This method is supposed to evaluate the user's answer to the question outputted by
-     * confirmButton and decides the fine the user has to pay based off a correct or incorrect
-     * answer
+     * This method is supposed to evaluate the user's answer to the question outputted by confirmButton and decides the
+     * fine the user has to pay based off a correct or incorrect answer
      *
-     * @param event This is an input event that occurs when an action from a textarea has been
-     * entered
+     * @param event This is an input event that occurs when an action from a textarea has been entered
      */
     @FXML
     private void handleFineInput(ActionEvent event) {
