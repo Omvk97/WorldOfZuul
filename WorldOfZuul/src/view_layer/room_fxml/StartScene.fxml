@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="StartScene" fx:id="anchorPane" prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="view_layer.controllers.StartSceneController">
+    <stylesheets>
+        <URL value="@styleSheetForRooms.css" />
+    </stylesheets> 
+    <children>
+        <Button id="startButton" fx:id="txtStartGameButton" layoutX="129.0" layoutY="148.0" mnemonicParsing="false" onAction="#HandleStartGameAction" prefHeight="25.0" prefWidth="134.0" text="Start Game" />
+      <Button fx:id="btnOptionhandler" id="startButton" layoutX="129.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#handlerHighscore" prefHeight="25.0" prefWidth="134.0" stylesheets="@styleSheetForRooms.css" text="High Scores" />
+      <Button fx:id="btnEXIT" id="startButton" layoutX="129.0" layoutY="266.0" mnemonicParsing="false" onAction="#ExitAction" prefHeight="25.0" prefWidth="134.0" stylesheets="@styleSheetForRooms.css" text="Exit" />
+    </children>
+</AnchorPane>
