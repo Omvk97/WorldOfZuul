@@ -132,7 +132,7 @@ public class PlayerInteraction {
     }
 
     public void reduceChoppedTreesInCertifiedForest() {
-        numChoppedTreesWithoutPlantingSaplings--;
+        --numChoppedTreesWithoutPlantingSaplings;
     }
 
     /**
