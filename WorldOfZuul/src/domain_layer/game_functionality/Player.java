@@ -185,7 +185,8 @@ public class Player {
      */
     public int plantSeeds() {
         int saplingsPlanted = 0;
-        for (int i = 0; i < amountOfTreesToPlant(); i++) {
+        int amountOfTreesToPlant = playerInteraction.getNumChoppedTreesWithoutPlantingSaplings();
+        for (int i = 0; i < amountOfTreesToPlant; i++) {
             if (saplingsCarrying.getValue() > 0) {
                 saplingsCarrying.setValue(saplingsCarrying.getValue() - 1);
                 playerInteraction.reduceChoppedTreesInCertifiedForest();
@@ -193,11 +194,6 @@ public class Player {
             }
         }
         return saplingsPlanted;
-    }
-    
-    public int amountOfTreesToPlant() {
-        return playerInteraction.getNumChoppedTreesWithoutPlantingSaplings() - 
-            saplingsCarrying.getValue();
     }
 
     /**

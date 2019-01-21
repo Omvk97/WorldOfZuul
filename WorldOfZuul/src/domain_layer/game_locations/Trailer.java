@@ -12,6 +12,7 @@ import java.util.Random;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+
 /**
  * This is the players home, it has a storage of trees. It is also where the player sleeps and hears
  * the weather report.
@@ -27,19 +28,23 @@ public class Trailer extends Room {
     private final Radio radio = new Radio();
     private int numOfDaysGoneBy = 0;
     private final SimpleIntegerProperty logsInStorageProperty = new SimpleIntegerProperty();
+
     public Trailer() {
         logsInStorage = new ArrayList<>();
     }
+
     @Override
     public String roomEntrance(Player humanPlayer) {
         return "You stand in your trailer, it is your home\n";
     }
+
     /**
      * @return arrayList with the trees in storage
      */
     public ArrayList<Tree> getLogsInStorage() {
         return logsInStorage;
     }
+
     /**
      * when the trees are sold at the store, the storage has to be emptied
      */
@@ -47,15 +52,18 @@ public class Trailer extends Room {
         logsInStorage.clear();
         updateLogsInStorage();
     }
+
     /**
      * @return true if there is no more space left in storage
      */
     public boolean isStorageFull() {
         return getLogsInStorage().size() == MAX_TREESTORAGEAMOUNT;
     }
+
     public int getNUM_PLAY_DAYS() {
         return NUM_PLAY_DAYS;
     }
+
     /**
      * This method has the responsibillity of storing the logs in the trailer.
      *
