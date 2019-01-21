@@ -1,7 +1,4 @@
-asfw,0.0
-OliverTheMaster,59907.0
-Hello,0.0
-WHERE I BELONBG,-3.0
-Robin,9829.0
-Stephen,9929.0
-Joe,9887.0
+Michael,372.0
+Oliver,694.0
+Daniel,234.0
+Steffen,-49.0
